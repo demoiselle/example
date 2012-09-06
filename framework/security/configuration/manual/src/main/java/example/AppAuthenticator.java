@@ -36,18 +36,24 @@
  */
 package example;
 
-import br.gov.frameworkdemoiselle.security.RequiredPermission;
-import br.gov.frameworkdemoiselle.security.RequiredRole;
+import br.gov.frameworkdemoiselle.security.Authenticator;
+import br.gov.frameworkdemoiselle.security.User;
 
-public class Hello {
+public class AppAuthenticator implements Authenticator {
 
-	@RequiredRole("admin")
-	public void say1() {
-		System.out.println("Hello 1");
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public boolean authenticate() {
+		return false;
 	}
 
-	@RequiredPermission(resource = "World", operation = "scream")
-	public void say2() {
-		System.out.println("Hello 2");
+	@Override
+	public User getUser() {
+		return null;
+	}
+
+	@Override
+	public void unAuthenticate() {
 	}
 }

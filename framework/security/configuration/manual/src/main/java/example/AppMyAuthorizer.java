@@ -36,24 +36,19 @@
  */
 package example;
 
-import br.gov.frameworkdemoiselle.security.Authenticator;
-import br.gov.frameworkdemoiselle.security.User;
+import br.gov.frameworkdemoiselle.security.Authorizer;
 
-public class MyAuthenticator implements Authenticator {
+public class AppMyAuthorizer implements Authorizer {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public boolean authenticate() {
+	public boolean hasRole(String role) {
 		return false;
 	}
 
 	@Override
-	public User getUser() {
-		return null;
-	}
-
-	@Override
-	public void unAuthenticate() {
+	public boolean hasPermission(String resource, String operation) {
+		return false;
 	}
 }

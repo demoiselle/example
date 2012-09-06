@@ -36,18 +36,19 @@
  */
 package example;
 
-import br.gov.frameworkdemoiselle.security.RequiredPermission;
-import br.gov.frameworkdemoiselle.security.RequiredRole;
+import br.gov.frameworkdemoiselle.security.Authorizer;
 
-public class Hello {
+public class FakeAuthorizer implements Authorizer {
 
-	@RequiredRole("admin")
-	public void say1() {
-		System.out.println("Hello 1");
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public boolean hasRole(String role) {
+		return true;
 	}
 
-	@RequiredPermission(resource = "World", operation = "scream")
-	public void say2() {
-		System.out.println("Hello 2");
+	@Override
+	public boolean hasPermission(String resource, String operation) {
+		return true;
 	}
 }

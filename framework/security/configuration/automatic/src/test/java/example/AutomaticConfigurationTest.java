@@ -36,19 +36,37 @@
  */
 package example;
 
-import br.gov.frameworkdemoiselle.security.Authorizer;
+import static org.junit.Assert.assertTrue;
 
-public class FakeAuthorizer implements Authorizer {
+import javax.inject.Inject;
 
-	private static final long serialVersionUID = 1L;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-	@Override
-	public boolean hasRole(String role) {
-		return false;
+import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
+import br.gov.frameworkdemoiselle.security.SecurityContext;
+
+@RunWith(DemoiselleRunner.class)
+public class AutomaticConfigurationTest {
+
+	@Inject
+	private SecurityContext securityContext;
+
+	@Inject
+	private Hello hello;
+
+	@Test
+	public void isLoggedIn() {
+		assertTrue(securityContext.isLoggedIn());
 	}
 
-	@Override
-	public boolean hasPermission(String resource, String operation) {
-		return false;
+	@Test
+	public void accessSuccessfulSaying1() {
+		hello.say1();
+	}
+
+	@Test
+	public void accessSuccessfulSaying2() {
+		hello.say2();
 	}
 }
