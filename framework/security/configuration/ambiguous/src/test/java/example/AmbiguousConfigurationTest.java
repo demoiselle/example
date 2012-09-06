@@ -40,7 +40,6 @@ import static org.junit.Assert.assertFalse;
 
 import javax.inject.Inject;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -52,10 +51,10 @@ import br.gov.frameworkdemoiselle.security.SecurityContext;
 public class AmbiguousConfigurationTest {
 
 	@Inject
-	private SecurityContext securityContext;
+	private Hello hello;
 
 	@Inject
-	private Hello hello;
+	private SecurityContext securityContext;
 
 	@Test(expected = ConfigurationException.class)
 	public void isLoggedIn() {

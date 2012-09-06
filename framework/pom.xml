@@ -50,7 +50,6 @@
 	<modules>
 		<module>initializer</module>
 		<module>security/custom</module>
-		<module>security/configuration/automatic</module>
 		<module>security/configuration/explicit</module>
 		<module>security/configuration/hardcoded</module>
 		<module>security/configuration/ambiguous</module>
