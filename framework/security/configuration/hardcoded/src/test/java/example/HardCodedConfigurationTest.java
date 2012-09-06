@@ -40,20 +40,31 @@ import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
+import br.gov.frameworkdemoiselle.security.SecurityConfig;
 import br.gov.frameworkdemoiselle.security.SecurityContext;
 
 @RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
+public class HardCodedConfigurationTest {
 
 	@Inject
 	private Hello hello;
 
 	@Inject
 	private SecurityContext securityContext;
+
+	@Inject
+	private SecurityConfig securityConfig;
+
+	@Before
+	public void before() {
+		securityConfig.setAuthenticatorClass(FakeAuthenticator.class);
+		securityConfig.setAuthorizerClass(FakeAuthorizer.class);
+	}
 
 	@Test
 	public void isLoggedIn() {

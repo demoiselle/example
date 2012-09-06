@@ -36,37 +36,24 @@
  */
 package example;
 
-import static org.junit.Assert.assertTrue;
+import br.gov.frameworkdemoiselle.security.Authenticator;
+import br.gov.frameworkdemoiselle.security.User;
 
-import javax.inject.Inject;
+public class Authenticator1 implements Authenticator {
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+	private static final long serialVersionUID = 1L;
 
-import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import br.gov.frameworkdemoiselle.security.SecurityContext;
-
-@RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
-
-	@Inject
-	private Hello hello;
-
-	@Inject
-	private SecurityContext securityContext;
-
-	@Test
-	public void isLoggedIn() {
-		assertTrue(securityContext.isLoggedIn());
+	@Override
+	public boolean authenticate() {
+		return false;
 	}
 
-	@Test
-	public void accessSuccessfulSaying1() {
-		hello.say1();
+	@Override
+	public User getUser() {
+		return null;
 	}
 
-	@Test
-	public void accessSuccessfulSaying2() {
-		hello.say2();
+	@Override
+	public void unAuthenticate() {
 	}
 }

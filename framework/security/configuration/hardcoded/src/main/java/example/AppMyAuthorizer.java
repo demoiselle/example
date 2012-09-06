@@ -36,37 +36,19 @@
  */
 package example;
 
-import static org.junit.Assert.assertTrue;
+import br.gov.frameworkdemoiselle.security.Authorizer;
 
-import javax.inject.Inject;
+public class AppMyAuthorizer implements Authorizer {
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+	private static final long serialVersionUID = 1L;
 
-import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import br.gov.frameworkdemoiselle.security.SecurityContext;
-
-@RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
-
-	@Inject
-	private Hello hello;
-
-	@Inject
-	private SecurityContext securityContext;
-
-	@Test
-	public void isLoggedIn() {
-		assertTrue(securityContext.isLoggedIn());
+	@Override
+	public boolean hasRole(String role) {
+		return false;
 	}
 
-	@Test
-	public void accessSuccessfulSaying1() {
-		hello.say1();
-	}
-
-	@Test
-	public void accessSuccessfulSaying2() {
-		hello.say2();
+	@Override
+	public boolean hasPermission(String resource, String operation) {
+		return false;
 	}
 }

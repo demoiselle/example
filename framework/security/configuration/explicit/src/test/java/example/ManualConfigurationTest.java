@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 import br.gov.frameworkdemoiselle.security.SecurityContext;
 
 @RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
+public class ManualConfigurationTest {
 
 	@Inject
 	private Hello hello;

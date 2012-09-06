@@ -36,36 +36,38 @@
  */
 package example;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.frameworkdemoiselle.configuration.ConfigurationException;
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 import br.gov.frameworkdemoiselle.security.SecurityContext;
 
 @RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
-
-	@Inject
-	private Hello hello;
+public class AmbiguousConfigurationTest {
 
 	@Inject
 	private SecurityContext securityContext;
 
-	@Test
+	@Inject
+	private Hello hello;
+
+	@Test(expected = ConfigurationException.class)
 	public void isLoggedIn() {
-		assertTrue(securityContext.isLoggedIn());
+		assertFalse(securityContext.isLoggedIn());
 	}
 
-	@Test
+	@Test(expected = ConfigurationException.class)
 	public void accessSuccessfulSaying1() {
 		hello.say1();
 	}
 
-	@Test
+	@Test(expected = ConfigurationException.class)
 	public void accessSuccessfulSaying2() {
 		hello.say2();
 	}

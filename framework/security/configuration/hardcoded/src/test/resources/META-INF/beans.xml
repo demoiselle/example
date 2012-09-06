@@ -34,40 +34,14 @@
  ou escreva para a Fundação do Software Livre (FSF) Inc.,
  51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
 -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+	<interceptors>
+		<class>br.gov.frameworkdemoiselle.internal.interceptor.ExceptionHandlerInterceptor</class>
+		<class>br.gov.frameworkdemoiselle.internal.interceptor.RequiredPermissionInterceptor</class>
+		<class>br.gov.frameworkdemoiselle.internal.interceptor.RequiredRoleInterceptor</class>
+		<class>br.gov.frameworkdemoiselle.internal.interceptor.TransactionalInterceptor</class>
+		<class>br.gov.frameworkdemoiselle.internal.interceptor.ConfigurationInterceptor</class>
+	</interceptors>
 
-	<artifactId>framework-security-automatic-configuration-example</artifactId>
-	<packaging>jar</packaging>
-
-	<name></name>
-	<description></description>
-	<url></url>
-	<parent>
-		<groupId>br.gov.frameworkdemoiselle</groupId>
-		<artifactId>demoiselle-minimal-parent</artifactId>
-		<version>2.3.0-RC1-SNAPSHOT</version>
-		<relativePath>../../../../../framework/parent/minimal/pom.xml</relativePath>
-	</parent>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>demoiselle.sourceforge.net-release</id>
-			<url>http://demoiselle.sourceforge.net/repository/release</url>
-		</repository>
-	</repositories>
-
-	<properties>
-		<demoiselle.junit.version>2.3.0-RC1-SNAPSHOT</demoiselle.junit.version>
-	</properties>
-</project>
+</beans>

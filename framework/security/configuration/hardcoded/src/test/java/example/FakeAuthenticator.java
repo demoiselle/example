@@ -36,37 +36,43 @@
  */
 package example;
 
-import static org.junit.Assert.assertTrue;
+import br.gov.frameworkdemoiselle.security.Authenticator;
+import br.gov.frameworkdemoiselle.security.User;
 
-import javax.inject.Inject;
+public class FakeAuthenticator implements Authenticator {
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+	private static final long serialVersionUID = 1L;
 
-import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import br.gov.frameworkdemoiselle.security.SecurityContext;
-
-@RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
-
-	@Inject
-	private Hello hello;
-
-	@Inject
-	private SecurityContext securityContext;
-
-	@Test
-	public void isLoggedIn() {
-		assertTrue(securityContext.isLoggedIn());
+	@Override
+	public boolean authenticate() {
+		return true;
 	}
 
-	@Test
-	public void accessSuccessfulSaying1() {
-		hello.say1();
+	@Override
+	public User getUser() {
+		return new User() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getId() {
+				return "fake";
+			}
+
+			@Override
+			public void setAttribute(Object key, Object value) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public Object getAttribute(Object key) {
+				return null;
+			}
+		};
 	}
 
-	@Test
-	public void accessSuccessfulSaying2() {
-		hello.say2();
+	@Override
+	public void unAuthenticate() {
 	}
 }

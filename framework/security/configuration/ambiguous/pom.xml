@@ -39,12 +39,13 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>framework-security-automatic-configuration-example</artifactId>
+	<artifactId>framework-security-ambiguous-configuration-example</artifactId>
 	<packaging>jar</packaging>
 
 	<name></name>
 	<description></description>
 	<url></url>
+
 	<parent>
 		<groupId>br.gov.frameworkdemoiselle</groupId>
 		<artifactId>demoiselle-minimal-parent</artifactId>

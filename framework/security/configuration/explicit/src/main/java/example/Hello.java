@@ -36,37 +36,18 @@
  */
 package example;
 
-import static org.junit.Assert.assertTrue;
+import br.gov.frameworkdemoiselle.security.RequiredPermission;
+import br.gov.frameworkdemoiselle.security.RequiredRole;
 
-import javax.inject.Inject;
+public class Hello {
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import br.gov.frameworkdemoiselle.security.SecurityContext;
-
-@RunWith(DemoiselleRunner.class)
-public class AutomaticConfigurationTest {
-
-	@Inject
-	private Hello hello;
-
-	@Inject
-	private SecurityContext securityContext;
-
-	@Test
-	public void isLoggedIn() {
-		assertTrue(securityContext.isLoggedIn());
+	@RequiredRole("admin")
+	public void say1() {
+		System.out.println("Hello 1");
 	}
 
-	@Test
-	public void accessSuccessfulSaying1() {
-		hello.say1();
-	}
-
-	@Test
-	public void accessSuccessfulSaying2() {
-		hello.say2();
+	@RequiredPermission(resource = "World", operation = "scream")
+	public void say2() {
+		System.out.println("Hello 2");
 	}
 }
