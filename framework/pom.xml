@@ -44,8 +44,8 @@
 	<version>2.3.0-RC1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Examples Build Aggregator</name>
-	<description>Demoiselle Examples Build Aggregator</description>
+	<name>Framework Examples Build Aggregator</name>
+	<description></description>
 
 	<modules>
 		<module>initializer</module>

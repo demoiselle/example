@@ -42,7 +42,7 @@
 	<artifactId>framework-security-hardcoded-configuration-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Security: Hard Coded Configuration</name>
 	<description></description>
 	<url></url>
 

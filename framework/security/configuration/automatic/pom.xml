@@ -42,7 +42,7 @@
 	<artifactId>framework-security-automatic-configuration-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Security: Automatic Configuration</name>
 	<description></description>
 	<url></url>
 	<parent>

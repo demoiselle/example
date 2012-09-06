@@ -42,7 +42,7 @@
 	<artifactId>framework-security-explicit-configuration-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Security: Explicit Configuration</name>
 	<description></description>
 	<url></url>
 

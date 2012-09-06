@@ -42,7 +42,7 @@
 	<artifactId>framework-security-ambiguous-configuration-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Security: Ambigous Configuration</name>
 	<description></description>
 	<url></url>
 

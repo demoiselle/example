@@ -42,7 +42,7 @@
 	<artifactId>framework-initializer-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Initializer</name>
 	<description></description>
 	<url></url>
 

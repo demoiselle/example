@@ -42,7 +42,7 @@
 	<artifactId>framework-security-custom-example</artifactId>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Framework Security: Custom Configuration</name>
 	<description></description>
 	<url></url>
 
