@@ -49,8 +49,7 @@
 	<parent>
 		<groupId>br.gov.frameworkdemoiselle</groupId>
 		<artifactId>demoiselle-minimal-parent</artifactId>
-		<version>2.3.0-RC1-SNAPSHOT</version>
-		<relativePath>../../../../framework/parent/minimal/pom.xml</relativePath>
+		<version>2.3.0-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -59,16 +58,12 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>br.gov.frameworkdemoiselle.component</groupId>
+			<artifactId>demoiselle-junit</artifactId>
+			<scope>test</scope>
+			<version>2.3.0-RC1</version>
+		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>demoiselle.sourceforge.net-release</id>
-			<url>http://demoiselle.sourceforge.net/repository/release</url>
-		</repository>
-	</repositories>
-
-	<properties>
-		<demoiselle.junit.version>2.3.0-RC1-SNAPSHOT</demoiselle.junit.version>
-	</properties>
 </project>
