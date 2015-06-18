@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+	<ui:include src="/mobile/template/main_mobile.xhtml" />
+	<pm:page id="ed_automovel" title="Edição de automovel">
+		<pm:header title="Edição de automovel" swatch="b">
+			<f:facet name="left">
+				<p:button style="width:10; height:30; border:1px solid #000;"
+					value="#{messages['button.back']}" icon="back"
+					href="#{automovelEditMB.previousView}" />
+			</f:facet>
+			<f:facet name="right">
+				<p:button value="#{messages['main.app.title']}" icon="home"
+					href="./navigator.jsf" />
+			</f:facet>
+		</pm:header>
+		<pm:content>
+			<h:form>
+
+				<pm:field>
+					<p:commandButton value="#{messages['button.save']}"
+						icon="ui-icon-check" styleClass="ui-btn-inline"
+						action="#{automovelEditMB.insert}"
+						rendered="#{!automovelEditMB.updateMode}" ajax="false" />
+
+				</pm:field>
+				<pm:field>
+					<p:commandButton value="#{messages['button.update']}"
+						icon="ui-icon-check" styleClass="ui-btn-inline"
+						action="#{automovelEditMB.update}"
+						rendered="#{automovelEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						icon="ui-icon-delete" styleClass="ui-btn-inline"
+						action="#{automovelEditMB.delete}"
+						rendered="#{automovelEditMB.updateMode}" ajax="false" />
+				</pm:field>
+
+				<h:outputLabel value="#{messages['automovel.label.id']}: " for="id"
+					styleClass="text-input" />
+				<h:outputText id="id" value="#{automovelEditMB.bean.id}" />
+				<h:message for="id" />
+
+				<h:outputLabel value="#{messages['automovel.label.marca']}: "
+					for="marca" styleClass="text-input" />
+				<h:inputText id="marca" value="#{automovelEditMB.bean.marca}"
+					title="#{messages['automovel.alt.marca']}" />
+				<h:message for="marca" />
+
+				<h:outputLabel value="#{messages['automovel.label.modelo']}: "
+					for="modelo" styleClass="text-input" />
+				<h:inputText id="modelo" value="#{automovelEditMB.bean.modelo}"
+					title="#{messages['automovel.alt.modelo']}" />
+				<h:message for="modelo" />
+
+				<h:outputLabel value="#{messages['automovel.label.placa']}: "
+					for="placa" styleClass="text-input" />
+				<h:inputText id="placa" value="#{automovelEditMB.bean.placa}"
+					title="#{messages['automovel.alt.placa']}" />
+				<h:message for="placa" />
+
+				<h:outputLabel value="#{messages['automovel.label.tamanho']}: "
+					for="tamanho" styleClass="text-input" />
+				<h:selectOneMenu id="tamanho"
+					value="#{automovelEditMB.bean.tamanho}">
+					<f:selectItems value="#{automovelEditMB.automovelTamanhos}" />
+				</h:selectOneMenu>
+				<h:message for="tamanho" />
+
+				<h:outputLabel value="#{messages['automovel.label.tipo']}: "
+					for="tipo" styleClass="text-input" />
+				<h:selectOneMenu id="tipo" value="#{automovelEditMB.bean.tipo}">
+					<f:selectItems value="#{automovelEditMB.automovelTipos}" />
+				</h:selectOneMenu>
+				<h:message for="tipo" />
+
+				<h:outputLabel value="#{messages['cliente.label']}: " for="cliente"
+					styleClass="text-input" />
+				<h:selectOneMenu id="cliente"
+					value="#{automovelEditMB.bean.cliente}"
+					converter="ConversorCliente">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{automovelEditMB.clientes}" var="varCliente"
+						itemLabel="#{varCliente.nome}" itemValue="#{varCliente}" />
+				</h:selectOneMenu>
+				<h:message for="cliente" />
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

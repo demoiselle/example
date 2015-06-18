@@ -1,0 +1,200 @@
+
+<!-- 
+ Demoiselle Framework
+ Copyright (C) 2013 SERPRO
+ ============================================================================
+ This file is part of Demoiselle Framework.
+ 
+ Demoiselle Framework is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public License version 3
+ as published by the Free Software Foundation.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License version 3
+ along with this program; if not,  see <http://www.gnu.org/licenses/>
+ or write to the Free Software Foundation, Inc., 51 Franklin Street,
+ Fifth Floor, Boston, MA  02110-1301, USA.
+ ============================================================================
+ Este arquivo é parte do Framework Demoiselle.
+ 
+ O Framework Demoiselle é um software livre; você pode redistribuí-lo e/ou
+ modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
+ do Software Livre (FSF).
+ 
+ Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
+ GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
+ APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
+ para maiores detalhes.
+ 
+ Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
+ "LICENCA.txt", junto com esse programa. Se não, acesse <http://www.gnu.org/licenses/>
+ ou escreva para a Fundação do Software Livre (FSF) Inc.,
+ 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
+ */
+ -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{clienteEditMB.insert}"
+						rendered="#{!clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{clienteEditMB.update}"
+						rendered="#{clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()"
+						rendered="#{clienteEditMB.updateMode}" type="button"
+						immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{clienteEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['Cliente.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3" cellpadding="2" cellspacing="4">
+
+					<h:outputLabel value="#{messages['Cliente.label.id']}: " for="id"
+						styleClass="text-input" />
+					<h:outputText id="id" value="#{clienteEditMB.bean.id}" />
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['Cliente.label.nome']}: "
+						for="nome" styleClass="text-input" />
+					<h:inputText id="nome" value="#{clienteEditMB.bean.nome}"
+						title="#{messages['Cliente.alt.nome']}" required="true">
+						<f:validateLength minimum="3" maximum="255" />
+					</h:inputText>
+					<p:message for="nome" />
+
+					<h:outputLabel value="#{messages['Cliente.label.documento']}: "
+						for="documento" styleClass="text-input" />
+					<h:inputText id="documento" value="#{clienteEditMB.bean.documento}"
+						title="#{messages['Cliente.alt.documento']}" required="true">
+						<f:validateLength minimum="1" maximum="25" />
+					</h:inputText>
+					<p:message for="documento" />
+
+					<h:outputLabel value="#{messages['Cliente.label.telefone']}: "
+						for="telefone" styleClass="text-input" />
+					<h:inputText id="telefone" value="#{clienteEditMB.bean.telefone}"
+						title="#{messages['Cliente.alt.telefone']}" required="true">
+						<f:validateLength minimum="8" maximum="15" />
+					</h:inputText>
+					<p:message for="telefone" />
+
+					<h:outputLabel value="#{messages['Cliente.label.cpf']}: " for="cpf"
+						styleClass="text-input" />
+					<h:inputText id="cpf" value="#{clienteEditMB.bean.cpf}"
+						title="#{messages['Cliente.alt.cpf']}" required="true" />
+					<p:message for="cpf" />
+
+					<h:outputLabel value="#{messages['Cliente.label.tituloEleitor']}: "
+						for="tituloEleitor" styleClass="text-input" />
+					<h:inputText id="tituloEleitor"
+						value="#{clienteEditMB.bean.tituloEleitor}"
+						title="#{messages['Cliente.alt.tituloEleitor']}" required="true" />
+					<p:message for="tituloEleitor" />
+
+					<h:outputLabel value="#{messages['Cliente.label.email']}: "
+						for="email" styleClass="text-input" />
+					<h:inputText id="email" value="#{clienteEditMB.bean.email}"
+						title="#{messages['Cliente.alt.email']}" required="true" />
+					<p:message for="email" />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="#{messages['menu.Automovel']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fieldsAutomoveis" columns="1">
+					<p:commandButton value="#{messages['button.add']}"
+						action="#{clienteEditMB.addAutomovel}" update="listAutomovel" />
+					<p:dataTable id="listAutomovel" var="automovel"
+						value="#{clienteEditMB.automoveis}" rowIndexVar="index">
+						<p:column>
+							<h:outputLabel value="#{messages['Automovel.label.marca']}: "
+								for="marca" styleClass="text-input" />
+							<h:inputText id="marca" value="#{automovel.marca}"
+								title="#{messages['Automovel.alt.marca']}" required="true">
+								<f:validateLength minimum="2" maximum="255" />
+							</h:inputText>
+							<p:message for="marca" />
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{messages['Automovel.label.modelo']}: "
+								for="modelo" styleClass="text-input" />
+							<h:inputText id="modelo" value="#{automovel.modelo}"
+								title="#{messages['Automovel.alt.modelo']}" required="true">
+								<f:validateLength minimum="2" maximum="255" />
+							</h:inputText>
+							<p:message for="modelo" />
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{messages['Automovel.label.placa']}: "
+								for="placa" styleClass="text-input" />
+							<h:inputText id="placa" value="#{automovel.placa}"
+								title="#{messages['Automovel.alt.placa']}" required="true">
+								<f:validateLength minimum="8" maximum="8" />
+							</h:inputText>
+							<p:message for="placa" />
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{messages['Automovel.label.tamanho']}: "
+								for="tamanho" styleClass="text-input" />
+							<h:selectOneMenu id="tamanho" value="#{automovel.tamanho}">
+								<f:selectItems value="#{clienteEditMB.automovelTamanhos}" />
+							</h:selectOneMenu>
+							<p:message for="tamanho" />
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{messages['Automovel.label.tipo']}: "
+								for="tipo" styleClass="text-input" />
+							<h:selectOneMenu id="tipo" value="#{automovel.tipo}">
+								<f:selectItems value="#{clienteEditMB.automovelTipos}" />
+							</h:selectOneMenu>
+							<p:message for="tipo" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['label.action']}</f:facet>
+							<p:commandButton value="#{messages['button.delete']}"
+								action="#{clienteEditMB.deleteAutomovel}" ajax="false" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="#{messages['menu.endereco']}" toggleable="true">
+				<p:pickList id="pickListEndereco" value="#{clienteEditMB.enderecoList}"
+					var="varEndereco" effect="bounce" itemValue="#{varEndereco}"
+					itemLabel="#{varEndereco.codigo}" converter="ConversorEndereco"
+					showSourceControls="true" showTargetControls="true" showCheckbox="true"
+					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">#{messages['menu.endereco']}</f:facet>
+					<f:facet name="targetCaption">#{messages['menu.cliente']} / #{messages['menu.endereco']}</f:facet>
+					<p:ajax  event="transfer" listener="#{clienteEditMB.onTransfer}" update="pickListEndereco" />   
+				</p:pickList>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

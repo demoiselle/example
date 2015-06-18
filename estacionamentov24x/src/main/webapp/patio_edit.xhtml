@@ -1,0 +1,126 @@
+
+<!-- 
+ Demoiselle Framework
+ Copyright (C) 2013 SERPRO
+ ============================================================================
+ This file is part of Demoiselle Framework.
+ 
+ Demoiselle Framework is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public License version 3
+ as published by the Free Software Foundation.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License version 3
+ along with this program; if not,  see <http://www.gnu.org/licenses/>
+ or write to the Free Software Foundation, Inc., 51 Franklin Street,
+ Fifth Floor, Boston, MA  02110-1301, USA.
+ ============================================================================
+ Este arquivo é parte do Framework Demoiselle.
+ 
+ O Framework Demoiselle é um software livre; você pode redistribuí-lo e/ou
+ modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
+ do Software Livre (FSF).
+ 
+ Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
+ GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
+ APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
+ para maiores detalhes.
+ 
+ Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
+ "LICENCA.txt", junto com esse programa. Se não, acesse <http://www.gnu.org/licenses/>
+ ou escreva para a Fundação do Software Livre (FSF) Inc.,
+ 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
+ */
+ -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{patioEditMB.insert}"
+						rendered="#{!patioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{patioEditMB.update}"
+						rendered="#{patioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()" rendered="#{patioEditMB.updateMode}"
+						type="button" immediate="true" ajax="false"
+						disabled="#{!securityContext.hasRole('gerente')}" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{patioEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['patio.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['patio.label.id']}: " for="id"
+						styleClass="text-input" />
+					<h:outputText id="id" value="#{patioEditMB.bean.id}" />
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['patio.label.local']}: "
+						for="local" styleClass="text-input" />
+					<h:inputText id="local" value="#{patioEditMB.bean.local}"
+						title="#{messages['patio.alt.local']}" required="true" />
+					<p:message for="local" />
+					<h:outputLabel value="#{messages['patio.label.cep']}: " for="cep"
+						styleClass="text-input" />
+					<h:inputText id="cep" value="#{patioEditMB.bean.cep}"
+						title="#{messages['patio.alt.cep']}" required="true" />
+					<p:message for="cep" />
+					<h:outputLabel value="#{messages['patio.label.estacionamento']}: "
+						for="estacionamento" styleClass="text-input" />
+					<p:selectOneMenu id="estacionamento"
+						value="#{patioEditMB.bean.estacionamento}" effect="fade"
+						converter="ConversorEstacionamento">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{patioEditMB.estacionamentos}"
+							var="varEstacionamento" itemLabel="#{varEstacionamento.nome}"
+							itemValue="#{varEstacionamento}" />
+					</p:selectOneMenu>
+					<p:message for="estacionamento" />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="#{messages['menu.vaga']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fieldsVagas" columns="1">
+					<p:dataTable id="listVaga" var="vaga" value="#{patioEditMB.vagas}"	rowIndexVar="index">
+						<f:attribute name="columnToggle" value="true" />
+						<p:column>
+							<f:facet name="header">#{messages['vaga.label.porte']}</f:facet>
+							<h:outputText id="porte" value="#{messages[vaga.porte]}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['vaga.label.coberta']}</f:facet>
+							<h:outputText id="coberta" value="#{vaga.coberta == true ? messages['value.yes']: messages['value.no'] }" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  JBoss Server Configuration                                           -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- See http://www.jboss.org/community/wiki/Multiple1PC for information about local-tx-datasource -->
+<!-- $Id: postgres-ds.xml 97536 2009-12-08 14:05:07Z jesper.pedersen $ -->
+<!-- ==================================================================== -->
+<!--  Datasource config for Postgres                                      -->
+<!-- ==================================================================== -->
+
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>estacionamentoDS</jndi-name>
+    <connection-url>jdbc:postgresql://10.200.189.47:5432/estacionamento</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <user-name>estacionamento</user-name>
+    <password>estacionamento</password>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>30</max-pool-size>
+    <idle-timeout-minutes>0</idle-timeout-minutes>
+    <track-statements/>
+    <prepared-statement-cache-size>32</prepared-statement-cache-size>
+     <new-connection-sql>select 1</new-connection-sql>
+    <check-valid-connection-sql>select 1</check-valid-connection-sql>
+    <metadata>
+          <type-mapping>PostgreSQL 8.0</type-mapping>
+    </metadata>
+  
+  </local-tx-datasource>
+</datasources>

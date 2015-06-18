@@ -1,0 +1,71 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_mobile.xhtml" contentType="text/html"
+	renderKitId="PRIMEFACES_MOBILE">
+	<pm:page title="Edição de estacionamento">
+	<!-- Main View -->
+		<pm:view id="main">
+			<pm:header title="Edição de estacionamento" swatch="b">
+				<f:facet name="left">
+					<p:button style="width:10; height:30; border:1px solid #000;" 
+						value="#{messages['button.back']}" icon="back"
+						href="#{estacionamentoEditMB.previousView}"/>
+				</f:facet>
+				<f:facet name="right">
+					<p:button value="#{messages['main.app.title']}" icon="home"
+								 href="./navigator.jsf"/>
+				 </f:facet>
+			</pm:header>
+			<pm:content>
+				<h:form>
+					<pm:buttonGroup orientation="horizontal" >
+					<h:commandButton id="insert" value="#{messages['button.save']}" action="#{automovelEditMB.insert}"
+						rendered="#{!automovelEditMB.updateMode}" ajax="false" />
+					<h:commandButton id="update" value="#{messages['button.update']}" action="#{automovelEditMB.update}"
+						rendered="#{automovelEditMB.updateMode}"  ajax="false" />
+					<h:commandButton id="delete"  value="#{messages['button.delete']}" action="#{automovelEditMB.delete}"
+						rendered="#{automovelEditMB.updateMode}"  immediate="true" ajax="false" disabled="#{!securityContext.hasRole('gerente')}" />										
+					</pm:buttonGroup>
+					<h:outputLabel value="#{messages['estacionamento.label.id']}: " for="id" styleClass="text-input" />
+					<h:outputText id="id" value="#{estacionamentoEditMB.bean.id}" />
+					<h:message for="id" />
+					<h:outputLabel value="#{messages['estacionamento.label.nome']}: " for="nome" styleClass="text-input" />
+					<h:inputText id="nome" value="#{estacionamentoEditMB.bean.nome}"
+						title="#{messages['estacionamento.alt.nome']}" />
+					<h:message for="nome" />
+					<h:outputLabel value="#{messages['estacionamento.label.cnpj']}: " for="cnpj" styleClass="text-input" />
+					<h:inputText id="cnpj" value="#{estacionamentoEditMB.bean.cnpj}" required="true"
+						title="#{messages['estacionamento.alt.cnpj']}"> <f:validateLength minimum="14" maximum="14" /> </h:inputText>
+					<p:message for="cnpj" />
+					<h:outputLabel value="#{messages['estacionamento.label.inscricaoEstadual']}: " for="inscricaoEstadual" styleClass="text-input" />
+					<h:inputText id="inscricaoEstadual" value="#{estacionamentoEditMB.bean.inscricaoEstadual}" required="true"
+						title="#{messages['estacionamento.alt.inscricaoEstadual']}"> <f:validateLength minimum="13" maximum="13" />
+						</h:inputText>
+					<h:message for="inscricaoEstadual" />
+					
+					<p:panel header="#{messages['patio.label']}" toggleable="true" toggleSpeed="500">	 
+						<h:panelGrid id="fieldspatio" columns="1">
+						<p:outputPanel>						
+							<p:dataTable id="listPatio" var="patio" value="#{estacionamentoEditMB.patios}">
+								<f:attribute name="columnToggle" value="true" />
+								<p:column>
+									<f:facet name="header">#{messages['patio.label.local']}</f:facet>
+									<h:outputText id="local" value="#{patio.local}"/>
+								</p:column>
+								<p:column>
+									<f:facet name="header">#{messages['patio.label.cep']}</f:facet>
+									<h:outputText id="cep" value="#{patio.cep}"/>
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+						</h:panelGrid>
+					</p:panel>														
+					</h:form>
+				</pm:content>
+			</pm:view>
+		</pm:page>	
+</f:view>

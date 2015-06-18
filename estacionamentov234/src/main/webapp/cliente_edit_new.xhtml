@@ -1,0 +1,204 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{clienteEditMB.insert}"
+						rendered="#{!clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{clienteEditMB.update}"
+						rendered="#{clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{clienteEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clienteEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['cliente.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldscliente" columns="3">
+				
+					<h:outputLabel value="#{messages['cliente.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{clienteEditMB.bean.id}" />
+					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['cliente.label.nome']}: " for="nome" styleClass="text-input" />
+					
+					<h:inputText id="nome" value="#{clienteEditMB.bean.nome}"
+						title="#{messages['cliente.alt.nome']}" />
+					
+					<p:message for="nome" />
+						
+					<h:outputLabel value="#{messages['cliente.label.cpf']}: " for="cpf" styleClass="text-input" />
+					
+					<h:inputText id="cpf" value="#{clienteEditMB.bean.cpf}"
+						title="#{messages['cliente.alt.cpf']}" />
+					
+					<p:message for="cpf" />
+						
+					<h:outputLabel value="#{messages['cliente.label.email']}: " for="email" styleClass="text-input" />
+					
+					<h:inputText id="email" value="#{clienteEditMB.bean.email}"
+						title="#{messages['cliente.alt.email']}" />
+					
+					<p:message for="email" />
+						
+					<h:outputLabel value="#{messages['cliente.label.tituloEleitor']}: " for="tituloEleitor" styleClass="text-input" />
+					
+					<h:inputText id="tituloEleitor" value="#{clienteEditMB.bean.tituloEleitor}"
+						title="#{messages['cliente.alt.tituloEleitor']}" />
+					
+					<p:message for="tituloEleitor" />
+						
+					<h:outputLabel value="#{messages['cliente.label.documento']}: " for="documento" styleClass="text-input" />
+					
+					<h:inputText id="documento" value="#{clienteEditMB.bean.documento}"
+						title="#{messages['cliente.alt.documento']}" />
+					
+					<p:message for="documento" />
+						
+					<h:outputLabel value="#{messages['cliente.label.telefone']}: " for="telefone" styleClass="text-input" />
+					
+					<h:inputText id="telefone" value="#{clienteEditMB.bean.telefone}"
+						title="#{messages['cliente.alt.telefone']}" />
+					
+					<p:message for="telefone" />
+						
+				</h:panelGrid>
+			</p:fieldset>
+			
+		<p:fieldset legend="#{messages['automovel.label']}" toggleable="true" toggleSpeed="500">
+			<h:panelGrid id="fieldsautomovel" columns="1"> 
+							
+				<p:commandButton value="#{messages['button.new']}" action="#{clienteEditMB.addAutomovel}" update="listAutomovel"/>
+							
+				<p:dataTable id="listAutomovel" var="automovel" value="#{clienteEditMB.automovelList}" rowIndexVar="index">
+						
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.id']}: " for="id" styleClass="text-input" />
+						
+			           <h:outputText id="id" value="#{automovel.id}" />
+				         
+					   <p:message for="id" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.marca']}: " for="marca" styleClass="text-input" />
+						
+			           <h:inputText id="marca" value="#{automovel.marca}"
+				          title="#{messages['automovel.alt.marca']}" />
+						  
+					   <p:message for="marca" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.modelo']}: " for="modelo" styleClass="text-input" />
+						
+			           <h:inputText id="modelo" value="#{automovel.modelo}"
+				          title="#{messages['automovel.alt.modelo']}" />
+						  
+					   <p:message for="modelo" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.placa']}: " for="placa" styleClass="text-input" />
+						
+			           <h:inputText id="placa" value="#{automovel.placa}"
+				          title="#{messages['automovel.alt.placa']}" />
+						  
+					   <p:message for="placa" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.tamanho']}: " for="tamanho" styleClass="text-input" />
+						
+					   <p:selectOneMenu id="tamanho" value="#{automovel.tamanho}" effect="fade">
+						   <f:selectItems value="#{automovelEditMB.tamanho}" />
+					   </p:selectOneMenu>
+					       
+					   <p:message for="tamanho" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['automovel.label.tipo']}: " for="tipo" styleClass="text-input" />
+						
+					   <p:selectOneMenu id="tipo" value="#{automovel.tipo}" effect="fade">
+						   <f:selectItems value="#{automovelEditMB.tipo}" />
+					   </p:selectOneMenu>
+					       
+					   <p:message for="tipo" />
+			  	    </p:column>					  
+				
+				</p:dataTable>
+			</h:panelGrid>
+		</p:fieldset>
+						
+		<p:fieldset legend="#{messages['endereco.label']}" toggleable="true" toggleSpeed="500">
+			<h:panelGrid id="fieldsendereco" columns="1"> 
+							
+				<p:commandButton value="#{messages['button.new']}" action="#{clienteEditMB.addEndereco}" update="listEndereco"/>
+							
+				<p:dataTable id="listEndereco" var="endereco" value="#{clienteEditMB.enderecoList}" rowIndexVar="index">
+						
+			        <p:column>
+  			           <h:outputLabel value="#{messages['endereco.label.codigo']}: " for="codigo" styleClass="text-input" />
+						
+			           <h:outputText id="codigo" value="#{endereco.codigo}" />
+				         
+					   <p:message for="codigo" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['endereco.label.logradouro']}: " for="logradouro" styleClass="text-input" />
+						
+			           <h:inputText id="logradouro" value="#{endereco.logradouro}"
+				          title="#{messages['endereco.alt.logradouro']}" />
+						  
+					   <p:message for="logradouro" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['endereco.label.cidade']}: " for="cidade" styleClass="text-input" />
+						
+			           <h:inputText id="cidade" value="#{endereco.cidade}"
+				          title="#{messages['endereco.alt.cidade']}" />
+						  
+					   <p:message for="cidade" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['endereco.label.estado']}: " for="estado" styleClass="text-input" />
+						
+			           <h:inputText id="estado" value="#{endereco.estado}"
+				          title="#{messages['endereco.alt.estado']}" />
+						  
+					   <p:message for="estado" />
+			  	    </p:column>					  
+				
+			        <p:column>
+  			           <h:outputLabel value="#{messages['endereco.label.cep']}: " for="cep" styleClass="text-input" />
+						
+			           <h:inputText id="cep" value="#{endereco.cep}"
+				          title="#{messages['endereco.alt.cep']}" />
+						  
+					   <p:message for="cep" />
+			  	    </p:column>					  
+				
+				</p:dataTable>
+			</h:panelGrid>
+		</p:fieldset>
+						
+		</h:form>
+	</ui:define>
+</ui:composition>

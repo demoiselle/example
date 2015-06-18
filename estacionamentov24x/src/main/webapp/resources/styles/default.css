@@ -1,0 +1,29 @@
+body {
+	margin: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+th {
+	height: 30px;
+	color: #333333;
+	font-size: 13px;
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	color: #6699ff;
+	font-size: 14px;
+}
+
+input[type="text"], input[type="file"] {
+	border: 1px solid #cccccc;
+	padding: 5px;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+<ui:include src="/mobile/template/main_mobile.xhtml" />
+	<pm:page id="navigator" title="Exemplo Demoiselle Mobile 2.5.0" rendered="#{securityContext.loggedIn}">
+		<pm:header title="Exemplo Demoiselle Mobile 2.5.0" fixed="true">
+			<p:tabMenu>
+				<p:menuitem icon="ui-icon-newwin" url="./vaga_list.jsf"
+					iconPos="top" value="#{messages['menu.vaga']}" />
+										
+				<p:menuitem icon="ui-icon-newwin" url="./patio_list.jsf"  
+					iconPos="top" value="#{messages['menu.patio']}" />
+					 
+				<p:menuitem icon="ui-icon-newwin"  url="./endereco_list.jsf" 
+					 iconPos="top" value="#{messages['menu.endereco']}" />
+					 
+				<p:menuitem icon="ui-icon-newwin" url="./estacionamento_list.jsf" 
+					iconPos="top"	value="#{messages['menu.estacionamento']}" />
+					
+				<p:menuitem icon="ui-icon-newwin"  url="./cliente_list.jsf"  
+					 iconPos="top"  value="#{messages['menu.cliente']}" />
+					
+				<p:menuitem icon="ui-icon-newwin"  url="./automovel_list.jsf" 
+					  iconPos="top"  value="#{messages['menu.automovel']}"/>
+			</p:tabMenu>
+		</pm:header>
+	</pm:page>
+	<pm:page id="navigator_not_logged" title="Exemplo Demoiselle Mobile 2.5.0" rendered="#{!securityContext.loggedIn}">
+		<pm:header title="Exemplo Demoiselle Mobile 2.5.0" fixed="true">
+			<h:outputText value="#{messages['error.not.logged']}" />
+		</pm:header>
+	</pm:page>
+</h:body>	
+</html>
+

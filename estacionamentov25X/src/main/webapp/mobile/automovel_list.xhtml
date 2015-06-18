@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+	<ui:include src="/mobile/template/main_mobile.xhtml" />
+	<pm:page id="list_automovel" title="Listagem de Automóveis"
+		rendered="#{securityContext.loggedIn}">
+		<pm:header title="automovel" swatch="b">
+			<p:tabMenu>
+				<p:menuitem icon="ui-icon-plus" url="#{automovelListMB.nextView}"
+					iconPos="top" value="#{messages['button.new']}"
+					actionListener="#{automovelListMB.clear}" />
+				<p:menuitem icon="ui-icon-home" url="./navigator.jsf" iconPos="top"
+					value="#{messages['menu.home']}" />
+			</p:tabMenu>
+		</pm:header>
+		<pm:content>
+			<h:form>
+				<p:dataList id="list" var="bean"
+					value="#{automovelListMB.resultList}">
+					<h:outputText styleClass="ui-li-count" value="#{bean.id}" />
+					<h:commandLink value="#{bean.modelo}"
+						action="#{automovelListMB.getNextView}">
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+					<h:commandLink value="#{bean.placa}"
+						action="#{automovelListMB.getNextView}">
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:dataList>
+
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>
+

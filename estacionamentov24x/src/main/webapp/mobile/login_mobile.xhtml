@@ -1,0 +1,37 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mobile"
+        contentType="text/html"
+    renderKitId="PRIMEFACES_MOBILE">
+
+    <pm:page title="Login Mobile">
+     <pm:view id="navbar">
+            <pm:header title="Login Mobile">
+            </pm:header>
+            <pm:content>
+             	<h:form id="form_login">
+                	<p:outputPanel  id="container">
+                		<h:panelGroup>
+                			<h:outputLabel value="#{messages['login.user']}: " for="username"/>
+                			<h:inputText id="username" value="#{loginMobileMB.usuario}"/>                                                            
+                        	<p:separator />
+                        	
+                        	<h:outputLabel value="#{messages['login.password']}: " for="password"/>
+                			<h:inputSecret id="password" value="#{loginMobileMB.senha}"/>
+                			                                                            
+                        	<p:separator />
+                        	<h:commandButton value="Entrar" action="#{loginMobileMB.doLogin}" />                       	
+                        	
+                		</h:panelGroup>
+                	</p:outputPanel>
+                </h:form>
+            </pm:content>
+        </pm:view>
+    
+	</pm:page>
+
+</f:view>
+    
