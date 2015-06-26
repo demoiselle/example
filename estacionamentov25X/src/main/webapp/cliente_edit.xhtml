@@ -55,7 +55,7 @@
 						action="#{clienteEditMB.update}"
 						rendered="#{clienteEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.delete']}"
-						onclick="confirmation.show()"
+						onclick="PF('confirmation').show()"
 						rendered="#{clienteEditMB.updateMode}" type="button"
 						immediate="true" ajax="false" disabled="#{!securityContext.hasRole('gerente')}" />
 					<p:confirmDialog message="#{messages['label.confirm.delete']}"
@@ -65,7 +65,7 @@
 						<h:commandButton value="#{messages['button.dialog.yes']}"
 							action="#{clienteEditMB.delete}" immediate="true" ajax="false" />
 						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
+							onclick="PF('confirmation').hide();" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>

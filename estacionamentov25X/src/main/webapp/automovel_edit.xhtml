@@ -48,13 +48,13 @@
 						rendered="#{!automovelEditMB.updateMode}" ajax="false" />
 					<p:commandButton id="update" value="#{messages['button.update']}" action="#{automovelEditMB.update}"
 						rendered="#{automovelEditMB.updateMode}"  ajax="false" />
-					<p:commandButton id="delete"  value="#{messages['button.delete']}" onclick="confirmation.show()"
+					<p:commandButton id="delete"  value="#{messages['button.delete']}" onclick="PF('confirmation').show()"
 						rendered="#{automovelEditMB.updateMode}" type="button" immediate="true" ajax="false" disabled="#{!securityContext.hasRole('gerente')}" />
 					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
 						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
 						<h:commandButton id="yes" value="#{messages['button.dialog.yes']}" action="#{automovelEditMB.delete}" immediate="true"
 							ajax="false" />
-						<h:commandButton id="no" value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+						<h:commandButton id="no" value="#{messages['button.dialog.no']}" onclick="PF('confirmation').hide();" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>

@@ -48,13 +48,13 @@
 						rendered="#{!vagaEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{vagaEditMB.update}"
 						rendered="#{vagaEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+					<p:commandButton value="#{messages['button.delete']}" onclick="PF('confirmation').show()"
 						rendered="#{vagaEditMB.updateMode}" type="button" immediate="true" ajax="false" disabled="#{!securityContext.hasRole('gerente')}"/>
 					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
 						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
 						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{vagaEditMB.delete}" immediate="true"
 							ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="PF('confirmation').hide();" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>

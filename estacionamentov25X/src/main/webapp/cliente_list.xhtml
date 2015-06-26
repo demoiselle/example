@@ -10,7 +10,7 @@
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{clienteListMB.getNextView()}"
 						actionListener="#{clienteListMB.clear}" ajax="false" />
 
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="PF('confirmation').show()"
 						type="button" immediate="true" ajax="false" disabled="#{!securityContext.hasRole('gerente')}" />
 
 					<h:commandLink target="_blank" title="#{messages['cliente.label.relatorio']}"  action="#{clienteListMB.exibirRelatorioGeral}">
@@ -24,7 +24,7 @@
 
 						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clienteListMB.deleteSelection}"
 							actionListener="#{clienteListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="PF('confirmation').hide();" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>

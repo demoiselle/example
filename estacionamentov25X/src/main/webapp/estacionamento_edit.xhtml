@@ -55,7 +55,7 @@
 						action="#{estacionamentoEditMB.update}"
 						rendered="#{estacionamentoEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.delete']}"
-						onclick="confirmation.show()"
+						onclick="PF('confirmation').show()"
 						rendered="#{estacionamentoEditMB.updateMode}" type="button"
 						immediate="true" ajax="false"
 						disabled="#{!securityContext.hasRole('gerente')}" />
@@ -67,7 +67,7 @@
 							action="#{estacionamentoEditMB.delete}" immediate="true"
 							ajax="false" />
 						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
+							onclick="PF('confirmation').hide();" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>
