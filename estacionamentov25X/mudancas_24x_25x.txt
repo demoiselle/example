@@ -29,3 +29,5 @@ Incluido em faces-config.xml:
 		</navigation-handler>
 	</application>
 
+mudar onclick="confirmation.hide()"  para  onclick="PF('confirmation').hide();"
+mudar onclick="PF('confirmation').show();" para onclick="PF('confirmation').show();"
