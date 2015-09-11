@@ -37,7 +37,7 @@ import javax.validation.constraints.NotNull;
 import br.gov.frameworkdemoiselle.annotation.Name;
 import br.gov.frameworkdemoiselle.configuration.Configuration;
 
-@Configuration(resource = "estacionamento", prefix = "general")
+@Configuration(resource = "estacionamento")
 public class EstacionamentoConfig implements Serializable {
 
 	/**

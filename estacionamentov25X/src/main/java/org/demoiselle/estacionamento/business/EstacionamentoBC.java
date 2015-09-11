@@ -30,6 +30,8 @@
  */
 package org.demoiselle.estacionamento.business;
 
+import java.util.logging.Logger;
+
 import javax.inject.Inject;
 
 import org.demoiselle.estacionamento.config.EstacionamentoConfig;
@@ -58,6 +60,9 @@ public class EstacionamentoBC extends DelegateCrud<Estacionamento, Long, Estacio
 
 	@Inject
 	private MessageContext messageContext;
+	
+	@Inject 
+	private Logger logger;
 
 	@ExceptionHandler
 	public void tratador(NullPointerException cause) {
@@ -76,6 +81,7 @@ public class EstacionamentoBC extends DelegateCrud<Estacionamento, Long, Estacio
 		// Para ativar essa configuração modifique o valor em estacionamento.properties -> general.loadInitialData =
 		// true
 		if (config.isLoadInitialData()) {
+			logger.info("Carregando..........."  );
 			if (findAll().isEmpty()) {
 				insert(new Estacionamento("Demoiselle Park", "42070027000109", " 0775037176397"));
 			}
