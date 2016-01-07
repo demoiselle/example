@@ -3,7 +3,6 @@ package estacionamento.entity;
 import java.io.Serializable;
 import java.security.Principal;
 import javax.enterprise.context.RequestScoped;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

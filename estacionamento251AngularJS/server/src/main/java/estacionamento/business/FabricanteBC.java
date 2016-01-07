@@ -7,9 +7,9 @@ package estacionamento.business;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import estacionamento.entity.Fabricante;
 import estacionamento.entity.User;
-import estacionamento.entity.VehicleModelYear;
-import estacionamento.persistence.VehicleModelYearDAO;
+import estacionamento.persistence.FabricanteDAO;
 import java.util.List;
 
 /**
@@ -17,7 +17,8 @@ import java.util.List;
  * @author gladson
  */
 @BusinessController
-public class VehicleModelYearBC extends DelegateCrud<VehicleModelYear, Integer, VehicleModelYearDAO> {
+public class FabricanteBC extends DelegateCrud<Fabricante, Integer, FabricanteDAO> {
+
     /**
      *
      * @return

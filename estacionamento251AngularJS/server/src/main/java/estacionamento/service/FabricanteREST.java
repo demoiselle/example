@@ -1,37 +1,38 @@
 package estacionamento.service;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
+import br.gov.frameworkdemoiselle.NotFoundException;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
+import estacionamento.business.FabricanteBC;
+import estacionamento.entity.Fabricante;
+import estacionamento.util.Util;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.io.Serializable;
-
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import javax.ws.rs.core.Response;
-import br.gov.frameworkdemoiselle.NotFoundException;
-import br.gov.frameworkdemoiselle.transaction.Transactional;
-import estacionamento.business.VehicleModelYearBC;
-import estacionamento.entity.VehicleModelYear;
-import estacionamento.util.Util;
 
 /**
  *
  * @author 70744416353
  */
-
+@Api
 @Path("fabricante")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
-public class VehicleModelYearREST implements Serializable {
+public class FabricanteREST implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private VehicleModelYearBC bc;
+    private FabricanteBC bc;
 
     /**
      *
@@ -52,8 +53,15 @@ public class VehicleModelYearREST implements Serializable {
     @GET
     @Path("{id}")
     @Transactional
+    @ApiOperation(value = "Código",
+                  notes = "Busca Fabricante, Modelo e Ano por ID",
+                  response = Fabricante.class
+    )
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Fabricante inválido"),
+        @ApiResponse(code = 404, message = "Fabricante não existe")})
     public Response load(@PathParam("id") Integer id) throws NotFoundException {
-        VehicleModelYear result = bc.load(id);
+        Fabricante result = bc.load(id);
 
         if (result == null) {
             throw new NotFoundException();
@@ -74,8 +82,11 @@ public class VehicleModelYearREST implements Serializable {
     @GET
     @Path("list/{field}/{order}/{init}/{qtde}")
     @Transactional
+    @ApiOperation(value = "Lista com paginação no servidor",
+                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros"
+    )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
-        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, VehicleModelYear.class))) {
+        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Fabricante.class))) {
             return Response.ok().entity(bc.list(field, order, init, qtde)).build();
         }
         return Response.ok().entity(null).build();
@@ -88,6 +99,10 @@ public class VehicleModelYearREST implements Serializable {
     @GET
     @Path("count")
     @Transactional
+    @ApiOperation(value = "Quantidade de registro",
+                  notes = "Usado para trabalhar as tabelas com paginação no servidor",
+                  response = Integer.class
+    )
     public Response count() throws NotFoundException {
         return Response.ok().entity(bc.count()).build();
     }
@@ -127,5 +142,4 @@ public class VehicleModelYearREST implements Serializable {
 //    public Response produtosSemFase(@PathParam("produto") String nomeProduto) {
 //        return Response.ok().entity(bc.listarProdutosSemFase(nomeProduto)).build();
 //    }
-
 }

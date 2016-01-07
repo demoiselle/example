@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gladson
  */
 @Entity
-@Table(catalog = "estacionamento", schema = "")
+@Table(name = "estacionamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estacionamento.findAll", query = "SELECT e FROM Estacionamento e"),
@@ -58,65 +58,128 @@ public class Estacionamento implements Serializable {
     @Column(length = 45)
     private String vaga;
 
+    /**
+     *
+     */
     public Estacionamento() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Estacionamento(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public BigInteger getVeiculoId() {
         return veiculoId;
     }
 
+    /**
+     *
+     * @param veiculoId
+     */
     public void setVeiculoId(BigInteger veiculoId) {
         this.veiculoId = veiculoId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEntrada() {
         return entrada;
     }
 
+    /**
+     *
+     * @param entrada
+     */
     public void setEntrada(Date entrada) {
         this.entrada = entrada;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getSaida() {
         return saida;
     }
 
+    /**
+     *
+     * @param saida
+     */
     public void setSaida(Date saida) {
         this.saida = saida;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getValor() {
         return valor;
     }
 
+    /**
+     *
+     * @param valor
+     */
     public void setValor(Long valor) {
         this.valor = valor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getRecebido() {
         return recebido;
     }
 
+    /**
+     *
+     * @param recebido
+     */
     public void setRecebido(Long recebido) {
         this.recebido = recebido;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getVaga() {
         return vaga;
     }
 
+    /**
+     *
+     * @param vaga
+     */
     public void setVaga(String vaga) {
         this.vaga = vaga;
     }
@@ -135,15 +198,12 @@ public class Estacionamento implements Serializable {
             return false;
         }
         Estacionamento other = (Estacionamento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "estacionamento.entity.Estacionamento[ id=" + id + " ]";
     }
-    
+
 }

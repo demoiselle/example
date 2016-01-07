@@ -1,12 +1,11 @@
 package estacionamento.persistence;
 
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import estacionamento.entity.User;
 import java.util.List;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 /**
  *

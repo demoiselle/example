@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.10
+-- version 4.0.10.12
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.12.252.130:3306
--- Tempo de Geração: 07/01/2016 às 00:32
+-- Tempo de Geração: 07/01/2016 às 17:17
 -- Versão do servidor: 5.5.45
 -- Versão do PHP: 5.3.3
 
@@ -40,24 +40,10 @@ CREATE TABLE IF NOT EXISTS `estacionamento` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuario`
+-- Estrutura para tabela `fabricante`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `telephoneNumber` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `VehicleModelYear`
---
-
-CREATE TABLE IF NOT EXISTS `VehicleModelYear` (
+CREATE TABLE IF NOT EXISTS `fabricante` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `year` int(4) NOT NULL,
   `make` varchar(50) NOT NULL,
@@ -70,10 +56,10 @@ CREATE TABLE IF NOT EXISTS `VehicleModelYear` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7269 ;
 
 --
--- Fazendo dump de dados para tabela `VehicleModelYear`
+-- Fazendo dump de dados para tabela `fabricante`
 --
 
-INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
+INSERT INTO `fabricante` (`id`, `year`, `make`, `model`) VALUES
 (1, 1909, 'Ford', 'Model T'),
 (2, 1926, 'Chrysler', 'Imperial'),
 (3, 1948, 'Citroën', '2CV'),
@@ -1595,7 +1581,7 @@ INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
 (1256, 1993, 'Suzuki', 'Sidekick'),
 (1258, 1993, 'Suzuki', 'SJ'),
 (1257, 1993, 'Suzuki', 'Swift');
-INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
+INSERT INTO `fabricante` (`id`, `year`, `make`, `model`) VALUES
 (1439, 1993, 'Toyota', '4Runner'),
 (1438, 1993, 'Toyota', 'Camry'),
 (1440, 1993, 'Toyota', 'Celica'),
@@ -3085,7 +3071,7 @@ INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
 (2873, 1999, 'Mitsubishi', 'Challenger'),
 (2877, 1999, 'Mitsubishi', 'Diamante'),
 (2872, 1999, 'Mitsubishi', 'Eclipse');
-INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
+INSERT INTO `fabricante` (`id`, `year`, `make`, `model`) VALUES
 (2875, 1999, 'Mitsubishi', 'Galant'),
 (2876, 1999, 'Mitsubishi', 'GTO'),
 (2871, 1999, 'Mitsubishi', 'Mirage'),
@@ -4594,7 +4580,7 @@ INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
 (4607, 2005, 'Cadillac', 'Escalade'),
 (4608, 2005, 'Cadillac', 'Escalade ESV'),
 (4609, 2005, 'Cadillac', 'Escalade EXT');
-INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
+INSERT INTO `fabricante` (`id`, `year`, `make`, `model`) VALUES
 (4604, 2005, 'Cadillac', 'SRX'),
 (4610, 2005, 'Cadillac', 'STS'),
 (4611, 2005, 'Cadillac', 'XLR'),
@@ -6105,7 +6091,7 @@ INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
 (5996, 2009, 'Infiniti', 'M'),
 (6002, 2009, 'Infiniti', 'QX'),
 (5997, 2009, 'Infiniti', 'QX56');
-INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
+INSERT INTO `fabricante` (`id`, `year`, `make`, `model`) VALUES
 (6200, 2009, 'Isuzu', 'Ascender'),
 (6187, 2009, 'Jaguar', 'XF'),
 (6185, 2009, 'Jaguar', 'XJ'),
@@ -7350,12 +7336,26 @@ INSERT INTO `VehicleModelYear` (`id`, `year`, `make`, `model`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephoneNumber` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `veiculo`
 --
 
 CREATE TABLE IF NOT EXISTS `veiculo` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `veiculo_id` bigint(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `veiculo_id` int(11) DEFAULT NULL,
   `placa` varchar(10) DEFAULT NULL,
   `proprietario` varchar(60) DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,

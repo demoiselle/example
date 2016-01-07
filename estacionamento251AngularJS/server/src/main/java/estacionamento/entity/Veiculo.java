@@ -7,6 +7,7 @@ package estacionamento.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gladson
  */
 @Entity
-@Table(catalog = "estacionamento", schema = "")
+@Table(name = "veiculo")
+@Cacheable
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Veiculo.findAll", query = "SELECT v FROM Veiculo v"),
@@ -60,57 +62,112 @@ public class Veiculo implements Serializable {
     @Column(length = 45)
     private String uuid;
 
+    /**
+     *
+     */
     public Veiculo() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Veiculo(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPlaca() {
         return placa;
     }
 
+    /**
+     *
+     * @param placa
+     */
     public void setPlaca(String placa) {
         this.placa = placa;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProprietario() {
         return proprietario;
     }
 
+    /**
+     *
+     * @param proprietario
+     */
     public void setProprietario(String proprietario) {
         this.proprietario = proprietario;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUuid() {
         return uuid;
     }
 
+    /**
+     *
+     * @param uuid
+     */
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     *
+     * @return
+     */
     public Veiculo getVeiculo() {
         return veiculo;
     }
 
+    /**
+     *
+     * @param veiculo
+     */
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
@@ -129,10 +186,7 @@ public class Veiculo implements Serializable {
             return false;
         }
         Veiculo other = (Veiculo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

@@ -1,15 +1,12 @@
 package estacionamento.business;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import br.gov.frameworkdemoiselle.annotation.Priority;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import estacionamento.entity.User;
 import estacionamento.persistence.UserDAO;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  *

@@ -7,8 +7,8 @@ package estacionamento.persistence;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
+import estacionamento.entity.Fabricante;
 import estacionamento.entity.User;
-import estacionamento.entity.VehicleModelYear;
 import java.util.List;
 
 /**
@@ -16,14 +16,14 @@ import java.util.List;
  * @author gladson
  */
 @PersistenceController
-public class VehicleModelYearDAO extends JPACrud<VehicleModelYear, Integer> {
+public class FabricanteDAO extends JPACrud<Fabricante, Integer> {
 
     /**
      *
      * @return
      */
     public Long count() {
-        return (Long) getEntityManager().createQuery("select COUNT(u) from VehicleModelYear u").getSingleResult();
+        return (Long) getEntityManager().createQuery("select COUNT(u) from Fabricante u").getSingleResult();
     }
 
     /**
@@ -36,6 +36,6 @@ public class VehicleModelYearDAO extends JPACrud<VehicleModelYear, Integer> {
      */
     @SuppressWarnings("unchecked")
     public List<User> list(String field, String order, int init, int qtde) {
-        return getEntityManager().createQuery("select u from VehicleModelYear u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
+        return getEntityManager().createQuery("select u from Fabricante u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
     }
 }
