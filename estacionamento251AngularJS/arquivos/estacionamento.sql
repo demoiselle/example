@@ -7348,7 +7348,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
-
+INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('1', 'ADMIN', 'admin@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '1');
+INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('2', 'FUNCIONARIO', 'funcionario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '2');
+INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('3', 'USUARIO', 'usuario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '4');
 --
 -- Estrutura para tabela `veiculo`
 --

@@ -35,7 +35,18 @@ public class FabricanteDAO extends JPACrud<Fabricante, Integer> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<User> list(String field, String order, int init, int qtde) {
+    public List<Fabricante> list(String field, String order, int init, int qtde) {
         return getEntityManager().createQuery("select u from Fabricante u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
     }
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public List<Fabricante> listaModelos(String fabricante) {
+        String jpql = "SELECT u FROM Fabricante u WHERE upper(u.make) like upper('%" + fabricante.replaceAll(" ", "%") + "%')";
+        return super.findByJPQL(jpql);
+    }
+
 }

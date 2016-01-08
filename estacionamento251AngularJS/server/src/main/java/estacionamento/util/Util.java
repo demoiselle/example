@@ -6,6 +6,9 @@
 package estacionamento.util;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -27,6 +30,21 @@ public class Util {
             }
         }
         return false;
+    }
+
+    /**
+     *
+     * @param texto
+     * @return
+     */
+    public static String MD5(String texto) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+        }
+        BigInteger hash = new BigInteger(1, md.digest(texto.getBytes()));
+        return hash.toString(16);
     }
 
     private Util() {

@@ -18,14 +18,15 @@ public class UserDAO extends JPACrud<User, Long> {
 
     /**
      *
+     * @param fone
      * @param cpf
      * @return
      */
-    public User loadByCPF(String cpf) {
-        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.cpf = :cpf";
+    public User loadByFone(String telephoneNumber) {
+        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.telephoneNumber = :telephoneNumber";
 
         TypedQuery<User> query = getEntityManager().createQuery(jpql, User.class);
-        query.setParameter("cpf", cpf);
+        query.setParameter("telephoneNumber", telephoneNumber);
 
         User result;
         try {
@@ -40,13 +41,24 @@ public class UserDAO extends JPACrud<User, Long> {
     /**
      *
      * @param cpf
+     * @param senha
      * @return
      */
-    public boolean existeCadastroParaCPF(String cpf) {
-        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.cpf = :cpf";
+    public User loadEmailPass(String email, String senha) {
+        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.email = :email and u.password = :senha";
+
         TypedQuery<User> query = getEntityManager().createQuery(jpql, User.class);
-        query.setParameter("cpf", cpf);
-        return !query.getResultList().isEmpty();
+        query.setParameter("email", email);
+        query.setParameter("senha", senha);
+
+        User result;
+        try {
+            result = query.getSingleResult();
+        } catch (NoResultException cause) {
+            result = null;
+        }
+
+        return result;
     }
 
     /**

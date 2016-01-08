@@ -1,16 +1,20 @@
 package estacionamento.service;
 
 import br.gov.frameworkdemoiselle.NotFoundException;
+import br.gov.frameworkdemoiselle.security.LoggedIn;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import estacionamento.business.FabricanteBC;
 import estacionamento.entity.Fabricante;
 import estacionamento.util.Util;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.Serializable;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -57,9 +61,6 @@ public class FabricanteREST implements Serializable {
                   notes = "Busca Fabricante, Modelo e Ano por ID",
                   response = Fabricante.class
     )
-    @ApiResponses(value = {
-        @ApiResponse(code = 400, message = "Fabricante inválido"),
-        @ApiResponse(code = 404, message = "Fabricante não existe")})
     public Response load(@PathParam("id") Integer id) throws NotFoundException {
         Fabricante result = bc.load(id);
 
@@ -83,8 +84,7 @@ public class FabricanteREST implements Serializable {
     @Path("list/{field}/{order}/{init}/{qtde}")
     @Transactional
     @ApiOperation(value = "Lista com paginação no servidor",
-                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros"
-    )
+                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros")
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
         if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Fabricante.class))) {
             return Response.ok().entity(bc.list(field, order, init, qtde)).build();
@@ -107,18 +107,22 @@ public class FabricanteREST implements Serializable {
         return Response.ok().entity(bc.count()).build();
     }
 
-//    /**
-//     *
-//     * @param temaId
-//     * @return
-//     */
-//    @GET
-//    @Path("ano/{ano}")
-//    @Transactional
-//    public Response listarPorAno(@NotNull @PathParam("ano") String temaId) {
-//        return bc.listarPorAno(temaId);
-//    }
-//
+    /**
+     *
+     * @param temaId
+     * @return
+     */
+    @GET
+    @Path("modelo/{fabricante}")
+    @Transactional
+    @LoggedIn
+    @ApiOperation(value = "A partir do fabricante lista os modelos por ano", response = Fabricante.class)
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "token", required = true, dataType = "string", paramType = "query", value = "API token")})
+    public Response listarModelos(@NotNull @PathParam("fabricante") String fabricante) {
+        return Response.ok().entity(bc.listaModelos(fabricante)).build();
+    }
+
 //    /**
 //     *
 //     * @param temaId

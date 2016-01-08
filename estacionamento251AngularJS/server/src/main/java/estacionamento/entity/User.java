@@ -24,16 +24,16 @@ public class User implements Principal, Serializable {
     private static final long serialVersionUID = 5625711959333905292L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
     @Size(min = 1)
     private String name;
-
     private String email;
-
     private String telephoneNumber;
+    private String password;
+    private Integer role;
 
     @Transient
     private String token;
@@ -131,5 +131,37 @@ public class User implements Principal, Serializable {
      */
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     *
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Integer getRole() {
+        return role;
+    }
+
+    /**
+     *
+     * @param role
+     */
+    public void setRole(Perfil Integer) {
+        this.role = role;
     }
 }

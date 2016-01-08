@@ -1,10 +1,14 @@
 package estacionamento.business;
 
 import br.gov.frameworkdemoiselle.annotation.Priority;
+import br.gov.frameworkdemoiselle.lifecycle.Startup;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
+import estacionamento.entity.Perfil;
 import estacionamento.entity.User;
 import estacionamento.persistence.UserDAO;
+import estacionamento.util.Util;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -17,9 +21,6 @@ public class UserBC extends DelegateCrud<User, Long, UserDAO> {
 
     private static final long serialVersionUID = -7801407214303725321L;
 
-    @Inject
-    private UserDAO userDAO;
-
     /**
      * Verifica se o usuario existe pelo CPF. Caso não exista persiste o
      * usuário.
@@ -28,27 +29,11 @@ public class UserBC extends DelegateCrud<User, Long, UserDAO> {
      * @return
      */
     public User carregarOuInserir(User user) {
-        User usuarioSistema = userDAO.loadByCPF(user.getTelephoneNumber());
+        User usuarioSistema = getDelegate().loadByFone(user.getTelephoneNumber());
         if (usuarioSistema == null) {
-            usuarioSistema = userDAO.insert(user);
+            usuarioSistema = getDelegate().insert(user);
         }
         return usuarioSistema;
-    }
-
-    //@Startup\
-    /**
-     *
-     * @return
-     */
-    @Priority(0)
-
-    public User iniciarUsuario() {
-        User admin = new User();
-        admin.setEmail("admin@catalogotecnologia.serpro");
-        admin.setName("ADMIN");
-        admin.setTelephoneNumber("");
-
-        return this.carregarOuInserir(admin);
     }
 
     /**
@@ -78,6 +63,16 @@ public class UserBC extends DelegateCrud<User, Long, UserDAO> {
      */
     public List<User> pesquisar(String name) {
         return getDelegate().pesquisar(name);
+    }
+
+    /**
+     *
+     * @param email
+     * @param senha
+     * @return
+     */
+    public User loadEmailPass(String email, String senha) {
+        return getDelegate().loadEmailPass(email, senha);
     }
 
 }

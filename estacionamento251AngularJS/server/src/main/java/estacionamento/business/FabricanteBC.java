@@ -35,8 +35,12 @@ public class FabricanteBC extends DelegateCrud<Fabricante, Integer, FabricanteDA
      * @param qtde
      * @return
      */
-    public List<User> list(String field, String order, int init, int qtde) {
+    public List<Fabricante> list(String field, String order, int init, int qtde) {
         return getDelegate().list(field, order, init, qtde);
+    }
+
+    public List<Fabricante> listaModelos(String fabricante) {
+        return getDelegate().listaModelos(fabricante);
     }
 
 }
