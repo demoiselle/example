@@ -6,8 +6,8 @@ app.controller('DashboardController', ['$q', '$scope', '$filter', 'DashboardServ
         $scope.tema = "";
         $scope.temas = [];
 
-        DashboardService.get().then(function (data) {
-            $scope.temas = data;
-        });
+//        DashboardService.get().then(function (data) {
+//            $scope.temas = data;
+//        });
 
     }]);

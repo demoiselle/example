@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.12.252.130:3306
--- Tempo de Geração: 07/01/2016 às 17:17
+-- Tempo de Geração: 08/01/2016 às 20:34
 -- Versão do servidor: 5.5.45
 -- Versão do PHP: 5.3.3
 
@@ -7344,13 +7344,22 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `telephoneNumber` varchar(20) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Fazendo dump de dados para tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES
+(1, 'ADMIN', 'admin@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(2, 'FUNCIONARIO', 'funcionario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', 2),
+(3, 'USUARIO', 'usuario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', 4);
 
 -- --------------------------------------------------------
-INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('1', 'ADMIN', 'admin@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '1');
-INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('2', 'FUNCIONARIO', 'funcionario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '2');
-INSERT INTO `usuario` (`id`, `name`, `email`, `telephoneNumber`, `password`, `role`) VALUES ('3', 'USUARIO', 'usuario@demoiselle.org', '99999999', 'e10adc3949ba59abbe56e057f20f883e', '4');
+
 --
 -- Estrutura para tabela `veiculo`
 --

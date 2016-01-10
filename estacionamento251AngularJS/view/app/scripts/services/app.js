@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('AppService', ['$window', '$rootScope', function($window, $rootScope) {
+app.factory('AppService', ['$window', '$rootScope', function ($window, $rootScope) {
 
         var tokenKey = "estacionamentoToken";
         var cssKey = "estacionamentoCss";
 
         var service = {};
 
-        service.getToken = function() {
+        service.getToken = function () {
 
             var token = $window.localStorage.getItem(tokenKey);
             if (token && token !== undefined && token !== null && token !== "null") {
@@ -22,29 +22,29 @@ app.factory('AppService', ['$window', '$rootScope', function($window, $rootScope
             return null;
         };
 
-        service.setToken = function(token) {
+        service.setToken = function (token) {
             $window.localStorage.setItem(tokenKey, token);
         };
 
-        service.getCss = function() {
+        service.getCss = function () {
             if ($rootScope.css === undefined || $rootScope.css === null || $rootScope.css === "null") {
                 var css = $window.localStorage.getItem(cssKey);
                 if (css && css !== undefined && css !== null && css !== "null" && cssInArray(css)) {
                     $rootScope.css = css;
                     return css;
                 } else {
-                    $window.localStorage.setItem(cssKey, 'material');
-                    $rootScope.css = 'material';
+                    $window.localStorage.setItem(cssKey, 'default');
+                    $rootScope.css = 'default';
                 }
             }
             return $rootScope.css;
         };
 
-        function cssInArray(css){
+        function cssInArray(css) {
             var cssInList = false;
 
-            angular.forEach($rootScope.bootstraps, function(value, key) {
-                if(value.url == css){
+            angular.forEach($rootScope.bootstraps, function (value, key) {
+                if (value.url === css) {
                     cssInList = true;
                 }
             });
@@ -52,16 +52,16 @@ app.factory('AppService', ['$window', '$rootScope', function($window, $rootScope
             return cssInList;
         }
 
-        service.setCss = function(css) {
+        service.setCss = function (css) {
             $window.localStorage.setItem(cssKey, css);
             $window.location.reload();
         };
 
-        service.removeToken = function() {
+        service.removeToken = function () {
             $window.localStorage.removeItem(tokenKey);
         };
 
-        service.getUserFromToken = function() {
+        service.getUserFromToken = function () {
             var token = $window.localStorage.getItem(tokenKey);
 
             var user = null;
@@ -95,14 +95,14 @@ app.factory('AppService', ['$window', '$rootScope', function($window, $rootScope
         return service;
     }]);
 
-app.service('Session', function() {
+app.service('Session', function () {
 
-    this.create = function(userId, userRole) {
+    this.create = function (userId, userRole) {
         this.userId = userId;
         this.userRole = userRole;
     };
 
-    this.destroy = function() {
+    this.destroy = function () {
         this.userId = null;
         this.userRole = null;
     };
