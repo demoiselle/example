@@ -8,18 +8,18 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
 
         $scope.count = function () {
             FabricanteService.count().then(
-                    function (data) {
-                        $scope.totalServerItems = data;
-                    },
-                    function (error) {
-                        var data = error[0];
-                        var status = error[1];
+                function (data) {
+                    $scope.totalServerItems = data;
+                },
+                function (error) {
+                    var data = error[0];
+                    var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('warning', data.message);
-                        }
-
+                    if (status === 401) {
+                        AlertService.addWithTimeout('warning', data.message);
                     }
+
+                }
             );
         };
 
@@ -38,18 +38,18 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
 
         if (path === '/fabricante/edit/' + id) {
             FabricanteService.get(id).then(
-                    function (data) {
-                        $scope.fabricante = data;
-                    },
-                    function (error) {
-                        var data = error[0];
-                        var status = error[1];
+                function (data) {
+                    $scope.fabricante = data;
+                },
+                function (error) {
+                    var data = error[0];
+                    var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('warning', data.message);
-                        }
-
+                    if (status === 401) {
+                        AlertService.addWithTimeout('warning', data.message);
                     }
+
+                }
 
             );
         }
@@ -58,18 +58,18 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
             $scope.fabricantes = [];
             var num = (($scope.currentPage - 1) * $scope.itemsPerPage);
             FabricanteService.list(num, $scope.itemsPerPage).then(
-                    function (data) {
-                        $scope.fabricantes = data;
-                    },
-                    function (error) {
-                        var data = error[0];
-                        var status = error[1];
+                function (data) {
+                    $scope.fabricantes = data;
+                },
+                function (error) {
+                    var data = error[0];
+                    var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('warning', data.message);
-                        }
-
+                    if (status === 401) {
+                        AlertService.addWithTimeout('warning', data.message);
                     }
+
+                }
             );
         };
 
@@ -82,44 +82,44 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
             $("[id$='-message']").text("");
 
             FabricanteService.save($scope.fabricante).then(
-                    function (data) {
-                        AlertService.addWithTimeout('success', 'Fabricante salvo com sucesso');
-                        $location.path('/fabricante');
-                    },
-                    function (error) {
+                function (data) {
+                    AlertService.addWithTimeout('success', 'Fabricante salvo com sucesso');
+                    $location.path('/fabricante');
+                },
+                function (error) {
 
-                        var data = error[0];
-                        var status = error[1];
+                    var data = error[0];
+                    var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('danger', 'Não foi possível executar a operação');
-                        } else if (status === 412) {
-                            $.each(data, function (i, violation) {
-                                $("#" + violation.property + "-message").text(violation.message);
-                            });
-                        }
-
+                    if (status === 401) {
+                        AlertService.addWithTimeout('danger', 'Não foi possível executar a operação');
+                    } else if (status === 412) {
+                        $.each(data, function (i, violation) {
+                            $("#" + violation.property + "-message").text(violation.message);
+                        });
                     }
+
+                }
             );
         };
 
         $scope.delete = function (id) {
             FabricanteService.delete(id).then(
-                    function (data) {
-                        AlertService.addWithTimeout('success', 'Fabricante removido com sucesso');
-                        $location.path('/fabricante');
-                        $scope.count();
-                        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-                    },
-                    function (error) {
-                        var data = error[0];
-                        var status = error[1];
+                function (data) {
+                    AlertService.addWithTimeout('success', 'Fabricante removido com sucesso');
+                    $location.path('/fabricante');
+                    $scope.count();
+                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+                },
+                function (error) {
+                    var data = error[0];
+                    var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('warning', data.message);
-                        }
-
+                    if (status === 401) {
+                        AlertService.addWithTimeout('warning', data.message);
                     }
+
+                }
             );
         };
 
@@ -174,17 +174,17 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
             setTimeout(function () {
                 var init = (page - 1) * pageSize;
                 FabricanteService.list(field, order, init, pageSize).then(
-                        function (data) {
-                            $scope.fabricantes = data;
-                        },
-                        function (error) {
-                            var data = error[0];
-                            var status = error[1];
+                    function (data) {
+                        $scope.fabricantes = data;
+                    },
+                    function (error) {
+                        var data = error[0];
+                        var status = error[1];
 
-                            if (status === 401) {
-                                AlertService.addWithTimeout('warning', data.message);
-                            }
+                        if (status === 401) {
+                            AlertService.addWithTimeout('warning', data.message);
                         }
+                    }
                 );
             }, 100);
         };
@@ -227,7 +227,7 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
                 {field: 'model', displayName: 'Modelo'},
                 {displayName: 'Ação', cellTemplate: '<a ng-show="!currentUser" ng-click="edit(row.entity.id)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>\n\
                                                  <a ng-show="currentUser" ng-click="edit(row.entity.id)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Alterar</a>\n\
-                                                 <a has-roles="USER_ROLES.CADASTRADOR, USER_ROLES.ADMINISTRADOR" confirm-button title="Excluir?" confirm-action="delete(row.entity.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Excluir</a>', width: "200"}],
+                                                 <a has-roles="ADMINISTRADOR" confirm-button title="Excluir?" confirm-action="delete(row.entity.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Excluir</a>', width: "200"}],
             selectedItems: [],
             keepLastSelected: true,
             sortInfo: $scope.sortInfo,
