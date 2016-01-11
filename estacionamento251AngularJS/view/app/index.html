@@ -70,25 +70,17 @@
             <div ui-linhabar></div>
         </nav>
 
-        <div  ng-if="currentUser" class="container-fluid">
+        <div  ng-if="currentUser" class="container-fluid" >
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li>
                             <a href="#dashboard"><i class="glyphicon glyphicon-stats"></i> Painel</a>
                         </li>
-                        <li>
-                            <a href="#fabricante">
-                                <i class="glyphicon glyphicon-list"></i> Controle
-                            </a> 
-                        </li>
-                        <li  has-roles="USER_ROLES.ADMINISTRADOR">
-                            <a href="#/">
-                                <i class="glyphicon glyphicon-edit"></i> Cadastros
-                            </a>
+                        <li  has-roles="ADMINISTRADOR" class="glyphicon glyphicon-edit" > Cadastros
                             <ul class="nav nav-second-level ">
-                                <li  has-roles="USER_ROLES.ADMINISTRADOR"><a href="#Fabricante">Fabricante</a></li>
-                                <li  has-roles="USER_ROLES.ADMINISTRADOR"><a href="#usuario">Usuário</a></li>
+                                <li ><a href="#fabricante">Fabricante</a></li>
+                                <li  has-roles="ADMINISTRADOR"><a href="#usuario">Usuário</a></li>
                             </ul>
                         </li>
                         <li>

@@ -74,6 +74,30 @@ var app = angular.module('estacionamento', [
                     }
                 })
 
+                .when('/usuario', {
+                    templateUrl: 'views/usuario/listar.html',
+                    controller: 'UsuarioController',
+                    data: {
+                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                    }
+                })
+
+                .when('/usuario/edit', {
+                    templateUrl: 'views/usuario/edit.html',
+                    controller: 'UsuarioController',
+                    data: {
+                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                    }
+                })
+
+                .when('/usuario/edit/:id', {
+                    templateUrl: 'views/usuario/edit.html',
+                    controller: 'UsuarioController',
+                    data: {
+                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                    }
+                })
+
                 .otherwise({
                     redirectTo: '/dashboard',
                     data: {
