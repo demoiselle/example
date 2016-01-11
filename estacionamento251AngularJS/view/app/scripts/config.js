@@ -1,5 +1,5 @@
 angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://localhost:9090/app/'})
+.constant('ENV', {name:'production',apiEndpoint:'http://estacionamento-pgxp.rhcloud.com/app/'})
 
 ;

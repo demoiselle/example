@@ -7,7 +7,6 @@ import br.gov.frameworkdemoiselle.security.SecurityContext;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.ValidatePayload;
-import estacionamento.cover.CredentialsData;
 import estacionamento.util.Util;
 import io.swagger.annotations.Api;
 import java.io.Serializable;
@@ -72,4 +71,23 @@ public class AuthREST implements Serializable {
         return Response.ok().build();
     }
 
+    /**
+     *
+     */
+    public static class CredentialsData {
+
+        /**
+         *
+         */
+        @NotNull(message = "{required.field}")
+        @Size(min = 1, message = "{required.field}")
+        public String username;
+
+        /**
+         *
+         */
+        @NotNull(message = "{required.field}")
+        @Size(min = 1, message = "{required.field}")
+        public String password;
+    }
 }
