@@ -1,12 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package estacionamento.service;
 
 import br.gov.frameworkdemoiselle.NotFoundException;
 import br.gov.frameworkdemoiselle.security.LoggedIn;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import estacionamento.business.FabricanteBC;
-import estacionamento.entity.Fabricante;
+import estacionamento.business.UserBC;
+import estacionamento.entity.User;
 import estacionamento.util.Util;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -38,15 +42,15 @@ import javax.ws.rs.core.Response;
                        @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
                    })
 })
-@Path("fabricante")
+@Path("user")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
-public class FabricanteREST implements Serializable {
+public class UserREST implements Serializable {
 
-    private static final Logger LOG = Logger.getLogger(FabricanteREST.class.getName());
+    private static final Logger LOG = Logger.getLogger(UserREST.class.getName());
 
     @Inject
-    private FabricanteBC dao;
+    private UserBC dao;
 
     /**
      *
@@ -63,10 +67,10 @@ public class FabricanteREST implements Serializable {
     @LoggedIn
     @ApiOperation(value = "Lista com paginação no servidor",
                   notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
-                  response = Fabricante.class
+                  response = User.class
     )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
-        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Fabricante.class))) {
+        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, User.class))) {
             return Response.ok().entity(dao.list(field, order, init, qtde)).build();
         }
         return Response.ok().entity(null).build();
@@ -98,7 +102,7 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove entidade",
-                  response = Fabricante.class,
+                  response = User.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -120,7 +124,7 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
-                  response = Fabricante.class,
+                  response = User.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -142,7 +146,8 @@ public class FabricanteREST implements Serializable {
      * @return The list of matched query results.
      */
     @GET
-    @ApiOperation(value = "Lista de todos os registros", response = Fabricante.class)
+    @ApiOperation(value = "Lista de todos os registros", response = User.class)
+    @LoggedIn
     public Response findAll() {
         return Response.ok().entity(dao.findAll()).build();
     }
@@ -156,7 +161,7 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Insere entidade no banco",
-                  response = Fabricante.class,
+                  response = User.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -164,7 +169,7 @@ public class FabricanteREST implements Serializable {
                                      })
                   }
     )
-    public Response insert(final Fabricante bean) {
+    public Response insert(final User bean) {
         return Response.ok().entity(dao.insert(bean)).build();
     }
 
@@ -178,7 +183,7 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Busca entidade a partir do ID",
-                  response = Fabricante.class,
+                  response = User.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -199,7 +204,7 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Atualiza a entidade",
-                  response = Fabricante.class,
+                  response = User.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -207,9 +212,8 @@ public class FabricanteREST implements Serializable {
                                      })
                   }
     )
-    public Response update(final Fabricante bean) {
+    public Response update(final User bean) {
         return Response.ok().entity(dao.update(bean)).build();
     }
 
 }
-

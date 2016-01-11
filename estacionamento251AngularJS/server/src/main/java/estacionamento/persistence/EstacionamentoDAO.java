@@ -7,17 +7,17 @@ package estacionamento.persistence;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
-import estacionamento.entity.Fabricante;
+import estacionamento.entity.Estacionamento;
 import java.util.List;
 
 /**
  *
- * @author gladson
+ * @author 70744416353
  */
 @PersistenceController
-public class FabricanteDAO extends JPACrud<Fabricante, Long> {
+public class EstacionamentoDAO extends JPACrud<Estacionamento, Long> {
 
-       /**
+    /**
      *
      * @return
      */
@@ -36,16 +36,6 @@ public class FabricanteDAO extends JPACrud<Fabricante, Long> {
     @SuppressWarnings("unchecked")
     public List list(String field, String order, int init, int qtde) {
         return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     */
-    public List<Fabricante> listaModelos(String fabricante) {
-        String jpql = "SELECT u FROM Fabricante u WHERE upper(u.make) like upper('%" + fabricante.replaceAll(" ", "%") + "%') order by model";
-        return super.findByJPQL(jpql);
     }
 
 }

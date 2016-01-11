@@ -164,4 +164,5 @@ public class User implements Principal, Serializable {
     public void setRole(Perfil Integer) {
         this.role = role;
     }
+
 }

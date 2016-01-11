@@ -66,7 +66,7 @@ public class UserDAO extends JPACrud<User, Long> {
      * @return
      */
     public Long count() {
-        return (Long) getEntityManager().createQuery("select COUNT(u) from User u").getSingleResult();
+        return (Long) getEntityManager().createQuery("select COUNT(u) from " + this.getBeanClass().getSimpleName() + " u").getSingleResult();
     }
 
     /**
@@ -78,8 +78,8 @@ public class UserDAO extends JPACrud<User, Long> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<User> list(String field, String order, int init, int qtde) {
-        return getEntityManager().createQuery("select u from User u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
+    public List list(String field, String order, int init, int qtde) {
+        return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
     }
 
     /**
@@ -88,7 +88,7 @@ public class UserDAO extends JPACrud<User, Long> {
      * @return
      */
     public List<User> pesquisar(String name) {
-        String jpql = "SELECT u FROM User u WHERE upper(u.name) like upper('%" + name.replaceAll(" ", "%") + "%')";
+        String jpql = "SELECT u FROM " + this.getBeanClass().getSimpleName() + " u WHERE upper(u.name) like upper('%" + name.replaceAll(" ", "%") + "%')";
         return super.findByJPQL(jpql);
     }
 

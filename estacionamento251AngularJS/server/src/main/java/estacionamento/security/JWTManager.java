@@ -3,6 +3,8 @@ package estacionamento.security;
 import br.gov.frameworkdemoiselle.util.Beans;
 import com.google.gson.Gson;
 import estacionamento.AppConfig;
+import estacionamento.cover.UserCover;
+import estacionamento.entity.Perfil;
 import estacionamento.entity.User;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -25,11 +27,11 @@ import org.jose4j.lang.JoseException;
  */
 @RequestScoped
 public class JWTManager implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     private final AppConfig appConfig = Beans.getReference(AppConfig.class);
-
+    
     private final RsaJsonWebKey rsaJsonWebKey;
 
     /**
@@ -61,9 +63,9 @@ public class JWTManager implements Serializable {
             claims.setGeneratedJwtId();
             claims.setIssuedAtToNow();
             claims.setNotBeforeMinutesInThePast(1);
-
-            claims.setClaim("user", new Gson().toJson(user));
-
+            
+            claims.setClaim("user", new Gson().toJson(new UserCover(user)));
+            
             JsonWebSignature jws = new JsonWebSignature();
             jws.setPayload(claims.toJson());
             jws.setKey(rsaJsonWebKey.getPrivateKey());
@@ -81,20 +83,20 @@ public class JWTManager implements Serializable {
      * @param jwt
      * @return
      */
-    public User hasToken(String jwt) {
-        User usuario = null;
+    public UserCover hasToken(String jwt) {
+        UserCover usuario = null;
         if (jwt != null && !jwt.isEmpty()) {
             JwtConsumer jwtConsumer = new JwtConsumerBuilder()
-                .setRequireExpirationTime() // the JWT must have an expiration time
-                .setAllowedClockSkewInSeconds(60) // allow some leeway in validating time based claims to account for clock skew
-                .setExpectedIssuer(appConfig.getRemetente()) // whom the JWT needs to have been issued by
-                .setExpectedAudience(appConfig.getDestinatario()) // to whom the JWT is intended for
-                .setVerificationKey(rsaJsonWebKey.getKey()) // verify the signature with the public key
-                .build(); // create the JwtConsumer instance
+                    .setRequireExpirationTime() // the JWT must have an expiration time
+                    .setAllowedClockSkewInSeconds(60) // allow some leeway in validating time based claims to account for clock skew
+                    .setExpectedIssuer(appConfig.getRemetente()) // whom the JWT needs to have been issued by
+                    .setExpectedAudience(appConfig.getDestinatario()) // to whom the JWT is intended for
+                    .setVerificationKey(rsaJsonWebKey.getKey()) // verify the signature with the public key
+                    .build(); // create the JwtConsumer instance
 
             try {
                 JwtClaims jwtClaims = jwtConsumer.processToClaims(jwt);
-                usuario = new Gson().fromJson((String) jwtClaims.getClaimValue("user"), User.class);
+                usuario = new Gson().fromJson((String) jwtClaims.getClaimValue("user"), UserCover.class);
 
                 //String ip = httpRequest.getRemoteAddr();
                 //if (!ip.equals(usuario.getIp())) {

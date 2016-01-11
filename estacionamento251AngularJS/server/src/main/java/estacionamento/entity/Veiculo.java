@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Veiculo.findAll", query = "SELECT v FROM Veiculo v"),
     @NamedQuery(name = "Veiculo.findById", query = "SELECT v FROM Veiculo v WHERE v.id = :id"),
-    @NamedQuery(name = "Veiculo.findByVeiculo", query = "SELECT v FROM Veiculo v WHERE v.veiculo = :veiculo"),
     @NamedQuery(name = "Veiculo.findByPlaca", query = "SELECT v FROM Veiculo v WHERE v.placa = :placa"),
     @NamedQuery(name = "Veiculo.findByProprietario", query = "SELECT v FROM Veiculo v WHERE v.proprietario = :proprietario"),
     @NamedQuery(name = "Veiculo.findByEmail", query = "SELECT v FROM Veiculo v WHERE v.email = :email"),
@@ -43,10 +42,7 @@ public class Veiculo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer id;
-
-    @ManyToOne
-    private Veiculo veiculo;
+    private Long id;
 
     @Size(max = 10)
     @Column(length = 10)
@@ -72,7 +68,7 @@ public class Veiculo implements Serializable {
      *
      * @param id
      */
-    public Veiculo(Integer id) {
+    public Veiculo(Long id) {
         this.id = id;
     }
 
@@ -80,7 +76,7 @@ public class Veiculo implements Serializable {
      *
      * @return
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -88,7 +84,7 @@ public class Veiculo implements Serializable {
      *
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -154,22 +150,6 @@ public class Veiculo implements Serializable {
      */
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    /**
-     *
-     * @param veiculo
-     */
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
     }
 
     @Override

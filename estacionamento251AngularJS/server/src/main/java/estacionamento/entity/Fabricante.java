@@ -43,7 +43,7 @@ public class Fabricante implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
@@ -69,7 +69,7 @@ public class Fabricante implements Serializable {
      *
      * @param id
      */
-    public Fabricante(Integer id) {
+    public Fabricante(Long id) {
         this.id = id;
     }
 
@@ -80,7 +80,7 @@ public class Fabricante implements Serializable {
      * @param make
      * @param model
      */
-    public Fabricante(Integer id, int year, String make, String model) {
+    public Fabricante(Long id, int year, String make, String model) {
         this.id = id;
         this.year = year;
         this.make = make;
@@ -91,7 +91,7 @@ public class Fabricante implements Serializable {
      *
      * @return
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -99,7 +99,7 @@ public class Fabricante implements Serializable {
      *
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

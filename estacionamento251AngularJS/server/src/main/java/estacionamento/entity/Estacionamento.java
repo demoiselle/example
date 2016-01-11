@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -32,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Estacionamento.findAll", query = "SELECT e FROM Estacionamento e"),
     @NamedQuery(name = "Estacionamento.findById", query = "SELECT e FROM Estacionamento e WHERE e.id = :id"),
-    @NamedQuery(name = "Estacionamento.findByVeiculoId", query = "SELECT e FROM Estacionamento e WHERE e.veiculoId = :veiculoId"),
+    @NamedQuery(name = "Estacionamento.findByVeiculo", query = "SELECT e FROM Estacionamento e WHERE e.veiculo = :veiculo"),
     @NamedQuery(name = "Estacionamento.findByEntrada", query = "SELECT e FROM Estacionamento e WHERE e.entrada = :entrada"),
     @NamedQuery(name = "Estacionamento.findBySaida", query = "SELECT e FROM Estacionamento e WHERE e.saida = :saida"),
     @NamedQuery(name = "Estacionamento.findByValor", query = "SELECT e FROM Estacionamento e WHERE e.valor = :valor"),
@@ -46,8 +47,8 @@ public class Estacionamento implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Long id;
-    @Column(name = "veiculo_id")
-    private BigInteger veiculoId;
+    @ManyToOne
+    private Veiculo veiculo;
     @Temporal(TemporalType.TIMESTAMP)
     private Date entrada;
     @Temporal(TemporalType.TIMESTAMP)
@@ -88,20 +89,12 @@ public class Estacionamento implements Serializable {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     */
-    public BigInteger getVeiculoId() {
-        return veiculoId;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    /**
-     *
-     * @param veiculoId
-     */
-    public void setVeiculoId(BigInteger veiculoId) {
-        this.veiculoId = veiculoId;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
     /**

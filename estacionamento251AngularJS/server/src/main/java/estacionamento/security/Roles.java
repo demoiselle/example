@@ -11,44 +11,8 @@ public interface Roles {
      */
     String ADMINISTRADOR = "ADMINISTRADOR";
 
-    /**
-     *
-     */
-    String ANALISE = "ANALISE";
+    String FUNCIONARIO = "FUNCIONARIO";
 
-    /**
-     *
-     */
-    String LEGADO = "LEGADO";
-
-    /**
-     *
-     */
-    String PROSPECCAO = "PROSPECCAO";
-
-    /**
-     *
-     */
-    String INTERNALIZACAO = "INTERNALIZACAO";
-
-    /**
-     *
-     */
-    String SUSTENTACAO = "SUSTENTACAO";
-
-    /**
-     *
-     */
-    String DECLINIO = "DECLINIO";
-
-    /**
-     *
-     */
-    String CADASTRADOR = "CADASTRADOR";
-
-    /**
-     *
-     */
-    String CONSULTOR = "CONSULTOR";
+    String USUARIO = "USUARIO";
 
 }
