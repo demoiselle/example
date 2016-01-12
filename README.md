@@ -4,7 +4,6 @@ Repositório para códigos de aplicações de exemplo do Framework Demoiselle e 
 
 http://demoiselle.github.io/example/
 
-http://estacionamento-pgxp.rhcloud.com/app/#/
+http://estacionamento-pgxp.rhcloud.com/
 
-http://estacionamento-pgxp.rhcloud.com/app/swagger.html
 
