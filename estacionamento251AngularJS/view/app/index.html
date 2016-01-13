@@ -11,6 +11,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/morrisjs/morris.css" />
         <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css" />
+        <link rel="stylesheet" href="bower_components/angular-swagger-ui/dist/css/swagger-ui.min.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <link rel="stylesheet" href="layouts/{{css}}.css">
@@ -70,7 +71,7 @@
             <div ui-linhabar></div>
         </nav>
 
-        <div  ng-if="currentUser" class="container-fluid" >
+        <div  ng-if="currentUser" class="container-fluid" ng-cloak>
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
@@ -88,6 +89,7 @@
                                 <i class="glyphicon glyphicon-stats"></i> Análise e Relatórios
                             </a>
                         </li>
+                        <li><a href="#swagger"><i class='fa fa-cogs fa-spin'></i> <span>Api</span></a></li>
                     </ul>
                 </div>
 
@@ -96,7 +98,7 @@
                 <alerts></alerts>
             </div>
         </div>
-        <div  ng-if="!currentUser" class="container-fluid">
+        <div  ng-if="!currentUser" class="container-fluid" ng-cloak>
             <div  ng-include src="'views/login.html'" ></div>
         </div>
 
@@ -145,6 +147,7 @@
         <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
         <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.js"></script>
         <script src="bower_components/ng-grid/build/ng-grid.js"></script>
+        <script src="bower_components/angular-swagger-ui/dist/scripts/swagger-ui.min.js"></script>
         <script src="bower_components/d3/d3.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
@@ -172,6 +175,7 @@
         <script src="scripts/controllers/auth.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/fabricante.js"></script>
+        <script src="scripts/controllers/swagger.js"></script>
         <script src="scripts/controllers/usuario.js"></script>
         <!-- endbuild -->
 

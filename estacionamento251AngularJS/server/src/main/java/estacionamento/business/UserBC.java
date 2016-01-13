@@ -1,16 +1,10 @@
 package estacionamento.business;
 
-import br.gov.frameworkdemoiselle.annotation.Priority;
-import br.gov.frameworkdemoiselle.lifecycle.Startup;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
-import br.gov.frameworkdemoiselle.transaction.Transactional;
-import estacionamento.entity.Perfil;
 import estacionamento.entity.User;
 import estacionamento.persistence.UserDAO;
-import estacionamento.util.Util;
 import java.util.List;
-import javax.inject.Inject;
 
 /**
  *
@@ -20,21 +14,6 @@ import javax.inject.Inject;
 public class UserBC extends DelegateCrud<User, Long, UserDAO> {
 
     private static final long serialVersionUID = -7801407214303725321L;
-
-    /**
-     * Verifica se o usuario existe pelo CPF. Caso não exista persiste o
-     * usuário.
-     *
-     * @param user
-     * @return
-     */
-    public User carregarOuInserir(User user) {
-        User usuarioSistema = getDelegate().loadByFone(user.getTelephoneNumber());
-        if (usuarioSistema == null) {
-            usuarioSistema = getDelegate().insert(user);
-        }
-        return usuarioSistema;
-    }
 
     /**
      *

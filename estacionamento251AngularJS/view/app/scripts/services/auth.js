@@ -14,7 +14,7 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope',
                 .success(function (res, status, headers) {
 
                     AppService.setToken(headers('Set-Token'));
-
+                    $rootScope.currentUser = AppService.getUserFromToken();
                     return res;
                 }
                 );
@@ -28,22 +28,6 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope',
         authService.getCss = function () {
             return AppService.getCss();
         };
-
-//        function getRoles(grupos) {
-//            var roles = [];
-//
-//            if (grupos) {
-//                for (var i = 0; i < grupos.length; i++) {
-//                    for (var j = 0; j < grupos[i].perfis.length; j++) {
-//                        if (roles.indexOf(grupos[i].perfis[j]) == -1) {
-//                            roles.push(grupos[i].perfis[j]);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            return roles;
-//        }
 
         authService.logout = function () {
 

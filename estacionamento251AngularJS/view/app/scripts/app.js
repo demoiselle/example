@@ -13,97 +13,105 @@ var app = angular.module('estacionamento', [
     'angularFileUpload',
     'angulartics',
     'angulartics.piwik',
+    'swaggerUi',
     'config'
 ]).config(['$routeProvider', 'USER_ROLES', function ($routeProvider, USER_ROLES) {
 
         $routeProvider
 
-                .when('/', {
-                    templateUrl: 'views/dashboard/dashboard.html',
-                    controller: 'DashboardController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/', {
+                templateUrl: 'views/dashboard/dashboard.html',
+                controller: 'DashboardController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
-                .when('/login', {
-                    templateUrl: 'views/login.html',
-                    controller: 'AuthController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'AuthController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
-                .when('/dashboard', {
-                    templateUrl: 'views/dashboard/dashboard.html',
-                    controller: 'DashboardController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/dashboard', {
+                templateUrl: 'views/dashboard/dashboard.html',
+                controller: 'DashboardController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
-                .when('/403', {
-                    templateUrl: 'views/403.html',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/403', {
+                templateUrl: 'views/403.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
 
-                .when('/fabricante', {
-                    templateUrl: 'views/fabricante/listar.html',
-                    controller: 'FabricanteController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/fabricante', {
+                templateUrl: 'views/fabricante/listar.html',
+                controller: 'FabricanteController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
-                .when('/fabricante/edit', {
-                    templateUrl: 'views/fabricante/edit.html',
-                    controller: 'FabricanteController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
-                    }
-                })
+            .when('/fabricante/edit', {
+                templateUrl: 'views/fabricante/edit.html',
+                controller: 'FabricanteController',
+                data: {
+                    authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                }
+            })
 
-                .when('/fabricante/edit/:id', {
-                    templateUrl: 'views/fabricante/edit.html',
-                    controller: 'FabricanteController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
+            .when('/fabricante/edit/:id', {
+                templateUrl: 'views/fabricante/edit.html',
+                controller: 'FabricanteController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
 
-                .when('/usuario', {
-                    templateUrl: 'views/usuario/listar.html',
-                    controller: 'UsuarioController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
-                    }
-                })
+            .when('/usuario', {
+                templateUrl: 'views/usuario/listar.html',
+                controller: 'UsuarioController',
+                data: {
+                    authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                }
+            })
 
-                .when('/usuario/edit', {
-                    templateUrl: 'views/usuario/edit.html',
-                    controller: 'UsuarioController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
-                    }
-                })
+            .when('/usuario/edit', {
+                templateUrl: 'views/usuario/edit.html',
+                controller: 'UsuarioController',
+                data: {
+                    authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                }
+            })
 
-                .when('/usuario/edit/:id', {
-                    templateUrl: 'views/usuario/edit.html',
-                    controller: 'UsuarioController',
-                    data: {
-                        authorizedRoles: [USER_ROLES.ADMINISTRADOR]
-                    }
-                })
+            .when('/usuario/edit/:id', {
+                templateUrl: 'views/usuario/edit.html',
+                controller: 'UsuarioController',
+                data: {
+                    authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                }
+            })
 
-                .otherwise({
-                    redirectTo: '/dashboard',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                });
+            .when('/swagger', {
+                templateUrl: 'views/swagger.html',
+                controller: 'SwaggerController',
+                data: {authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
+
+            .otherwise({
+                redirectTo: '/dashboard',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            });
 
 
     }]);

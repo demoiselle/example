@@ -3,6 +3,7 @@ package estacionamento.entity;
 import java.io.Serializable;
 import java.security.Principal;
 import javax.enterprise.context.RequestScoped;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,11 +30,12 @@ public class User implements Principal, Serializable {
 
     @NotNull
     @Size(min = 1)
+    @Column(name = "nome")
     private String name;
     private String email;
-    private String telephoneNumber;
-    private String password;
-    private Integer role;
+    private String fone;
+    private String senha;
+    private String perfil;
 
     @Transient
     private String token;
@@ -85,20 +87,12 @@ public class User implements Principal, Serializable {
         this.email = email;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getTelephoneNumber() {
-        return telephoneNumber;
+    public String getFone() {
+        return fone;
     }
 
-    /**
-     *
-     * @param telephoneNumber
-     */
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setFone(String fone) {
+        this.fone = fone;
     }
 
     /**
@@ -133,36 +127,20 @@ public class User implements Principal, Serializable {
         this.ip = ip;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    /**
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Integer getRole() {
-        return role;
+    public String getPerfil() {
+        return perfil.toUpperCase();
     }
 
-    /**
-     *
-     * @param role
-     */
-    public void setRole(Perfil Integer) {
-        this.role = role;
+    public void setPerfil(String perfil) {
+        this.perfil = perfil.toUpperCase();
     }
 
 }

@@ -5,7 +5,6 @@
  */
 package estacionamento.cover;
 
-import estacionamento.entity.Perfil;
 import estacionamento.entity.User;
 
 /**
@@ -21,7 +20,7 @@ public class UserCover {
     public UserCover(User user) {
         this.id = user.getId();
         this.nome = user.getName();
-        this.perfil = Perfil.getPerfil(user.getRole()).name();;
+        this.perfil = user.getPerfil();
     }
 
     public Long getId() {

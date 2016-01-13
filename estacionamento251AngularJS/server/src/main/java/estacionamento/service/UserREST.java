@@ -7,9 +7,11 @@ package estacionamento.service;
 
 import br.gov.frameworkdemoiselle.NotFoundException;
 import br.gov.frameworkdemoiselle.security.LoggedIn;
+import br.gov.frameworkdemoiselle.security.RequiredRole;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import estacionamento.business.UserBC;
 import estacionamento.entity.User;
+import estacionamento.security.Roles;
 import estacionamento.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,6 +67,7 @@ public class UserREST implements Serializable {
     @Path("list/{field}/{order}/{init}/{qtde}")
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Lista com paginação no servidor",
                   notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
                   response = User.class
@@ -84,6 +87,7 @@ public class UserREST implements Serializable {
     @Path("count")
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Quantidade de registro",
                   notes = "Usado para trabalhar as tabelas com paginação no servidor",
                   response = Integer.class
@@ -101,6 +105,7 @@ public class UserREST implements Serializable {
     @Path("{id}")
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Remove entidade",
                   response = User.class,
                   authorizations = {
@@ -123,6 +128,7 @@ public class UserREST implements Serializable {
     @Path("{ids}")
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
                   response = User.class,
                   authorizations = {
@@ -148,6 +154,7 @@ public class UserREST implements Serializable {
     @GET
     @ApiOperation(value = "Lista de todos os registros", response = User.class)
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     public Response findAll() {
         return Response.ok().entity(dao.findAll()).build();
     }
@@ -160,6 +167,7 @@ public class UserREST implements Serializable {
     @POST
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Insere entidade no banco",
                   response = User.class,
                   authorizations = {
@@ -182,6 +190,7 @@ public class UserREST implements Serializable {
     @Path("{id}")
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Busca entidade a partir do ID",
                   response = User.class,
                   authorizations = {
@@ -203,6 +212,7 @@ public class UserREST implements Serializable {
     @PUT
     @Transactional
     @LoggedIn
+    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Atualiza a entidade",
                   response = User.class,
                   authorizations = {

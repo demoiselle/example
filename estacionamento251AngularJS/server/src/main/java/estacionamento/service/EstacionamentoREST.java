@@ -7,10 +7,12 @@ package estacionamento.service;
 
 import br.gov.frameworkdemoiselle.NotFoundException;
 import br.gov.frameworkdemoiselle.security.LoggedIn;
+import br.gov.frameworkdemoiselle.security.RequiredRole;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import estacionamento.business.EstacionamentoBC;
 import estacionamento.entity.Estacionamento;
 import estacionamento.entity.Fabricante;
+import estacionamento.security.Roles;
 import estacionamento.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -133,6 +135,7 @@ public class EstacionamentoREST implements Serializable {
                                      })
                   }
     )
+
     public void delete(@PathParam("ids") final List<Long> ids) {
         ListIterator<Long> iter = ids.listIterator();
 

@@ -37,10 +37,10 @@ import javax.ws.rs.core.Response;
  */
 @Api(authorizations = {
     @Authorization(value = "JWT",
-                   scopes = {
-                       @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
-                       @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
-                   })
+            scopes = {
+                @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
+                @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
+            })
 })
 @Path("veiculo")
 @Produces(APPLICATION_JSON)
@@ -66,8 +66,8 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Lista com paginação no servidor",
-                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
-                  response = Veiculo.class
+            notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
+            response = Veiculo.class
     )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
         if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Veiculo.class))) {
@@ -85,8 +85,8 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Quantidade de registro",
-                  notes = "Usado para trabalhar as tabelas com paginação no servidor",
-                  response = Integer.class
+            notes = "Usado para trabalhar as tabelas com paginação no servidor",
+            response = Integer.class
     )
     public Response count() throws NotFoundException {
         return Response.ok().entity(dao.count()).build();
@@ -102,13 +102,13 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove entidade",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Veiculo.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public void delete(@PathParam("id") final Long id) {
         dao.delete(id);
@@ -124,13 +124,13 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Veiculo.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public void delete(@PathParam("ids") final List<Long> ids) {
         ListIterator<Long> iter = ids.listIterator();
@@ -160,13 +160,13 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Insere entidade no banco",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Veiculo.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response insert(final Veiculo bean) {
         return Response.ok().entity(dao.insert(bean)).build();
@@ -182,13 +182,13 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Busca entidade a partir do ID",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Veiculo.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response load(@PathParam("id") final Long id) {
         return Response.ok().entity(dao.load(id)).build();
@@ -203,13 +203,13 @@ public class VeiculoREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Atualiza a entidade",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Veiculo.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response update(final Veiculo bean) {
         return Response.ok().entity(dao.update(bean)).build();

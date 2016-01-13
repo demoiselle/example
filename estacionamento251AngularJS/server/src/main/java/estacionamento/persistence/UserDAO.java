@@ -45,7 +45,7 @@ public class UserDAO extends JPACrud<User, Long> {
      * @return
      */
     public User loadEmailPass(String email, String senha) {
-        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.email = :email and u.password = :senha";
+        String jpql = "SELECT u from " + this.getBeanClass().getSimpleName() + " u where u.email = :email and u.senha = :senha";
 
         TypedQuery<User> query = getEntityManager().createQuery(jpql, User.class);
         query.setParameter("email", email);
