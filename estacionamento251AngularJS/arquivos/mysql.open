@@ -1,12 +1,10 @@
-MySQL 5.5 database added.  Please make note of these credentials:
-
-       Root User: adminrtKzrPb
-   Root Password: leSlSwDLW2V8
-   Database Name: estacionamento
+Database: estacionamento User: adminttxXauF Password: hn5GKMK1NevN
 
 Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
 
-You can manage your new MySQL database by also embedding phpmyadmin.
-The phpmyadmin username and password will be the same as the MySQL credentials above.
 
-https://estacionamento-pgxp.rhcloud.com/phpmyadmin/
+https://estacionamento-fwkdemoiselle.rhcloud.com/phpmyadmin/
+
+56958d7d2d5271d51f0001a2@estacionamento-fwkdemoiselle.rhcloud.com
+5696903d7628e1f378000192@mirror1-fwkdemoiselle.rhcloud.com
+5696913489f5cf3f8200013f@mirror2-fwkdemoiselle.rhcloud.com
