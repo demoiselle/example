@@ -19,7 +19,7 @@ public class RESTApp extends Application {
     public RESTApp() {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.0");
-        beanConfig.setBasePath("/api");
+        beanConfig.setBasePath("/app/api");
         beanConfig.setResourcePackage("estacionamento.service");
         Info info = new Info();
         info.setDescription("Sistema de exemplo do Demoiselle 2.5 com AngularJS");
