@@ -7366,7 +7366,6 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `fone`, `senha`, `perfil`) VALUES
 
 CREATE TABLE IF NOT EXISTS `veiculo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `veiculo_id` int(11) DEFAULT NULL,
   `placa` varchar(10) DEFAULT NULL,
   `proprietario` varchar(60) DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
