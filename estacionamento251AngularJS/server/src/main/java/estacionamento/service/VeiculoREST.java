@@ -7,11 +7,9 @@ package estacionamento.service;
 
 import br.gov.frameworkdemoiselle.NotFoundException;
 import br.gov.frameworkdemoiselle.security.LoggedIn;
-import br.gov.frameworkdemoiselle.security.RequiredRole;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import estacionamento.business.UserBC;
-import estacionamento.entity.User;
-import estacionamento.security.Roles;
+import estacionamento.business.VeiculoBC;
+import estacionamento.entity.Veiculo;
 import estacionamento.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,22 +35,26 @@ import javax.ws.rs.core.Response;
  *
  * @author 70744416353
  */
-@Api(value = "user", authorizations = {
+/**
+ *
+ * @author 70744416353
+ */
+@Api(value = "veiculo", authorizations = {
     @Authorization(value = "JWT",
                    scopes = {
                        @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
                        @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
                    })
 })
-@Path("user")
+@Path("veiculo")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
-public class UserREST implements Serializable {
+public class VeiculoREST implements Serializable {
 
-    private static final Logger LOG = Logger.getLogger(UserREST.class.getName());
+    private static final Logger LOG = Logger.getLogger(VeiculoREST.class.getName());
 
     @Inject
-    private UserBC dao;
+    private VeiculoBC dao;
 
     /**
      *
@@ -67,13 +69,12 @@ public class UserREST implements Serializable {
     @Path("list/{field}/{order}/{init}/{qtde}")
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Lista com paginação no servidor",
                   notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
-                  response = User.class
+                  response = Veiculo.class
     )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
-        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, User.class))) {
+        if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Veiculo.class))) {
             return Response.ok().entity(dao.list(field, order, init, qtde)).build();
         }
         return Response.ok().entity(null).build();
@@ -87,7 +88,6 @@ public class UserREST implements Serializable {
     @Path("count")
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Quantidade de registro",
                   notes = "Usado para trabalhar as tabelas com paginação no servidor",
                   response = Integer.class
@@ -105,9 +105,8 @@ public class UserREST implements Serializable {
     @Path("{id}")
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Remove entidade",
-                  response = User.class,
+                  response = Veiculo.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -128,9 +127,8 @@ public class UserREST implements Serializable {
     @Path("{ids}")
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
-                  response = User.class,
+                  response = Veiculo.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -152,9 +150,7 @@ public class UserREST implements Serializable {
      * @return The list of matched query results.
      */
     @GET
-    @ApiOperation(value = "Lista de todos os registros", response = User.class)
-    @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
+    @ApiOperation(value = "Lista de todos os registros", response = Veiculo.class)
     public Response findAll() {
         return Response.ok().entity(dao.findAll()).build();
     }
@@ -167,9 +163,8 @@ public class UserREST implements Serializable {
     @POST
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Insere entidade no banco",
-                  response = User.class,
+                  response = Veiculo.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -177,7 +172,7 @@ public class UserREST implements Serializable {
                                      })
                   }
     )
-    public Response insert(final User bean) {
+    public Response insert(final Veiculo bean) {
         return Response.ok().entity(dao.insert(bean)).build();
     }
 
@@ -190,9 +185,8 @@ public class UserREST implements Serializable {
     @Path("{id}")
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Busca entidade a partir do ID",
-                  response = User.class,
+                  response = Veiculo.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -212,9 +206,8 @@ public class UserREST implements Serializable {
     @PUT
     @Transactional
     @LoggedIn
-    @RequiredRole({Roles.ADMINISTRADOR})
     @ApiOperation(value = "Atualiza a entidade",
-                  response = User.class,
+                  response = Veiculo.class,
                   authorizations = {
                       @Authorization(value = "JWT",
                                      scopes = {
@@ -222,7 +215,7 @@ public class UserREST implements Serializable {
                                      })
                   }
     )
-    public Response update(final User bean) {
+    public Response update(final Veiculo bean) {
         return Response.ok().entity(dao.update(bean)).build();
     }
 

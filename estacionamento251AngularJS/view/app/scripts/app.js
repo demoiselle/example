@@ -69,7 +69,31 @@ var app = angular.module('estacionamento', [
 
             .when('/fabricante/edit/:id', {
                 templateUrl: 'views/fabricante/edit.html',
-                controller: 'FabricanteController',
+                controller: 'VeiculoController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
+
+             .when('/veiculo', {
+                templateUrl: 'views/veiculo/listar.html',
+                controller: 'VeiculoController',
+                data: {
+                    authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                }
+            })
+
+            .when('/veiculo/edit', {
+                templateUrl: 'views/veiculo/edit.html',
+                controller: 'VeiculoController',
+                data: {
+                    authorizedRoles: [USER_ROLES.ADMINISTRADOR]
+                }
+            })
+
+            .when('/veiculo/edit/:id', {
+                templateUrl: 'views/veiculo/edit.html',
+                controller: 'VeiculoController',
                 data: {
                     authorizedRoles: [USER_ROLES.NOT_LOGGED]
                 }

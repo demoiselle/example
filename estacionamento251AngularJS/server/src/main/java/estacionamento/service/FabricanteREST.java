@@ -31,7 +31,7 @@ import javax.ws.rs.core.Response;
  *
  * @author 70744416353
  */
-@Api(authorizations = {
+@Api(value = "fabricante", authorizations = {
     @Authorization(value = "JWT",
                    scopes = {
                        @AuthorizationScope(scope = "read:events", description = "Ler entidades"),

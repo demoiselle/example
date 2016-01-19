@@ -1,0 +1,62 @@
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="#dashboard"><i class="fa fa-dashboard"></i> Início</a></li>
+        <li class="active">Veiculo</li>
+    </ol>
+</section>
+<div>
+    <a class="btn btn-primary pull-right" back-button>
+        <i class="glyphicon glyphicon-arrow-left"></i> Voltar
+    </a>
+</div>
+<div class="painel painel-default" has-roles-disable="ADMINISTRADOR">
+    <form name="formFornecedor" role="form">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <input class="form-control" disabled=disabled type="text" id="id" ng-model="veiculo.id">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="nome">Placa:<font color="#FF0000"> *</font></label>
+                        <input type="text" class="form-control" id="nome" ng-model="veiculo.placa"	required>
+                        <span id="nome-message" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="nome">Proprietário:<font color="#FF0000"> *</font></label>
+                        <input type="text" class="form-control" id="nome" ng-model="veiculo.proprietario"	required>
+                        <span id="nome-message" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="nome">Email:<font color="#FF0000"> *</font></label>
+                        <input type="text" class="form-control" id="nome" ng-model="veiculo.email"	required>
+                        <span id="nome-message" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div has-roles="ADMINISTRADOR">
+            <button class="btn btn-primary" ng-click="save()">
+                <i class="glyphicon glyphicon-ok-sign"> </i> Salvar
+            </button>
+            <a class="btn btn-primary pull-right" back-button><i
+                    class="glyphicon glyphicon-arrow-left"></i> Voltar</a>
+        </div>
+
+    </form>
+
+</div>
+<div ng-show="!currentUser">
+    <a class="btn btn-primary pull-right" back-button>
+        <i class="glyphicon glyphicon-arrow-left"></i> Voltar
+    </a>
+</div>
