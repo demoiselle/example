@@ -5,6 +5,8 @@
  */
 package estacionamento.socket;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -18,6 +20,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/websocket/echo")
 public class Echo {
+    private static final Logger LOG = Logger.getLogger(Echo.class.getName());
 
     @OnMessage
     public String sayHello(String name) {
@@ -26,12 +29,12 @@ public class Echo {
 
     @OnOpen
     public void helloOnOpen(Session session) {
-        System.out.println("WebSocket opened: " + session.getId());
+        LOG.log(Level.INFO, "WebSocket opened: {0}", session.getId());
     }
 
     @OnClose
     public void helloOnClose(CloseReason reason) {
-        System.out.println("Closing a WebSocket due to " + reason.getReasonPhrase());
+        LOG.log(Level.INFO, "Closing a WebSocket due to {0}", reason.getReasonPhrase());
     }
 
 }
