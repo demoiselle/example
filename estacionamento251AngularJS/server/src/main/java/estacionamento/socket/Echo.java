@@ -16,13 +16,12 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author gladson
  */
-@ServerEndpoint("/websocket/helloName")
-public class HelloName {
+@ServerEndpoint("/websocket/echo")
+public class Echo {
 
     @OnMessage
     public String sayHello(String name) {
-        System.out.println("Say hello to '" + name + "'");
-        return ("Hello" + name);
+        return ("echo " + name);
     }
 
     @OnOpen
