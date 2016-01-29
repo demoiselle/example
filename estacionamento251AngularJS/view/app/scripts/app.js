@@ -14,8 +14,18 @@ var app = angular.module('estacionamento', [
     'angulartics',
     'angulartics.piwik',
     'swaggerUi',
+    'notification',
+    'ngWebsocket',
     'config'
-]).config(['$routeProvider', 'USER_ROLES', function ($routeProvider, USER_ROLES) {
+]).config(['$routeProvider', '$websocketProvider', 'USER_ROLES',
+    function ($routeProvider, $websocketProvider, USER_ROLES) {
+
+        $websocketProvider.$setup({
+            lazy: false,
+            reconnect: true,
+            reconnectInterval: 5000,
+            mock: false
+        });
 
         $routeProvider
 
@@ -75,7 +85,7 @@ var app = angular.module('estacionamento', [
                 }
             })
 
-             .when('/veiculo', {
+            .when('/veiculo', {
                 templateUrl: 'views/veiculo/listar.html',
                 controller: 'VeiculoController',
                 data: {

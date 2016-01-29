@@ -18,7 +18,7 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author gladson
  */
-@ServerEndpoint("/websocket/echo")
+@ServerEndpoint("/ws/echo")
 public class Echo {
     private static final Logger LOG = Logger.getLogger(Echo.class.getName());
 

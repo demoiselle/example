@@ -62,11 +62,8 @@ app.controller('FabricanteController', ['$scope', '$filter', '$location', '$rout
                     $scope.fabricantes = data;
                 },
                 function (error) {
-                    var data = error[0];
-                    var status = error[1];
-
-                    if (status === 401) {
-                        AlertService.addWithTimeout('warning', data.message);
+                    if (error.status === 401) {
+                        AlertService.addWithTimeout('warning', error.data.message);
                     }
 
                 }

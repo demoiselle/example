@@ -14,14 +14,19 @@
                 <div class="panel-body">
                     <div >
                         <label for="nome">Placa:<font color="#FF0000"> *</font></label>
-                        <input type="text" class="form-control" id="nome" ng-model="fabricante.year"	required>
+                        <input type="text" class="form-control" id="nome" ng-model="veiculo.placa"	required>
+                        <button ng-if="conectado" ng-click="conectar()"
+                                class="btn btn-primary pull-right">
+                            Buscar placa
+                        </button>
                         <span id="nome-message" class="text-danger"></span>
-                    </div>
-                    <div>
 
                     </div>
                 </div>
                 <div class="panel-footer">
+
+
+
                 </div>
             </div>
         </div>
