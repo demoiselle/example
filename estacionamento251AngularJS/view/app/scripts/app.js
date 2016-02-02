@@ -66,10 +66,11 @@ var app = angular.module('estacionamento', [
                     authorizedRoles: [USER_ROLES.ADMINISTRADOR]
                 }
             })
-
+            
+            
             .when('/fabricante/edit/:id', {
                 templateUrl: 'views/fabricante/edit.html',
-                controller: 'VeiculoController',
+                controller: 'FabricanteController',
                 data: {
                     authorizedRoles: [USER_ROLES.NOT_LOGGED]
                 }
