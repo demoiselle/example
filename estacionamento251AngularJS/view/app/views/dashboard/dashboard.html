@@ -49,6 +49,11 @@
                     <i class="glyphicon glyphicon-stats">Pátio</i>
                 </div>
                 <div class="panel-body">
+                    <ul ng-repeat="v in veiculos">
+                        <li>Proprietário: {{v.proprietario}}</li>
+                        <li>Ramal: {{v.email}}</li>
+                        <li>Datahora: </li>
+                    </ul>
                 </div>
                 <div class="panel-footer">
                 </div>
