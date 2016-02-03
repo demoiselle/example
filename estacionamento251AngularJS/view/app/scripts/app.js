@@ -23,7 +23,7 @@ var app = angular.module('estacionamento', [
         $websocketProvider.$setup({
             lazy: false,
             reconnect: true,
-            reconnectInterval: 5000,
+            reconnectInterval: 60000,
             mock: false
         });
 

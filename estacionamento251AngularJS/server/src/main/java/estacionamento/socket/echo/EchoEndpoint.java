@@ -37,7 +37,7 @@ public class EchoEndpoint {
     @OnMessage
     public void onMessage(final Session session, final EchoMessage message) throws EncodeException {
         try {
-            if (message.getEvent().equalsIgnoreCase("qtde")) {
+            if (message.getEvent().equalsIgnoreCase("qtd")) {
                 send(new Gson().toJson((new EchoMessage("Acessando", "" + peers.size()))));
             }
 

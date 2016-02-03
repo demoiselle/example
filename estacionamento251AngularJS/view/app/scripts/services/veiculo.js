@@ -1,9 +1,9 @@
 'use strict';
 
-app.factory('VeiculoService', ['$http', '$q', function($http, $q) {
+app.factory('VeiculoService', ['$http', '$q', function ($http, $q) {
         var service = {};
 
-        service.findAll = function() {
+        service.findAll = function () {
             var deferred = $q.defer();
 
             $http({
@@ -12,16 +12,32 @@ app.factory('VeiculoService', ['$http', '$q', function($http, $q) {
                 headers: {
                     'Content-Type': 'application/json;charset=utf8'
                 }
-            }).success(function(data) {
+            }).success(function (data) {
                 deferred.resolve(data);
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 deferred.reject([data, status]);
             });
             return deferred.promise;
         };
 
+        service.buscaPlaca = function (placa) {
+            var deferred = $q.defer();
 
-        service.save = function(veiculo) {
+            $http({
+                url: 'api/veiculo/placa/' + placa,
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf8'
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
+                deferred.reject([data, status]);
+            });
+            return deferred.promise;
+        };
+
+        service.save = function (veiculo) {
             var deferred = $q.defer();
 
             $http({
@@ -31,62 +47,62 @@ app.factory('VeiculoService', ['$http', '$q', function($http, $q) {
                 headers: {
                     'Content-Type': 'application/json;charset=utf8'
                 }
-            }).success(function(data) {
+            }).success(function (data) {
                 deferred.resolve(data);
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 deferred.reject([data, status]);
             });
 
             return deferred.promise;
         };
 
-        service.delete = function(id) {
+        service.delete = function (id) {
             var deferred = $q.defer();
 
             $http({
                 url: 'api/veiculo/' + id,
                 method: "DELETE"
-            }).success(function(data) {
+            }).success(function (data) {
                 deferred.resolve(data);
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 deferred.reject([data, status]);
             });
 
             return deferred.promise;
         };
 
-        service.get = function(id) {
+        service.get = function (id) {
 
             var deferred = $q.defer();
 
             $http({
                 url: 'api/veiculo/' + id,
                 method: "GET"
-            }).success(function(data) {
+            }).success(function (data) {
                 deferred.resolve(data);
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 deferred.reject([data, status]);
             });
 
             return deferred.promise;
         };
 
-    service.list = function(field, order, init, qtde) {
-        var deferred = $q.defer();
+        service.list = function (field, order, init, qtde) {
+            var deferred = $q.defer();
 
-        $http({
-            url: 'api/veiculo/list/' + field + '/' + order + '/' + init + '/' + qtde,
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json;charset=utf8'
-            }
-        }).success(function(data) {
-            deferred.resolve(data);
-        }).error(function(data, status) {
-            deferred.reject([data, status]);
-        });
-        return deferred.promise;
-    };
+            $http({
+                url: 'api/veiculo/list/' + field + '/' + order + '/' + init + '/' + qtde,
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf8'
+                }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
+                deferred.reject([data, status]);
+            });
+            return deferred.promise;
+        };
 
         service.count = function () {
             var deferred = $q.defer();

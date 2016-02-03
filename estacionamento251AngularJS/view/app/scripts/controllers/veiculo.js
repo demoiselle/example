@@ -8,18 +8,18 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
 
         $scope.count = function () {
             VeiculoService.count().then(
-                function (data) {
-                    $scope.totalServerItems = data;
-                },
-                function (error) {
-                    var data = error[0];
-                    var status = error[1];
+                    function (data) {
+                        $scope.totalServerItems = data;
+                    },
+                    function (error) {
+                        var data = error[0];
+                        var status = error[1];
 
-                    if (status === 401) {
-                        AlertService.addWithTimeout('warning', data.message);
+                        if (status === 401) {
+                            AlertService.addWithTimeout('warning', data.message);
+                        }
+
                     }
-
-                }
             );
         };
 
@@ -38,18 +38,18 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
 
         if (path === '/veiculo/edit/' + id) {
             VeiculoService.get(id).then(
-                function (data) {
-                    $scope.veiculo = data;
-                },
-                function (error) {
-                    var data = error[0];
-                    var status = error[1];
+                    function (data) {
+                        $scope.veiculo = data;
+                    },
+                    function (error) {
+                        var data = error[0];
+                        var status = error[1];
 
-                    if (status === 401) {
-                        AlertService.addWithTimeout('warning', data.message);
+                        if (status === 401) {
+                            AlertService.addWithTimeout('warning', data.message);
+                        }
+
                     }
-
-                }
 
             );
         }
@@ -58,18 +58,18 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
             $scope.veiculos = [];
             var num = (($scope.currentPage - 1) * $scope.itemsPerPage);
             VeiculoService.list(num, $scope.itemsPerPage).then(
-                function (data) {
-                    $scope.veiculos = data;
-                },
-                function (error) {
-                    var data = error[0];
-                    var status = error[1];
+                    function (data) {
+                        $scope.veiculos = data;
+                    },
+                    function (error) {
+                        var data = error[0];
+                        var status = error[1];
 
-                    if (status === 401) {
-                        AlertService.addWithTimeout('warning', data.message);
+                        if (status === 401) {
+                            AlertService.addWithTimeout('warning', data.message);
+                        }
+
                     }
-
-                }
             );
         };
 
@@ -82,44 +82,44 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
             $("[id$='-message']").text("");
 
             VeiculoService.save($scope.veiculo).then(
-                function (data) {
-                    AlertService.addWithTimeout('success', 'Veiculo salvo com sucesso');
-                    $location.path('/veiculo');
-                },
-                function (error) {
+                    function (data) {
+                        AlertService.addWithTimeout('success', 'Veiculo salvo com sucesso');
+                        $location.path('/veiculo');
+                    },
+                    function (error) {
 
-                    var data = error[0];
-                    var status = error[1];
+                        var data = error[0];
+                        var status = error[1];
 
-                    if (status === 401) {
-                        AlertService.addWithTimeout('danger', 'Não foi possível executar a operação');
-                    } else if (status === 412) {
-                        $.each(data, function (i, violation) {
-                            $("#" + violation.property + "-message").text(violation.message);
-                        });
+                        if (status === 401) {
+                            AlertService.addWithTimeout('danger', 'Não foi possível executar a operação');
+                        } else if (status === 412) {
+                            $.each(data, function (i, violation) {
+                                $("#" + violation.property + "-message").text(violation.message);
+                            });
+                        }
+
                     }
-
-                }
             );
         };
 
         $scope.delete = function (id) {
             VeiculoService.delete(id).then(
-                function (data) {
-                    AlertService.addWithTimeout('success', 'Veiculo removido com sucesso');
-                    $location.path('/veiculo');
-                    $scope.count();
-                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-                },
-                function (error) {
-                    var data = error[0];
-                    var status = error[1];
+                    function (data) {
+                        AlertService.addWithTimeout('success', 'Veiculo removido com sucesso');
+                        $location.path('/veiculo');
+                        $scope.count();
+                        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+                    },
+                    function (error) {
+                        var data = error[0];
+                        var status = error[1];
 
-                    if (status === 401) {
-                        AlertService.addWithTimeout('warning', data.message);
+                        if (status === 401) {
+                            AlertService.addWithTimeout('warning', data.message);
+                        }
+
                     }
-
-                }
             );
         };
 
@@ -174,17 +174,17 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
             setTimeout(function () {
                 var init = (page - 1) * pageSize;
                 VeiculoService.list(field, order, init, pageSize).then(
-                    function (data) {
-                        $scope.veiculos = data;
-                    },
-                    function (error) {
-                        var data = error[0];
-                        var status = error[1];
+                        function (data) {
+                            $scope.veiculos = data;
+                        },
+                        function (error) {
+                            var data = error[0];
+                            var status = error[1];
 
-                        if (status === 401) {
-                            AlertService.addWithTimeout('warning', data.message);
+                            if (status === 401) {
+                                AlertService.addWithTimeout('warning', data.message);
+                            }
                         }
-                    }
                 );
             }, 100);
         };
@@ -224,7 +224,7 @@ app.controller('VeiculoController', ['$scope', '$filter', '$location', '$routePa
             columnDefs: [{field: 'id', displayName: '', width: "50"},
                 {field: 'placa', displayName: 'Placa', width: "50"},
                 {field: 'proprietario', displayName: 'Proprietario'},
-                {field: 'email', displayName: 'Email'},
+                {field: 'email', displayName: 'Ramal'},
                 {displayName: 'Ação', cellTemplate: '<a ng-show="!currentUser" ng-click="edit(row.entity.id)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>\n\
                                                  <a ng-show="currentUser" ng-click="edit(row.entity.id)" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Alterar</a>\n\
                                                  <a has-roles="ADMINISTRADOR" confirm-button title="Excluir?" confirm-action="delete(row.entity.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Excluir</a>', width: "200"}],

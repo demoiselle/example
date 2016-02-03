@@ -12,16 +12,14 @@
                     <i class="glyphicon glyphicon-barcode">Estacionamento</i>
                 </div>
                 <div class="panel-body">
-                    <div >
-                        <label for="nome">Placa:<font color="#FF0000"> *</font></label>
-                        <input type="text" class="form-control" id="nome" ng-model="veiculo.placa"	required>
-                        <button ng-if="conectado" ng-click="conectar()"
-                                class="btn btn-primary pull-right">
-                            Buscar placa
-                        </button>
-                        <span id="nome-message" class="text-danger"></span>
 
-                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="placa" placeholder="Placa...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="buscaPlaca()">Tirar o carro!</button>
+                        </span>
+                    </div><!-- /input-group -->
+
                 </div>
                 <div class="panel-footer">
 
@@ -36,6 +34,10 @@
                     <i class="glyphicon glyphicon-stats">Informações</i>
                 </div>
                 <div class="panel-body">
+                    <ul>
+                        <li>Proprietário: {{veiculo.proprietario}}</li>
+                        <li>Ramal: {{veiculo.email}}</li>
+                    </ul>
                 </div>
                 <div class="panel-footer">
                 </div>

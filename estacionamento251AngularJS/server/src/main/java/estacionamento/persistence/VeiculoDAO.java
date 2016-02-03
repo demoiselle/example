@@ -40,12 +40,12 @@ public class VeiculoDAO extends JPACrud<Veiculo, Long> {
 
     /**
      *
-     * @param field
+     * @param campo
+     * @param valor
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List list(String campo, String valor) {
-        return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u " + " where " + campo + " = " + valor + " ORDER BY " + campo).getResultList();
+        return getEntityManager().createQuery(" from " + this.getBeanClass().getSimpleName() + " where " + campo + " like '" + valor + "' ORDER BY " + campo + ", id desc").getResultList();
     }
 
 }

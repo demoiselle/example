@@ -3,51 +3,55 @@
 app.controller('ApplicationController', ['$rootScope', '$notification', '$websocket', '$timeout', 'USER_ROLES', 'AuthService', 'LAYOUTS',
     function ($rootScope, $notification, $websocket, $timeout, USER_ROLES, AuthService, LAYOUTS) {
 
-        $rootScope.placa;
+        $rootScope.qtde = "0";
 
         navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+        var wsUrl;
+
+        if (window.location.protocol == 'https:') {
+            wsUrl = 'wss://' + window.location.host + ':8443/ws/echo';
+        } else {
+             wsUrl = 'ws://' + window.location.host + ':8000/ws/echo';
+            //wsUrl = 'ws://localhost:8080/ws/echo';
+        }
 
         var ws = $websocket.$new({
-            url: 'ws://localhost:9090/ws/vaga/SERPRO', protocols: [], subprotocols: ['base46']
-                //url: 'ws://estaciona-pgxp.rhcloud.com:8000/ws/vaga/SERPRO', protocols: [], subprotocols: ['base46']
+            url: wsUrl, protocols: [], subprotocols: ['base46']
         });
 
         ws.$on('$open', function () {
+            ws.$emit("qtde", "qtde");
             $rootScope.conectado = true;
             console.log("WS ON");
-        }).$on('$close', function () {
+        });
+
+        ws.$on('$close', function () {
+            ws.$emit("qtde", "qtde");
             $rootScope.conectado = false;
             console.log("WS OFF");
         });
 
-        ws.$on('$message', function (data) {
-
-            $notification('Estacionamento', {
-                body: data
-            })
-
-            if (navigator.vibrate) {
-                navigator.vibrate([1000, 500, 1000, 500, 2000, 1000, 500, 1000, 500, 2000, 1000, 500, 1000, 500, 2000]);
-            }
-
+        ws.$on('$error', function () {
+            $rootScope.conectado = false;
+            console.log("WS ERROR");
         });
 
-        ws.$on('placa', function (data) {
+        ws.$on('$message', function (emit) {
 
-            $notification('Estacionamento', {
-                body: data
-            })
-
-            if (navigator.vibrate) {
-                navigator.vibrate([1000, 500, 1000, 500, 2000, 1000, 500, 1000, 500, 2000, 1000, 500, 1000, 500, 2000]);
+            if (emit.event === "Acessando") {
+                $rootScope.qtde = emit.data;
             }
 
+            $notification(emit.event, {
+                body: emit.data
+            });
+
+            if (navigator.vibrate) {
+                navigator.vibrate([1000, 500, 1000, 500, 2000]);
+            }
+            ;
+
         });
-
-        $rootScope.conectar = function () {
-            ws.$emit("placa", $rootScope.placa);
-        };
-
 
         $rootScope.userRoles = USER_ROLES;
         $rootScope.isAuthorized = AuthService.isAuthorized;
