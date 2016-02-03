@@ -35,17 +35,7 @@ import javax.ws.rs.core.Response;
  *
  * @author 70744416353
  */
-/**
- *
- * @author 70744416353
- */
-@Api(value = "veiculo", authorizations = {
-    @Authorization(value = "JWT",
-                   scopes = {
-                       @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
-                       @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
-                   })
-})
+@Api(value = "veiculo")
 @Path("veiculo")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
@@ -54,7 +44,7 @@ public class VeiculoREST implements Serializable {
     private static final Logger LOG = Logger.getLogger(VeiculoREST.class.getName());
 
     @Inject
-    private VeiculoBC dao;
+    private VeiculoBC bc;
 
     /**
      *
@@ -68,14 +58,9 @@ public class VeiculoREST implements Serializable {
     @GET
     @Path("list/{field}/{order}/{init}/{qtde}")
     @Transactional
-    @LoggedIn
-    @ApiOperation(value = "Lista com paginação no servidor",
-                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
-                  response = Veiculo.class
-    )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
         if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Veiculo.class))) {
-            return Response.ok().entity(dao.list(field, order, init, qtde)).build();
+            return Response.ok().entity(bc.list(field, order, init, qtde)).build();
         }
         return Response.ok().entity(null).build();
     }
@@ -87,13 +72,8 @@ public class VeiculoREST implements Serializable {
     @GET
     @Path("count")
     @Transactional
-    @LoggedIn
-    @ApiOperation(value = "Quantidade de registro",
-                  notes = "Usado para trabalhar as tabelas com paginação no servidor",
-                  response = Integer.class
-    )
     public Response count() throws NotFoundException {
-        return Response.ok().entity(dao.count()).build();
+        return Response.ok().entity(bc.count()).build();
     }
 
     /**
@@ -103,19 +83,10 @@ public class VeiculoREST implements Serializable {
      */
     @DELETE
     @Path("{id}")
-    @Transactional
     @LoggedIn
-    @ApiOperation(value = "Remove entidade",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
-    )
+    @Transactional
     public void delete(@PathParam("id") final Long id) {
-        dao.delete(id);
+        bc.delete(id);
     }
 
     /**
@@ -125,17 +96,8 @@ public class VeiculoREST implements Serializable {
      */
     @DELETE
     @Path("{ids}")
-    @Transactional
     @LoggedIn
-    @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
-    )
+    @Transactional
     public void delete(@PathParam("ids") final List<Long> ids) {
         ListIterator<Long> iter = ids.listIterator();
 
@@ -150,9 +112,8 @@ public class VeiculoREST implements Serializable {
      * @return The list of matched query results.
      */
     @GET
-    @ApiOperation(value = "Lista de todos os registros", response = Veiculo.class)
     public Response findAll() {
-        return Response.ok().entity(dao.findAll()).build();
+        return Response.ok().entity(bc.findAll()).build();
     }
 
     /**
@@ -162,18 +123,8 @@ public class VeiculoREST implements Serializable {
      */
     @POST
     @Transactional
-    @LoggedIn
-    @ApiOperation(value = "Insere entidade no banco",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
-    )
     public Response insert(final Veiculo bean) {
-        return Response.ok().entity(dao.insert(bean)).build();
+        return Response.ok().entity(bc.insert(bean)).build();
     }
 
     /**
@@ -184,18 +135,18 @@ public class VeiculoREST implements Serializable {
     @GET
     @Path("{id}")
     @Transactional
-    @LoggedIn
-    @ApiOperation(value = "Busca entidade a partir do ID",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
-    )
     public Response load(@PathParam("id") final Long id) {
-        return Response.ok().entity(dao.load(id)).build();
+        return Response.ok().entity(bc.load(id)).build();
+    }
+
+    @GET
+    @Path("{field}/{value}")
+    @Transactional
+    public Response list(@PathParam("field") final String campo, @PathParam("value") final String valor) {
+        if ((Util.fieldInClass(campo, Veiculo.class))) {
+            return Response.ok().entity(bc.list(campo, valor)).build();
+        }
+        return Response.ok().entity(null).build();
     }
 
     /**
@@ -205,18 +156,8 @@ public class VeiculoREST implements Serializable {
      */
     @PUT
     @Transactional
-    @LoggedIn
-    @ApiOperation(value = "Atualiza a entidade",
-                  response = Veiculo.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
-    )
     public Response update(final Veiculo bean) {
-        return Response.ok().entity(dao.update(bean)).build();
+        return Response.ok().entity(bc.update(bean)).build();
     }
 
 }

@@ -8,7 +8,6 @@ package estacionamento.business;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import estacionamento.entity.Fabricante;
-import estacionamento.entity.User;
 import estacionamento.persistence.FabricanteDAO;
 import java.util.List;
 
@@ -18,6 +17,16 @@ import java.util.List;
  */
 @BusinessController
 public class FabricanteBC extends DelegateCrud<Fabricante, Long, FabricanteDAO> {
+
+    @Override
+    public Fabricante update(Fabricante bean) {
+        return super.update(bean);
+    }
+
+    @Override
+    public Fabricante insert(Fabricante bean) {
+        return super.insert(bean);
+    }
 
     /**
      *
@@ -42,5 +51,10 @@ public class FabricanteBC extends DelegateCrud<Fabricante, Long, FabricanteDAO> 
     public List<Fabricante> listaModelos(String fabricante) {
         return getDelegate().listaModelos(fabricante);
     }
+    
+         public List list(String campo, String valor) {
+        return getDelegate().list(campo, valor);
+    }
+
 
 }

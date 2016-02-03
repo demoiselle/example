@@ -54,4 +54,8 @@ public class UserBC extends DelegateCrud<User, Long, UserDAO> {
         return getDelegate().loadEmailPass(email, senha);
     }
 
+    public List list(String campo, String valor) {
+        return getDelegate().list(campo, valor);
+    }
+
 }

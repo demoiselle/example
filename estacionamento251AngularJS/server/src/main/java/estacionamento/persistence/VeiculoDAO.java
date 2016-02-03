@@ -38,4 +38,14 @@ public class VeiculoDAO extends JPACrud<Veiculo, Long> {
         return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u ORDER BY " + field + " " + order).setFirstResult(init).setMaxResults(qtde).getResultList();
     }
 
+    /**
+     *
+     * @param field
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List list(String campo, String valor) {
+        return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u " + " where " + campo + " = " + valor + " ORDER BY " + campo).getResultList();
+    }
+
 }

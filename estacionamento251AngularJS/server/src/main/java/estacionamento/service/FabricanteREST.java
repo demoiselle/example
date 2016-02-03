@@ -33,10 +33,10 @@ import javax.ws.rs.core.Response;
  */
 @Api(value = "fabricante", authorizations = {
     @Authorization(value = "JWT",
-                   scopes = {
-                       @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
-                       @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
-                   })
+            scopes = {
+                @AuthorizationScope(scope = "read:events", description = "Ler entidades"),
+                @AuthorizationScope(scope = "write:events", description = "Escrever entidades")
+            })
 })
 @Path("fabricante")
 @Produces(APPLICATION_JSON)
@@ -46,7 +46,7 @@ public class FabricanteREST implements Serializable {
     private static final Logger LOG = Logger.getLogger(FabricanteREST.class.getName());
 
     @Inject
-    private FabricanteBC dao;
+    private FabricanteBC bc;
 
     /**
      *
@@ -62,12 +62,27 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Lista com paginação no servidor",
-                  notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
-                  response = Fabricante.class
+            notes = "Informe o campo/ordem(asc/desc)/posição do primeiro registro/quantidade de registros",
+            response = Fabricante.class
     )
     public Response list(@PathParam("field") String field, @PathParam("order") String order, @PathParam("init") int init, @PathParam("qtde") int qtde) throws NotFoundException {
         if ((order.equalsIgnoreCase("asc") || order.equalsIgnoreCase("desc")) && (Util.fieldInClass(field, Fabricante.class))) {
-            return Response.ok().entity(dao.list(field, order, init, qtde)).build();
+            return Response.ok().entity(bc.list(field, order, init, qtde)).build();
+        }
+        return Response.ok().entity(null).build();
+    }
+
+    @GET
+    @Path("{field}/{value}")
+    @Transactional
+    @LoggedIn
+    @ApiOperation(value = "Lista com onde é informado o campo e valor",
+            notes = "Informe o campo/valor do campo",
+            response = Fabricante.class
+    )
+    public Response list(@PathParam("field") final String campo, @PathParam("value") final String valor) {
+        if ((Util.fieldInClass(campo, Fabricante.class))) {
+            return Response.ok().entity(bc.list(campo, valor)).build();
         }
         return Response.ok().entity(null).build();
     }
@@ -81,11 +96,11 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Quantidade de registro",
-                  notes = "Usado para trabalhar as tabelas com paginação no servidor",
-                  response = Integer.class
+            notes = "Usado para trabalhar as tabelas com paginação no servidor",
+            response = Integer.class
     )
     public Response count() throws NotFoundException {
-        return Response.ok().entity(dao.count()).build();
+        return Response.ok().entity(bc.count()).build();
     }
 
     /**
@@ -98,16 +113,16 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove entidade",
-                  response = Fabricante.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Fabricante.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public void delete(@PathParam("id") final Long id) {
-        dao.delete(id);
+        bc.delete(id);
     }
 
     /**
@@ -120,13 +135,13 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Remove várias entidades a partir de um lista de IDs",
-                  response = Fabricante.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Fabricante.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public void delete(@PathParam("ids") final List<Long> ids) {
         ListIterator<Long> iter = ids.listIterator();
@@ -144,7 +159,7 @@ public class FabricanteREST implements Serializable {
     @GET
     @ApiOperation(value = "Lista de todos os registros", response = Fabricante.class)
     public Response findAll() {
-        return Response.ok().entity(dao.findAll()).build();
+        return Response.ok().entity(bc.findAll()).build();
     }
 
     /**
@@ -156,16 +171,16 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Insere entidade no banco",
-                  response = Fabricante.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Fabricante.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response insert(final Fabricante bean) {
-        return Response.ok().entity(dao.insert(bean)).build();
+        return Response.ok().entity(bc.insert(bean)).build();
     }
 
     /**
@@ -178,16 +193,16 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Busca entidade a partir do ID",
-                  response = Fabricante.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Fabricante.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response load(@PathParam("id") final Long id) {
-        return Response.ok().entity(dao.load(id)).build();
+        return Response.ok().entity(bc.load(id)).build();
     }
 
     /**
@@ -199,17 +214,16 @@ public class FabricanteREST implements Serializable {
     @Transactional
     @LoggedIn
     @ApiOperation(value = "Atualiza a entidade",
-                  response = Fabricante.class,
-                  authorizations = {
-                      @Authorization(value = "JWT",
-                                     scopes = {
-                                         @AuthorizationScope(scope = "read:events", description = "Read your events")
-                                     })
-                  }
+            response = Fabricante.class,
+            authorizations = {
+                @Authorization(value = "JWT",
+                        scopes = {
+                            @AuthorizationScope(scope = "read:events", description = "Read your events")
+                        })
+            }
     )
     public Response update(final Fabricante bean) {
-        return Response.ok().entity(dao.update(bean)).build();
+        return Response.ok().entity(bc.update(bean)).build();
     }
 
 }
-

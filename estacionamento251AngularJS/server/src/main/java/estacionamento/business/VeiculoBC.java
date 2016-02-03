@@ -37,5 +37,9 @@ public class VeiculoBC extends DelegateCrud<Veiculo, Long, VeiculoDAO> {
     public List list(String field, String order, int init, int qtde) {
         return getDelegate().list(field, order, init, qtde);
     }
+    
+     public List list(String campo, String valor) {
+        return getDelegate().list(campo, valor);
+    }
 
 }

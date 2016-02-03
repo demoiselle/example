@@ -22,8 +22,6 @@ import java.util.List;
 @BusinessController
 public class EstacionamentoBC extends DelegateCrud<Estacionamento, Long, EstacionamentoDAO> {
 
-
-
     /**
      *
      * @return
@@ -42,6 +40,10 @@ public class EstacionamentoBC extends DelegateCrud<Estacionamento, Long, Estacio
      */
     public List list(String field, String order, int init, int qtde) {
         return getDelegate().list(field, order, init, qtde);
+    }
+
+    public List list(String campo, String valor) {
+        return getDelegate().list(campo, valor);
     }
 
 }

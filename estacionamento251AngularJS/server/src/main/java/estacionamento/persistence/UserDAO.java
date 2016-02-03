@@ -92,4 +92,14 @@ public class UserDAO extends JPACrud<User, Long> {
         return super.findByJPQL(jpql);
     }
 
+    /**
+     *
+     * @param field
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List list(String campo, String valor) {
+        return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u " + " where " + campo + " = " + valor + " ORDER BY " + campo).getResultList();
+    }
+
 }

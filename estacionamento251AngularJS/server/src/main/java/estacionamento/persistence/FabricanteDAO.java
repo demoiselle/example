@@ -47,5 +47,15 @@ public class FabricanteDAO extends JPACrud<Fabricante, Long> {
         String jpql = "SELECT u FROM Fabricante u WHERE upper(u.make) like upper('%" + fabricante.replaceAll(" ", "%") + "%') order by model";
         return super.findByJPQL(jpql);
     }
+    
+        /**
+     *
+     * @param field
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List list(String campo, String valor) {
+        return getEntityManager().createQuery("select u from " + this.getBeanClass().getSimpleName() + " u " + " where " + campo + " = " + valor + " ORDER BY " + campo).getResultList();
+    }
 
 }
