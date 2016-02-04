@@ -38,10 +38,14 @@ public class EchoEndpoint {
     public void onMessage(final Session session, final EchoMessage message) throws EncodeException {
         try {
             if (message.getEvent().equalsIgnoreCase("qtd")) {
-                send(new Gson().toJson((new EchoMessage("Acessando", "" + peers.size()))));
+                send(new Gson().toJson((new EchoMessage("logados", "" + peers.size()))));
             }
 
             if (message.getEvent().equalsIgnoreCase("msg")) {
+                send(new Gson().toJson(message));
+            }
+
+            if (message.getEvent().equalsIgnoreCase("placa")) {
                 send(new Gson().toJson(message));
             }
 
@@ -59,9 +63,9 @@ public class EchoEndpoint {
         for (Session s : peers) {
             if (s.isOpen()) {
                 s.getBasicRemote().sendText(texto);
-                log.log(Level.INFO, "MSG {0}", s.getId());
             }
         }
+        log.log(Level.INFO, "MSG SEND {0}", peers.size());
     }
 
 }
