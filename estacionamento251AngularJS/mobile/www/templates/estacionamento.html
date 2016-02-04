@@ -3,23 +3,19 @@
         <form class="list">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="">
+                <input type="search" placeholder="Placa" ng-model="placa">
             </label>
-            <button class="button button-stable button-block button-small">Buscar</button>
+            <button class="button button-stable button-block button-small" ng-click="buscaPlaca(placa)">Buscar</button>
         </form>
         <div class="list card">
-            <div class="item item-divider">Estabelecimento</div>
-            <div class="item item-body"></div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Histórico</div>
+            <div class="item item-divider">Veículo</div>
             <div class="item item-body">
-                <ion-list>
-                    <ion-item>Item 1</ion-item>
-                    <ion-item>Item 2</ion-item>
-                    <ion-item>Item 3</ion-item>
-                </ion-list>
+                <ul ng-if="veiculo">
+                    <li>Proprietario: {{veiculo.proprietario}}</li>
+                    <li>Ramal: {{veiculo.email}}</li>
+                </ul>
             </div>
         </div>
+
     </ion-content>
 </ion-view>
