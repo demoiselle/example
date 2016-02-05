@@ -22,7 +22,7 @@ public class RESTApp extends Application {
         beanConfig.setBasePath("/api");
         beanConfig.setResourcePackage("estacionamento.service");
         Info info = new Info();
-        info.setDescription("Sistema de exemplo do Demoiselle 2.5 com AngularJS");
+        info.setDescription("Sistema de exemplo do Demoiselle 2.5 com AngularJS.");
         info.setTitle("Estacionamento");
         beanConfig.setInfo(info);
         beanConfig.setScan(true);
