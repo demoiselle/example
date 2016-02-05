@@ -34,7 +34,7 @@
                     <i class="glyphicon glyphicon-stats">Informações</i>
                 </div>
                 <div class="panel-body">
-                    <ul>
+                    <ul ng-if="veiculo">
                         <li>Proprietário: {{veiculo.proprietario}}</li>
                         <li>Ramal: {{veiculo.email}}</li>
                     </ul>
@@ -49,11 +49,12 @@
                     <i class="glyphicon glyphicon-stats">Pátio</i>
                 </div>
                 <div class="panel-body">
-                    <ul ng-repeat="v in veiculos">
-                        <li>Proprietário: {{v.proprietario}}</li>
-                        <li>Ramal: {{v.email}}</li>
-                        <li>Datahora: </li>
-                    </ul>
+                    <div >
+                        <ul ng-repeat="v in veiculos">
+                            <li>Placa: {{v}}</li>
+                            <li>Datahora: </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="panel-footer">
                 </div>
