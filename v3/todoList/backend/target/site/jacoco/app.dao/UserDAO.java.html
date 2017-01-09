@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">todo</a> &gt; <a href="index.source.html" class="el_package">app.dao</a> &gt; <span class="el_source">UserDAO.java</span></div><h1>UserDAO.java</h1><pre class="source lang-java linenums">
+package app.dao;
+
+import app.entity.User;
+import app.security.Credentials;
+import static app.util.MD5.parser;
+import static java.lang.Long.parseLong;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import org.demoiselle.jee.core.api.security.DemoiselleUser;
+import org.demoiselle.jee.core.api.security.SecurityContext;
+import org.demoiselle.jee.core.api.security.Token;
+import org.demoiselle.jee.persistence.crud.AbstractDAO;
+import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
+import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
+
+/**
+ *
+ * @author gladson
+ */
+<span class="nc" id="L34">public class UserDAO extends AbstractDAO&lt;User, String&gt; {</span>
+
+<span class="nc" id="L36">    private static final Logger LOG = getLogger(UserDAO.class.getName());</span>
+
+    @Inject
+    private SecurityContext securityContext;
+
+    @Inject
+    private DemoiselleUser loggedUser;
+
+    @Inject
+    private Token token;
+
+    @Inject
+    private DemoiselleSecurityMessages bundle;
+
+    @PersistenceContext(unitName = &quot;TodoPU&quot;)
+    protected EntityManager em;
+
+    @Override
+    protected EntityManager getEntityManager() {
+<span class="nc" id="L55">        return em;</span>
+    }
+
+    @Override
+    protected Predicate[] extractPredicates(MultivaluedMap&lt;String, String&gt; queryParameters, CriteriaBuilder criteriaBuilder, Root&lt;User&gt; root) {
+<span class="nc" id="L60">        List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (queryParameters.containsKey(&quot;id&quot;)) {</span>
+<span class="nc" id="L63">            Long id = parseLong(queryParameters.getFirst(&quot;id&quot;));</span>
+<span class="nc" id="L64">            predicates.add(criteriaBuilder.equal(root.get(&quot;id&quot;), id));</span>
+        }
+
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (queryParameters.containsKey(&quot;nome&quot;)) {</span>
+<span class="nc" id="L68">            String nome = queryParameters.getFirst(&quot;nome&quot;);</span>
+<span class="nc" id="L69">            predicates.add(criteriaBuilder.like(root.get(&quot;nome&quot;), &quot;%&quot; + nome + &quot;%&quot;));</span>
+        }
+
+<span class="nc" id="L72">        return predicates.toArray(new Predicate[]{});</span>
+    }
+
+    public User verifyEmail(String email, String password) {
+
+<span class="nc" id="L77">        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();</span>
+<span class="nc" id="L78">        CriteriaQuery&lt;User&gt; query = builder.createQuery(User.class);</span>
+<span class="nc" id="L79">        Root&lt;User&gt; from = query.from(User.class);</span>
+<span class="nc" id="L80">        TypedQuery&lt;User&gt; typedQuery = getEntityManager().createQuery(</span>
+<span class="nc" id="L81">                query.select(from)</span>
+<span class="nc" id="L82">                        .where(builder.equal(from.get(&quot;email&quot;), email))</span>
+        );
+
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (typedQuery.getResultList().isEmpty()) {</span>
+<span class="nc" id="L86">            throw new DemoiselleSecurityException(&quot;Usuário não existe&quot;, UNAUTHORIZED.getStatusCode());</span>
+        }
+
+<span class="nc" id="L89">        User usu = typedQuery.getResultList().get(0);</span>
+
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (usu == null) {</span>
+<span class="nc" id="L92">            throw new DemoiselleSecurityException(&quot;Usuário não existe&quot;, UNAUTHORIZED.getStatusCode());</span>
+        }
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (!usu.getPass().equalsIgnoreCase(parser(password))) {</span>
+<span class="nc" id="L96">            throw new DemoiselleSecurityException(&quot;Senha incorreta&quot;, UNAUTHORIZED.getStatusCode());</span>
+        }
+
+<span class="nc" id="L99">        return usu;</span>
+    }
+
+    @Override
+    public User persist(User entity) {
+<span class="nc" id="L104">        entity.setPass(parser(entity.getPass()));</span>
+<span class="nc" id="L105">        entity.setRole(&quot;USER&quot;);</span>
+<span class="nc" id="L106">        return super.persist(entity);</span>
+    }
+
+    public String valida(String id) {
+<span class="nc" id="L110">        return &quot;Email Validado&quot;;</span>
+    }
+
+    public String login(Credentials credentials) {
+
+<span class="nc" id="L115">        User usu = verifyEmail(credentials.getUsername(), credentials.getPassword());</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (usu == null) {</span>
+<span class="nc" id="L117">            throw new DemoiselleSecurityException(bundle.invalidCredentials(), UNAUTHORIZED.getStatusCode());</span>
+        }
+
+<span class="nc" id="L120">        MultivaluedMap&lt;String, String&gt; values = new MultivaluedHashMap&lt;&gt;();</span>
+<span class="nc" id="L121">        values.putSingle(&quot;usuario&quot;, usu.getId());</span>
+
+<span class="nc" id="L123">        loggedUser.setName(usu.getFirstName());</span>
+<span class="nc" id="L124">        loggedUser.setIdentity(&quot;&quot; + usu.getId());</span>
+<span class="nc" id="L125">        loggedUser.addRole(usu.getRole());</span>
+
+<span class="nc" id="L127">        loggedUser.addParam(&quot;Email&quot;, usu.getEmail());</span>
+<span class="nc" id="L128">        securityContext.setUser(loggedUser);</span>
+
+<span class="nc" id="L130">        return token.getKey();</span>
+    }
+
+    public String retoken() {
+<span class="nc" id="L134">        loggedUser = securityContext.getUser();</span>
+<span class="nc" id="L135">        securityContext.setUser(loggedUser);</span>
+<span class="nc" id="L136">        return token.getKey();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

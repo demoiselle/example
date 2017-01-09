@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+todo,app.service,ApplicationConfig,24,0,0,0,8,0,2,0,2,0
+todo,app.service,TodoREST,24,0,2,0,5,0,4,0,3,0
+todo,app.service,UserREST,73,0,6,0,14,0,10,0,7,0
+todo,app.service,AuthREST,54,0,0,0,8,0,6,0,6,0
+todo,app.util,MD5,63,0,6,0,15,0,6,0,3,0
+todo,app.dao,TodoDAO,11,0,0,0,3,0,3,0,3,0
+todo,app.dao,UserDAO,228,0,12,0,43,0,15,0,9,0
+todo,app.bc,TodoBC,8,0,0,0,2,0,2,0,2,0
+todo,app.bc,UserBC,8,0,0,0,2,0,2,0,2,0
+todo,app.entity,User,88,0,6,0,31,0,19,0,16,0
+todo,app.entity,Todo,87,0,6,0,31,0,19,0,16,0
+todo,app.security,Credentials,76,0,6,0,20,0,12,0,9,0

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserREST.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">todo</a> &gt; <a href="index.source.html" class="el_package">app.service</a> &gt; <span class="el_source">UserREST.java</span></div><h1>UserREST.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package app.service;
+
+import app.entity.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import org.demoiselle.jee.core.api.crud.Result;
+import org.demoiselle.jee.core.api.security.DemoiselleUser;
+import org.demoiselle.jee.persistence.crud.AbstractREST;
+import org.demoiselle.jee.rest.annotation.ValidatePayload;
+import org.demoiselle.jee.rest.exception.DemoiselleRestException;
+import org.demoiselle.jee.security.annotation.Authenticated;
+import org.demoiselle.jee.security.annotation.RequiredRole;
+
+/**
+ *
+ * @author gladson
+ */
+@Authenticated
+@Api(&quot;User&quot;)
+@Path(&quot;user&quot;)
+<span class="nc" id="L36">public class UserREST extends AbstractREST&lt;User, String&gt; {</span>
+
+<span class="nc" id="L38">    private static final Logger LOG = getLogger(UserREST.class.getName());</span>
+
+    @Inject
+    private DemoiselleUser dml;
+
+    @POST
+    @Override
+    @Transactional
+    @ValidatePayload
+    @Authenticated(enable = false)
+    @ApiOperation(value = &quot;persist entity&quot;)
+    public User persist(User entity) {
+<span class="nc" id="L50">        return bc.persist(entity);</span>
+    }
+
+    @PUT
+    @Override
+    @Transactional
+    @ValidatePayload
+    @ApiOperation(value = &quot;full update entity&quot;)
+    public User merge(User entity) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (entity.getId().equalsIgnoreCase(dml.getIdentity())) {</span>
+<span class="nc" id="L60">            return bc.merge(entity);</span>
+        } else {
+<span class="nc" id="L62">            throw new DemoiselleRestException(&quot;Você só pode alterar seu próprio dado&quot;, 401);</span>
+        }
+    }
+
+    @GET
+    @Override
+    @Path(&quot;{id}&quot;)
+//    @OnlyOwner(field = &quot;id&quot;)
+    @Transactional
+    @ApiOperation(value = &quot;find by ID&quot;)
+    public User find(@PathParam(&quot;id&quot;) final String id) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (id.equalsIgnoreCase(dml.getIdentity())) {</span>
+<span class="nc" id="L74">            return bc.find(id);</span>
+        } else {
+<span class="nc" id="L76">            throw new DemoiselleRestException(&quot;Você só pode buscar seu próprio dado&quot;, 401);</span>
+        }
+    }
+
+    @GET
+    @Override
+    @Transactional
+    @RequiredRole(&quot;Administrador&quot;)
+    @ApiOperation(value = &quot;list all entities with pagination filter and query&quot;)
+    public Result find() {
+<span class="nc" id="L86">        return bc.find();</span>
+    }
+
+    @DELETE
+    @Override
+    @Path(&quot;{id}&quot;)
+    @Transactional
+    @ApiOperation(value = &quot;remove entity&quot;)
+    public void remove(@PathParam(&quot;id&quot;) final String id) {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (id.equalsIgnoreCase(dml.getIdentity())) {</span>
+<span class="nc" id="L96">            bc.remove(id);</span>
+        } else {
+<span class="nc" id="L98">            throw new DemoiselleRestException(&quot;Você só pode apagar seu próprio dado&quot;, 401);</span>
+        }
+<span class="nc" id="L100">    }</span>
+
+}
+//import org.demoiselle.jee.security.annotation.OnlyOwner;
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
