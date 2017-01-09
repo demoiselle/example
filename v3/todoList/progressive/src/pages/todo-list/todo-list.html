@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>To-Do's</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab bottom right>
+        <button ion-fab mini (click)="openTodoFormPage()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-row>
+        <ion-col width-25>
+            <ion-item>
+                <ion-label>Mostrar arquivados:</ion-label>
+                <ion-toggle [(ngModel)]="showArchived" (ionChange)="toggleVisibility()"></ion-toggle>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <!--<ion-item>
+        <ion-label>Arquivados</ion-label>
+        <ion-checkbox [(ngModel)]="showArchived" (ionChange)="toggleVisibility()"></ion-checkbox>
+    </ion-item>-->
+    <ion-list>
+        <ion-item-sliding *ngFor="let todo of todos" (click)="itemTapped($event, todo)">
+            <ion-item>
+                <div class="todo-description">{{todo.description}}</div>
+                <div class="todo-details" item-right>
+                    ID: {{todo.id}}
+                </div>
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button (click)="defer($event, todo)">Defer</button>
+            </ion-item-options>
+
+            <ion-item-options side="right">
+                <button ion-button (click)="archive($event, todo)">Archive</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

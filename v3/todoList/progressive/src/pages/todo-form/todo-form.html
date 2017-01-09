@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>To-Do Form</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form name="todoForm" (ngSubmit)="onSubmit($event, todoForm)" novalidate #todoForm="ngForm">
+    <ion-item>
+      <ion-label floating>Descrição:</ion-label>
+      <ion-input type="text" [(ngModel)]="todo.description" name="description"></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button type="submit">Add To-Do</button>
+    </div>
+  </form>
+</ion-content>

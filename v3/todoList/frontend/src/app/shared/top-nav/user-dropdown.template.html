@@ -1,0 +1,29 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown" dropdown *ngIf="isLoggedIn()">
+    <!-- Opções de menu para usuário logado -->
+    <a href dropdownToggle>
+      <i class="fa fa-user"></i>
+      <span>Usuário</span>
+    </a>
+    <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+      <li>
+        <a routerLink="/myaccount">
+          <span>Minha Conta</span>
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          <span>Sair</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li *ngIf="!isLoggedIn()">
+    <!-- Opções de menu para usuário não logado -->
+    <a href="/#/login">
+      <i class="fa fa-sign-in"></i>
+      <span>Entrar</span>
+    </a>
+  </li>
+</ul>
