@@ -1,25 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.util;
 
 import java.security.MessageDigest;
+import static java.security.MessageDigest.getInstance;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
+import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 
-/**
- *
- * @author 70744416353
- */
+
 public class MD5 {
+
+    private static final Logger LOG = getLogger(MD5.class.getName());
 
     public static String parser(String texto) {
         try {
             if (texto != null && !texto.isEmpty()) {
-                MessageDigest md = MessageDigest.getInstance("MD5");
+                MessageDigest md = getInstance("MD5");
                 md.update(texto.getBytes());
 
                 byte byteData[] = md.digest();
@@ -32,8 +29,11 @@ public class MD5 {
                 return sb.toString();
             }
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(MD5.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger(MD5.class.getName()).log(SEVERE, null, ex);
         }
         return "";
+    }
+
+    private MD5() {
     }
 }

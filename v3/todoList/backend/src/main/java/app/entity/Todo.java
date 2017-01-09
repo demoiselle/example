@@ -1,23 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import static javax.persistence.TemporalType.DATE;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,6 +33,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOG = getLogger(Todo.class.getName());
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -50,7 +50,7 @@ public class Todo implements Serializable {
     private String status;
 
     @Future
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(DATE)
     private Date dateEnd;
 
     private int changed;
@@ -58,7 +58,7 @@ public class Todo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @JoinColumn(name = "user_id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = EAGER)
     private User user;
 
     @Override
@@ -80,10 +80,7 @@ public class Todo implements Serializable {
             return false;
         }
         final Todo other = (Todo) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     public String getId() {

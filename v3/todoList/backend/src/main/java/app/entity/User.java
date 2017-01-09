@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
+import static java.util.Collections.unmodifiableSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -38,6 +36,7 @@ import org.hibernate.validator.constraints.Email;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOG = getLogger(User.class.getName());
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -67,7 +66,7 @@ public class User implements Serializable {
     @Column(length = 16)
     private String role;
 
-    @OneToMany(mappedBy = "user", targetEntity = Todo.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", targetEntity = Todo.class, fetch = EAGER, cascade = ALL)
     private Set<Todo> todos;
 
     public String getId() {
@@ -111,7 +110,7 @@ public class User implements Serializable {
     }
 
     public Set<Todo> getTodos() {
-        return todos;
+        return unmodifiableSet(todos);
     }
 
     public void setTodos(Set<Todo> todos) {
@@ -137,10 +136,7 @@ public class User implements Serializable {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
 }

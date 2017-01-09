@@ -6,6 +6,8 @@
 package app.service;
 
 import io.swagger.jaxrs.config.BeanConfig;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
@@ -15,6 +17,8 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationPath("api")
 public class ApplicationConfig extends Application {
+
+    private static final Logger LOG = getLogger(ApplicationConfig.class.getName());
 
     public ApplicationConfig() {
         BeanConfig beanConfig = new BeanConfig();

@@ -8,6 +8,8 @@ package app.service;
 import app.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
@@ -19,7 +21,6 @@ import javax.ws.rs.PathParam;
 import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.persistence.crud.AbstractREST;
-//import org.demoiselle.jee.security.annotation.OnlyOwner;
 import org.demoiselle.jee.rest.annotation.ValidatePayload;
 import org.demoiselle.jee.rest.exception.DemoiselleRestException;
 import org.demoiselle.jee.security.annotation.Authenticated;
@@ -33,6 +34,8 @@ import org.demoiselle.jee.security.annotation.RequiredRole;
 @Api("User")
 @Path("user")
 public class UserREST extends AbstractREST<User, String> {
+
+    private static final Logger LOG = getLogger(UserREST.class.getName());
 
     @Inject
     private DemoiselleUser dml;
@@ -97,3 +100,4 @@ public class UserREST extends AbstractREST<User, String> {
     }
 
 }
+//import org.demoiselle.jee.security.annotation.OnlyOwner;

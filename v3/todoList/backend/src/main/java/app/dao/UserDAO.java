@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.dao;
 
 import app.entity.User;
 import app.security.Credentials;
-import app.util.MD5;
+import static app.util.MD5.parser;
+import static java.lang.Long.parseLong;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.core.api.security.SecurityContext;
 import org.demoiselle.jee.core.api.security.Token;
@@ -33,6 +32,8 @@ import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
  * @author gladson
  */
 public class UserDAO extends AbstractDAO<User, String> {
+
+    private static final Logger LOG = getLogger(UserDAO.class.getName());
 
     @Inject
     private SecurityContext securityContext;
@@ -59,7 +60,7 @@ public class UserDAO extends AbstractDAO<User, String> {
         List<Predicate> predicates = new ArrayList<>();
 
         if (queryParameters.containsKey("id")) {
-            Long id = Long.parseLong(queryParameters.getFirst("id"));
+            Long id = parseLong(queryParameters.getFirst("id"));
             predicates.add(criteriaBuilder.equal(root.get("id"), id));
         }
 
@@ -82,17 +83,17 @@ public class UserDAO extends AbstractDAO<User, String> {
         );
 
         if (typedQuery.getResultList().isEmpty()) {
-            throw new DemoiselleSecurityException("Usuário não existe", Response.Status.UNAUTHORIZED.getStatusCode());
+            throw new DemoiselleSecurityException("Usuário não existe", UNAUTHORIZED.getStatusCode());
         }
 
         User usu = typedQuery.getResultList().get(0);
 
         if (usu == null) {
-            throw new DemoiselleSecurityException("Usuário não existe", Response.Status.UNAUTHORIZED.getStatusCode());
+            throw new DemoiselleSecurityException("Usuário não existe", UNAUTHORIZED.getStatusCode());
         }
 
-        if (!usu.getPass().equalsIgnoreCase(MD5.parser(password))) {
-            throw new DemoiselleSecurityException("Senha incorreta", Response.Status.UNAUTHORIZED.getStatusCode());
+        if (!usu.getPass().equalsIgnoreCase(parser(password))) {
+            throw new DemoiselleSecurityException("Senha incorreta", UNAUTHORIZED.getStatusCode());
         }
 
         return usu;
@@ -100,7 +101,7 @@ public class UserDAO extends AbstractDAO<User, String> {
 
     @Override
     public User persist(User entity) {
-        entity.setPass(MD5.parser(entity.getPass()));
+        entity.setPass(parser(entity.getPass()));
         entity.setRole("USER");
         return super.persist(entity);
     }
@@ -113,7 +114,7 @@ public class UserDAO extends AbstractDAO<User, String> {
 
         User usu = verifyEmail(credentials.getUsername(), credentials.getPassword());
         if (usu == null) {
-            throw new DemoiselleSecurityException(bundle.invalidCredentials(), Response.Status.UNAUTHORIZED.getStatusCode());
+            throw new DemoiselleSecurityException(bundle.invalidCredentials(), UNAUTHORIZED.getStatusCode());
         }
 
         MultivaluedMap<String, String> values = new MultivaluedHashMap<>();
