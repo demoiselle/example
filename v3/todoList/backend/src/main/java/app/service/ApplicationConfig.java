@@ -23,7 +23,7 @@ public class ApplicationConfig extends Application {
     public ApplicationConfig() {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.0");
-        beanConfig.setBasePath("/todo/api");
+        beanConfig.setBasePath("/api");
         beanConfig.setResourcePackage("app.service");
         beanConfig.setScan(true);
     }
