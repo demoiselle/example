@@ -31,7 +31,7 @@ export class RegisterPage {
   }
 
   navToLoginPage() {
-    this.navCtrl.push(LoginPage, {});
+    this.navCtrl.setRoot(LoginPage, {});
   }
 
   /**
@@ -46,7 +46,7 @@ export class RegisterPage {
         password: this.user.pass
       }).subscribe(res2 => {
         // console.log('User logged-in:', res2);
-        this.navCtrl.push(TodoListPage, {});
+        this.navCtrl.setRoot(TodoListPage, {});
       });
     });
   }

@@ -7,11 +7,18 @@
 <ion-content padding>
   <form name="todoForm" (ngSubmit)="onSubmit($event, todoForm)" novalidate #todoForm="ngForm">
     <ion-item>
-      <ion-label floating>Descrição:</ion-label>
+      <ion-label floating>Descrição</ion-label>
       <ion-input type="text" [(ngModel)]="todo.description" name="description"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label floating>Data</ion-label>
+      <ion-datetime [(ngModel)]="todo.dateEnd" name="dateEnd" displayFormat="DD/MM/YYYY" [min]="minDate" [max]="maxDate"></ion-datetime>
+    </ion-item>
     <div padding>
-      <button ion-button type="submit">Add To-Do</button>
+      <button ion-button type="submit">
+        <span *ngIf="!todo.id">Add To-Do</span>
+        <span *ngIf="todo.id">Save To-Do</span>
+      </button>
     </div>
   </form>
 </ion-content>

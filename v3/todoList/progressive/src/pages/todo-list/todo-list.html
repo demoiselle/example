@@ -21,22 +21,20 @@
             </ion-item>
         </ion-col>
     </ion-row>
-    <!--<ion-item>
-        <ion-label>Arquivados</ion-label>
-        <ion-checkbox [(ngModel)]="showArchived" (ionChange)="toggleVisibility()"></ion-checkbox>
-    </ion-item>-->
     <ion-list>
-        <ion-item-sliding *ngFor="let todo of todos" (click)="itemTapped($event, todo)">
-            <ion-item>
+        <ion-item *ngIf="todos.length === 0">
+            Nenhum "to-do"
+        </ion-item>
+        <ion-item-sliding *ngFor="let todo of todos">
+            <ion-item (click)="itemTapped($event, todo)">
                 <div class="todo-description">{{todo.description}}</div>
                 <div class="todo-details" item-right>
-                    ID: {{todo.id}}
+                    {{todo.dateEnd | amDateFormat:'DD-MM-YYYY'}}
                 </div>
             </ion-item>
             <ion-item-options side="left">
                 <button ion-button (click)="defer($event, todo)">Defer</button>
             </ion-item-options>
-
             <ion-item-options side="right">
                 <button ion-button (click)="archive($event, todo)">Archive</button>
             </ion-item-options>

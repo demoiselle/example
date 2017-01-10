@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 // import { Observable } from 'rxjs/Rx';
 
+import * as moment from 'moment';
+
 import { AuthService } from '@demoiselle/security';
 
 import { Todo } from './todo-model';
@@ -27,7 +29,12 @@ export class TodoService {
     console.log('TODO: implementar paginação:', currentPage, itemsPerPage);
     let url = this.endpoint + '/user/' + this.authService.getIdentityFromToken();
     return this.http.get(url).map(res => {
-      return <Todo[]>(res.json().todos);
+      var json = res.json();
+      if (json && json.todos) {
+        return <Todo[]>json.todos;
+      }
+
+      return [];
     });
   }
 
@@ -53,19 +60,15 @@ export class TodoService {
   }
 
   defer(todo: Todo, days: number) {
-    todo.user = {
-      id: this.authService.getIdentityFromToken()
-    };
-    
-    // TODO: Add days
-    // todo.dateend += days;
-    
+    let date = moment(todo.dateEnd, 'YYYY-MM-DD');
+    date = date.add(days, 'days');
+    todo.dateEnd = date.format('YYYY-MM-DD');
     return this.update(todo);
   }
 
   archive(todo: Todo) {
+    console.log('To-Do arquivado:', todo);
     todo.status = 'archived';
-
     return this.update(todo);
   }
 }

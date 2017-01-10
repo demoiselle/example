@@ -86,17 +86,16 @@ export class TodoListPage {
   }
 
   itemTapped(event, todo) {
-    // That's right, we're pushing to ourselves!
-    // this.navCtrl.push(TodoFormPage, {
-    //   todo: todo
-    // });
+    this.navCtrl.push(TodoFormPage, {
+      todo: todo
+    });
   }
 
   defer(event, todo) {
     let days = 1;
     this.todoService.defer(todo, days)
       .subscribe(data => {
-        console.log('To-Do adiado por %s dias.', days, data);
+        // recarrega a lista
         this.list();
       });
   }
@@ -104,7 +103,7 @@ export class TodoListPage {
   archive(event, todo) {
     this.todoService.archive(todo)
       .subscribe(data => {
-        console.log('To-Do arquivado:', data);
+        // recarrega a lista
         this.list();
       });
   }
@@ -114,7 +113,6 @@ export class TodoListPage {
   }
 
   toggleVisibility() {
-    console.log('toggleVisibility:', this.showArchived);
     // recarrega a lista
     this.list();
   }

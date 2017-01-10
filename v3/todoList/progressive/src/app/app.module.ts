@@ -1,20 +1,22 @@
+// Angular
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+// Ionic
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 // import { HttpModule } from '@demoiselle/http';
 import { AuthServiceProvider, SecurityModule } from '@demoiselle/security';
 import { HttpServiceProvider } from '@demoiselle/http';
+import { MomentModule } from 'angular2-moment';
 
 // Providers / Services
 import { LoginService } from '../providers/login-service';
 import { TodoService } from '../providers/todo-service';
 
 // App Components
-import { MyApp } from './app.component';
+import { MyApp, AppEvents } from './app.component';
 import { TodoListPage } from '../pages/todo-list/todo-list';
 import { TodoFormPage } from '../pages/todo-form/todo-form';
 import { LoginPage } from '../pages/login/login';
@@ -23,6 +25,7 @@ import { RegisterPage } from '../pages/register/register';
 @NgModule({
   declarations: [
     MyApp,
+    // Pages
     TodoListPage,
     TodoFormPage,
     LoginPage,
@@ -33,6 +36,7 @@ import { RegisterPage } from '../pages/register/register';
     HttpModule,
     FormsModule,
     SecurityModule,
+    MomentModule,
     RouterModule.forRoot([], { useHash: true })
   ],
   exports: [RouterModule],
@@ -47,16 +51,20 @@ import { RegisterPage } from '../pages/register/register';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpServiceProvider({
-      endpoints: { main: 'http://localhost:8080/todo/api/' },
+      endpoints: { main: 'http://localhost:8080/api/' },
       multitenancy: false,
-      unAuthorizedRoute: '/login',
+      unAuthorizedRoute: (args) => {
+        AppEvents.publish('auth:unauthorizred', args, Date.now());
+      },
       tokenKey: 'id_token'
     }),
     AuthServiceProvider({
       authEndpointUrl: '~main/',
       loginResourcePath: 'auth',
       tokenKey: 'id_token',
-      loginRoute: '/login'
+      loginRoute: (args) => {
+        AppEvents.publish('auth:login-success', args, Date.now());
+      }
     }),
     LoginService,
     TodoService
