@@ -59,10 +59,10 @@ npm start
 nvm install stable
 
 # Instalar o Ionic/Cordova
-npm -g ionic cordova
+npm install -g ionic cordova
 
 # Acessar a pasta "progressive"
-cd v3/todoList/progressive
+cd examplev3/todoList/progressive
 
 # Instalar os módulos dependentes
 npm install
