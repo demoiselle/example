@@ -8,7 +8,7 @@ package app.bc;
 import app.entity.User;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
-import org.demoiselle.jee.persistence.crud.AbstractBusiness;
+import org.demoiselle.jee.crud.AbstractBusiness;
 
 /**
  *

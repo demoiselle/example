@@ -1,10 +1,11 @@
-
 package app.dao;
 
 import app.entity.User;
 import app.security.Credentials;
-import static app.util.MD5.parser;
 import static java.lang.Long.parseLong;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,10 +21,11 @@ import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import org.apache.commons.lang3.StringUtils;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.core.api.security.SecurityContext;
 import org.demoiselle.jee.core.api.security.Token;
-import org.demoiselle.jee.persistence.crud.AbstractDAO;
+import org.demoiselle.jee.crud.AbstractDAO;
 import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
 import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 
@@ -55,25 +57,8 @@ public class UserDAO extends AbstractDAO<User, String> {
         return em;
     }
 
-    @Override
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters, CriteriaBuilder criteriaBuilder, Root<User> root) {
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (queryParameters.containsKey("id")) {
-            Long id = parseLong(queryParameters.getFirst("id"));
-            predicates.add(criteriaBuilder.equal(root.get("id"), id));
-        }
-
-        if (queryParameters.containsKey("nome")) {
-            String nome = queryParameters.getFirst("nome");
-            predicates.add(criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
-        }
-
-        return predicates.toArray(new Predicate[]{});
-    }
-
     public User verifyEmail(String email, String password) {
-
+        org.apache.commons.lang3.StringUtils st = new StringUtils();
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> from = query.from(User.class);
@@ -92,7 +77,7 @@ public class UserDAO extends AbstractDAO<User, String> {
             throw new DemoiselleSecurityException("Usuário não existe", UNAUTHORIZED.getStatusCode());
         }
 
-        if (!usu.getPass().equalsIgnoreCase(parser(password))) {
+        if (!usu.getPass().equalsIgnoreCase(md5(password))) {
             throw new DemoiselleSecurityException("Senha incorreta", UNAUTHORIZED.getStatusCode());
         }
 
@@ -101,7 +86,7 @@ public class UserDAO extends AbstractDAO<User, String> {
 
     @Override
     public User persist(User entity) {
-        entity.setPass(parser(entity.getPass()));
+        entity.setPass(md5(entity.getPass()));
         entity.setRole("USER");
         return super.persist(entity);
     }
@@ -134,6 +119,19 @@ public class UserDAO extends AbstractDAO<User, String> {
         loggedUser = securityContext.getUser();
         securityContext.setUser(loggedUser);
         return token.getKey();
+    }
+
+    private String md5(String senha) {
+        String sen = "";
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            LOG.severe(e.getMessage());
+        }
+        BigInteger hash = new BigInteger(1, md.digest(senha.getBytes()));
+        sen = hash.toString(16);
+        return sen;
     }
 
 }

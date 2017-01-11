@@ -1,6 +1,6 @@
-
 package app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -28,8 +28,8 @@ import org.hibernate.annotations.GenericGenerator;
  * @author gladson
  */
 @Entity
-@Table(name = "todo")
 @XmlRootElement
+@Table(name = "todo")
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +59,7 @@ public class Todo implements Serializable {
     @NotNull
     @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = EAGER)
+    @JsonBackReference
     private User user;
 
     @Override

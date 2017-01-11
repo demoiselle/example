@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.demoiselle.jee.persistence.crud.AbstractDAO;
+import org.demoiselle.jee.crud.AbstractDAO;
 
 /**
  *
