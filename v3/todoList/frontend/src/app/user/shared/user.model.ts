@@ -1,18 +1,12 @@
 export class User {
   id: number;
-  name: string;
-  role: string;
+  firstName: string;
   email: string;
-  cpf: string;
-  fone: string;
-  password: string;
+  pass: string;
   constructor(
     id?: number,
-    name?: string,
-    role?: string,
+    firstName?: string,
     email?: string,
-    cpf?: string,
-    fone?: string,
-    password?: string
+    pass?: string
   ) { }
 }

@@ -8,6 +8,6 @@ module.exports = {
    * }
    */
   endpoints: {
-    main: 'http://localhost:8080/todo/api/'
+    main: 'http://localhost:8080/api/'
   }
 };

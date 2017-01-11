@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let todo of todos">
-                                <td>{{todo.dateEnd}}</td>
+                                <td>{{todo.dateEnd | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{todo.description}}</td>
                                 <td>
                                     <template #statusTemplate>

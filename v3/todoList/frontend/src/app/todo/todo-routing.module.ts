@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-// import { AuthGuard } from '@demoiselle/security';
+import { AuthGuard } from '@demoiselle/security';
 import { TodoComponent } from './todo.component';
 
 @NgModule({
@@ -10,7 +10,7 @@ import { TodoComponent } from './todo.component';
       {
         path: 'todo',
         data: ['ToDo'],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         component: TodoComponent
       }
     ])
