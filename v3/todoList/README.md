@@ -1,51 +1,71 @@
-# todoList
-Progressive App CRUD com Demoiselle v 3.0
+# To-Do App
+Aplicação "To-Do" com Demoiselle v3.0.
 
-Baixar o repositório
+- **Auth**: Register, Login/Logout
+- **To-Do**: Form, List (CRUD)
+
+# Instalação
+
+```bash
+# Baixar o repositório
 git clone https://github.com/demoiselle/example.git --depth=1
+```
 
+## Backend
+```bash
+# Instalar Java 8 
 
-#### Backend
-``` java
+# Instalar o maven 3
 
-Instalar Java 8 
-Instalar o maven 3
-
-acessar a pasta
+# Acessar a pasta "backend"
 cd v3/todoList/backend
 
-mvn clean package -Pwildfly-swarm && java -jar -Xmx128m target/todo-swarm.jar
+# Fazer o build
+mvn clean package -Pwildfly-swarm
 
-http://localhost:8080/
+# Inicia a aplicação (backend)
+java -jar -Xmx128m target/todo-swarm.jar
 
+# Acesse: http://localhost:8080/
 ```
-#### Frontend - Angular
-``` java
 
-Instalar NodeJS 
-Instalar mvn
+## Frontend - Angular
+```bash
+# Instalar nvm (https://github.com/creationix/nvm)
 
-acessar a pasta
+# Instalar NodeJS (atualmente v7.1.x)
+nvm install stable
+
+# Acessar a pasta "frontend"
 cd v3/todoList/frontend
 
+# Instalar os módulos dependentes
 npm install
+
+# Inicia a aplicação (frontend)
 npm start
 
-http://localhost:7070/
+# Acesse: http://localhost:7070/
 ```
 
-#### Frontend - Progressive
-``` javascripts
-Instalar NodeJS 
-Instalar mvn
+## Frontend - Progressive (Ionic2)
+```bash
+# Instalar nvm (https://github.com/creationix/nvm)
 
-acessar a pasta
+# Instalar NodeJS (atualmente v7.1.x)
+nvm install stable
+
+# Instalar o Ionic/Cordova
+npm -g ionic cordova
+
+# Acessar a pasta "progressive"
 cd v3/todoList/progressive
 
-npm -g ionic cordova
+# Instalar os módulos dependentes
 npm install
 
+# Inicia a aplicação (ionic)
 ionic serve
 
-http://localhost:8100/
+# Acesse: http://localhost:8100/
 ```
