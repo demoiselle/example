@@ -27,6 +27,9 @@ mvn clean package -Pwildfly-swarm
 java -jar -Xmx128m target/todo-swarm.jar
 
 # Acesse: http://localhost:8080/
+
+Servidor externo
+http://todolist-demoiselle.44fs.preview.openshiftapps.com/
 ```
 
 ## Frontend - Angular
