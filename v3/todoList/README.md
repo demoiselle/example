@@ -18,7 +18,7 @@ git clone https://github.com/demoiselle/example.git --depth=1
 # Instalar o maven 3
 
 # Acessar a pasta "backend"
-cd v3/todoList/backend
+cd example/v3/todoList/backend
 
 # Fazer o build
 mvn clean package -Pwildfly-swarm
@@ -34,13 +34,13 @@ http://todolist-demoiselle.44fs.preview.openshiftapps.com/
 
 ## Frontend - Angular
 ```bash
-# Instalar nvm (https://github.com/creationix/nvm)
+# Instalar nvm (https://github.com/creationix/nvm#install-script)
 
 # Instalar NodeJS (atualmente v7.1.x)
 nvm install stable
 
 # Acessar a pasta "frontend"
-cd v3/todoList/frontend
+cd example/v3/todoList/frontend
 
 # Instalar os módulos dependentes
 npm install
