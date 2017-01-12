@@ -26,7 +26,7 @@ export class TodoFormPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TodoFormPage');
+    // console.log('ionViewDidLoad TodoFormPage');
   }
 
   resetForm() {
@@ -36,7 +36,7 @@ export class TodoFormPage {
   onSubmit($event, form) {
     if (!this.todo.id) {
       this.todoService.create(this.todo).subscribe(res => {
-        console.log('To-Do created:', res);
+        // console.log('To-Do created:', res);
 
         this.resetForm();
         // go back to the TodoPage (list)
@@ -44,7 +44,7 @@ export class TodoFormPage {
       });
     } else {
       this.todoService.update(this.todo).subscribe(res => {
-        console.log('To-Do updated:', res);
+        // console.log('To-Do updated:', res);
         // go back to the TodoPage (list)
         this.navCtrl.pop();
       });

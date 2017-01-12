@@ -23,7 +23,7 @@ export class RegisterPage {
     public navParams: NavParams) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    // console.log('ionViewDidLoad RegisterPage');
   }
 
   onSubmit($event, form) {

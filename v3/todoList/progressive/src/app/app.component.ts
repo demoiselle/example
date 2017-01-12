@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { Nav, Platform, Events } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+// import { AlertController } from 'ionic-angular';
 
 import { AuthService } from '@demoiselle/security';
 
@@ -21,7 +23,11 @@ export class MyApp {
   loginPage = { title: 'Login', component: LoginPage };
   // logoutPage = { title: 'Logout', component: LogoutPage };
 
-  constructor(public platform: Platform, public authService: AuthService) {
+  constructor(
+    public platform: Platform,
+    public authService: AuthService,
+    public toastCtrl: ToastController
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -39,14 +45,22 @@ export class MyApp {
     });
 
     AppEvents.subscribe('auth:unauthorizred', () => {
-      // this.nav.isActive(LoginPage);
+      this.toastCtrl.create({
+        message: 'Acesso não autorizado.',
+        duration: 3000,
+        showCloseButton: true
+      }).present();
       if (this.nav.getActive().component !== LoginPage) {
         this.openPage(this.rootPage);
       }
     });
 
     AppEvents.subscribe('auth:login-success', () => {
-      console.log('handle auth:login-success');
+      this.toastCtrl.create({
+        message: 'Usuário logado com sucesso!',
+        duration: 3000,
+        showCloseButton: true
+      }).present();
       this.openPage(this.rootPage);
     });
   }

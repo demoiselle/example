@@ -1,5 +1,7 @@
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+// import { AlertController } from 'ionic-angular';
 
 import { LoginService } from '../../providers/login-service';
 import { RegisterPage } from '../register/register';
@@ -20,11 +22,12 @@ export class LoginPage {
     protected loginService: LoginService,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    // console.log('ionViewDidLoad LoginPage');
   }
 
   onSubmit($event, form) {
@@ -54,7 +57,11 @@ export class LoginPage {
         .subscribe(
         res => {
           // console.log('Signed-in:', res);
-          loading.dismiss();
+          this.toastCtrl.create({
+            message: 'Usuário logado com sucesso!',
+            duration: 3000,
+            showCloseButton: true
+          }).present();
           this.navCtrl.setRoot(TodoListPage, {});
         },
         error => {
@@ -65,13 +72,23 @@ export class LoginPage {
             // console.log('Error:', message);
             this.user.pass = '';
           };
-          loading.dismiss();
-        }/*,
+          // this.toastCtrl.create({
+          //   message: 'Incorrect user or password',
+          //   duration: 3000,
+          //   showCloseButton: true
+          // }).present();
+        },
         () => {
+          // console.log('Complete.');
           loading.dismiss();
-        }*/);
+        });
     } catch (ex) {
-      console.log('Exception:', ex);
+      // console.log('Exception:', ex);
+      this.toastCtrl.create({
+        message: 'Error with authentication',
+        duration: 3000,
+        showCloseButton: true
+      }).present();
       loading.dismiss();
       // TODO: mostrar erro? loggar exception
     }

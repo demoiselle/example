@@ -37,7 +37,7 @@ export class TodoListPage {
   // }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter TodoPage');
+    // console.log('ionViewDidEnter TodoPage');
     this.list();
   }
 
@@ -72,7 +72,7 @@ export class TodoListPage {
           loading.dismiss();
         },
         error => {
-          console.error('Error', error);
+          // console.error('Error', error);
           loading.dismiss();
           // this.notificationService.error('Não foi possível carregar a lista de "to-do\'s"!');
           // this.totalItems = 20;

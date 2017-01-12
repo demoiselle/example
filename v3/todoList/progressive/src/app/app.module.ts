@@ -51,7 +51,8 @@ import { RegisterPage } from '../pages/register/register';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpServiceProvider({
-      endpoints: { main: 'http://localhost:8080/api/' },
+      // endpoints: { main: 'http://localhost:8080/api/' },
+      endpoints: { main: 'http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/' },
       multitenancy: false,
       unAuthorizedRoute: (args) => {
         AppEvents.publish('auth:unauthorizred', args, Date.now());
