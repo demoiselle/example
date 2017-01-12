@@ -6,6 +6,7 @@
 package app.service;
 
 import app.entity.User;
+import app.message.TodoMessage;
 import io.swagger.annotations.Api;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
@@ -38,6 +39,8 @@ public class UserREST extends AbstractREST<User, String> {
     @Inject
     private DemoiselleUser dml;
 
+    private TodoMessage message;
+
     @POST
     @Override
     @Transactional
@@ -53,7 +56,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (entity.getId().equalsIgnoreCase(dml.getIdentity())) {
             return bc.merge(entity);
         } else {
-            throw new DemoiselleRestException("Você só pode alterar seu próprio dado", 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 401);
         }
     }
 
@@ -66,7 +69,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (id.equalsIgnoreCase(dml.getIdentity())) {
             return bc.find(id);
         } else {
-            throw new DemoiselleRestException("Você só pode buscar seu próprio dado", 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 401);
         }
     }
 
@@ -86,7 +89,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (id.equalsIgnoreCase(dml.getIdentity())) {
             bc.remove(id);
         } else {
-            throw new DemoiselleRestException("Você só pode apagar seu próprio dado", 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 401);
         }
     }
 
