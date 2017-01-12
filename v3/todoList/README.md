@@ -4,6 +4,15 @@ Aplicação "To-Do" com Demoiselle v3.0.
 - **Auth**: Register, Login/Logout
 - **To-Do**: Form, List (CRUD)
 
+# Apps de exemplo
+http://demoiselle.io/jee/example/todo/progressive (Versão app celular)
+
+http://demoiselle.io/jee/example/todo/frontend (Versão app desktop)
+
+http://todolist-demoiselle.44fs.preview.openshiftapps.com/ (Servidor Wildfly)
+
+
+
 # Instalação
 
 ```bash
@@ -28,8 +37,6 @@ java -jar -Xmx128m target/todo-swarm.jar
 
 # Acesse: http://localhost:8080/
 
-Servidor externo
-http://todolist-demoiselle.44fs.preview.openshiftapps.com/
 ```
 
 ## Frontend - Angular
