@@ -18,7 +18,7 @@ git clone https://github.com/demoiselle/example.git --depth=1
 # Instalar o maven 3
 
 # Acessar a pasta "backend"
-cd v3/todoList/backend
+cd example/v3/todoList/backend
 
 # Fazer o build
 mvn clean package -Pwildfly-swarm
@@ -27,17 +27,20 @@ mvn clean package -Pwildfly-swarm
 java -jar -Xmx128m target/todo-swarm.jar
 
 # Acesse: http://localhost:8080/
+
+Servidor externo
+http://todolist-demoiselle.44fs.preview.openshiftapps.com/
 ```
 
 ## Frontend - Angular
 ```bash
-# Instalar nvm (https://github.com/creationix/nvm)
+# Instalar nvm (https://github.com/creationix/nvm#install-script)
 
 # Instalar NodeJS (atualmente v7.1.x)
 nvm install stable
 
 # Acessar a pasta "frontend"
-cd v3/todoList/frontend
+cd example/v3/todoList/frontend
 
 # Instalar os módulos dependentes
 npm install
@@ -56,10 +59,10 @@ npm start
 nvm install stable
 
 # Instalar o Ionic/Cordova
-npm -g ionic cordova
+npm install -g ionic cordova
 
 # Acessar a pasta "progressive"
-cd v3/todoList/progressive
+cd examplev3/todoList/progressive
 
 # Instalar os módulos dependentes
 npm install
