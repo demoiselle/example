@@ -8,9 +8,6 @@ package app.service;
 import app.dao.UserDAO;
 import app.security.Credentials;
 import io.swagger.annotations.Api;
-import java.util.logging.Logger;
-import static java.util.logging.Logger.getLogger;
-import javax.ejb.Asynchronous;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -26,7 +23,7 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
- * @author 70744416353
+ * @author SERPRO
  */
 @Api("Auth")
 @Path("auth")
@@ -34,29 +31,17 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Consumes(APPLICATION_JSON)
 public class AuthREST {
 
-    private static final Logger LOG = getLogger(AuthREST.class.getName());
-
     @Inject
     private UserDAO dao;
 
     @POST
-    @Asynchronous
-    public void login(@Suspended final AsyncResponse asyncResponse, Credentials credentials) {
-        asyncResponse.resume(doLogin(credentials));
-    }
-
-    private Response doLogin(Credentials credentials) {
+    public Response login(Credentials credentials) {
         return ok().entity("{\"token\":\"" + dao.login(credentials) + "\"}").build();
     }
 
     @GET
     @Authenticated
-    @Asynchronous
-    public void retoken(@Suspended final AsyncResponse asyncResponse) {
-        asyncResponse.resume(doRetoken());
-    }
-
-    private Response doRetoken() {
+    public Response retoken(@Suspended final AsyncResponse asyncResponse) {
         return ok().entity("{\"token\":\"" + dao.retoken() + "\"}").build();
     }
 
