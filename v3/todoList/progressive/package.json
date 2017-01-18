@@ -28,8 +28,8 @@
     "sw-toolbox": "3.4.0",
         
     "@angular/router": "~3.2.0",
-    "@demoiselle/http": "^0.0.14",
-    "@demoiselle/security": "^0.0.14",
+    "@demoiselle/http": "^0.0.13",
+    "@demoiselle/security": "^0.0.13",
     "angular2-moment": "^1.1.0",
     "moment": "^2.17.1"
         
