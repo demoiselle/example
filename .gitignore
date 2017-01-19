@@ -35,13 +35,14 @@ bower_components
 
 
 ### NetBeans ###
-nbproject/private/
+v3/todoList/progressive/nbproject
+v3/todoList/backend/nbproject
+v3/todoList/frontend/nbproject
 build/
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
 
 ### VisualStudioCode ###
 .vscode/*
