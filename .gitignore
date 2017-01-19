@@ -44,6 +44,9 @@ dist/
 nbdist/
 .nb-gradle/
 
+### Ideia ###
+v3/todoList/.idea
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
