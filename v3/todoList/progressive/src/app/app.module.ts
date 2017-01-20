@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // Ionic
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 // import { HttpModule } from '@demoiselle/http';
 import { AuthServiceProvider, SecurityModule } from '@demoiselle/security';
@@ -21,6 +22,8 @@ import { TodoListPage } from '../pages/todo-list/todo-list';
 import { TodoFormPage } from '../pages/todo-form/todo-form';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+
+let storage = new Storage();
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import { RegisterPage } from '../pages/register/register';
       // endpoints: { main: 'http://localhost:8080/api/' },
       endpoints: { main: 'http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/' },
       multitenancy: false,
+      tokenGetter: () => storage.get('id_token'),
       unAuthorizedRoute: (args) => {
         AppEvents.publish('auth:unauthorizred', args, Date.now());
       },
@@ -62,6 +66,9 @@ import { RegisterPage } from '../pages/register/register';
     AuthServiceProvider({
       authEndpointUrl: '~main/',
       loginResourcePath: 'auth',
+      tokenGetter: () => storage.get('id_token'),
+      tokenSetter: (val: string) => storage.set('id_token', val),
+      tokenRemover: () => storage.remove('id_token'),
       tokenKey: 'id_token',
       loginRoute: (args) => {
         AppEvents.publish('auth:login-success', args, Date.now());
