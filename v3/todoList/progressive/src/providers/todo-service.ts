@@ -15,19 +15,19 @@ import { Todo } from './todo-model';
 @Injectable()
 export class TodoService {
 
-  endpoint: string = '~main';
+  endpoint: string = 'http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/';
 
   constructor(protected http: Http, protected authService: AuthService) {
     console.log('Hello TodoService Provider');
   }
 
   get(id: string) {
-    return this.http.get(this.endpoint + id).map(res => <Todo>res.json());
+    return this.http.get(this.endpoint + 'user/' + id).map(res => <Todo>res.json());
   }
 
   list(currentPage: number, itemsPerPage: number) {
     console.log('TODO: implementar paginação:', currentPage, itemsPerPage);
-    let url = this.endpoint + '/user/' + this.authService.getIdentityFromToken();
+    let url = this.endpoint + 'user/' + this.authService.getIdentityFromToken();
     return this.http.get(url).map(res => {
       var json = res.json();
       if (json && json.todos) {
@@ -42,21 +42,21 @@ export class TodoService {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.post('~main/todo', todo).map(res => res.json());
+    return this.http.post('http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/todo/', todo).map(res => res.json());
   }
 
   update(todo: Todo) {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.put('~main/todo', todo);
+    return this.http.put('http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/todo/', todo);
   }
 
   delete(todo: Todo) {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.delete('~main/todo/' + todo.id);
+    return this.http.delete('http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/todo/' + todo.id);
   }
 
   defer(todo: Todo, days: number) {
