@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.entity.User;
@@ -63,7 +58,6 @@ public class UserREST extends AbstractREST<User, String> {
     @GET
     @Override
     @Path("{id}")
-//    @OnlyOwner(field = "id")
     @Transactional
     public User find(@PathParam("id") final String id) {
         if (id.equalsIgnoreCase(dml.getIdentity())) {
@@ -94,4 +88,3 @@ public class UserREST extends AbstractREST<User, String> {
     }
 
 }
-//import org.demoiselle.jee.security.annotation.OnlyOwner;
