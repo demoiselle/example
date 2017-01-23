@@ -45,6 +45,9 @@ export class TodoService {
   }
 
   update(todo: Todo) {
+    todo.user = {
+      id: this.authService.getIdentityFromToken()
+    };
     return this.http.put('~main/todo', todo);
   }
 

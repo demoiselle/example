@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../../shared';
+import { LoginService } from '../../login/shared/login.service';
 import { UserService } from '../shared/user.service';
 import { User } from '../shared/user.model';
 
@@ -20,6 +21,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private service: UserService,
+    private loginService: LoginService,
     private notificationService: NotificationService) {
   }
 
@@ -33,10 +35,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
         this.userLoaded = true;
       }
     });
+
+    this.loginService.setRedirect('login');
   }
 
   ngOnDestroy() {
     this.routeSubscribe.unsubscribe();
+    this.loginService.setRedirect('');
   }
 
   loadUsuario() {
@@ -77,6 +82,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.router.navigate(['/usuario']);
+    this.loginService.proceedToRedirect('');
   }
 }

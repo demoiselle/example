@@ -42,7 +42,7 @@ export class TodoComponent implements OnInit {
   }
 
   onSelect(todo: Todo) {
-    this.todo = todo;
+    this.todo = this.cloneTodo(todo);
   }
 
   onChangePage(event: any): void {
@@ -76,16 +76,33 @@ export class TodoComponent implements OnInit {
         this.resetTodoForm(form);
       },
       error => {
-        this.notificationService.error('Não foi possível cadastrar o "To-Do"!');
+        if (error.status == 412) {
+          let errors = JSON.parse(error._body);
+          for (let err of errors) {
+            this.notificationService.error('Validação => Campo: ' + err.error + ' , Erro: ' + err.error_description);
+          }
+        } else if (error.status == 400) {
+          let errors = JSON.parse(error._body || []);
+          for (let err of errors) {
+            this.notificationService.error('Validação => Campo: ' + err.error + ' , Erro: ' + err.error_description);
+          }
+        } else {
+          this.notificationService.error('Não foi possível cadastrar o "To-Do"!');
+        }
+
       });
   }
 
   deleteTodo(todo: Todo) {
     this.service.delete(todo).subscribe(
       () => {
+        // remove todo from this.todos
+        //let index = this.todos.map(function(item) { return item.id; }).indexOf(todo.id);
+        //~index && this.todos.splice(index);
+        this.list();
+
         this.todo = new Todo();
         this.notificationService.success('Todo removido com sucesso!');
-        // this.todos.remove(todo); // FIXME
       },
       error => {
         this.notificationService.error('Não foi possível remover o "To-Do"!');
@@ -101,13 +118,22 @@ export class TodoComponent implements OnInit {
         this.resetTodoForm(form);
       },
       error => {
-        this.notificationService.error('Não foi possível atualizar o "To-Do"!');
+        if (error.status == 412) {
+          let errors = JSON.parse(error._body);
+          for (let err of errors) {
+            this.notificationService.error('Validação => Campo: ' + err.error + ' , Erro: ' + err.error_description);
+          }
+        } else {
+          this.notificationService.error('Não foi possível atualizar o "To-Do"!');
+        }
       }
     );
   }
 
   resetTodoForm(form: NgForm) {
-    form.reset();
+    if (form) {
+      form.reset();
+    }
     this.todo = new Todo();
   }
 
@@ -119,5 +145,13 @@ export class TodoComponent implements OnInit {
   setStatus(todo, status) {
     // todo :)
     console.log('TODO: implementar funcionalidade de "setStatus" - novo status: %s', status);
+  }
+
+  cloneTodo(c: Todo): Todo {
+    let copy = new Todo();
+    for (let prop in c) {
+      copy[prop] = c[prop];
+    }
+    return copy;
   }
 }

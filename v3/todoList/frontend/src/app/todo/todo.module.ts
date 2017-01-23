@@ -15,7 +15,7 @@ import { TodoComponent } from './todo.component';
     ConfirmationPopoverModule.forRoot({
       confirmText: 'Sim',
       cancelText: 'Não',
-      appendToBody: true
+      appendToBody: false
     })
   ],
   declarations: [

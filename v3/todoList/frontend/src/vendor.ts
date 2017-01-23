@@ -17,6 +17,3 @@ import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import 'ng2-toastr/ng2-toastr.css';
-import 'ag-grid/dist/styles/ag-grid.css';
-import 'ag-grid/dist/styles/theme-material.css';
-
