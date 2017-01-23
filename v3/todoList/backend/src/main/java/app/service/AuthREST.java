@@ -8,6 +8,7 @@ package app.service;
 import app.dao.UserDAO;
 import app.security.Credentials;
 import io.swagger.annotations.Api;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -44,5 +45,6 @@ public class AuthREST {
     public Response retoken(@Suspended final AsyncResponse asyncResponse) {
         return ok().entity("{\"token\":\"" + dao.retoken() + "\"}").build();
     }
+    private static final Logger LOG = Logger.getLogger(AuthREST.class.getName());
 
 }

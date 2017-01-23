@@ -2,12 +2,10 @@ package app.dao;
 
 import app.entity.User;
 import app.security.Credentials;
-import static java.lang.Long.parseLong;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import static java.security.MessageDigest.getInstance;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.inject.Inject;
@@ -16,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -125,7 +122,7 @@ public class UserDAO extends AbstractDAO<User, String> {
         String sen = "";
         MessageDigest md = null;
         try {
-            md = MessageDigest.getInstance("MD5");
+            md = getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             LOG.severe(e.getMessage());
         }

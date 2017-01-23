@@ -8,6 +8,7 @@ package app.service;
 import app.entity.Todo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.logging.Logger;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
@@ -71,4 +72,5 @@ public class TodoREST extends AbstractREST<Todo, String> {
     public Todo find(@PathParam("id") final String id) {
         return bc.find(id);
     }
+    private static final Logger LOG = Logger.getLogger(TodoREST.class.getName());
 }
