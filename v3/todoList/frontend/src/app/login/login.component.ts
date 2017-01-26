@@ -32,8 +32,10 @@ export class LoginComponent implements OnInit {
       },
       error => {
         if (error.status === 401 || error.status === 406) {
-          let message = JSON.parse(error._body).error;
-          this.notificationService.error(message);
+          let errors = JSON.parse(error._body);
+          for (let err of errors) {
+            this.notificationService.error(err.error);
+          }
           this.user.password = '';
         };
       });
