@@ -1,0 +1,77 @@
+<article class="page todos">
+    <div class="content-header">
+        <h2>To-Do's</h2>
+        <p class="description" [innerHTML]="titleDoc"></p>
+    </div>
+    <section>
+        <div class="row">
+                <form (ngSubmit)="onSubmit(todoForm)" #todoForm="ngForm">
+                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                         <label for="description" class="control-label">Descrição:</label>
+                      </div>
+                      <div class="ui-grid-col-6">
+                            <input pInputText id="description" name="description" [(ngModel)]="todo.description" required #description="ngModel" />
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <div [hidden]="description.valid || description.pristine" class="ui-message ui-messages-error ui-corner-all">
+                            <span>"Descrição" é obrigatório.</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                         <label for="dateEnd"  class="control-label">Data:</label>
+                      </div>
+                      <div class="ui-grid-col-6">
+                            <p-calendar required id="dateEnd" name="dateEnd" dateFormat="dd/mm/yy" [(ngModel)]="todo.dateEnd" #dateEnd="ngModel"></p-calendar>
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <div [hidden]="dateEnd.valid || dateEnd.pristine" class="ui-message ui-messages-error ui-corner-all">
+                            <span>"Data" é obrigatório.</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            <button *ngIf="!todo.id" pButton icon="fa-plus"  type="submit" [disabled]="!todoForm.form.valid" label="Criar To-Do"></button>
+                            <button *ngIf="todo.id" pButton icon="fa-plus"  type="submit" [disabled]="!todoForm.form.valid" label="Salvar To-Do"></button>
+                        </div>
+
+                        <div class="ui-grid-col-2">                            
+                            <button pButton  type="reset" (click)="resetTodoForm()" label="Cancelar"></button>
+                        </div>
+                            
+                        
+                    </div>
+                 </div>
+                </form>
+            
+        </div>
+    </section>
+    <section>
+
+<p-dataTable [value]="todos" [paginator]="true" rows="15" [responsive]="true">
+    <header>CRUD for To-Do's</header>
+    
+    <p-column field="description" header="Descrição" [sortable]="true"></p-column>
+    <p-column field="dateEnd" header="Data Final" [sortable]="true"></p-column>
+    <p-column header="Ações"> 
+        <template let-todo="rowData" pTemplate="body">
+            <button type="button" pButton (click)="onSelect(todo)" icon="fa-edit" label="Editar"></button>
+            <button type="button" pButton (click)="deleteTodo(todo)" icon="fa-trash" label="Remover"></button>
+        </template>
+ </p-column>
+
+    
+</p-dataTable>
+
+        
+    </section>
+</article>
