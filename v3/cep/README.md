@@ -10,7 +10,7 @@ https://cep-fwkdemoiselle.rhcloud.com/ (Versão app desktop)
 
 https://cep-fwkdemoiselle.rhcloud.com/swagger/ (Servidor Wildfly API)
 
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?cep=[SEU CEP] (Consulta CEP)
+https://cep-fwkdemoiselle.rhcloud.com/api/cep?cep= [SEU_CEP] (Consulta CEP)
 
 
 # Instalação
