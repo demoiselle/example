@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
+import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -27,10 +28,12 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("Logradouro")
 @Path("logradouro")
+@Authenticated
 public class LogradouroFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
     @GET
     @Asynchronous
+    @Authenticated(enable = false)
     @CacheControl(value = "max-age=259200000")
     public void findLogradouro(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindLogradouro());

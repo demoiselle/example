@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
+import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -28,12 +29,12 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("Cep")
 @Path("cep")
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
+@Authenticated
 public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
     @GET
     @Asynchronous
+    @Authenticated(enable = false)
     @Path(value = "{cep}")
     @CacheControl(value = "max-age=259200000")
     @Produces(value = {MediaType.APPLICATION_JSON})
@@ -47,6 +48,7 @@ public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
     @GET
     @Transactional
+    @Authenticated(enable = false)
     @CacheControl(value = "max-age=259200000")
     public void find(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFind());

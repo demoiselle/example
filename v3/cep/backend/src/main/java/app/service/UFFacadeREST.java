@@ -16,6 +16,7 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
+import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -23,10 +24,12 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("UF")
 @Path("uf")
+@Authenticated
 public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
 
     @GET
     @Asynchronous
+    @Authenticated(enable = false)
     @CacheControl(value = "max-age=259200000")
     public void findUf(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindUf());
@@ -38,6 +41,7 @@ public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
 
     @GET
     @Asynchronous
+    @Authenticated(enable = false)
     @Path(value = "{uf}")
     @CacheControl(value = "max-age=259200000")
     public void findUf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
