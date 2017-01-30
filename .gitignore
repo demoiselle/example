@@ -2,7 +2,14 @@
 /v2/estacionamento251AngularJS/view/.tmp/
 /v2/estacionamento251AngularJS/server/src/main/webapp/
 /v2/estacionamento251AngularJS/desktop/app/public/libs/
+
 /v3/todoList/backend/target/
+
+/v3/cep/backend/target/
+/v3/cep/progressive/node_modules/
+/v3/cep/progressive/bower_components/
+/v3/cep/progressive/dist/
+/v3/cep/progressive/.tmp
 
 # Dependency directories
 node_modules
@@ -35,9 +42,13 @@ bower_components
 
 
 ### NetBeans ###
+v3/cep/progressive/nbproject
+v3/cep/backend/nbproject
+
 v3/todoList/progressive/nbproject
 v3/todoList/backend/nbproject
 v3/todoList/frontend/nbproject
+
 build/
 nbbuild/
 dist/
@@ -83,3 +94,4 @@ bh_unicode_properties.cache
 # Sublime-github package stores a github token in this file
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
+
