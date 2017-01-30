@@ -9,7 +9,7 @@ http://demoiselle.io/jee/example/todo/progressive (Versão app celular)
 
 http://demoiselle.io/jee/example/todo/frontend (Versão app desktop)
 
-http://todolist-demoiselle.44fs.preview.openshiftapps.com/ (Servidor Wildfly)
+https://todo-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly)
 
 
 
