@@ -34,7 +34,7 @@ export class TopNavComponent implements AfterViewInit {
     let anchorEl = document.getElementById('sidebar-menu');
 
     this.isShown = typeof isShown === 'undefined' ? !this.isShown : isShown;
-    if (this.document && this.document.body) {
+    if (this.document && this.document.body && anchorEl) {
       this.renderer.setElementClass(anchorEl, 'isOpenMenu', this.isShown);
       if (this.isShown === false) {
         this.renderer.setElementProperty(anchorEl, 'scrollTop', 0);

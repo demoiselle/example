@@ -16,6 +16,7 @@ import { TopNavComponent } from './top-nav/top-nav.component';
   imports: [
     CommonModule,
     RouterModule,
+    SecurityModule,
     Ng2BootstrapModule.forRoot(),
     DropdownModule.forRoot(),
     PopoverModule.forRoot()
