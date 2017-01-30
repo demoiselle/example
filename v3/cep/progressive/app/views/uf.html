@@ -1,0 +1,35 @@
+<div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+    <div class="mdl-card__supporting-text">
+        <label class="">Sigla UF</label>
+        <input type="text" ng-model="uf">
+        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="findUf()">Buscar</button> 
+    </div>
+    <div class="mdl-card__supporting-text" ng-show="localidades.length > 0">
+        <label class="">Filtro</label>
+        <input type="text" ng-model="searchText">
+        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="limpar()">Limpar</button> 
+    </div>
+    <div ng-show="localidades.length > 0" ng-repeat="l in localidades| filter:searchText | orderBy:'locNo'">
+
+
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" >
+            <div class="mdl-card__actions mdl-card--border">
+                <ul class="demo-list-item mdl-list">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            Cep: {{l.cep}}
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            Nome: {{l.locNo}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-separator mdl-cell--1-col" ></div>
+
+    </div>
+</div>

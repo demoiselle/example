@@ -1,0 +1,35 @@
+{
+  "name": "cep",
+  "version": "1.0.0",
+  "dependencies": {
+    "es5-shim": "~3.1.0",
+    "angular-touch": "~1.5.5",
+    "angular-sanitize": "~1.5.5",
+    "angular-route": "~1.5.5",
+    "angular-resource": "~1.5.5",
+    "angular-cookies": "~1.5.5",
+    "angular-bootstrap": "~1.3.2",
+    "angular-animate": "~1.5.5",
+    "angular": "~1.5.5",
+    "jquery": "~2.1.3",
+    "json3": "~3.3.1",
+    "ng-websocket": "~0.2.1",
+    "material-design-lite": "^1.2.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5.5",
+    "angular-scenario": "~1.5.5",
+    "angular-grid": "~2.0.14",
+    "angular-i18n": "~1.3.8",
+    "raphael": "~2.1.3"
+  },
+  "overrides": {
+    "angular-i18n": {
+      "main": "angular-locale_pt-br.js"
+    }
+  },
+  "appPath": "app",
+  "resolutions": {
+    "angular": "~1.5.5"
+  }
+}
