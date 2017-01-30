@@ -5,6 +5,7 @@
  */
 package app.service;
 
+import app.entity.LogLogradouro;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
@@ -25,24 +27,17 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("Logradouro")
 @Path("logradouro")
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
-public class LogradouroFacadeREST {
-
-    @Inject
-    private BaseInMemory dao;
+public class LogradouroFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
     @GET
     @Asynchronous
-    @Path(value = "{logradouro}")
     @CacheControl(value = "max-age=259200000")
-    @Produces(value = {MediaType.APPLICATION_JSON})
-    public void findLogradouro(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "logradouro") final String logradouro) {
-        asyncResponse.resume(doFindLogradouro(logradouro));
+    public void findLogradouro(@Suspended final AsyncResponse asyncResponse) {
+        asyncResponse.resume(doFindLogradouro());
     }
 
-    private Response doFindLogradouro(@PathParam("logradouro") String logradouro) {
-        return Response.ok().entity(dao.getLogradouro(logradouro)).build();
+    private Response doFindLogradouro() {
+        return Response.ok().entity(bc.find()).build();
     }
 
 }

@@ -6,9 +6,8 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,29 +15,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author gladson
  */
 @Entity
+@Cacheable
 @Table(name = "log_localidade")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "LogLocalidade.findAll", query = "SELECT l FROM LogLocalidade l"),
-    @NamedQuery(name = "LogLocalidade.findByLocNuSequencial", query = "SELECT l FROM LogLocalidade l WHERE l.locNuSequencial = :locNuSequencial"),
-    @NamedQuery(name = "LogLocalidade.findByLocNosub", query = "SELECT l FROM LogLocalidade l WHERE l.locNosub = :locNosub"),
-    @NamedQuery(name = "LogLocalidade.findByLocNo", query = "SELECT l FROM LogLocalidade l WHERE l.locNo = :locNo"),
-    @NamedQuery(name = "LogLocalidade.findByCep", query = "SELECT l FROM LogLocalidade l WHERE l.cep = :cep"),
-    @NamedQuery(name = "LogLocalidade.findByLocInSituacao", query = "SELECT l FROM LogLocalidade l WHERE l.locInSituacao = :locInSituacao"),
-    @NamedQuery(name = "LogLocalidade.findByLocInTipoLocalidade", query = "SELECT l FROM LogLocalidade l WHERE l.locInTipoLocalidade = :locInTipoLocalidade"),
-    @NamedQuery(name = "LogLocalidade.findByLocNuSequencialSub", query = "SELECT l FROM LogLocalidade l WHERE l.locNuSequencialSub = :locNuSequencialSub"),
+    @NamedQuery(name = "LogLocalidade.findAll", query = "SELECT l FROM LogLocalidade l")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocNuSequencial", query = "SELECT l FROM LogLocalidade l WHERE l.locNuSequencial = :locNuSequencial")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocNosub", query = "SELECT l FROM LogLocalidade l WHERE l.locNosub = :locNosub")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocNo", query = "SELECT l FROM LogLocalidade l WHERE l.locNo = :locNo")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByCep", query = "SELECT l FROM LogLocalidade l WHERE l.cep = :cep")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocInSituacao", query = "SELECT l FROM LogLocalidade l WHERE l.locInSituacao = :locInSituacao")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocInTipoLocalidade", query = "SELECT l FROM LogLocalidade l WHERE l.locInTipoLocalidade = :locInTipoLocalidade")
+    ,
+    @NamedQuery(name = "LogLocalidade.findByLocNuSequencialSub", query = "SELECT l FROM LogLocalidade l WHERE l.locNuSequencialSub = :locNuSequencialSub")
+    ,
     @NamedQuery(name = "LogLocalidade.findByTemp", query = "SELECT l FROM LogLocalidade l WHERE l.temp = :temp")})
 public class LogLocalidade implements Serializable {
 
@@ -161,7 +167,6 @@ public class LogLocalidade implements Serializable {
 //    public void setLogBairroList(List<LogBairro> logBairroList) {
 //        this.logBairroList = logBairroList;
 //    }
-
     public LogFaixaUf getUfeSg() {
         return ufeSg;
     }

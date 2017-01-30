@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="pu" transaction-type="JTA">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>java:jboss/datasources/CEPDS</jta-data-source>
-        <class>app.entity.LogBairro</class>
-        <class>app.entity.LogFaixaUf</class>
-        <class>app.entity.LogLocalidade</class>
-        <class>app.entity.LogLogradouro</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <validation-mode>NONE</validation-mode>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
-        </properties>
-    </persistence-unit>
+  <persistence-unit name="pu" transaction-type="JTA">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+    <class>app.entity.LogBairro</class>
+    <class>app.entity.LogFaixaUf</class>
+    <class>app.entity.LogLocalidade</class>
+    <class>app.entity.LogLogradouro</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+    </properties>
+  </persistence-unit>
 </persistence>

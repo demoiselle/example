@@ -6,36 +6,35 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author gladson
  */
 @Entity
+@Cacheable
 @Table(name = "log_bairro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "LogBairro.findAll", query = "SELECT l FROM LogBairro l"),
-    @NamedQuery(name = "LogBairro.findByBaiNuSequencial", query = "SELECT l FROM LogBairro l WHERE l.baiNuSequencial = :baiNuSequencial"),
-    @NamedQuery(name = "LogBairro.findByUfeSg", query = "SELECT l FROM LogBairro l WHERE l.ufeSg = :ufeSg"),
-    @NamedQuery(name = "LogBairro.findByBaiNo", query = "SELECT l FROM LogBairro l WHERE l.baiNo = :baiNo"),
+    @NamedQuery(name = "LogBairro.findAll", query = "SELECT l FROM LogBairro l")
+    ,
+    @NamedQuery(name = "LogBairro.findByBaiNuSequencial", query = "SELECT l FROM LogBairro l WHERE l.baiNuSequencial = :baiNuSequencial")
+    ,
+    @NamedQuery(name = "LogBairro.findByUfeSg", query = "SELECT l FROM LogBairro l WHERE l.ufeSg = :ufeSg")
+    ,
+    @NamedQuery(name = "LogBairro.findByBaiNo", query = "SELECT l FROM LogBairro l WHERE l.baiNo = :baiNo")
+    ,
     @NamedQuery(name = "LogBairro.findByBaiNoAbrev", query = "SELECT l FROM LogBairro l WHERE l.baiNoAbrev = :baiNoAbrev")})
 public class LogBairro implements Serializable {
 
@@ -65,7 +64,6 @@ public class LogBairro implements Serializable {
 //    @XmlTransient
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "baiNuSequencialIni")
 //    private List<LogLogradouro> logLogradouroList;
-
     public LogBairro() {
     }
 
@@ -127,7 +125,6 @@ public class LogBairro implements Serializable {
 //    public void setLogLogradouroList(List<LogLogradouro> logLogradouroList) {
 //        this.logLogradouroList = logLogradouroList;
 //    }
-
     @Override
     public int hashCode() {
         int hash = 0;

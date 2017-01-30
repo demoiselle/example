@@ -5,18 +5,16 @@
  */
 package app.service;
 
+import app.entity.LogFaixaUf;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
@@ -25,12 +23,7 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("UF")
 @Path("uf")
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
-public class UFFacadeREST {
-
-    @Inject
-    private BaseInMemory dao;
+public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
 
     @GET
     @Asynchronous
@@ -40,7 +33,7 @@ public class UFFacadeREST {
     }
 
     private Response doFindUf() {
-        return Response.ok().entity(dao.getRepoUf()).build();
+        return Response.ok().entity(bc.find()).build();
     }
 
     @GET
@@ -52,6 +45,7 @@ public class UFFacadeREST {
     }
 
     private Response doFindUf(@PathParam("uf") String uf) {
-        return Response.ok().entity(dao.getUf(uf)).build();
+        return Response.ok().entity(bc.find(uf)).build();
     }
+
 }

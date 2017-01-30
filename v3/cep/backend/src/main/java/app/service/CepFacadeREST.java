@@ -5,10 +5,10 @@
  */
 package app.service;
 
+import app.bc.LogradouroBC;
 import app.entity.LogLogradouro;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,11 +19,8 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.crud.AbstractREST;
-import org.demoiselle.jee.crud.Search;
 import org.demoiselle.jee.rest.annotation.CacheControl;
-import org.demoiselle.jee.rest.exception.DemoiselleRestException;
 
 /**
  *
@@ -35,9 +32,6 @@ import org.demoiselle.jee.rest.exception.DemoiselleRestException;
 @Consumes({MediaType.APPLICATION_JSON})
 public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
-    @Inject
-    private BaseInMemory dao;
-
     @GET
     @Asynchronous
     @Path(value = "{cep}")
@@ -48,7 +42,7 @@ public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
     }
 
     private Response doFindCep(@PathParam("cep") String id) {
-        return Response.ok().entity(dao.getCep(id)).build();
+        return Response.ok().entity(((LogradouroBC) bc).getLogradouroCep(id)).build();
     }
 
     @GET

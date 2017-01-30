@@ -7,6 +7,7 @@ package app.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,22 +25,36 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gladson
  */
 @Entity
+@Cacheable
 @Table(name = "log_logradouro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "LogLogradouro.findAll", query = "SELECT l FROM LogLogradouro l"),
-    @NamedQuery(name = "LogLogradouro.findByLogNuSequencial", query = "SELECT l FROM LogLogradouro l WHERE l.logNuSequencial = :logNuSequencial"),
-    @NamedQuery(name = "LogLogradouro.findByUfeSg", query = "SELECT l FROM LogLogradouro l WHERE l.ufeSg = :ufeSg"),
-    @NamedQuery(name = "LogLogradouro.findByLogNo", query = "SELECT l FROM LogLogradouro l WHERE l.logNo like :logNo"),
-    @NamedQuery(name = "LogLogradouro.findByLogNome", query = "SELECT l FROM LogLogradouro l WHERE l.logNome = :logNome"),
-    @NamedQuery(name = "LogLogradouro.findByBaiNuSequencialFim", query = "SELECT l FROM LogLogradouro l WHERE l.baiNuSequencialFim = :baiNuSequencialFim"),
-    @NamedQuery(name = "LogLogradouro.findByCep", query = "SELECT l FROM LogLogradouro l WHERE l.cep = :cep"),
-    @NamedQuery(name = "LogLogradouro.findByLogComplemento", query = "SELECT l FROM LogLogradouro l WHERE l.logComplemento = :logComplemento"),
-    @NamedQuery(name = "LogLogradouro.findByLogTipoLogradouro", query = "SELECT l FROM LogLogradouro l WHERE l.logTipoLogradouro = :logTipoLogradouro"),
-    @NamedQuery(name = "LogLogradouro.findByLogStatusTipoLog", query = "SELECT l FROM LogLogradouro l WHERE l.logStatusTipoLog = :logStatusTipoLog"),
-    @NamedQuery(name = "LogLogradouro.findByLogNoSemAcento", query = "SELECT l FROM LogLogradouro l WHERE l.logNoSemAcento = :logNoSemAcento"),
-    @NamedQuery(name = "LogLogradouro.findByIndUop", query = "SELECT l FROM LogLogradouro l WHERE l.indUop = :indUop"),
-    @NamedQuery(name = "LogLogradouro.findByIndGru", query = "SELECT l FROM LogLogradouro l WHERE l.indGru = :indGru"),
+    @NamedQuery(name = "LogLogradouro.findAll", query = "SELECT l FROM LogLogradouro l")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogNuSequencial", query = "SELECT l FROM LogLogradouro l WHERE l.logNuSequencial = :logNuSequencial")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByUfeSg", query = "SELECT l FROM LogLogradouro l WHERE l.ufeSg = :ufeSg")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogNo", query = "SELECT l FROM LogLogradouro l WHERE l.logNo like :logNo")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogNome", query = "SELECT l FROM LogLogradouro l WHERE l.logNome = :logNome")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByBaiNuSequencialFim", query = "SELECT l FROM LogLogradouro l WHERE l.baiNuSequencialFim = :baiNuSequencialFim")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByCep", query = "SELECT l FROM LogLogradouro l WHERE l.cep = :cep")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogComplemento", query = "SELECT l FROM LogLogradouro l WHERE l.logComplemento = :logComplemento")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogTipoLogradouro", query = "SELECT l FROM LogLogradouro l WHERE l.logTipoLogradouro = :logTipoLogradouro")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogStatusTipoLog", query = "SELECT l FROM LogLogradouro l WHERE l.logStatusTipoLog = :logStatusTipoLog")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByLogNoSemAcento", query = "SELECT l FROM LogLogradouro l WHERE l.logNoSemAcento = :logNoSemAcento")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByIndUop", query = "SELECT l FROM LogLogradouro l WHERE l.indUop = :indUop")
+    ,
+    @NamedQuery(name = "LogLogradouro.findByIndGru", query = "SELECT l FROM LogLogradouro l WHERE l.indGru = :indGru")
+    ,
     @NamedQuery(name = "LogLogradouro.findByTemp", query = "SELECT l FROM LogLogradouro l WHERE l.temp = :temp")})
 public class LogLogradouro implements Serializable {
 
@@ -241,6 +256,7 @@ public class LogLogradouro implements Serializable {
 //    public void setLocNuSequencial(LogLocalidade locNuSequencial) {
 //        this.locNuSequencial = locNuSequencial;
 //    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -5,6 +5,7 @@
  */
 package app.service;
 
+import app.entity.LogLocalidade;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
@@ -25,49 +27,17 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  */
 @Api("Localidade")
 @Path("localidade")
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
-public class LocalidadeFacadeREST {
-
-    @Inject
-    private BaseInMemory dao;
+public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
 
     @GET
     @Asynchronous
     @CacheControl(value = "max-age=259200000")
-    @Produces(value = {MediaType.APPLICATION_JSON})
     public void listLocalidade(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doListLocalidade());
     }
 
     private Response doListLocalidade() {
-        return Response.ok().entity(dao.getRepoLoca()).build();
-    }
-
-    @GET
-    @Asynchronous
-    @Path(value = "{nome}")
-    @CacheControl(value = "max-age=259200000")
-    @Produces(value = {MediaType.APPLICATION_JSON})
-    public void listLocalidade(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "nome") final String nome) {
-        asyncResponse.resume(doListLocalidade(nome));
-    }
-
-    private Response doListLocalidade(String nome) {
-        return Response.ok().entity(dao.getLocalidade(nome)).build();
-    }
-
-    @GET
-    @Asynchronous
-    @Path(value = "uf/{uf}")
-    @CacheControl(value = "max-age=259200000")
-    @Produces(value = {MediaType.APPLICATION_JSON})
-    public void listLocalidadeporuf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String nome) {
-        asyncResponse.resume(doListLocalidadeporuf(nome));
-    }
-
-    private Response doListLocalidadeporuf(String nome) {
-        return Response.ok().entity(dao.getLocalidadesFromUF(nome)).build();
+        return Response.ok().entity(bc.find()).build();
     }
 
 }
