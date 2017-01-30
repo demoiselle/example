@@ -59,4 +59,4 @@ grunt serve
 ```
 https://www.gitbook.com/@demoiselle
 
-# https://play.google.com/store/apps/details?id=org.demoiselle.cep (não implementado)
+* https://play.google.com/store/apps/details?id=org.demoiselle.cep (não implementado)
