@@ -8,6 +8,6 @@ module.exports = {
    * }
    */
   endpoints: {
-    main: 'http://api.domain/api/'
+    main: 'https://todo-fwkdemoiselle.rhcloud.com/api/'
   }
 };

@@ -1,4 +1,4 @@
-<div id="sidebar-menu">
+<div id="sidebar-menu" *dmlIsLogged >
   <div class="sidebar-menu-container">
     <ul class="nav nav-pills nav-stacked">
       <li role="presentation" *ngFor="let route of routes" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
