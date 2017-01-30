@@ -12,7 +12,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 public class LocalidadeDAO extends AbstractDAO<LogLocalidade, Integer> {
 

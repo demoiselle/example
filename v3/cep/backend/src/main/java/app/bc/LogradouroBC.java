@@ -12,7 +12,7 @@ import org.demoiselle.jee.crud.AbstractBusiness;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 public class LogradouroBC extends AbstractBusiness<LogLogradouro, Integer> {
 

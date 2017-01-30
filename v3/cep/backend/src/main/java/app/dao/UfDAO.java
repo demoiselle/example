@@ -12,7 +12,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 public class UfDAO extends AbstractDAO<LogFaixaUf, String> {
 

@@ -10,7 +10,7 @@ import org.demoiselle.jee.crud.AbstractBusiness;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 public class UfBC extends AbstractBusiness<LogFaixaUf, String> {
 
