@@ -29,7 +29,7 @@ https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&s
 > Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente e com um recorte do primeiro e segundo registro (0-1) </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc&range=0-1
 
-> Filtro de UF 
+> Filtro de UF </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/uf
 
 
