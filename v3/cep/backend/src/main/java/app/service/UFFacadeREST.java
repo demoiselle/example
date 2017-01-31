@@ -39,17 +39,4 @@ public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
         return Response.ok().entity(bc.find()).build();
     }
 
-    @GET
-    @Asynchronous
-    @Authenticated(enable = false)
-    @Path(value = "{uf}")
-    @CacheControl(value = "max-age=259200000")
-    public void findUf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
-        asyncResponse.resume(doFindUf(uf));
-    }
-
-    private Response doFindUf(@PathParam("uf") String uf) {
-        return Response.ok().entity(bc.find(uf)).build();
-    }
-
 }
