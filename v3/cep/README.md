@@ -14,22 +14,22 @@ https://cep-fwkdemoiselle.rhcloud.com/api/cep?cep= [SEU_CEP] (Consulta CEP)
 
 # Exemplos de consulta
 
-Filtro por Logradouros do Paraná (PR)
+> Filtro por Logradouros do Paraná (PR). </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR
 
-Filtro por Logradouros do Paraná (PR) e com o tipo do logradouro como 'Viela'
+> Filtro por Logradouros do Paraná (PR) e com o tipo do logradouro como 'Viela' </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela
 
-Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome)
+> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome
 
-Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente
+> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc
 
-Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente e com um recorte do primeiro e segundo registro (0-1)
+> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente e com um recorte do primeiro e segundo registro (0-1) </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc&range=0-1
 
-Filtro de UF 
+> Filtro de UF 
 https://cep-fwkdemoiselle.rhcloud.com/api/uf
 
 
