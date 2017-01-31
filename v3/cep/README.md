@@ -4,6 +4,8 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 - **Auth**: (CRUD)
 - **Cep**: Open
 
+Verificação de segurança da api (https://schd.io/E67)
+
 # Apps de exemplo
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Versão app desktop)
