@@ -8,19 +8,14 @@ package app.service;
 import app.entity.LogLocalidade;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
+import org.demoiselle.jee.crud.Search;
 import org.demoiselle.jee.rest.annotation.CacheControl;
-import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -28,12 +23,11 @@ import org.demoiselle.jee.security.annotation.Authenticated;
  */
 @Api("Localidade")
 @Path("localidade")
-@Authenticated
 public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
 
     @GET
     @Asynchronous
-    @Authenticated(enable = false)
+    @Search(withPagination = false, fields = {"locNuSequencial", "ufeSg", "locNo", "cep"})
     @CacheControl(value = "max-age=259200000")
     public void listLocalidade(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doListLocalidade());

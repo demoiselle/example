@@ -10,13 +10,12 @@ import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
+import org.demoiselle.jee.crud.Search;
 import org.demoiselle.jee.rest.annotation.CacheControl;
-import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -24,12 +23,11 @@ import org.demoiselle.jee.security.annotation.Authenticated;
  */
 @Api("UF")
 @Path("uf")
-@Authenticated
 public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
 
     @GET
     @Asynchronous
-    @Authenticated(enable = false)
+    @Search(withPagination = false, fields = {"ufeSg", "ufeNo"})
     @CacheControl(value = "max-age=259200000")
     public void findUf(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindUf());

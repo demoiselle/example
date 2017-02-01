@@ -6,7 +6,6 @@
 package app.dao;
 
 import app.entity.LogLogradouro;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.demoiselle.jee.crud.AbstractDAO;
@@ -23,10 +22,6 @@ public class LogradouroDAO extends AbstractDAO<LogLogradouro, Integer> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }
-
-    public List getLogradouroNome(String nome) {
-        return getEntityManager().createNamedQuery("LogLogradouro.findByLogNo").setParameter("logNo", "%" + nome + "%").getResultList();
     }
 
     public LogLogradouro getLogradouroCep(String cep) {

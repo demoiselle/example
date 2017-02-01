@@ -7,7 +7,6 @@ package app.bc;
 
 import app.dao.LogradouroDAO;
 import app.entity.LogLogradouro;
-import java.util.List;
 import org.demoiselle.jee.crud.AbstractBusiness;
 
 /**
@@ -15,10 +14,6 @@ import org.demoiselle.jee.crud.AbstractBusiness;
  * @author PauloGladson
  */
 public class LogradouroBC extends AbstractBusiness<LogLogradouro, Integer> {
-
-    public List getLogradouroNome(String nome) {
-        return ((LogradouroDAO) dao).getLogradouroNome(nome);
-    }
 
     public LogLogradouro getLogradouroCep(String nome) {
         return ((LogradouroDAO) dao).getLogradouroCep(nome);
