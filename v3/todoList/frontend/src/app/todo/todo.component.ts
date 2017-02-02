@@ -76,17 +76,15 @@ export class TodoComponent implements OnInit {
         this.resetTodoForm(form);
       },
       error => {
-        if (error.status == 412) {
-          let errors = JSON.parse(error._body);
-          for (let err of errors) {
-            this.notificationService.error('Validação => Campo: ' + err.error + ' , Erro: ' + err.error_description);
-          }
-        } else if (error.status == 400) {
+        if (error.status == 400) {
           let errors = JSON.parse(error._body || []);
           for (let err of errors) {
             this.notificationService.error('Validação => Campo: ' + err.error + ' , Erro: ' + err.error_description);
           }
         } else {
+          /* erros de validação (412) são tratandos utilizando o Observable de validação do serviço Http
+            https://demoiselle.gitbooks.io/documentacao-frontend/content/validacao-com-demoiselle-3.html
+          */
           this.notificationService.error('Não foi possível cadastrar o "To-Do"!');
         }
 

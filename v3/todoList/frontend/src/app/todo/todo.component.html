@@ -20,10 +20,18 @@
                     <div class="form-group">
                         <label for="todo-data" class="col-sm-2 control-label">Data:</label>
                         <div class="col-sm-10">
-                            <input id="todo-data" type="date" name="data" class="form-control" required [(ngModel)]="todo.dateEnd" #dateEnd="ngModel"/>
+                            <input id="todo-data" type="date" name="dateEnd" class="form-control" required [(ngModel)]="todo.dateEnd" #dateEnd="ngModel"/>
                         </div>
-                        <div [hidden]="dateEnd.valid || description.pristine" class="alert alert-danger">
+                        <div [hidden]="dateEnd.valid || description.pristine || dateEnd.errors.remote" class="alert alert-danger">
                             <span>"Data" é obrigatório.</span>
+                        </div>
+                        
+                        <!-- componente de validação a nível de campo -->
+                        <error-field [field]="'dateEnd'"></error-field>
+                        
+                        <!-- exibição das mensagens de validação do componente error-form -->
+                        <div *ngIf="dateEnd.errors && dateEnd.errors.remote">
+                            Remote: {{dateEnd.errors.remote}}
                         </div>
                     </div>
                     
@@ -43,6 +51,8 @@
                             </button>
                         </div>
                     </div>
+                    <!-- componente de validação a nível de formulário -->
+                    <error-form [form]="todoForm"></error-form>
                 </form>
             </div>
         </div>
