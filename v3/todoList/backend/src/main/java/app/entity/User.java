@@ -64,7 +64,7 @@ public class User implements Serializable {
     @Column(length = 16)
     private String role;
 
-    @OneToMany(mappedBy = "user", targetEntity = Todo.class, fetch = EAGER, cascade = ALL)
+    @OneToMany(mappedBy = "user", targetEntity = Todo.class, fetch = EAGER, orphanRemoval = true)
     private Set<Todo> todos = new HashSet<>();
 
     public String getId() {

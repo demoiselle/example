@@ -66,12 +66,12 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Transactional
     @ApiOperation(value = "remove entity")
     public void remove(@PathParam("id") final String id) {
-        Todo todo = bc.find(id);
-        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
+//        Todo todo = bc.find(id);
+//        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
             bc.remove(id);
-        } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 403);
-        }
+//        } else {
+//            throw new DemoiselleRestException(message.onlyOwner(), 403);
+//        }
     }
 
     @GET
