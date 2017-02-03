@@ -54,7 +54,7 @@ let storage = new Storage();
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpServiceProvider({
-      endpoints: { main: 'http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/' },
+      endpoints: { main: 'https://todo-fwkdemoiselle.rhcloud.com/api/' },
       multitenancy: false,
       tokenGetter: () => storage.get('id_token'),
       unAuthorizedRoute: (args) => {
@@ -63,7 +63,7 @@ let storage = new Storage();
       tokenKey: 'id_token'
     }),
     AuthServiceProvider({
-      authEndpointUrl: 'http://todolist-demoiselle.44fs.preview.openshiftapps.com/api/',
+      authEndpointUrl: 'https://todo-fwkdemoiselle.rhcloud.com/api/',
       loginResourcePath: 'auth',
       tokenGetter: () => storage.get('id_token'),
       tokenSetter: (val: string) => storage.set('id_token', val),
