@@ -44,7 +44,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
         if (entity.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
             return bc.persist(entity);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
@@ -56,7 +56,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
         if (entity.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
             return bc.merge(entity);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
@@ -66,11 +66,11 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Transactional
     @ApiOperation(value = "remove entity")
     public void remove(@PathParam("id") final String id) {
-        Todo todo = find(id);
-        if (todo.getId().equalsIgnoreCase(dml.getIdentity())) {
+        Todo todo = bc.find(id);
+        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
             bc.remove(id);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
@@ -88,11 +88,11 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Transactional
     @ApiOperation(value = "find by ID")
     public Todo find(@PathParam("id") final String id) {
-        Todo todo = find(id);
-        if (todo.getId().equalsIgnoreCase(dml.getIdentity())) {
+        Todo todo = bc.find(id);
+        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
             return bc.persist(todo);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 

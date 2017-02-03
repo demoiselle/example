@@ -51,7 +51,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (entity.getId().equalsIgnoreCase(dml.getIdentity())) {
             return bc.merge(entity);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
@@ -63,7 +63,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (id.equalsIgnoreCase(dml.getIdentity())) {
             return bc.find(id);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
@@ -83,7 +83,7 @@ public class UserREST extends AbstractREST<User, String> {
         if (id.equalsIgnoreCase(dml.getIdentity())) {
             bc.remove(id);
         } else {
-            throw new DemoiselleRestException(message.onlyOwner(), 401);
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
     }
 
