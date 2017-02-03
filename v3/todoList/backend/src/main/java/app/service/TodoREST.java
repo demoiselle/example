@@ -52,9 +52,9 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Override
     @Transactional
     @ApiOperation(value = "full update entity")
-    public Todo merge(@Valid Todo entity) {
+    public Todo mergeFull(@Valid Todo entity) {
         if (entity.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
-            return bc.merge(entity);
+            return bc.mergeFull(entity);
         } else {
             throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
@@ -68,7 +68,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
     public void remove(@PathParam("id") final String id) {
 //        Todo todo = bc.find(id);
 //        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
-            bc.remove(id);
+        bc.remove(id);
 //        } else {
 //            throw new DemoiselleRestException(message.onlyOwner(), 403);
 //        }

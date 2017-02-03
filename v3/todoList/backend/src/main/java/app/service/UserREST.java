@@ -47,9 +47,9 @@ public class UserREST extends AbstractREST<User, String> {
     @PUT
     @Override
     @Transactional
-    public User merge(User entity) {
+    public User mergeFull(User entity) {
         if (entity.getId().equalsIgnoreCase(dml.getIdentity())) {
-            return bc.merge(entity);
+            return bc.mergeFull(entity);
         } else {
             throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
