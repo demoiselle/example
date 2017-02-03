@@ -70,7 +70,7 @@ public class UserREST extends AbstractREST<User, String> {
     @GET
     @Override
     @Transactional
-    @RequiredRole("Administrador")
+    @RequiredRole("Administrador, Gerente")
     public Result find() {
         return bc.find();
     }
