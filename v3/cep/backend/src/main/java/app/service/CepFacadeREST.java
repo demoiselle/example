@@ -34,8 +34,8 @@ public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
 
     @GET
     @Asynchronous
-    @Authenticated(enable = false)
     @Path(value = "{cep}")
+    @Authenticated(enable = false)
     @CacheControl(value = "max-age=259200000")
     @Produces(value = {MediaType.APPLICATION_JSON})
     public void findCep(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "cep") final String id) {
@@ -47,6 +47,7 @@ public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
     }
 
     @GET
+    @Asynchronous
     @Transactional
     @Authenticated(enable = false)
     @CacheControl(value = "max-age=259200000")
