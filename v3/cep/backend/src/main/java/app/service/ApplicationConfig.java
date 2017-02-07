@@ -27,7 +27,7 @@ public class ApplicationConfig extends Application {
         beanConfig.setResourcePackage("app.service");
         beanConfig.setContact("https://github.com/demoiselle");
         beanConfig.setDescription("Sistema de exemplo do Demoiselle v3 - CEP https://github.com/demoiselle/example ");
-        beanConfig.setHost("demoiselle.io");
+        beanConfig.setHost("cep-fwkdemoiselle.rhcloud.com");
         beanConfig.setLicense("LGPL v2");
         beanConfig.setVersion("3.0.0");
         beanConfig.setTermsOfServiceUrl("https://demoiselle.gitbooks.io/documentacao-jee/");
