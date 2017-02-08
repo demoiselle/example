@@ -40,6 +40,11 @@ bower_components
 *.war
 *.ear
 
+### Eclipse ###
+.classpath
+.project
+.settings
+.tern-project
 
 ### NetBeans ###
 v3/cep/progressive/nbproject
