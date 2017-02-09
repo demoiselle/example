@@ -84,15 +84,10 @@ public class UserDAO extends AbstractDAO<User, String> {
     @Override
     public User persist(User entity) {
         entity.setPass(md5(entity.getPass()));
-        entity.setRole("USER");
         return super.persist(entity);
     }
 
-    public String valida(String id) {
-        return "Email Validado";
-    }
-
-    public String login(Credentials credentials) {
+    public Token login(Credentials credentials) {
 
         User usu = verifyEmail(credentials.getUsername(), credentials.getPassword());
         if (usu == null) {
@@ -104,18 +99,18 @@ public class UserDAO extends AbstractDAO<User, String> {
 
         loggedUser.setName(usu.getFirstName());
         loggedUser.setIdentity("" + usu.getId());
-        loggedUser.addRole(usu.getRole());
+        loggedUser.addRole(usu.getPerfil().getValue());
 
         loggedUser.addParam("Email", usu.getEmail());
         securityContext.setUser(loggedUser);
 
-        return token.getKey();
+        return token;
     }
 
-    public String retoken() {
+    public Token retoken() {
         loggedUser = securityContext.getUser();
         securityContext.setUser(loggedUser);
-        return token.getKey();
+        return token;
     }
 
     private String md5(String senha) {

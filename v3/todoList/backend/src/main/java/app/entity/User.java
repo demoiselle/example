@@ -1,5 +1,6 @@
 package app.entity;
 
+import app.constants.Perfil;
 import java.io.Serializable;
 import static java.util.Collections.unmodifiableSet;
 import java.util.HashSet;
@@ -8,7 +9,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.persistence.Basic;
-import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import static javax.persistence.FetchType.EAGER;
@@ -61,8 +61,8 @@ public class User implements Serializable {
     @Column(length = 128)
     private String pass;
 
-    @Column(length = 16)
-    private String role;
+    @Column
+    private Perfil perfil;
 
     @OneToMany(mappedBy = "user", targetEntity = Todo.class, fetch = EAGER, orphanRemoval = true)
     private Set<Todo> todos = new HashSet<>();
@@ -99,12 +99,12 @@ public class User implements Serializable {
         this.pass = pass;
     }
 
-    public String getRole() {
-        return role;
+    public Perfil getPerfil() {
+        return perfil;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 
     public Set<Todo> getTodos() {

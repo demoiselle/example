@@ -4,7 +4,6 @@ import app.entity.Todo;
 import app.message.TodoMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -66,12 +65,12 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Transactional
     @ApiOperation(value = "remove entity")
     public void remove(@PathParam("id") final String id) {
-//        Todo todo = bc.find(id);
-//        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
-        bc.remove(id);
-//        } else {
-//            throw new DemoiselleRestException(message.onlyOwner(), 403);
-//        }
+        Todo todo = bc.find(id);
+        if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
+            bc.remove(id);
+        } else {
+            throw new DemoiselleRestException(message.onlyOwner(), 403);
+        }
     }
 
     @GET
@@ -96,5 +95,4 @@ public class TodoREST extends AbstractREST<Todo, String> {
         }
     }
 
-    private static final Logger LOG = Logger.getLogger(TodoREST.class.getName());
 }

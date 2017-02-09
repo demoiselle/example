@@ -3,7 +3,6 @@ package app.service;
 import app.dao.UserDAO;
 import app.security.Credentials;
 import io.swagger.annotations.Api;
-import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -27,40 +26,24 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 public class AuthREST {
-    
+
     @Inject
     private UserDAO dao;
 
     @POST
     public Response login(Credentials credentials) {
-        return ok().entity("{\"token\":\"" + dao.login(credentials) + "\"}").build();
+        return ok().entity(dao.login(credentials).toString()).build();
     }
-//    @POST
-//    @Asynchronous
-//    public void login(@Suspended final AsyncResponse asyncResponse, Credentials credentials) {
-//        asyncResponse.resume(doLogin(credentials));
-//    }
-//    
-//    private Response doLogin(Credentials credentials) {
-//        return ok().entity("{\"token\":\"" + dao.login(credentials) + "\"}").build();
-//    }
-    
-    @GET
-    @Authenticated
-    public Response retoken() {
-        return ok().entity("{\"token\":\"" + dao.retoken() + "\"}").build();
-    }
-//    @GET
-//    @Asynchronous
-//    @Authenticated
-//    public void retoken(@Suspended final AsyncResponse asyncResponse) {
-//        asyncResponse.resume(doRetoken());
-//    }
-//
-//    private Response doRetoken() {
-//        return ok().entity("{\"token\":\"" + dao.retoken() + "\"}").build();
-//    }
 
-    private static final Logger LOG = Logger.getLogger(AuthREST.class.getName());
-    
+    @GET
+    @Asynchronous
+    @Authenticated
+    public void retoken(@Suspended final AsyncResponse asyncResponse) {
+        asyncResponse.resume(doRetoken());
+    }
+
+    private Response doRetoken() {
+        return ok().entity(dao.retoken().toString()).build();
+    }
+
 }
