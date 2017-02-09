@@ -21,7 +21,7 @@ public class ConstantsREST {
     @Path("perfil")
     @CacheControl(value = "max-age=86400")
     public Response getPerfil() {
-        return ok().entity(Perfil.values()).build();
+        return ok().entity(Perfil.getMap()).build();
     }
 
 }

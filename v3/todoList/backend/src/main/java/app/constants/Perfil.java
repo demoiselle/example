@@ -1,7 +1,10 @@
 package app.constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Perfil {
-    
+
     ADMINISTRADOR("Administrador"),
     GERENTE("Gerente"),
     USUARIO("Usuário");
@@ -14,6 +17,19 @@ public enum Perfil {
 
     public String getValue() {
         return this.value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+    public static Map getMap() {
+        Map<Perfil, String> map = new HashMap<>();
+        for (Perfil userType : Perfil.values()) {
+            map.put(userType, userType.toString());
+        }
+        return map;
     }
 
 }
