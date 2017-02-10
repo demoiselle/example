@@ -15,8 +15,8 @@ import org.demoiselle.jee.crud.AbstractBusiness;
  * @author PauloGladson
  */
 public class LocalidadeBC extends AbstractBusiness<LogLocalidade, Integer> {
-    
-    public List<LogLocalidade> findByUf(String uf){
+
+    public List<LogLocalidade> findByUf(String uf) {
         return ((LocalidadeDAO) dao).findByUf(uf);
     }
 
