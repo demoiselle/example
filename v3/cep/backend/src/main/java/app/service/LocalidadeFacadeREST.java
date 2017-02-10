@@ -5,11 +5,13 @@
  */
 package app.service;
 
+import app.bc.LocalidadeBC;
 import app.entity.LogLocalidade;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Response;
@@ -37,4 +39,16 @@ public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
         return Response.ok().entity(bc.find()).build();
     }
 
+    @GET
+    @Path("uf")
+    @Asynchronous
+    @Search(withPagination = false, fields = {"ufeSg", "locNo", "cep"})
+    @CacheControl(value = "max-age=259200000")
+    public void listLocalidadePorUf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
+        asyncResponse.resume(doListLocalidadePorUf(uf));
+    }
+
+    private Response doListLocalidadePorUf(String uf) {
+        return Response.ok().entity(((LocalidadeBC) bc).findByUf(uf)).build();
+    }
 }

@@ -6,6 +6,7 @@
 package app.dao;
 
 import app.entity.LogLocalidade;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.demoiselle.jee.crud.AbstractDAO;
@@ -22,6 +23,10 @@ public class LocalidadeDAO extends AbstractDAO<LogLocalidade, Integer> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public List<LogLocalidade> findByUf(String uf) {
+        return em.createQuery("SELECT l FROM LogLocalidade l WHERE l.ufeSg.ufeSg = :uf").setParameter("uf", uf).getResultList();
     }
 
 }
