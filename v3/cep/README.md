@@ -34,6 +34,9 @@ https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&s
 > Filtro de UF </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/uf
 
+> Filtro de Localidades por UF </br>
+https://cep-fwkdemoiselle.rhcloud.com/api/localidade/uf/PR
+
 
 # Instalação
 
