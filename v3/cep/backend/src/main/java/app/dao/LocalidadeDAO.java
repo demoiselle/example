@@ -26,7 +26,7 @@ public class LocalidadeDAO extends AbstractDAO<LogLocalidade, Integer> {
     }
 
     public List<LogLocalidade> findByUf(String uf) {
-        return em.createQuery("SELECT loc_nu_sequencial, l.locNo, l.locInTipoLocalidade, l.cep, l.ufeSg.ufeSg FROM LogLocalidade l WHERE l.ufeSg.ufeSg = :uf order by l.locInTipoLocalidade, l.locNo").setParameter("uf", uf).getResultList();
+        return em.createQuery("SELECT l FROM LogLocalidade l WHERE l.ufeSg.ufeSg = :uf and l.locInTipoLocalidade = 'M' order by l.locNo").setParameter("uf", uf).getResultList();
     }
 
 }

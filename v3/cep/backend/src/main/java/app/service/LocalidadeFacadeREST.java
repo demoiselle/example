@@ -15,8 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.crud.Search;
+import org.demoiselle.jee.crud.pagination.ResultSet;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
@@ -30,7 +32,7 @@ public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
     @GET
     @Asynchronous
     @Search(withPagination = false, fields = {"locNuSequencial", "ufeSg", "locNo", "cep"})
-    @CacheControl(value = "max-age=259200000")
+    @CacheControl(value = "max-age=86400")
     public void listLocalidade(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doListLocalidade());
     }
@@ -41,13 +43,16 @@ public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
 
     @GET
     @Path("uf/{uf}")
+    @Search(withPagination = false, fields = {"locNuSequencial", "locNo", "cep"})
     @Asynchronous
-    @CacheControl(value = "max-age=259200000")
+    @CacheControl(value = "max-age=86400")
     public void listLocalidadePorUf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
         asyncResponse.resume(doListLocalidadePorUf(uf));
     }
 
-    private Response doListLocalidadePorUf(String uf) {
-        return Response.ok().entity(((LocalidadeBC) bc).findByUf(uf)).build();
+    private Result doListLocalidadePorUf(String uf) {
+        Result result = new ResultSet();
+        result.setContent((((LocalidadeBC) bc).findByUf(uf)));
+        return result;
     }
 }

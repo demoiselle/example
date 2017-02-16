@@ -28,7 +28,7 @@ public class UFFacadeREST extends AbstractREST<LogFaixaUf, String> {
     @GET
     @Asynchronous
     @Search(withPagination = false, fields = {"ufeSg", "ufeNo"})
-    @CacheControl(value = "max-age=259200000")
+    @CacheControl(value = "max-age=86400")
     public void findUf(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindUf());
     }
