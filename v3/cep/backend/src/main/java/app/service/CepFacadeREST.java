@@ -10,14 +10,11 @@ import app.entity.LogLogradouro;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
@@ -37,7 +34,6 @@ public class CepFacadeREST extends AbstractREST<LogLogradouro, Integer> {
     @Path(value = "{cep}")
     @Authenticated(enable = false)
     @CacheControl(value = "max-age=86400")
-    @Produces(value = {MediaType.APPLICATION_JSON})
     public void findCep(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "cep") final String id) {
         asyncResponse.resume(doFindCep(id));
     }
