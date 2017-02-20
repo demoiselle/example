@@ -58,8 +58,6 @@ export class TodoComponent implements OnInit {
         if (contentRange) {
           this.totalItems = Number(contentRange.substr(contentRange.indexOf('/')+1, contentRange.length));
         }
-        console.log('this.totalItems');
-        console.log(this.totalItems);
       },
       error => {
         this.notificationService.error('Não foi possível carregar a lista de "to-do\'s"!');
@@ -74,7 +72,7 @@ export class TodoComponent implements OnInit {
       (newTodo) => {
         delete newTodo.user;
         this.notificationService.success('Todo cadastrado com sucesso!');
-        this.todos.push(newTodo);
+        this.list();
         this.resetTodoForm(form);
       },
       error => {

@@ -30,7 +30,4 @@ export class SidebarMenuComponent {
     }
   }
 
-  onRouteSelected(route) {
-    this.loginService.setRedirect(route);
-  }
 }

@@ -35,13 +35,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
         this.userLoaded = true;
       }
     });
-
-    this.loginService.setRedirect('login');
   }
 
   ngOnDestroy() {
     this.routeSubscribe.unsubscribe();
-    this.loginService.setRedirect('');
   }
 
   loadUsuario() {
@@ -82,6 +79,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.loginService.proceedToRedirect('');
+    this.router.navigate(['']);
   }
 }
