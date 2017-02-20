@@ -12,24 +12,11 @@ export class TodoService {
   }
 
   list(currentPage: number, itemsPerPage: number) {
-    console.log('TODO: implementar paginação:', currentPage, itemsPerPage);
-
-    let url = '~main/user/' + this.authService.getIdentityFromToken();
-    return this.http.get(url)
-      .map(res => {
-        return res.json().todos;
-      })
-      .catch(function (error) {
-        // Mock data
-        return Observable.throw(<Todo[]>[{
-          id: 1,
-          description: 'todo 1 catch'
-        }, {
-          id: 2,
-          description: 'todo 2 catch'
-        }
-        ]);
-      });
+    let start = (currentPage*itemsPerPage) - (itemsPerPage);
+    let end = (currentPage*itemsPerPage) - 1;
+    let url = '~main/todo';
+    return this.http.get(url+'?range='+start+'-'+end)
+      .map(res => res);
   }
 
   get(id: number) {

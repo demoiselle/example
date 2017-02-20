@@ -12,7 +12,7 @@ import { LoginService } from './shared/login.service';
 export class LoginComponent implements OnInit {
   user: any = {
     username: 'admin@demoiselle.org',
-    password: '12345678'
+    password: '123456'
   };
 
   constructor(protected authService: AuthService,

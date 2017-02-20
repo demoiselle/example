@@ -8,6 +8,6 @@ module.exports = {
    * }
    */
   endpoints: {
-    main: 'http://api.test.domain/todo/api/'
+    main: 'http://api.test.domain/todo/api/v1/'
   }
 };
