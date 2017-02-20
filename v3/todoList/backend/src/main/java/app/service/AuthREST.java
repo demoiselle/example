@@ -21,8 +21,8 @@ import org.demoiselle.jee.security.annotation.Authenticated;
  *
  * @author SERPRO
  */
-@Api("Auth")
-@Path("auth")
+@Api("v1/Auth")
+@Path("v1/auth")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 public class AuthREST {

@@ -1,6 +1,7 @@
 package app.service;
 
 import app.constants.Perfil;
+import app.constants.Status;
 import io.swagger.annotations.Api;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,8 +12,8 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.ok;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
-@Api("Constants")
-@Path("constants")
+@Api("v1/Constants")
+@Path("v1/constants")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 public class ConstantsREST {
@@ -22,6 +23,13 @@ public class ConstantsREST {
     @CacheControl(value = "max-age=86400")
     public Response getPerfil() {
         return ok().entity(Perfil.getMap()).build();
+    }
+
+    @GET
+    @Path("status")
+    @CacheControl(value = "max-age=86400")
+    public Response getStatus() {
+        return ok().entity(Status.getMap()).build();
     }
 
 }

@@ -1,5 +1,6 @@
 package app.entity;
 
+import app.constants.Status;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +21,7 @@ import static javax.persistence.TemporalType.DATE;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -47,7 +49,7 @@ public class Todo implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
-    private String status;
+    private Status status;
 
     @Future
     @Temporal(DATE)
@@ -100,11 +102,11 @@ public class Todo implements Serializable {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

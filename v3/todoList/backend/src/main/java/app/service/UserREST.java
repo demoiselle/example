@@ -25,8 +25,8 @@ import org.demoiselle.jee.security.annotation.RequiredRole;
  * @author gladson
  */
 @Authenticated
-@Api("User")
-@Path("user")
+@Api("v1/User")
+@Path("v1/user")
 public class UserREST extends AbstractREST<User, String> {
 
     private static final Logger LOG = getLogger(UserREST.class.getName());
@@ -70,7 +70,7 @@ public class UserREST extends AbstractREST<User, String> {
     @GET
     @Override
     @Transactional
-    @RequiredRole("Administrador, Gerente")
+    @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
         return bc.find();
     }

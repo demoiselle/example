@@ -24,8 +24,8 @@ import org.demoiselle.jee.security.annotation.RequiredRole;
  *
  * @author gladson
  */
-@Api("Todo")
-@Path("todo")
+@Api("v1/Todo")
+@Path("v1/todo")
 @Authenticated
 public class TodoREST extends AbstractREST<Todo, String> {
 
@@ -76,7 +76,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @GET
     @Override
     @Transactional
-    @RequiredRole("Administrador, Gerente")
+    @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
         return bc.find();
     }
