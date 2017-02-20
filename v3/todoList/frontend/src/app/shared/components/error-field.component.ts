@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
+import { ExceptionService } from '@demoiselle/http';
 
 @Component({
   selector: 'error-field',
@@ -19,9 +20,9 @@ export class ErrorFieldComponent implements OnInit {
   error:string;
   @Input() field: string;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private exceptionService: ExceptionService) {}
   ngOnInit() {
-    this.validationSubscription = this.http.validation$.subscribe(
+    this.validationSubscription = this.exceptionService.validation$.subscribe(
       error => this.processValidation(error)
     );
   }

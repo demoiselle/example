@@ -7,7 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { AuthServiceProvider } from '@demoiselle/security';
-import { HttpServiceProvider } from '@demoiselle/http';
+import { HttpServiceProvider, ExceptionService } from '@demoiselle/http';
 
 import { LoginService } from '../login/shared/login.service';
 
@@ -36,7 +36,8 @@ export class CoreModule {
           tokenKey: 'id_token',
           loginRoute: '/login'
         }),
-        LoginService
+        LoginService,
+        ExceptionService
       ]
     };
   }

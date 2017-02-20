@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
       .subscribe(
       res => {
-        this.loginService.proceedToRedirect(['']);
+        //this.loginService.proceedToRedirect(['']);
+        this.notificationService.success('Login realizado com sucesso!');
       },
       error => {
         if (error.status === 401 || error.status === 406) {

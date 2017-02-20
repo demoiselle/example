@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
+import { ExceptionService } from '@demoiselle/http';
 
 @Component({
   selector: 'error-form',
@@ -14,9 +15,9 @@ export class ErrorFormComponent {
   validationSubscription: Subscription;
   @Input() form: NgForm;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private exceptionService: ExceptionService) {}
   ngOnInit() {
-    this.validationSubscription = this.http.validation$.subscribe(
+    this.validationSubscription = this.exceptionService.validation$.subscribe(
       error => this.processValidation(error)
     );
   }
