@@ -1,0 +1,97 @@
+<article class="page categorias">
+
+  <div class="content-header">
+    <h2>Categorias</h2>
+    <p class="description" [innerHTML]="titleDoc"></p>
+  </div>
+
+  <div id="content" class="content-box">
+    <div id="example" class="section">
+      <button [routerLink]="['/categoria','edit']" class="btn btn-sm btn-success">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <span>Novo(a) categoria</span>
+      </button>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let categoria of categorias">
+            <td>{{categoria.description}}</td>
+            <td>
+              <button class="btn btn-primary btn-xs" (click)="showModalDetails(categoria)">
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                  <span>Detalhes</span>
+              </button>
+              <a class="btn btn-primary btn-xs" [routerLink]="['/categoria','edit', categoria]">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <span>Editar</span>
+              </a>
+              <button mwlConfirmationPopover title="Confirmação" message="Deseja realmente remover o item <b>{{categoria.name}}</b>?" class="btn btn-danger btn-xs" placement="left" (confirm)="delete(categoria)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <span>Remover</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination *ngIf="totalItems!=0" [maxSize]="5" [rotate]="false" [boundaryLinks]="true"
+        [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
+        class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;"
+        firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)">
+      </pagination>
+
+      <!-- modal definitions -->
+      <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" (click)="staticModal.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Detalhes do item</h4>
+            </div>
+            <div class="modal-body" *ngIf="categoria">
+            <form class="form-horizontal" role="form" #categoriaForm="ngForm" (ngSubmit)="save(categoria)">
+
+              <div class="form-group">
+                <label for="categoriaId" class="control-label col-sm-2">ID</label>
+                <div class="col-xs-6">
+                  <input type="text" id="categoriaId" class="form-control"
+                    name="categoriaId" [(ngModel)]="categoria.id"
+                    disabled="true">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description" class="control-label col-sm-2">Pirmeiro Nome</label>
+                <div class="col-xs-6">
+                  <input type="text" id="description" class="form-control"
+                    name="description" [(ngModel)]="categoria.description"
+                    disabled="true">
+                  </div>
+              </div>
+
+              <div class="col-sm-offset-2">
+                <button type="button" class="btn btn-sm btn-default" (click)="staticModal.hide()">
+                  <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                  <span>Voltar</span>
+                </button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</article>

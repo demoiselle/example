@@ -23,9 +23,8 @@
             <property name="hibernate.cache.infinispan.entity.eviction.max_entries" value= "5000"/>
             <property name="hibernate.cache.infinispan.entity.expiration.lifespan" value= "60000"/>
             <property name="hibernate.cache.infinispan.entity.expiration.max_idle" value= "30000"/>-->
-            <!-- If using JPA, add to your persistence.xml -->
+            
             <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
-            <!-- If using JPA, add to your persistence.xml -->
             <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
         </properties>
     </persistence-unit>
