@@ -1,6 +1,8 @@
 package app.entity;
 
 import app.constants.Perfil;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import static java.util.Collections.unmodifiableSet;
 import java.util.HashSet;
@@ -31,6 +33,7 @@ import org.hibernate.validator.constraints.Email;
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})})
 @XmlRootElement
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.crud.AbstractREST;
+import org.demoiselle.jee.crud.Search;
 import org.demoiselle.jee.rest.exception.DemoiselleRestException;
 import org.demoiselle.jee.security.annotation.Authenticated;
 import org.demoiselle.jee.security.annotation.RequiredRole;
@@ -70,6 +71,7 @@ public class UserREST extends AbstractREST<User, String> {
     @GET
     @Override
     @Transactional
+    @Search(fields = {"*"}, withPagination = false)
     @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
         return bc.find();
