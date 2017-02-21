@@ -1,47 +1,53 @@
 <article class="page user-edit">
 
   <div class="content-header">
-    <h2>User Form</h2>
+    <h2>Cadastro de Usuário</h2>
     <p class="description" [innerHTML]="titleDoc"></p>
   </div>
 
-  <form (ngSubmit)="save()" *ngIf="userLoaded">
+  <form class="form-horizontal" role="form" #userForm="ngForm" (ngSubmit)="save()">
+
     <div class="form-group">
-      <label class="col-sm-2 col-form-label" for="formId">Id:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label" for="formId">Id:</label>
+      <div class="col-xs-4">
         <input id="formId" type="text" size="100" class="form-control" [(ngModel)]="user.id" name="id" disabled="true" />
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 col-form-label" for="formName">Nome:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label" for="formName">Nome:</label>
+      <div class="col-xs-4">
         <input id="formName" type="text" class="form-control" size="100" [(ngModel)]="user.firstName" name="name" />
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 col-form-label" for="formEmail">E-mail:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label" for="formEmail">E-mail:</label>
+      <div class="col-xs-4">
         <input id="formEmail" type="text" class="form-control" size="100" [(ngModel)]="user.email" name="email" />
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 col-form-label" for="formSenha">Senha:</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label" for="formSenha">Senha:</label>
+      <div class="col-xs-4">
         <input id="formSenha" type="password" class="form-control" size="100" [(ngModel)]="user.pass" name="password" />
       </div>
     </div>
+
     <div class="form-group">
-      <button type="button" class="btn btn-sm btn-danger" (click)="back()">
-          <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-          <span>Cancelar</span>
-      </button>
-      <button type="button" class="btn btn-sm btn-default" type="submit">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <span>Salvar</span>
-      </button>
+      <label class="col-sm-2 control-label" for="cancelBtn"></label>
+      <div class="col-xs-4">
+        <button id="cancelBtn" type="button" class="btn btn-sm btn-danger" (click)="back()">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+            <span>Cancelar</span>
+        </button>
+        <button type="button" class="btn btn-sm btn-success" type="submit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <span>Salvar</span>
+        </button>
+      </div>
     </div>
+
   </form>
 </article>

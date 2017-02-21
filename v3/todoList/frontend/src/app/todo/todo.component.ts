@@ -17,7 +17,7 @@ export class TodoComponent implements OnInit {
 
   @ViewChild('adiarTemplate') public adiarTemplate: PopoverDirective;
 
-  public itemsPerPage: number = 10;
+  public itemsPerPage: number = 2;
   public totalItems: number = 0;
   public currentPage: number = 1;
 
@@ -52,12 +52,12 @@ export class TodoComponent implements OnInit {
 
   list() {
     this.service.list(this.currentPage, this.itemsPerPage).subscribe(
-      todos => {
-        this.totalItems = 20; // backend must send  the total items for proper pagination config
-
-        // Replace all content of array
-        // http://stackoverflow.com/questions/23486687/short-way-to-replace-content-of-an-array
-        [].splice.apply(this.todos, [0, this.todos.length].concat(todos));
+      (result) => {
+        this.todos = result.json();
+        let contentRange = result.headers.get('Content-Range');
+        if (contentRange) {
+          this.totalItems = Number(contentRange.substr(contentRange.indexOf('/')+1, contentRange.length));
+        }
       },
       error => {
         this.notificationService.error('Não foi possível carregar a lista de "to-do\'s"!');
@@ -72,7 +72,7 @@ export class TodoComponent implements OnInit {
       (newTodo) => {
         delete newTodo.user;
         this.notificationService.success('Todo cadastrado com sucesso!');
-        this.todos.push(newTodo);
+        this.list();
         this.resetTodoForm(form);
       },
       error => {
