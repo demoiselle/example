@@ -77,7 +77,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @GET
     @Override
     @Transactional
-    @Search(fields = {"*"}, withPagination = false)
+    @Search(fields = {"*"})
     @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
         return bc.find();

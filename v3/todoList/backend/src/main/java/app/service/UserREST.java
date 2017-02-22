@@ -71,7 +71,7 @@ public class UserREST extends AbstractREST<User, String> {
     @GET
     @Override
     @Transactional
-    @Search(fields = {"*"}, withPagination = false)
+    @Search(fields = {"*"})
     @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
         return bc.find();
