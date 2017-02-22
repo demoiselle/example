@@ -4,11 +4,13 @@ export class Todo {
   status: string;
   dateend: string;
   changed: boolean;
+  user: any;
   constructor(
     id?: number,
     description?: string,
     status?: string,
     dateend?: string,
-    changed?: boolean
+    changed?: boolean,
+    user?: any
   ) { }
 }
