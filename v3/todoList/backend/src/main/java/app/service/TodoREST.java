@@ -4,6 +4,7 @@ import app.entity.Todo;
 import app.message.TodoMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.crud.Search;
+import org.demoiselle.jee.crud.pagination.ResultSet;
 import org.demoiselle.jee.rest.exception.DemoiselleRestException;
 import org.demoiselle.jee.security.annotation.Authenticated;
 import org.demoiselle.jee.security.annotation.RequiredRole;
@@ -78,9 +80,10 @@ public class TodoREST extends AbstractREST<Todo, String> {
     @Override
     @Transactional
     @Search(fields = {"*"})
-    @RequiredRole(value = {"Administrador", "Gerente"})
     public Result find() {
-        return bc.find();
+        Result res = new ResultSet();
+        res.setContent((List<?>) bc.find(dml.getIdentity()).getUser().getTodos());
+        return res;
     }
 
     @GET
@@ -91,7 +94,7 @@ public class TodoREST extends AbstractREST<Todo, String> {
     public Todo find(@PathParam("id") final String id) {
         Todo todo = bc.find(id);
         if (todo.getUser().getId().equalsIgnoreCase(dml.getIdentity())) {
-            return bc.persist(todo);
+            return bc.find(id);
         } else {
             throw new DemoiselleRestException(message.onlyOwner(), 403);
         }
