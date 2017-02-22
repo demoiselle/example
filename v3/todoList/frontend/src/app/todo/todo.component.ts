@@ -53,7 +53,7 @@ export class TodoComponent implements OnInit {
   list() {
     this.service.list(this.currentPage, this.itemsPerPage).subscribe(
       (result) => {
-        this.todos = result.json();
+        this.todos = result.json().todos;
         let contentRange = result.headers.get('Content-Range');
         if (contentRange) {
           this.totalItems = Number(contentRange.substr(contentRange.indexOf('/')+1, contentRange.length));

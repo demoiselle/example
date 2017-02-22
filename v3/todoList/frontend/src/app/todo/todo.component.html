@@ -9,7 +9,7 @@
                 <form class="form-horizontal" (ngSubmit)="onSubmit(todoForm)" #todoForm="ngForm">
                     <div class="form-group">
                         <label for="todo-description" class="col-sm-2 control-label">Descrição:</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <input id="todo-description" type="text" name="description" class="form-control" required [(ngModel)]="todo.description" #description="ngModel"/>
                         </div>
                         <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <label for="todo-data" class="col-sm-2 control-label">Data:</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <input id="todo-data" type="date" name="dateEnd" class="form-control" required [(ngModel)]="todo.dateEnd" #dateEnd="ngModel"/>
                         </div>
                         <div [hidden]="dateEnd.valid || description.pristine || dateEnd.errors.remote" class="alert alert-danger">
@@ -36,7 +36,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class="col-sm-offset-2 col-sm-8">
                             <button *ngIf="!todo.id" type="submit" class="btn btn-primary" [disabled]="!todoForm.form.valid">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                 <span>Criar To-Do</span>
