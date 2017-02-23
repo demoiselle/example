@@ -102,3 +102,5 @@ GitHub.sublime-settings
 /v3/forum/backend/target/
 
 !/v3/todoList/frontend/dist/
+/v3/push/backend/target/
+/v3/push/backend/nb-configuration.xml
