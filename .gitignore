@@ -8,7 +8,6 @@
 /v3/cep/backend/target/
 /v3/cep/progressive/node_modules/
 /v3/cep/progressive/bower_components/
-/v3/cep/progressive/dist/
 /v3/cep/progressive/.tmp
 
 # Dependency directories
@@ -101,4 +100,4 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 /v3/forum/backend/target/
-!/v3/todoList/frontend/dist/
+
