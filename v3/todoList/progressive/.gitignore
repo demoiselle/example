@@ -6,7 +6,7 @@ bin/*
 !/plugins/fetch.json
 plugins/*
 platforms/*
-www/*
+
 
 ### NetBeans ###
 nbproject/private/
