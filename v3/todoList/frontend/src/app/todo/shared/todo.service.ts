@@ -14,8 +14,8 @@ export class TodoService {
   list(currentPage: number, itemsPerPage: number) {
     let start = (currentPage*itemsPerPage) - (itemsPerPage);
     let end = (currentPage*itemsPerPage) - 1;
-    let url = '~main/todo';
-    return this.http.get(url+'?range='+start+'-'+end)
+    let url = '~main/user/'+this.authService.getIdentityFromToken();
+    return this.http.get(url)
       .map(res => res);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../../shared';
@@ -15,6 +15,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
   id: number;
   userLoaded: boolean = false;
 
+  @Output()
+  public selectedRole;
+  public roles = [
+    {value: 'loading...', description: 'loading...'}
+  ];
+
   private routeSubscribe: any;
 
   constructor(
@@ -26,6 +32,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadPerfil();
     this.routeSubscribe = this.route.params.subscribe(params => {
       if (params['id']) {
         this.id = +params['id']; // (+) converts string 'id' to a number
@@ -35,10 +42,32 @@ export class UserEditComponent implements OnInit, OnDestroy {
         this.userLoaded = true;
       }
     });
+    this.selectedRole = this.roles[0];
   }
 
   ngOnDestroy() {
     this.routeSubscribe.unsubscribe();
+  }
+
+    loadPerfil() {
+    this.service.getPerfil().subscribe(
+      (result) => {
+        this.roles = [];
+        Object.keys(result).forEach(element => {
+          console.log(element);
+          this.roles.push({value: element, description: result[element]});
+        });
+        console.log(this.roles);
+        if (this.roles.length > 0) {
+          this.selectedRole = this.roles[0];
+        }
+      },
+      (error) => {
+        console.log('error');
+        console.log(error);
+        this.notificationService.error('Não foi possível carregar a lista de perfis!');
+      }
+    );
   }
 
   loadUsuario() {
@@ -55,6 +84,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.user.perfil = this.selectedRole.value;
     if (!this.id) {
       this.service.create(this.user).subscribe(
         () => {
@@ -80,5 +110,14 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   back() {
     this.router.navigate(['']);
+  }
+
+  changeRole(event) {
+    this.user.perfil = event.target.value;
+    this.roles.forEach(element => {
+      if (element.description == this.user.perfil) {
+        this.selectedRole = element;
+      }
+    });
   }
 }
