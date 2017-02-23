@@ -12,7 +12,7 @@ export class LoginService {
     constructor(protected router: Router, protected http: Http, protected authService: AuthService) { }
 
     register(user: any) {
-        let url = 'https://todo-fwkdemoiselle.rhcloud.com/api/user/';
+        let url = 'https://todo-fwkdemoiselle.rhcloud.com/api/v1/user/';
         return this.http.post(url, {
             firstName: user.name,
             email: user.email,

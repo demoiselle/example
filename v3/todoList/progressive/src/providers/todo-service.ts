@@ -15,7 +15,7 @@ import { Todo } from './todo-model';
 @Injectable()
 export class TodoService {
 
-  endpoint: string = 'https://todo-fwkdemoiselle.rhcloud.com/api/';
+  endpoint: string = 'https://todo-fwkdemoiselle.rhcloud.com/api/v1/';
 
   constructor(protected http: Http, protected authService: AuthService) {
     console.log('Hello TodoService Provider');
@@ -42,21 +42,21 @@ export class TodoService {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.post('https://todo-fwkdemoiselle.rhcloud.com/api/todo/', todo).map(res => res.json());
+    return this.http.post('https://todo-fwkdemoiselle.rhcloud.com/api/v1/todo/', todo).map(res => res.json());
   }
 
   update(todo: Todo) {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.put('https://todo-fwkdemoiselle.rhcloud.com/api/todo/', todo);
+    return this.http.put('https://todo-fwkdemoiselle.rhcloud.com/api/v1/todo/', todo);
   }
 
   delete(todo: Todo) {
     todo.user = {
       id: this.authService.getIdentityFromToken()
     };
-    return this.http.delete('https://todo-fwkdemoiselle.rhcloud.com/api/todo/' + todo.id);
+    return this.http.delete('https://todo-fwkdemoiselle.rhcloud.com/api/v1/todo/' + todo.id);
   }
 
   defer(todo: Todo, days: number) {
