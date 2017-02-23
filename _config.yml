@@ -2,7 +2,7 @@ title: Demoiselle
 description: demoiselle, angularjs
 google_analytics: UA-33820437-2
 show_downloads: true
-theme: jekyll-theme-architect
+theme: jekyll-theme-slate
 
 gems:
   - jekyll-mentions
