@@ -101,3 +101,4 @@ GitHub.sublime-settings
 
 /v3/forum/backend/target/
 
+!/v3/todoList/frontend/dist/
