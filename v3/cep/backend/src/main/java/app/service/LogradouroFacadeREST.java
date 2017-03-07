@@ -34,7 +34,7 @@ public class LogradouroFacadeREST extends AbstractREST<LogLogradouro, Integer> {
     @GET
     @Asynchronous
     @Authenticated(enable = false)
-    @CacheControl(value = "max-age=86400")
+    @CacheControl(value = "max-age=864000")
     public void findLogradouro(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindLogradouro());
     }

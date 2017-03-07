@@ -28,4 +28,21 @@
             <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="BillingPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:/jboss/datasources/BillingDS</jta-data-source>
+        <class>org.demoiselle.jee.billing.entity.Recurso</class>
+        <class>org.demoiselle.jee.billing.entity.Corpo</class>
+        <class>org.demoiselle.jee.billing.entity.Cabeca</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+           
+            <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+            <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
+        </properties>
+    </persistence-unit>
 </persistence>

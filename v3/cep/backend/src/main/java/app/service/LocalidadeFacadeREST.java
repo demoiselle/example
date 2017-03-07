@@ -32,7 +32,7 @@ public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
     @GET
     @Asynchronous
     @Search(withPagination = false, fields = {"locNuSequencial", "ufeSg", "locNo", "cep"})
-    @CacheControl(value = "max-age=86400")
+    @CacheControl(value = "max-age=864000")
     public void listLocalidade(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doListLocalidade());
     }
@@ -45,7 +45,7 @@ public class LocalidadeFacadeREST extends AbstractREST<LogLocalidade, Integer> {
     @Path("uf/{uf}")
     @Search(withPagination = false, fields = {"locNuSequencial", "locNo", "cep"})
     @Asynchronous
-    @CacheControl(value = "max-age=86400")
+    @CacheControl(value = "max-age=864000")
     public void listLocalidadePorUf(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
         asyncResponse.resume(doListLocalidadePorUf(uf));
     }

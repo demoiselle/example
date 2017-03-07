@@ -16,7 +16,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
  */
 public class UfDAO extends AbstractDAO<LogFaixaUf, String> {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "pu")
     private EntityManager em;
 
     @Override

@@ -125,10 +125,6 @@
             <artifactId>swagger-jaxrs</artifactId>
             <version>1.5.10</version>
         </dependency>
-        <dependency>
-            <groupId>org.demoiselle.jee</groupId>
-            <artifactId>demoiselle-billing</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+
     </dependencies>
 </project>

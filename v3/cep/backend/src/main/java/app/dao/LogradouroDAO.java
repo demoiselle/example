@@ -16,7 +16,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
  */
 public class LogradouroDAO extends AbstractDAO<LogLogradouro, Integer> {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "pu")
     private EntityManager em;
 
     @Override
