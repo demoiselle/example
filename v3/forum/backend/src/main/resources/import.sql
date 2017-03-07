@@ -1,8 +1,8 @@
 -- You can use this file to load seed data into the database using SQL statements
 INSERT INTO USUARIO VALUES('b83810af-7ba9-4aea-8bb6-f4992a72c5fb', 'admin@demoiselle.org', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 0);
 
-INSERT INTO CATEGORIA VALUES('bc9b86f7-63ee-4175-8443-dcb6589235d4', 'Multas');
-INSERT INTO CATEGORIA VALUES('095fbf22-364c-4d84-b332-87efca17da86', 'Dúvidas');
+INSERT INTO CATEGORIA VALUES('bc9b86f7-63ee-4175-8443-dcb6589235d4', '2017-02-07', 'Multas');
+INSERT INTO CATEGORIA VALUES('095fbf22-364c-4d84-b332-87efca17da86', '2017-02-06', 'Duvidas');
 
 INSERT INTO TOPICO VALUES('095fbf22-364c-4d84-b332-87efca17da86', 'bc9b86f7-63ee-4175-8443-dcb6589235d4', 'Solicitação de mudança de endereço');
 INSERT INTO TOPICO VALUES('cd46a824-ade4-4cee-a2af-7e881bf4801d', 'bc9b86f7-63ee-4175-8443-dcb6589235d4', 'Lei seca');

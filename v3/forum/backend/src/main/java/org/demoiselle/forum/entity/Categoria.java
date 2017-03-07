@@ -1,14 +1,16 @@
 package org.demoiselle.forum.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,6 +33,9 @@ public class Categoria implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
+    @Temporal(TemporalType.DATE)
+    private Date dataCriacao;
+
     public String getId() {
         return id;
     }
@@ -45,6 +50,14 @@ public class Categoria implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     @Override
