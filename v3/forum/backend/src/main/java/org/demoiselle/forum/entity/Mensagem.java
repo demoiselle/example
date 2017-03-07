@@ -1,6 +1,7 @@
 package org.demoiselle.forum.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,6 +38,9 @@ public class Mensagem implements Serializable {
     @Size(min = 1, max = 128)
     @Column(nullable = false, length = 128)
     private String description;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datahora;
 
     public String getId() {
         return id;
@@ -66,6 +72,14 @@ public class Mensagem implements Serializable {
 
     public void setTopicoId(String topicoId) {
         this.topicoId = topicoId;
+    }
+
+    public Date getDatahora() {
+        return datahora;
+    }
+
+    public void setDatahora(Date datahora) {
+        this.datahora = datahora;
     }
 
     @Override
