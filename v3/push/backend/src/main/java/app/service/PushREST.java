@@ -10,7 +10,6 @@ import app.socket.push.PushEndpoint;
 import app.socket.push.PushMessage;
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
-import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -23,7 +22,6 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import javax.ws.rs.core.Response;
-import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -45,43 +43,27 @@ public class PushREST {
     }
 
     private Response sendMessage(RestMessage restMessage) {
-        PushMessage pm = new PushMessage(restMessage.getEvent(), restMessage.getMessage());
-
-        if (restMessage.getType() != null && !restMessage.getType().isEmpty()) {
-           
-            if (restMessage.getType().equalsIgnoreCase("user")) {
-               pe.sendToUser(restMessage.getMessage(), restMessage.getRecipient(), restMessage.getChannel());
-            }
-
-            if (restMessage.getType().equalsIgnoreCase("group")) {
-               pe.sendToGroup(new Gson().toJson(pm), restMessage.getRecipient()); 
-            }
-            
-            if (restMessage.getType().equalsIgnoreCase("*")) {
-                pe.sendToChannel(new Gson().toJson(pm), restMessage.getChannel());
-            }
+        if (restMessage.getRecipient() != null && !restMessage.getRecipient().isEmpty()) {
+            PushMessage pm = new PushMessage(restMessage.getEvent(), restMessage.getMessage());
+            pe.sendTo(new Gson().toJson(pm), restMessage.getRecipient());
             return Response.ok().entity("{\"message\":\"Mensagem enviada\"}").build();
-            
         }
-
         return Response.ok().entity("{\"message\":\"Mensagem não foi enviada, verifique a documentação\"}").build();
     }
 
     @GET
     @Asynchronous
-    @Authenticated
     @Path("{channel}")
     public void getList(@Suspended final AsyncResponse asyncResponse, @PathParam("channel") String channel) {
         asyncResponse.resume(getList(channel));
     }
 
     private Response getList(String channel) {
-        return Response.ok().entity(pe.listaUsuarios(channel)).build();
+        return Response.ok().entity(pe.listUsers(channel)).build();
     }
 
     @GET
     @Asynchronous
-    @Authenticated
     public void getList(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(getList());
     }

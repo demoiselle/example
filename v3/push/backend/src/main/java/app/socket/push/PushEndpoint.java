@@ -36,9 +36,9 @@ public class PushEndpoint {
     @OnOpen
     public void open(final Session session, EndpointConfig c, @PathParam("channel") String channel) {
         peers.add(session);
-        session.getUserProperties().putIfAbsent("channel", channel);
-        PushMessage mm = new PushMessage("qtde", count());
-        sendToSessions(new Gson().toJson(mm));
+        session.getUserProperties().put("channel", channel);
+        PushMessage mm = new PushMessage("count", count(channel));
+        sendTo(new Gson().toJson(mm), channel);
     }
 
     @OnMessage
@@ -46,16 +46,21 @@ public class PushEndpoint {
 
         if (message.getEvent().equalsIgnoreCase("login")) {
             if (message.getData() != null && !message.getData().isEmpty()) {
-                String[] str = message.getData().split(":");
-                session.getUserProperties().putIfAbsent("usuario", str[0]);
-                session.getUserProperties().putIfAbsent("grupo", str[1]);
-                logger.log(Level.FINE, "Logado - ", message.getData());
+                session.getUserProperties().put("user", message.getData());
+                logger.log(Level.FINE, "Logged - ", message.getData());
+            }
+        }
+
+        if (message.getEvent().equalsIgnoreCase("group")) {
+            if (message.getData() != null && !message.getData().isEmpty()) {
+                session.getUserProperties().put("group", message.getData());
+                logger.log(Level.FINE, "In group - ", message.getData());
             }
         }
 
         if (message.getEvent().equalsIgnoreCase("logout")) {
-            session.getUserProperties().remove("usuario");
-            logger.log(Level.FINE, "Deslogado - ", message.getData());
+            session.getUserProperties().remove("user");
+            logger.log(Level.FINE, "Log off - ", message.getData());
         }
 
     }
@@ -67,23 +72,24 @@ public class PushEndpoint {
     }
 
     @OnClose
-    public void closedConnection(final Session session) {
+    public void closedConnection(final Session session, @PathParam("channel") String channel) {
         peers.remove(session);
-        PushMessage mm = new PushMessage("qtde", count());
-        sendToSessions(new Gson().toJson(mm));
+        PushMessage mm = new PushMessage("count", count(channel));
+        sendTo(new Gson().toJson(mm), channel);
     }
 
-    public String count() {
-        return "" + peers.size();
+    public String count(String recipient) {
+        return "" + listUsers(recipient).size();
     }
 
-    public List<String> listaUsuarios(String channel) {
+    public List<String> listUsers(String recipient) {
         List<String> list = new ArrayList<>();
         peers.stream().parallel().forEach((s) -> {
             if (s.isOpen()) {
-                if ((((String) s.getUserProperties().get("usuario")) != null && !((String) s.getUserProperties().get("usuario")).isEmpty())
-                        && (channel.equalsIgnoreCase((String) s.getUserProperties().get("channel")))) {
-                    list.add(((String) s.getUserProperties().get("usuario") + ":" + s.getUserProperties().get("grupo")));
+                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
+                    if (s.getUserProperties().get("user") != null) {
+                        list.add((String) s.getUserProperties().get("user"));
+                    }
                 }
             } else {
                 peers.remove(s);
@@ -97,7 +103,9 @@ public class PushEndpoint {
         peers.stream().parallel().forEach((s) -> {
             if (s.isOpen()) {
                 if (((String) s.getUserProperties().get("channel")) != null && !((String) s.getUserProperties().get("channel")).isEmpty()) {
-                    list.add(((String) s.getUserProperties().get("channel")));
+                    if (!list.contains(((String) s.getUserProperties().get("channel")))) {
+                        list.add(((String) s.getUserProperties().get("channel")));
+                    }
                 }
             } else {
                 peers.remove(s);
@@ -106,14 +114,14 @@ public class PushEndpoint {
         return list;
     }
 
-    public void sendToChannel(final String texto, final String channel) {
+    public void sendTo(final String texto, final String recipient) {
         peers.stream().parallel().forEach((s) -> {
             if (s.isOpen()) {
-                if (channel.equalsIgnoreCase((String) s.getUserProperties().get("channel"))) {
+                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
                     try {
                         s.getBasicRemote().sendText(texto);
                     } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + channel + " " + texto, e);
+                        logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
                     }
                 }
             } else {
@@ -122,43 +130,10 @@ public class PushEndpoint {
         });
     }
 
-    public void sendToGroup(final String texto, final String group) {
+    public void sendToSession(final String texto, final String sessionID) {
         peers.stream().parallel().forEach((s) -> {
             if (s.isOpen()) {
-                if (group.equalsIgnoreCase((String) s.getUserProperties().get("grupo"))) {
-                    try {
-                        s.getBasicRemote().sendText(texto);
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToGroup failed " + s.getId() + " " + group + " " + texto, e);
-                    }
-                }
-            } else {
-                peers.remove(s);
-            }
-        });
-    }
-
-    public void sendToUser(final String texto, final String usuario, final String channel) {
-        peers.stream().parallel().forEach((s) -> {
-            if (s.isOpen()) {
-                if (usuario.equalsIgnoreCase((String) s.getUserProperties().get("usuario"))
-                        && channel.equalsIgnoreCase((String) s.getUserProperties().get("channel"))) {
-                    try {
-                        s.getBasicRemote().sendText(texto);
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + usuario + " " + texto, e);
-                    }
-                }
-            } else {
-                peers.remove(s);
-            }
-        });
-    }
-
-    public void sendToSessions(final String texto, final String sessionID, final String channel) {
-        peers.stream().parallel().forEach((s) -> {
-            if (s.isOpen()) {
-                if (!sessionID.equalsIgnoreCase(s.getId()) && channel.equalsIgnoreCase((String) s.getUserProperties().get("channel"))) {
+                if (!sessionID.equalsIgnoreCase(s.getId())) {
                     try {
                         s.getBasicRemote().sendText(texto);
                     } catch (IOException e) {
@@ -178,22 +153,6 @@ public class PushEndpoint {
                     s.getBasicRemote().sendText(texto);
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + texto, e);
-                }
-            } else {
-                peers.remove(s);
-            }
-        });
-    }
-
-    public void sendToMySession(final String texto, final String sessionID) {
-        peers.stream().parallel().forEach((s) -> {
-            if (s.isOpen()) {
-                if (sessionID.equalsIgnoreCase(s.getId())) {
-                    try {
-                        s.getBasicRemote().sendText(texto);
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToMySession failed  " + s.getId() + " " + sessionID + " " + texto, e);
-                    }
                 }
             } else {
                 peers.remove(s);
