@@ -22,6 +22,7 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
@@ -37,7 +38,7 @@ public class PushREST {
     private PushEndpoint pe;
 
     @POST
-    @Asynchronous
+    @Authenticated
     public void sendMenssage(@Suspended final AsyncResponse asyncResponse, RestMessage restMessage) {
         asyncResponse.resume(sendMessage(restMessage));
     }
@@ -52,7 +53,6 @@ public class PushREST {
     }
 
     @GET
-    @Asynchronous
     @Path("{channel}")
     public void getList(@Suspended final AsyncResponse asyncResponse, @PathParam("channel") String channel) {
         asyncResponse.resume(getList(channel));
@@ -63,7 +63,26 @@ public class PushREST {
     }
 
     @GET
-    @Asynchronous
+    @Path("{channel}/count")
+    public void getContChannel(@Suspended final AsyncResponse asyncResponse, @PathParam("channel") String channel) {
+        asyncResponse.resume(getContChannel(channel));
+    }
+
+    private Response getContChannel(String channel) {
+        return Response.ok().entity(pe.count(channel)).build();
+    }
+
+    @GET
+    @Path("count")
+    public void getContChannel(@Suspended final AsyncResponse asyncResponse) {
+        asyncResponse.resume(getContChannel());
+    }
+
+    private Response getContChannel() {
+        return Response.ok().entity(pe.count()).build();
+    }
+
+    @GET
     public void getList(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(getList());
     }

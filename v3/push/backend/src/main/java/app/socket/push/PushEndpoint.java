@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,12 +39,10 @@ public class PushEndpoint {
     public void open(final Session session, EndpointConfig c, @PathParam("channel") String channel) {
         peers.add(session);
         session.getUserProperties().put("channel", channel);
-        PushMessage mm = new PushMessage("count", count(channel));
-        sendTo(new Gson().toJson(mm), channel);
     }
 
     @OnMessage
-    public void onMessage(final Session session, final PushMessage message) {
+    public void onMessage(final Session session, final PushMessage message, @PathParam("channel") String channel) {
 
         if (message.getEvent().equalsIgnoreCase("login")) {
             if (message.getData() != null && !message.getData().isEmpty()) {
@@ -51,10 +51,33 @@ public class PushEndpoint {
             }
         }
 
+        if (message.getEvent().equalsIgnoreCase("count")) {
+            if (message.getData() != null && !message.getData().isEmpty()) {
+                PushMessage mm = new PushMessage("count", count());
+                sendTo(new Gson().toJson(mm), channel);
+                logger.log(Level.FINE, "count - ", message.getData());
+            }
+        }
+        
+        if (message.getEvent().equalsIgnoreCase("channel")) {
+            if (message.getData() != null && !message.getData().isEmpty()) {
+                PushMessage mm = new PushMessage("channel", count(channel));
+                sendTo(new Gson().toJson(mm), channel);
+                logger.log(Level.FINE, "count - ", message.getData());
+            }
+        }
+
         if (message.getEvent().equalsIgnoreCase("group")) {
             if (message.getData() != null && !message.getData().isEmpty()) {
                 session.getUserProperties().put("group", message.getData());
                 logger.log(Level.FINE, "In group - ", message.getData());
+            }
+        }
+
+        if (message.getEvent().equalsIgnoreCase("identity")) {
+            if (message.getData() != null && !message.getData().isEmpty()) {
+                session.getUserProperties().put("identity", message.getData());
+                logger.log(Level.FINE, "identity - ", message.getData());
             }
         }
 
@@ -74,12 +97,14 @@ public class PushEndpoint {
     @OnClose
     public void closedConnection(final Session session, @PathParam("channel") String channel) {
         peers.remove(session);
-        PushMessage mm = new PushMessage("count", count(channel));
-        sendTo(new Gson().toJson(mm), channel);
     }
 
-    public String count(String recipient) {
-        return "" + listUsers(recipient).size();
+    public String count() {
+        return "" + peers.size();
+    }
+
+    public String count(String term) {
+        return ""+peers.stream().parallel().filter(s -> s.getUserProperties().containsValue(term)).count();
     }
 
     public List<String> listUsers(String recipient) {
