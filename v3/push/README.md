@@ -1,87 +1,88 @@
-# CEP App
-Aplicação "Consulta CEP" com Demoiselle v3.0.
+# PUSH App
+Aplicação "Servidor de push" com Demoiselle v3.0.
 
-- **Auth**: (CRUD)
-- **Cep**: Open
+O Push server permite enviar mensagens para suas apps a partir de um servidor dentro de um canal determinado por você.
 
-Verificação de segurança da api (https://schd.io/E67)
+Página para teste - https://www.websocket.org/echo.html
+coloque o endereço do websocket na página
 
-# Apps de exemplo
+wss://push-fwkdemoiselle.rhcloud.com:8443/push/[Canal] - crie seu canal colocando um UUID ou qualquer string em [Canal]
 
-https://cep-fwkdemoiselle.rhcloud.com/ (Versão app desktop)
+Vá em https://push-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly 10.1.0 com WebSocket) 
+Encontre o Serviço Push e clique em POST
 
-https://cep-fwkdemoiselle.rhcloud.com/swagger/ (Servidor Wildfly API)
+Em body coloque o json
+{"event": "Nome da sua preferencia","recipient": "UUID do seu canal","message": "Mensagem a ser exibida"} 
 
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?cep= [SEU_CEP] (Consulta CEP)
+Se você preferir, pode enviar uma mensagens fazendo uma requisição POST para 
+https://push-fwkdemoiselle.rhcloud.com/api/push
 
-# Exemplos de consulta
-
-> Filtro por Logradouros do Paraná (PR). </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR
-
-> Filtro por Logradouros do Paraná (PR) e com o tipo do logradouro como 'Viela' </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente e com um recorte do primeiro e segundo registro (0-1) </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc&range=0-1
-
-> Filtro de UF </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/uf
-
-> Filtro de Localidades por UF </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/localidade/uf/PR
-
-
-# Instalação
+Seu canal receberá a mensagem. 
 
 ```bash
-# Baixar o repositório
-git clone https://github.com/demoiselle/example.git --depth=1
+# JS para escutar o websocket
+
+<script language="javascript" type="text/javascript">
+
+  var wsUri = "wss://push-fwkdemoiselle.rhcloud.com:8443/push/[Canal]";
+  var output;
+
+  function init()
+  {
+    output = document.getElementById("output");
+    testWebSocket();
+  }
+
+  function testWebSocket()
+  {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("CONNECTED");
+    doSend("WebSocket rocks");
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("DISCONNECTED");
+  }
+
+  function onMessage(evt)
+  {
+    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    websocket.close();
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("SENT: " + message);
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  window.addEventListener("load", init, false);
+
+  </script>
+
+  <h2>WebSocket Test</h2>
+
+  <div id="output"></div>
 ```
-
-## Backend
-```bash
-# Instalar Java 8 
-
-# Instalar o maven 3
-
-# Acessar a pasta "backend"
-cd example/v3/cep/backend
-
-# Fazer o build
-mvn clean package -Pwildfly-swarm
-
-# Inicia a aplicação (backend)
-java -jar -Xmx128m target/cep-swarm.jar
-
-# Acesse: http://localhost:8080/
-
-```
-
-## Frontend - Progressive (Angular 1.5)
-```bash
-# Instalar nvm (https://github.com/creationix/nvm)
-
-# Instalar NodeJS (atualmente v7.1.x)
-nvm install stable
-
-# Instalar 
-npm install -g bower grunt-cli 
-
-# Acessar a pasta "progressive"
-cd example/v3/cep/progressive
-
-# Inicia a aplicação 
-grunt serve
-
-# Acesse: http://localhost:9000/
-```
-https://www.gitbook.com/@demoiselle
-
-* https://play.google.com/store/apps/details?id=org.demoiselle.cep (não implementado)
