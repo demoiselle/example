@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import java.util.stream.Collectors;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -52,19 +54,15 @@ public class PushEndpoint {
         }
 
         if (message.getEvent().equalsIgnoreCase("count")) {
-            if (message.getData() != null && !message.getData().isEmpty()) {
-                PushMessage mm = new PushMessage("count", count());
-                sendTo(new Gson().toJson(mm), channel);
-                logger.log(Level.FINE, "count - ", message.getData());
-            }
+            PushMessage mm = new PushMessage("count", count());
+            sendTo(new Gson().toJson(mm), channel);
+            logger.log(Level.FINE, "count - ", message.getData());
         }
-        
+
         if (message.getEvent().equalsIgnoreCase("channel")) {
-            if (message.getData() != null && !message.getData().isEmpty()) {
-                PushMessage mm = new PushMessage("channel", count(channel));
-                sendTo(new Gson().toJson(mm), channel);
-                logger.log(Level.FINE, "count - ", message.getData());
-            }
+            PushMessage mm = new PushMessage("channel", count(channel));
+            sendTo(new Gson().toJson(mm), channel);
+            logger.log(Level.FINE, "count - ", message.getData());
         }
 
         if (message.getEvent().equalsIgnoreCase("group")) {
@@ -104,17 +102,15 @@ public class PushEndpoint {
     }
 
     public String count(String term) {
-        return ""+peers.stream().parallel().filter(s -> s.getUserProperties().containsValue(term)).count();
+        return "" + peers.parallelStream().filter(s -> s.getUserProperties().containsValue(term)).count();
     }
 
     public List<String> listUsers(String recipient) {
         List<String> list = new ArrayList<>();
-        peers.stream().parallel().forEach((s) -> {
+        peers.parallelStream().filter(s -> s.getUserProperties().containsValue(recipient)).forEach((s) -> {
             if (s.isOpen()) {
-                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
-                    if (s.getUserProperties().get("user") != null) {
-                        list.add((String) s.getUserProperties().get("user"));
-                    }
+                if (s.getUserProperties().get("user") != null) {
+                    list.add((String) s.getUserProperties().get("user"));
                 }
             } else {
                 peers.remove(s);
@@ -123,31 +119,18 @@ public class PushEndpoint {
         return list;
     }
 
-    public List<String> listChannels() {
-        List<String> list = new ArrayList<>();
-        peers.stream().parallel().forEach((s) -> {
-            if (s.isOpen()) {
-                if (((String) s.getUserProperties().get("channel")) != null && !((String) s.getUserProperties().get("channel")).isEmpty()) {
-                    if (!list.contains(((String) s.getUserProperties().get("channel")))) {
-                        list.add(((String) s.getUserProperties().get("channel")));
-                    }
-                }
-            } else {
-                peers.remove(s);
-            }
-        });
-        return list;
-    }
-
+//    public Map<String, String> listChannels() {
+//        return peers.parallelStream().filter(s -> s.getUserProperties().containsKey("channel"))
+//	        .collect(Collectors.toMap(s -> s.getUserProperties().getKey(), p -> s.getUserProperties().getValue()));
+//    }
+    
     public void sendTo(final String texto, final String recipient) {
-        peers.stream().parallel().forEach((s) -> {
+        peers.parallelStream().filter(s -> s.getUserProperties().containsValue(recipient)).forEach((s) -> {
             if (s.isOpen()) {
-                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
-                    try {
-                        s.getBasicRemote().sendText(texto);
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
-                    }
+                try {
+                    s.getBasicRemote().sendText(texto);
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
                 }
             } else {
                 peers.remove(s);
@@ -156,15 +139,13 @@ public class PushEndpoint {
     }
 
     public void sendToSession(final String texto, final String sessionID) {
-        peers.stream().parallel().forEach((s) -> {
+        peers.parallelStream().filter(s -> s.getId().equalsIgnoreCase(sessionID)).forEach((s) -> {
             if (s.isOpen()) {
-                if (!sessionID.equalsIgnoreCase(s.getId())) {
                     try {
                         s.getBasicRemote().sendText(texto);
                     } catch (IOException e) {
                         logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + sessionID + " " + texto, e);
                     }
-                }
             } else {
                 peers.remove(s);
             }
@@ -172,7 +153,7 @@ public class PushEndpoint {
     }
 
     public void sendToSessions(final String texto) {
-        peers.stream().parallel().forEach((s) -> {
+        peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {
                 try {
                     s.getBasicRemote().sendText(texto);

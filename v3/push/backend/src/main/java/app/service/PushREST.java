@@ -30,6 +30,7 @@ import org.demoiselle.jee.security.annotation.Authenticated;
  */
 @Api("Push")
 @Path("push")
+@Authenticated
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 public class PushREST {
@@ -38,7 +39,7 @@ public class PushREST {
     private PushEndpoint pe;
 
     @POST
-    @Authenticated
+    @Authenticated(enable = false)
     public void sendMenssage(@Suspended final AsyncResponse asyncResponse, RestMessage restMessage) {
         asyncResponse.resume(sendMessage(restMessage));
     }
@@ -47,7 +48,7 @@ public class PushREST {
         if (restMessage.getRecipient() != null && !restMessage.getRecipient().isEmpty()) {
             PushMessage pm = new PushMessage(restMessage.getEvent(), restMessage.getMessage());
             pe.sendTo(new Gson().toJson(pm), restMessage.getRecipient());
-            return Response.ok().entity("{\"message\":\"Mensagem enviada\"}").build();
+            return Response.ok().entity("{\"message\":\"Mensagem enviada - Use sempre UUID nos seus canais\"}").build();
         }
         return Response.ok().entity("{\"message\":\"Mensagem não foi enviada, verifique a documentação\"}").build();
     }
@@ -88,6 +89,6 @@ public class PushREST {
     }
 
     private Response getList() {
-        return Response.ok().entity(pe.listChannels()).build();
+        return Response.ok().entity("").build();
     }
 }
