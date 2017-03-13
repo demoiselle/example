@@ -10,15 +10,15 @@ import app.socket.push.PushMessage;
 import com.google.gson.Gson;
 import java.util.Date;
 import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  *
- * @author 70744416353
+ * @author gladson
  */
 @Singleton
-public class TimerMensagem {
+public class TimerPush {
 
     @Inject
     private PushEndpoint pe;
@@ -31,7 +31,7 @@ public class TimerMensagem {
 
     @Schedule(second = "00", minute = "*/1", hour = "*", persistent = false)
     public void sendHora() {
-        PushMessage mm = new PushMessage("time", (new Date(System.nanoTime())).toString());
+        PushMessage mm = new PushMessage("time", (new Date(System.currentTimeMillis())).toString());
         pe.sendTo(new Gson().toJson(mm), "time");
     }
 
