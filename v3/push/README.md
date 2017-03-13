@@ -19,11 +19,11 @@ https://push-fwkdemoiselle.rhcloud.com/api/push
 
 Seu canal receberá a mensagem. 
 
-Canal que envia Data e hora a cada minuto
-ws://push-fwkdemoiselle.rhcloud.com:8443/push/time
+* Canal que envia data e hora a cada minuto
+* ws://push-fwkdemoiselle.rhcloud.com:8443/push/time
 
-Canal que envia uma mensagem a cada 3 minutos
-ws://push-fwkdemoiselle.rhcloud.com:8443/push/echo
+* Canal que envia uma mensagem a cada 3 minutos
+* ws://push-fwkdemoiselle.rhcloud.com:8443/push/echo
 
 ```bash
 # JS para escutar o websocket
