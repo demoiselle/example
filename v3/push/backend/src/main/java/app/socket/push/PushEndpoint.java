@@ -119,21 +119,18 @@ public class PushEndpoint {
         return list;
     }
 
-//    public Map<String, String> listChannels() {
-//        return peers.parallelStream().filter(s -> s.getUserProperties().containsKey("channel"))
-//	        .collect(Collectors.toMap(s -> s.getUserProperties().getKey(), p -> s.getUserProperties().getValue()));
-//    }
-    
     public void sendTo(final String texto, final String recipient) {
-        peers.parallelStream().filter(s -> s.getUserProperties().containsValue(recipient)).forEach((s) -> {
-            if (s.isOpen()) {
-                try {
-                    s.getBasicRemote().sendText(texto);
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
+        peers.parallelStream().forEach((s) -> {
+            if (recipient != null && s.getUserProperties().containsValue(recipient)) {
+                if (s.isOpen()) {
+                    try {
+                        s.getBasicRemote().sendText(texto);
+                    } catch (IOException e) {
+                        logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
+                    }
+                } else {
+                    peers.remove(s);
                 }
-            } else {
-                peers.remove(s);
             }
         });
     }
@@ -141,11 +138,11 @@ public class PushEndpoint {
     public void sendToSession(final String texto, final String sessionID) {
         peers.parallelStream().filter(s -> s.getId().equalsIgnoreCase(sessionID)).forEach((s) -> {
             if (s.isOpen()) {
-                    try {
-                        s.getBasicRemote().sendText(texto);
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + sessionID + " " + texto, e);
-                    }
+                try {
+                    s.getBasicRemote().sendText(texto);
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + sessionID + " " + texto, e);
+                }
             } else {
                 peers.remove(s);
             }
