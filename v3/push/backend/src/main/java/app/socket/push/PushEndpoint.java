@@ -107,45 +107,45 @@ public class PushEndpoint {
 
     public List<String> listUsers(String recipient) {
         List<String> list = new ArrayList<>();
-        peers.parallelStream().filter(s -> s.getUserProperties().containsValue(recipient)).forEach((s) -> {
+        peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {
-                if (s.getUserProperties().get("user") != null) {
-                    list.add((String) s.getUserProperties().get("user"));
+                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
+                    if (s.getUserProperties().get("user") != null) {
+                        list.add((String) s.getUserProperties().get("user"));
+                    }
                 }
-            } else {
-                peers.remove(s);
             }
+
         });
         return list;
     }
 
     public void sendTo(final String texto, final String recipient) {
         peers.parallelStream().forEach((s) -> {
-            if (recipient != null && s.getUserProperties().containsValue(recipient)) {
-                if (s.isOpen()) {
+            if (s.isOpen()) {
+                if (recipient != null && s.getUserProperties().containsValue(recipient)) {
                     try {
                         s.getBasicRemote().sendText(texto);
                     } catch (IOException e) {
                         logger.log(Level.SEVERE, "sendToUser failed " + s.getId() + " " + recipient + " " + texto, e);
                     }
-                } else {
-                    peers.remove(s);
                 }
             }
         });
     }
 
     public void sendToSession(final String texto, final String sessionID) {
-        peers.parallelStream().filter(s -> s.getId().equalsIgnoreCase(sessionID)).forEach((s) -> {
+        peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {
-                try {
-                    s.getBasicRemote().sendText(texto);
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + sessionID + " " + texto, e);
+                if (sessionID != null && s.getId().equalsIgnoreCase(sessionID)) {
+                    try {
+                        s.getBasicRemote().sendText(texto);
+                    } catch (IOException e) {
+                        logger.log(Level.SEVERE, "sendToSessions failed " + s.getId() + " " + sessionID + " " + texto, e);
+                    }
                 }
-            } else {
-                peers.remove(s);
             }
+
         });
     }
 
