@@ -3,11 +3,12 @@
   <persistence-unit name="forumPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/jboss/datasources/ExampleDS</jta-data-source>
-    <class>org.demoiselle.forum.entity.User</class>
     <class>org.demoiselle.forum.entity.Categoria</class>
-    <class>org.demoiselle.forum.entity.Topico</class>
+    <class>org.demoiselle.forum.entity.Guest</class>
     <class>org.demoiselle.forum.entity.Mensagem</class>
-    <class>org.demoiselle.forum.entity.Moderador</class>
+    <class>org.demoiselle.forum.entity.Moderator</class>
+    <class>org.demoiselle.forum.entity.Topico</class>
+    <class>org.demoiselle.forum.entity.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
@@ -16,11 +17,7 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.cache.use_second_level_cache" value="true"/>
       <property name="hibernate.cache.use_query_cache" value="true"/>
-      <!--            <property name="hibernate.cache.infinispan.entity.eviction.strategy" value= "LRU"/>
-            <property name="hibernate.cache.infinispan.entity.eviction.wake_up_interval" value= "2000"/>
-            <property name="hibernate.cache.infinispan.entity.eviction.max_entries" value= "5000"/>
-            <property name="hibernate.cache.infinispan.entity.expiration.lifespan" value= "60000"/>
-            <property name="hibernate.cache.infinispan.entity.expiration.max_idle" value= "30000"/>-->
+      <property name="hibernate.discriminator.ignore_explicit_for_joined" value="true"/>
       <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
       <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
     </properties>

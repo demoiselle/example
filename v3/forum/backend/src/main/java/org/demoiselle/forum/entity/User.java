@@ -6,9 +6,13 @@ import java.util.Objects;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import static javax.persistence.DiscriminatorType.STRING;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import static javax.persistence.InheritanceType.JOINED;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -20,6 +24,8 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = "usuario", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})})
+@Inheritance(strategy = JOINED)
+@DiscriminatorColumn(name = "perfil", discriminatorType = STRING)
 @XmlRootElement
 public class User implements Serializable {
 
