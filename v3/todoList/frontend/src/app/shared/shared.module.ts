@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { Ng2BootstrapModule, DropdownModule, PopoverModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { Ng2BootstrapModule, PopoverModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { SecurityModule } from '@demoiselle/security';
 
 import { NotificationService } from './notification.service';
@@ -15,14 +15,23 @@ import { TopNavComponent } from './top-nav/top-nav.component';
 import { ErrorFieldComponent } from './components/error-field.component';
 import { ErrorFormComponent } from './components/error-form.component';
 
+import { CalendarModule } from 'primeng/primeng';
+import { InputTextModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/primeng';
+import '../../../node_modules/primeng/resources/themes/omega/theme.css';
+import '../../../node_modules/primeng/resources/primeng.min.css';
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     SecurityModule,
     Ng2BootstrapModule.forRoot(),
-    DropdownModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    CalendarModule,
+    InputTextModule,
+    DropdownModule
   ],
   declarations: [SidebarMenuComponent, TopNavComponent, UserDropdownComponent, ErrorFieldComponent, ErrorFormComponent],
   providers: [
@@ -39,7 +48,12 @@ import { ErrorFormComponent } from './components/error-form.component';
     SidebarMenuComponent,
     TopNavComponent,
     UserDropdownComponent,
-    ErrorFieldComponent, ErrorFormComponent
+    ErrorFieldComponent,
+    ErrorFormComponent,
+
+    CalendarModule,
+    InputTextModule,
+    DropdownModule
   ]
 })
 export class SharedModule { }

@@ -41,4 +41,9 @@ export class TodoService {
   delete(todo: Todo) {
     return this.http.delete('~main/todo/' + todo.id);
   }
+
+  getStatus() {
+    return this.http.get('~main/constants/status')
+      .map(res => res.json());
+  }
 }

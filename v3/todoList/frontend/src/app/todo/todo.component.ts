@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PopoverDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { NotificationService } from '../shared';
 import { TodoService } from './shared/todo.service';
 import { Todo } from './shared/todo.model';
+
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'todo-todo',
@@ -21,17 +23,55 @@ export class TodoComponent implements OnInit {
   public totalItems: number = 0;
   public currentPage: number = 1;
 
+  date: Date;
+
+  @Output()
+  public selectedStatus;
+  public status = [
+    {label: 'loading...', value: 'loading...'}
+  ];
+
   constructor(private service: TodoService, private notificationService: NotificationService) {
+    this.initTodo();
+  }
+
+  initTodo() {
     this.todo = new Todo();
     this.todos = [];
+    this.date = new Date();
+    this.date.setHours(10);
+    this.date.setMinutes(0);
+    this.date.setSeconds(0);
   }
 
   ngOnInit() {
     this.list();
-    console.log('[TodoComponent] initialized.');
+    this.loadStatus();
+    this.selectedStatus = this.status[0].value;
+  }
+
+  loadStatus() {
+    this.service.getStatus().subscribe(
+      (result) => {
+        this.status = [];
+        Object.keys(result).forEach(element => {
+          this.status.push({label: element, value: result[element]});
+        });
+        if (this.status.length > 0) {
+          this.selectedStatus = this.status[0].value;
+          this.todo.status = this.status[0].label;
+        }
+      },
+      (error) => {
+        console.log('error');
+        console.log(error);
+        this.notificationService.error('Não foi possível carregar a lista de status!');
+      }
+    );
   }
 
   onSubmit(form: NgForm) {
+    this.todo.dateEnd = this.date.getTime().toString();
     if (!this.todo.id) {
       // Create a new todo
       this.addTodo(this.todo, form);
@@ -43,6 +83,18 @@ export class TodoComponent implements OnInit {
 
   onSelect(todo: Todo) {
     this.todo = this.cloneTodo(todo);
+    this.date = new Date(this.todo.dateEnd);
+    this.date.setDate(this.date.getDate()+1);
+    this.date.setHours(10);
+    this.date.setMinutes(0);
+    this.date.setSeconds(0);
+    if (this.todo.status) {
+      this.status.forEach(element => {
+        if (element.label == this.todo.status) {
+          this.selectedStatus = element.value;
+        }
+      });
+    }
   }
 
   onChangePage(event: any): void {
@@ -133,6 +185,11 @@ export class TodoComponent implements OnInit {
       form.reset();
     }
     this.todo = new Todo();
+    this.date = new Date();
+    this.date.setHours(10);
+    this.date.setMinutes(0);
+    this.date.setSeconds(0);
+    this.selectedStatus = this.status[0].value;
   }
 
   adiar(todo, days) {
@@ -151,5 +208,15 @@ export class TodoComponent implements OnInit {
       copy[prop] = c[prop];
     }
     return copy;
+  }
+
+  changeStatus(event) {
+    this.status.forEach(element => {
+      if (element.value == event.value) {
+        this.selectedStatus = element.value;
+        this.todo.status = element.label;
+        console.log(this.todo.status);
+      }
+    });
   }
 }
