@@ -33,7 +33,6 @@ public class LogradouroREST {
     @GET
     @Asynchronous
     @Path(value = "{uf}/{nome}")
-//    @CacheControl(value = "max-age=8640")
     public void findLogradouro(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf,
             @PathParam(value = "nome") final String nome) {
         asyncResponse.resume(doFindLogradouro(uf, nome));

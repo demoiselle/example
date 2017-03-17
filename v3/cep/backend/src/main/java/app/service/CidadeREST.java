@@ -26,20 +26,19 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Api("Cidade")
 @Path("v1/cidades")
 public class CidadeREST {
-
+    
     @Inject
     private CepDAO dao;
-
+    
     @GET
     @Asynchronous
     @Path(value = "{uf}")
-//    @CacheControl(value = "max-age=8640")
     public void findCidade(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
         asyncResponse.resume(doFindCidade(uf));
     }
-
+    
     private Response doFindCidade(String uf) {
-        return Response.ok().entity("").build();
+        return Response.ok().entity(dao.getCidades(uf)).build();
     }
-
+    
 }

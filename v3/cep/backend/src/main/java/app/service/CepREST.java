@@ -34,7 +34,6 @@ public class CepREST {
     @Asynchronous
     @Path(value = "{cep}")
     @Authenticated(enable = false)
-//    @CacheControl(value = "max-age=8640")
     public void findCep(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "cep") final String id) {
         asyncResponse.resume(doFindCep(id));
     }
@@ -43,16 +42,4 @@ public class CepREST {
         return Response.ok().entity(dao.getCep(id)).build();
     }
 
-    @GET
-    @Asynchronous
-    @Transactional
-    @Authenticated(enable = false)
-//    @CacheControl(value = "max-age=8640")
-    public void find(@Suspended final AsyncResponse asyncResponse) {
-        asyncResponse.resume(doFind());
-    }
-
-    private Response doFind() {
-        return Response.ok().entity(dao.find()).build();
-    }
 }
