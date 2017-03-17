@@ -5,20 +5,17 @@
  */
 package app.service;
 
-import app.entity.LogLogradouro;
+import app.dao.CepDAO;
 import io.swagger.annotations.Api;
 import javax.ejb.Asynchronous;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 import org.demoiselle.jee.security.annotation.Authenticated;
 
@@ -26,21 +23,22 @@ import org.demoiselle.jee.security.annotation.Authenticated;
  *
  * @author gladson
  */
-@Api("Logradouro")
-@Path("logradouro")
-@Authenticated
-public class LogradouroFacadeREST extends AbstractREST<LogLogradouro, Integer> {
+@Api("Uf")
+@Path("v1/ufs")
+public class UFREST {
+
+    @Inject
+    private CepDAO dao;
 
     @GET
     @Asynchronous
-    @Authenticated(enable = false)
-    @CacheControl(value = "max-age=864000")
-    public void findLogradouro(@Suspended final AsyncResponse asyncResponse) {
-        asyncResponse.resume(doFindLogradouro());
+//    @CacheControl(value = "max-age=8640")
+    public void findCep(@Suspended final AsyncResponse asyncResponse) {
+        asyncResponse.resume(doFindUfs());
     }
 
-    private Response doFindLogradouro() {
-        return Response.ok().entity(bc.find()).build();
+    private Response doFindUfs() {
+        return Response.ok().entity(dao.getUfs()).build();
     }
 
 }
