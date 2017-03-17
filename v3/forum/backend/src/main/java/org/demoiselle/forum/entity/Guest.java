@@ -5,6 +5,7 @@
  */
 package org.demoiselle.forum.entity;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,6 +14,7 @@ import org.demoiselle.forum.constants.Perfil;
 @Entity
 @Table(name = "visitante")
 @XmlRootElement
+@DiscriminatorValue("GUEST")
 public class Guest extends User {
 
     private String apelido;

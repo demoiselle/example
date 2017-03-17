@@ -5,22 +5,19 @@
  */
 package org.demoiselle.forum.entity;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.demoiselle.forum.constants.Perfil;
 
 @Entity
 @Table(name = "moderador")
 @XmlRootElement
+@DiscriminatorValue("MODERADOR")
 public class Moderator extends User {
 
     private String cor;
     private String ordem;
-
-    public Moderator() {
-        this.setPerfil(Perfil.MODERADOR);
-    }
 
     public String getCor() {
         return cor;
