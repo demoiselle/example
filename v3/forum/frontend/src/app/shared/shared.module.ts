@@ -13,6 +13,9 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { ErrorFormComponent } from './components/error-form.component';
 
+import { EqualValidator } from './directives/equal.validator';
+import { EmailValidator } from './directives/email.validator';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +25,14 @@ import { ErrorFormComponent } from './components/error-form.component';
     DropdownModule.forRoot(),
     PopoverModule.forRoot()
   ],
-  declarations: [SidebarMenuComponent, TopNavComponent, UserDropdownComponent, ErrorFormComponent],
+  declarations: [
+    SidebarMenuComponent,
+    TopNavComponent,
+    UserDropdownComponent,
+    ErrorFormComponent,
+    EqualValidator,
+    EmailValidator
+  ],
   providers: [
     NotificationService,
     LoginService
@@ -37,7 +47,10 @@ import { ErrorFormComponent } from './components/error-form.component';
     SidebarMenuComponent,
     TopNavComponent,
     UserDropdownComponent,
-    ErrorFormComponent
+    ErrorFormComponent,
+
+    EqualValidator,
+    EmailValidator
   ]
 })
 export class SharedModule { }

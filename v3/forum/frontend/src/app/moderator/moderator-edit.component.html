@@ -1,0 +1,32 @@
+<form class="form-horizontal" role="form" #moderatorForm="ngForm" (ngSubmit)="save(moderator)">
+
+  <div class="form-group">
+    <label for="moderatorId" class="control-label col-sm-2">ID</label>
+    <div class="col-xs-4">
+      <input type="text" id="moderatorId" class="form-control"
+        name="moderatorId" [(ngModel)]="moderator.id"
+        disabled="true">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description" class="control-label col-sm-2">Descrição</label>
+    <div class="col-xs-4">
+      <input type="text" id="description" class="form-control"
+        name="description" [(ngModel)]="moderator.description"
+        required>
+      </div>
+  </div>
+
+  <div class="col-sm-offset-2">
+    <button type="submit" class="btn btn-sm btn-success">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      <span>Salvar</span>
+    </button>
+    <button type="button" class="btn btn-sm btn-danger" (click)="goBack()">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      <span>Cancelar</span>
+    </button>
+  </div>
+
+</form>
