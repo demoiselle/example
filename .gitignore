@@ -10,6 +10,11 @@
 /v3/cep/progressive/bower_components/
 /v3/cep/progressive/.tmp
 
+/v3/cep-angular/backend/target/
+/v3/cep-angular/progressive/node_modules/
+/v3/cep-angular/progressive/bower_components/
+/v3/cep-angular/progressive/.tmp
+
 # Dependency directories
 node_modules
 jspm_packages
@@ -48,6 +53,9 @@ bower_components
 ### NetBeans ###
 v3/cep/progressive/nbproject
 v3/cep/backend/nbproject
+
+v3/cep-angular/progressive/nbproject
+v3/cep-angular/backend/nbproject
 
 v3/todoList/progressive/nbproject
 v3/todoList/backend/nbproject
