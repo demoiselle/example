@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="pu" transaction-type="JTA">
+    <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+    <class>app.entity.Cep</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="org.hibernate.dialect" value="org.hibernate.ogm.dialect.impl.OgmDialect"/>
+      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+      <property name="hibernate.ogm.datastore.database" value="dados"/>
+      <property name="hibernate.ogm.datastore.host" value="localhost"/>
+      <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
+    </properties>
+  </persistence-unit>
+</persistence>
