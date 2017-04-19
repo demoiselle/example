@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Response;
+import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
  *
@@ -28,6 +29,7 @@ public class UFREST {
 
     @GET
     @Asynchronous
+    @CacheControl(value = "max-age=3600, must-revalidate, public")
     public void findCep(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doFindUfs());
     }
