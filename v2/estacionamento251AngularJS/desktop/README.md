@@ -1,4 +1,0 @@
-estacionamento
-====================================
-
-Estacionamento desktop
