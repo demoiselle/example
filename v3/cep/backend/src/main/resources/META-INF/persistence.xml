@@ -9,7 +9,7 @@
       <property name="org.hibernate.dialect" value="org.hibernate.ogm.dialect.impl.OgmDialect"/>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
       <property name="hibernate.ogm.datastore.database" value="dados"/>
-      <property name="hibernate.ogm.datastore.host" value="10.200.24.49"/>
+      <property name="hibernate.ogm.datastore.host" value="localhost"/>
       <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
     </properties>
   </persistence-unit>
