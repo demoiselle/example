@@ -22,15 +22,30 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-mongodb</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>5.1.0.Final</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-core</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-infinispan</artifactId>
             <version>5.1.0.Final</version>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.1.0.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.0.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>io.swagger</groupId>

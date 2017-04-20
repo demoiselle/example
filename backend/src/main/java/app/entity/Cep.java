@@ -3,12 +3,9 @@ package app.entity;
 import java.io.Serializable;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 /**
  *
@@ -21,11 +18,7 @@ import org.hibernate.annotations.Type;
 public class Cep implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Type(type = "objectid")
     private String id;
-
     private String cep;
     private String uf;
     private String cidade;
