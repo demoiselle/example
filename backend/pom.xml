@@ -69,7 +69,7 @@
         </plugins>
     </build>
     <dependencies>
-<!--        <dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.1.0.Final</version>
@@ -92,17 +92,8 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.1.0.Final</version>
             <scope>provided</scope>
-        </dependency>-->
-         <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-mongodb</artifactId>
-            <version>5.1.0.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-core</artifactId>
-            <version>5.1.0.Final</version>
-        </dependency>
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
