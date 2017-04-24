@@ -2,6 +2,7 @@ FROM demoiselleframework/docker
 
 MAINTAINER Demoiselle Framework <demoiselle.framework@gmail.com>
 
+VOLUME /opt/
 WORKDIR /opt/
 
 RUN git clone -b forum  https://github.com/demoiselle/example.git --depth=1
