@@ -1,5 +1,5 @@
 exports.config = {
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: 'http://localhost:7070/',
 
   specs: [
     'src/**/*.e2e-spec.js'
@@ -20,11 +20,11 @@ exports.config = {
   directConnect: true,
 
   capabilities: {
-    browserName: 'chrome'
+    'browserName': 'firefox'
   },
 
   onPrepare: function () {
-    var SpecReporter = require('jasmine-spec-reporter');
+    var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
     // add jasmine spec reporter
     jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: true}));
 
@@ -34,9 +34,9 @@ exports.config = {
   /**
    * Angular 2 configuration
    *
-   * useAllAngular2AppRoots:
-   *  tells Protractor to wait for any angular2 apps on the page instead of just
-   *  the one matching `rootEl`
+   * useAllAngular2AppRoots: tells Protractor to wait for any angular2 apps on the page instead of just the one matching
+   * `rootEl`
+   *
    */
   useAllAngular2AppRoots: true
 };

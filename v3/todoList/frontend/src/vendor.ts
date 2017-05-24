@@ -17,4 +17,12 @@ import '@angularclass/hmr';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import 'ng2-toastr/ng2-toastr.css';
+import 'ng2-toasty/style-bootstrap.css';
+import 'ng2-toasty/style-default.css';
+import 'ng2-toasty/style-material.css';
+import 'ng2-toasty/style.css';
+
+import 'primeng/primeng';
+import "primeng/resources/themes/bootstrap/theme.css"
+import "primeng/resources/primeng.min.css"
+

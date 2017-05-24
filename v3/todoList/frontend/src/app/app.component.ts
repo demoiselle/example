@@ -1,7 +1,8 @@
-import { AfterContentInit, Component, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@demoiselle/security';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastCommunicationService } from './shared/toast-communication.service';
+
 
 // global style
 import '../style/global.scss';
@@ -12,19 +13,16 @@ import '../style/global.scss';
   template: require('./app.component.html')
 })
 export class AppComponent implements AfterContentInit {
-  private viewContainerRef: ViewContainerRef;
+
+  private toastyComponentPosition: string;
 
   public constructor(
-    viewContainerRef: ViewContainerRef,
-    // componentsHelper:ComponentsHelper,
+
     private router: Router,
     private authService: AuthService,
-    public toastr: ToastsManager) {
-    // You need this small hack in order to catch application root view container ref (ng2-bootstrap)
-    this.viewContainerRef = viewContainerRef;
-    // componentsHelper.setRootViewContainerRef(viewContainerRef);
-    this.toastr.setRootViewContainerRef(viewContainerRef); // hack for angular >= 2.2
-  }
+    private toastCommunicationService: ToastCommunicationService) {
+      this.toastCommunicationService.position$.subscribe(pos => this.toastyComponentPosition = pos);
+    }
 
   public ngAfterContentInit(): any {
     // uncomment if the application need to retoken

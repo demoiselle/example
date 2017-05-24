@@ -1,4 +1,4 @@
-// var path = require('path');
+var path = require('path');
 var webpackConfig = require('./webpack.config');
 
 var ENV = process.env.npm_lifecycle_event;
@@ -60,7 +60,7 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: isTestWatch ? ['Chrome'] : ['PhantomJS'],
+    browsers: ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

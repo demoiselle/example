@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
@@ -10,7 +10,7 @@ import { ExceptionService } from '@demoiselle/http';
       <div></div>
   `
 })
-export class ErrorFormComponent {
+export class ErrorFormComponent implements OnInit, OnDestroy {
   
   validationSubscription: Subscription;
   @Input() form: NgForm;

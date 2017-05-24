@@ -13,7 +13,7 @@ let template = require('./sidebar-menu.template.html');
 })
 export class SidebarMenuComponent {
   public search: any = {};
-  public hash: string = '';
+  public hash = '';
   public routes: any[] = [];
 
   public constructor(private router: Router, private authService: AuthService, private loginService: LoginService) {

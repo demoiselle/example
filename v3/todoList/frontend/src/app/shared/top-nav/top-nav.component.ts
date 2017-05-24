@@ -11,7 +11,7 @@ let template = require('./top-nav.template.html');
   template
 })
 export class TopNavComponent implements AfterViewInit {
-  public isShown: boolean = false;
+  public isShown = false;
 
   private renderer: Renderer;
   private document: any;
