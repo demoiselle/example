@@ -1,3 +1,14 @@
+import { UserModule } from './user';
+import { UserModule } from './user';
+import { TopicoModule } from './topico';
+import { TopicoModule } from './topico';
+import { ModeratorModule } from './moderator';
+import { ModeratorModule } from './moderator';
+import { MensagemModule } from './mensagem';
+import { MensagemModule } from './mensagem';
+import { GuestModule } from './guest';
+import { GuestModule } from './guest';
+import { CategoriaModule } from './categoria';
 import { TopicoModule } from './topico';
 import { TopicoModule } from './topico';
 import { ModeratorModule } from './moderator';
@@ -36,6 +47,28 @@ let toastrOptions: ToastOptions = new ToastOptions({
 
 @NgModule({
   imports: [
+		UserModule,
+
+		UserModule,
+
+		TopicoModule,
+
+		TopicoModule,
+
+		ModeratorModule,
+
+		ModeratorModule,
+
+		MensagemModule,
+
+		MensagemModule,
+
+		GuestModule,
+
+		GuestModule,
+
+		CategoriaModule,
+
 		TopicoModule,
 
 		TopicoModule,

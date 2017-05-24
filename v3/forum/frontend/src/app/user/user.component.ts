@@ -21,19 +21,11 @@ export class UserComponent implements OnInit {
   public totalItems: number = 0;
   public currentPage: number = 1;
 
-  public selectedRole;
-  public roles = [
-    {value: 'USUARIO', description: 'Usuário'},
-    {value: 'GERENTE', description: 'Gerente'},
-    {value: 'ADMINISTRADOR', description: 'Administrador'}
-  ];
-
   constructor(private service: UserService, private notificationService: NotificationService) {
   }
 
   ngOnInit() {
     this.list();
-    this.loadPerfil();
   }
 
   showModalDetails(user: User) {
@@ -46,33 +38,23 @@ export class UserComponent implements OnInit {
     this.list();
   }
 
-  loadPerfil() {
-    this.service.getPerfil().subscribe(
-      (result) => {
-        this.roles = result;
-        if (this.roles.length > 0) {
-          this.selectedRole = this.roles[0];
-        }
-      },
-      (error) => {
-        console.log('error');
-        console.log(error);
-        this.notificationService.error('Não foi possível carregar a lista de perfis!');
-      }
-    );
-  }
-
   list() {
     this.service.list(this.currentPage, this.itemsPerPage).subscribe(
       (result) => {
-        this.users = result.json();
+        try {
+          this.users = result.json();
+        } catch (e) {
+          console.log('Can not convert result to JSON.');
+          console.log(e);
+          this.users = [];
+        }
         let contentRange = result.headers.get('Content-Range');
         if (contentRange) {
           this.totalItems = Number(contentRange.substr(contentRange.indexOf('/')+1, contentRange.length));
         }
       },
       (error) => {
-        this.notificationService.error('Não foi possível carregar a lista de usuarios!');
+        this.notificationService.error('Não foi possível carregar a lista de itens!');
         this.users = error;
       }
     );
@@ -81,28 +63,24 @@ export class UserComponent implements OnInit {
   edit(user:User) {
     this.service.update(user).subscribe(
       (result) => {
-        this.notificationService.success('Usuário atualizado com sucesso!');
+        this.notificationService.success('Item atualizado com sucesso!');
       },
       (error) => {
-        this.notificationService.error('Não foi possível salvar o usuário!');
+        this.notificationService.error('Não foi possível salvar!');
       }
     );
   }
 
-  delete(usuario: User) {
-    this.service.delete(usuario).subscribe(
+  delete(user: User) {
+    this.service.delete(user).subscribe(
       (result) => {
         this.user = null;
         this.staticModal.hide();
         this.list();
       },
       (error) => {
-        this.notificationService.error('Não foi possível remover o usuário!');
+        this.notificationService.error('Não foi possível remover!');
       }
     );
-  }
-
-  changeRole(event) {
-    this.selectedRole = event.target.value;
   }
 }

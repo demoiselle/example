@@ -10,7 +10,7 @@ import { UserEditComponent } from './user-edit.component';
         RouterModule.forChild([
             {
                 path: 'user',
-                data: ['Usuário'],
+                data: ['User'],
                 // canActivate: [AuthGuard],
                 component: UserComponent
             },

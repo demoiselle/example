@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
@@ -11,18 +11,9 @@ import { User } from './user.model';
   templateUrl: './user-edit.component.html'
 })
 export class UserEditComponent implements OnInit {
-  user: User;
-  confirmPass: string;
-  params: any;
+  user: User = new User();
+  id: number;
   userLoaded: boolean = false;
-
-  @Output()
-  public selectedRole;
-  public roles = [
-    {value: 'GERENTE', description: 'Gerente'},
-    {value: 'USUARIO', description: 'Usuário'},
-    {value: 'ADMINISTRADOR', description: 'Administrador'}
-  ];
 
   private routeSubscribe: any;
 
@@ -32,75 +23,50 @@ export class UserEditComponent implements OnInit {
     private service: UserService,
     private loginService: LoginService,
     private notificationService: NotificationService)
-  {
-    this.user = new User();
-    this.user.id = null;
-    this.user.firstName = 'Admin';
-    this.user.perfil = 'Administrador';
-    this.user.email = 'admin@demoiselle.org';
-    this.user.pass = '12345678';
-    this.confirmPass = '12345678';
-    this.selectedRole = this.roles[0];
-  }
+  { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (Object.keys(params).length > 0) {
         this.user.id = (<User> params).id;
-        this.user.firstName = (<User> params).firstName;
-        this.user.email = (<User> params).email;
-        this.user.pass = (<User> params).pass;
-        this.user.perfil = (<User> params).perfil;
-        this.loadPerfil(this.user.perfil);
-      } else {
-        this.loadPerfil(null);
+        this.user.description = (<User> params).description;
       }
     });
   }
 
-  loadPerfil(perfil) {
-    this.service.getPerfil().subscribe(
-      (result) => {
-        this.roles = [];
-        Object.keys(result).forEach(element => {
-          this.roles.push({value: element, description: result[element]});
-        });
-        if (this.roles.length > 0) {
-          if (perfil) {
-            this.updateSelectedRole(this.user.perfil);
-          } else {
-            this.selectedRole = this.roles[0];
-          }
-        }
+  loadUser() {
+    this.service.get(this.id)
+      .subscribe(
+      (User: User) => {
+        this.user = User;
+        this.userLoaded = true;
       },
-      (error) => {
-        this.notificationService.error('Não foi possível carregar a lista de perfis!');
+      error => {
+        this.notificationService.error('Erro ao carregar item!');
       }
-    );
+      );
   }
 
   save(user:User) {
-    user.perfil = this.selectedRole.value;
     if (!user.id) {
       delete user.id;
       this.service.create(user).subscribe(
         (result) => {
-          this.notificationService.success('Usuário criado com sucesso!');
+          this.notificationService.success('Item criado com sucesso!');
           this.goBack();
         },
         (error) => {
-          this.notificationService.error('Não foi possível salvar o usuário!');
+          this.notificationService.error('Não foi possível salvar!');
         }
       );
-    }
-    else {
+    } else {
       this.service.update(user).subscribe(
         (result) => {
-          this.notificationService.success('Usuário alterado com sucesso!');
+          this.notificationService.success('Item alterado com sucesso!');
           this.goBack();
         },
         (error) => {
-          this.notificationService.error('Não foi possível alterar o usuário!');
+          this.notificationService.error('Não foi possível alterar!');
         }
       );
     }
@@ -110,16 +76,4 @@ export class UserEditComponent implements OnInit {
     this.router.navigate(['user']);
   }
 
-  changeRole(event) {
-    this.user.perfil = event.target.value;
-    this.updateSelectedRole(this.user.perfil);
-  }
-
-  updateSelectedRole(perfil) {
-    this.roles.forEach(element => {
-      if (element.value == perfil || element.description == perfil) {
-        this.selectedRole = element;
-      }
-    });
-  }
 }

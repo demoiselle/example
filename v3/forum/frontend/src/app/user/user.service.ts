@@ -33,9 +33,4 @@ export class UserService {
   delete(user: User) {
     return this.http.delete('~main/users/' + user.id);
   }
-
-  getPerfil() {
-    return this.http.get('~main/constants/perfil')
-      .map(res => res.json());
-  }
 }

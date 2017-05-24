@@ -1,7 +1,7 @@
 <article class="page users">
 
   <div class="content-header">
-    <h2>Usuários</h2>
+    <h2>Users</h2>
     <p class="description" [innerHTML]="titleDoc"></p>
   </div>
 
@@ -9,19 +9,19 @@
     <div id="example" class="section">
       <button [routerLink]="['/user','edit']" class="btn btn-sm btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>
-        <span>Novo usuário</span>
+        <span>Novo(a) user</span>
       </button>
 
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Primeiro nome</th>
+            <th>Descrição</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
+            <td>{{user.description}}</td>
             <td>
               <button class="btn btn-primary btn-xs" (click)="showModalDetails(user)">
                   <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 <span>Editar</span>
               </a>
-              <button mwlConfirmationPopover title="Confirmação" message="Deseja realmente remover o usuário <b>{{user.name}}</b>?" class="btn btn-danger btn-xs" placement="left" (confirm)="delete(user)">
+              <button mwlConfirmationPopover title="Confirmação" message="Deseja realmente remover o item <b>{{user.name}}</b>?" class="btn btn-danger btn-xs" placement="left" (confirm)="delete(user)">
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 <span>Remover</span>
               </button>
@@ -54,7 +54,7 @@
               <button type="button" class="close" aria-label="Close" (click)="staticModal.hide()">
                   <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title">Detalhes do usuário</h4>
+              <h4 class="modal-title">Detalhes do item</h4>
             </div>
             <div class="modal-body" *ngIf="user">
             <form class="form-horizontal" role="form" #userForm="ngForm" (ngSubmit)="save(user)">
@@ -69,53 +69,20 @@
               </div>
 
               <div class="form-group">
-                <label for="firstName" class="control-label col-sm-2">Pirmeiro Nome</label>
+                <label for="description" class="control-label col-sm-2">Pirmeiro Nome</label>
                 <div class="col-xs-6">
-                  <input type="text" id="firstName" class="form-control"
-                    name="firstName" [(ngModel)]="user.firstName"
+                  <input type="text" id="description" class="form-control"
+                    name="description" [(ngModel)]="user.description"
                     disabled="true">
                   </div>
               </div>
 
-              <div class="form-group">
-                <label for="userPerfil" class="control-label col-sm-2">Perfil</label>
-                <div class="col-xs-6">
-                  <input type="text" id="userPerfil" class="form-control"
-                    name="userPerfil" [(ngModel)]="user.perfil"
-                    disabled="true">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="userEmail" class="control-label col-sm-2">email</label>
-                <div class="col-xs-6">
-                  <input type="text" id="userEmail" class="form-control"
-                    name="userEmail" [(ngModel)]="user.email"
-                    disabled="true">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="userPass" class="control-label col-sm-2">Password</label>
-                <div class="col-xs-6">
-                  <input type="password" id="userPass" class="form-control"
-                    name="userPass" [(ngModel)]="user.pass"
-                    disabled="true">
-                </div>
-              </div>
-
               <div class="col-sm-offset-2">
-                <!--
-                <button type="button" class="btn btn-sm btn-success" (click)="edit(user)">
-                  <span>Alterar</span>
-                </button>
-                -->
                 <button type="button" class="btn btn-sm btn-default" (click)="staticModal.hide()">
                   <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-                  <span>OK</span>
+                  <span>Voltar</span>
                 </button>
               </div>
-
             </form>
             </div>
           </div>
