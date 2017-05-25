@@ -1,0 +1,6 @@
+/target/
+/backend/target/
+/progressive/node_modules/
+/progressive/nbproject/private/
+/progressive/bower_components/
+/antigo/target/

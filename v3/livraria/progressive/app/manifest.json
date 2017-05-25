@@ -1,0 +1,61 @@
+{
+    "lang": "pt-br",
+    "dir": "ltr",
+    "manifest_version": 2,
+    "name": "Demoiselle",
+    "version": "1.0.0",
+    "short_name": "Demoiselle",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "Demoiselle app demo",
+    "offline_enabled": true,
+    "serviceworker": {
+        "src": "service-worker.js",
+        "scope": "/",
+        "use_cache": false
+    },
+    "icons": [{
+            "src": "images/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        }, {
+            "src": "images/apple-touch-icon.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        }, {
+            "src": "images/ms-touch-icon-144x144-precomposed.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }, {
+            "src": "images/chrome-touch-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }, {
+            "src": "images/chrome-splashscreen-icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        }],
+    "related_applications": [
+        {
+            "platform": "web",
+            "url": "http://demoiselle.io/"
+        }
+    ],
+    "permissions": [
+        "gcm",
+        "storage",
+        "alarms",
+        "notifications",
+        "http://demoiselle.io/",
+        {
+            "fileSystem": [
+                "write",
+                "retainEntries",
+                "directory"
+            ]
+        }
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self'"
+}

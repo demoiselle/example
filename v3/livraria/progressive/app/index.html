@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="pt-br" manifest="manifest.appcache">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Demoiselle</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="manifest" href="manifest.json">
+        <link rel="canonical" href="http://demoiselle.io/">
+        <!-- Bootstrap 3.3.4 -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.) styles/vendor.css -->
+        <link rel="stylesheet" href="bower_components/admin-lte/dist/css/skins/_all-skins.min.css"/>
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/admin-lte/dist/css/AdminLTE.css" />
+        <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/c3/c3.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css" />
+        <link rel="stylesheet" href="bower_components/angular-swagger-ui/dist/css/swagger-ui.min.css" />
+        <link rel="stylesheet" href="bower_components/pivottable/dist/pivot.css" />
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/animate.css -->
+
+        <!-- endbuild -->
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
+    </head>
+
+    <body class="hold-transition skin-blue sidebar-mini animated">
+        <div class="wrapper" ng-cloak>
+
+            <!-- Main Header -->
+            <header class="main-header" ng-show="$root.currentUser">
+
+                <!-- Logo -->
+                <a href="#dashboard" class="logo uil-ring-anim">
+                    <span loading-indicator></span>
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini "><b>D3</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <small><span class="logo-lg">Demoiselle</span></small>
+
+                </a>
+
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Navegador</span>
+                    </a>
+
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu" ng-controller="AuthController">
+                        <ul class="nav navbar-nav">
+
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">Demoiselle</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                        <p>
+                                            Framework Demoiselle
+                                            <small>Desenvolvimento JEE7</small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar" ng-show="$root.currentUser">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu animated fadeInDown">
+                        <li class="header">Conectados: {{$root.conectados}}</li>
+                        <li><a href="#exemplo"><i class='fa fa-dashboard'></i> <span>Exemplo</span></a></li>
+                        <li class="treeview">
+                            <a href="#"><i class='fa fa-gear'></i><span>Exemplo</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li><a href="#Exemplo">Exemplo</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div ng-view=""></div>
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer" ng-show="$root.currentUser">
+                <div class="pull-right hidden-xs">
+                </div>
+                <!-- Default to the left -->
+                <strong><a href="http://demoiselle.io/">Demoiselle</a>.</strong>
+            </footer>
+
+        </div>
+        <!-- ./wrapper -->
+        <!--<div ng-show="!currentUser" ng-include src="'views/login.html'" ></div>-->
+
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/admin-lte/dist/js/app.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/Chart.js/Chart.js"></script>
+        <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-locale-pt-br/angular-locale_pt-br.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/bootstrap/js/dropdown.js"></script>
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/c3/c3.js"></script>
+        <script src="bower_components/c3-angular/c3-angular.min.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="bower_components/angular-notification/angular-notification.js"></script>
+        <script src="bower_components/ng-websocket/ng-websocket.js"></script>
+        <script src="bower_components/nvd3/build/nv.d3.js"></script>
+        <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+        <script src="bower_components/angular-swagger-ui/dist/scripts/swagger-ui.min.js"></script>
+        <script src="bower_components/pivottable/dist/pivot.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+        <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+        <script src="bower_components/angular-filter-count-to/dist/angular-filter-count-to.min.js"></script>
+        <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
+        <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <!-- injector:js -->
+        <script src="/scripts/app.js"></script>
+        <script src="/scripts/config.js"></script>
+        <script src="/scripts/controllers/auth.js"></script>
+        <script src="/scripts/controllers/dashboard.js"></script>
+        <script src="/scripts/controllers/livro.js"></script>
+        <script src="/scripts/directives/directives.js"></script>
+        <script src="/scripts/routes/auth.js"></script>
+        <script src="/scripts/routes/livro.js"></script>
+        <script src="/scripts/services/alert.js"></script>
+        <script src="/scripts/services/app.js"></script>
+        <script src="/scripts/services/auth.js"></script>
+        <script src="/scripts/services/dashboard.js"></script>
+        <script src="/scripts/services/livro.js"></script>
+        <script src="/scripts/services/ws.js"></script>
+        <!-- endinjector -->
+        <!-- endbuild -->
+
+    </body>
+
+</html>
