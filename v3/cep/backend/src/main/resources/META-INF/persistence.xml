@@ -8,8 +8,10 @@
     <properties>
       <property name="org.hibernate.dialect" value="org.hibernate.ogm.dialect.impl.OgmDialect"/>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
-      <property name="hibernate.ogm.datastore.database" value="dados"/>
-      <property name="hibernate.ogm.datastore.host" value="localhost"/>
+      <property name="hibernate.ogm.datastore.database" value="cep"/>
+      <property name="hibernate.ogm.datastore.username" value="admin"/>
+      <property name="hibernate.ogm.datastore.password" value="yvJn-gC2HhSQ"/>
+      <property name="hibernate.ogm.datastore.host" value="$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT"/>
       <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
     </properties>
   </persistence-unit>

@@ -31,7 +31,7 @@ public class CidadeREST {
     @GET
     @Asynchronous
     @Path(value = "{uf}")
-    @CacheControl(value = "max-age=3600, must-revalidate, public")
+    @CacheControl(value = "max-age=36000, must-revalidate, public")
     public void findCidade(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf) {
         asyncResponse.resume(doFindCidade(uf));
     }

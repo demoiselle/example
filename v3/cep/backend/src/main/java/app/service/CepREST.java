@@ -31,7 +31,7 @@ public class CepREST {
     @GET
     @Asynchronous
     @Path(value = "{cep}")
-    @CacheControl(value = "max-age=3600, must-revalidate, public")
+    @CacheControl(value = "max-age=36000, must-revalidate, public")
     public void findCep(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "cep") final String id) {
         asyncResponse.resume(doFindCep(id));
     }
