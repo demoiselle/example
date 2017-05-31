@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.dao.CepDAO;
@@ -12,17 +7,20 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
 /**
  *
- * @author gladson
+ * @author PauloGladson
  */
 @Api("Cidade")
 @Path("v1/cidades")
+@Produces(value = {MediaType.APPLICATION_JSON})
 public class CidadeREST {
 
     @Inject
@@ -36,8 +34,8 @@ public class CidadeREST {
         asyncResponse.resume(doFindCidade(uf));
     }
 
-    private Response doFindCidade(String uf) {
-        return Response.ok().entity(dao.getCidades(uf)).build();
+    private Response doFindCidade(String id) {
+        return Response.ok().entity(dao.getListaCidade(id)).build();
     }
 
 }

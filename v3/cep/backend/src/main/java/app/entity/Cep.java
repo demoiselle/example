@@ -1,44 +1,87 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package app.entity;
 
 import java.io.Serializable;
-import javax.persistence.Cacheable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 /**
  *
  * @author gladson
  */
 @Entity
-@Cacheable
+@Table(catalog = "cep", schema = "public")
 @XmlRootElement
-@Table(name = "cep")
+@NamedQueries({
+    @NamedQuery(name = "Cep.findAll", query = "SELECT c FROM Cep c")
+    , @NamedQuery(name = "Cep.findById", query = "SELECT c FROM Cep c WHERE c.id = :id")
+    , @NamedQuery(name = "Cep.findByLogradouro", query = "SELECT c FROM Cep c WHERE c.logradouro = :logradouro")
+    , @NamedQuery(name = "Cep.findByCep", query = "SELECT c FROM Cep c WHERE c.cep = :cep")
+    , @NamedQuery(name = "Cep.findByUf", query = "SELECT c FROM Cep c WHERE c.uf = :uf")
+    , @NamedQuery(name = "Cep.findByCidade", query = "SELECT c FROM Cep c WHERE c.cidade = :cidade")
+    , @NamedQuery(name = "Cep.findByBairroIni", query = "SELECT c FROM Cep c WHERE c.bairroIni = :bairroIni")
+    , @NamedQuery(name = "Cep.findByBairroFim", query = "SELECT c FROM Cep c WHERE c.bairroFim = :bairroFim")})
 public class Cep implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Type(type = "objectid")
-    private String id;
-
-    private String cep;
-    private String uf;
-    private String cidade;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer id;
+    @Size(max = 128)
+    @Column(length = 128)
     private String logradouro;
-    private String bairro_ini;
-    private String bairro_fim;
+    @Size(max = 8)
+    @Column(length = 8)
+    private String cep;
+    @Size(max = 2)
+    @Column(length = 2)
+    private String uf;
+    @Size(max = 128)
+    @Column(length = 128)
+    private String cidade;
+    @Size(max = 128)
+    @Column(name = "bairro_ini", length = 128)
+    private String bairroIni;
+    @Size(max = 128)
+    @Column(name = "bairro_fim", length = 128)
+    private String bairroFim;
 
-    public String getId() {
+    public Cep() {
+    }
+
+    public Cep(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getCep() {
@@ -65,28 +108,45 @@ public class Cep implements Serializable {
         this.cidade = cidade;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getBairroIni() {
+        return bairroIni;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setBairroIni(String bairroIni) {
+        this.bairroIni = bairroIni;
     }
 
-    public String getBairro_ini() {
-        return bairro_ini;
+    public String getBairroFim() {
+        return bairroFim;
     }
 
-    public void setBairro_ini(String bairro_ini) {
-        this.bairro_ini = bairro_ini;
+    public void setBairroFim(String bairroFim) {
+        this.bairroFim = bairroFim;
     }
 
-    public String getBairro_fim() {
-        return bairro_fim;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setBairro_fim(String bairro_fim) {
-        this.bairro_fim = bairro_fim;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cep)) {
+            return false;
+        }
+        Cep other = (Cep) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
+    @Override
+    public String toString() {
+        return "app.entity.Cep[ id=" + id + " ]";
+    }
+    
 }

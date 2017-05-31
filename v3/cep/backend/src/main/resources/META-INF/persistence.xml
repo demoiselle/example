@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="pu" transaction-type="JTA">
-    <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
     <class>app.entity.Cep</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <validation-mode>NONE</validation-mode>
+    <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
-      <property name="org.hibernate.dialect" value="org.hibernate.ogm.dialect.impl.OgmDialect"/>
-      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
-      <property name="hibernate.ogm.datastore.database" value="cep"/>
-      <property name="hibernate.ogm.datastore.username" value="admin"/>
-      <property name="hibernate.ogm.datastore.password" value="yvJn-gC2HhSQ"/>
-      <property name="hibernate.ogm.datastore.host" value="$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT"/>
-      <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.cache.use_second_level_cache" value="true"/>
+      <property name="hibernate.cache.use_query_cache" value="true"/>
+      <!-- If using JPA, add to your persistence.xml -->
+      <!--            <property name="hibernate.cache.infinispan.entity.eviction.strategy" value= "LRU"/>
+            <property name="hibernate.cache.infinispan.entity.eviction.wake_up_interval" value= "2000"/>
+            <property name="hibernate.cache.infinispan.entity.eviction.max_entries" value= "5000"/>
+            <property name="hibernate.cache.infinispan.entity.expiration.lifespan" value= "60000"/>
+            <property name="hibernate.cache.infinispan.entity.expiration.max_idle" value= "30000"/>-->
+      <!-- If using JPA, add to your persistence.xml -->
+      <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+      <!-- If using JPA, add to your persistence.xml -->
+      <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
+      <property name="org.hibernate.envers.track_entities_changed_in_revision" value="true"/>
+      <property name="org.hibernate.envers.global_with_modified_flag" value="false"/>
     </properties>
   </persistence-unit>
 </persistence>

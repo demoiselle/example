@@ -4,38 +4,19 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 - **Auth**: (CRUD)
 - **Cep**: Open
 
-Verificação de segurança da api (https://schd.io/E67)
+Verificação de segurança da api (https://schd.io/2sGy)
 
 # Apps de exemplo
 
-https://cep-fwkdemoiselle.rhcloud.com/ (Versão app desktop)
+https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 
-https://cep-fwkdemoiselle.rhcloud.com/swagger/ (Servidor Wildfly API)
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps/[SEU_CEP] (Consulta CEP)
 
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?cep= [SEU_CEP] (Consulta CEP)
+> Lista de UF </br>
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/ufs
 
-# Exemplos de consulta
-
-> Filtro por Logradouros do Paraná (PR). </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR
-
-> Filtro por Logradouros do Paraná (PR) e com o tipo do logradouro como 'Viela' </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc
-
-> Filtro por Logradouros do Paraná (PR), com o tipo do logradouro como 'Viela' e ordenado pelo Nome (logNome) de forma decrescente e com um recorte do primeiro e segundo registro (0-1) </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/cep?ufeSg=PR&logTipoLogradouro=Viela&sort=logNome&desc&range=0-1
-
-> Filtro de UF </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/uf
-
-> Filtro de Localidades por UF </br>
-https://cep-fwkdemoiselle.rhcloud.com/api/localidade/uf/PR
+> Lista de Localidades por UF </br>
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/cidades/PR
 
 
 # Instalação
