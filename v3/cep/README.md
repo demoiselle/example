@@ -13,8 +13,6 @@ https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 # Exemplos de consulta (Restful padrão)
 
 ```bash
-https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps/80520270 (Consulta CEP)
-
 Lista de UF
 https://cep-fwkdemoiselle.rhcloud.com/api/v1/ufs
 
@@ -25,6 +23,9 @@ https://cep-fwkdemoiselle.rhcloud.com/api/v1/cidades/PR
 # Exemplos de consulta (Usando componente CRUD)
 
  ```bash
+ Filtro por Logradouros do Paraná (PR)
+ https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cep=80520270
+  
  Filtro por Logradouros do Paraná (PR)
  https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?uf=PR
  
