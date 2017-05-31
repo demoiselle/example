@@ -10,14 +10,32 @@ Verificação de segurança da api (https://schd.io/2sGy)
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 
-https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps/[SEU_CEP] (Consulta CEP)
+# Exemplos de consulta (Restful padrão)
 
-> Lista de UF </br>
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps/80520270 (Consulta CEP)
+
+Lista de UF </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/v1/ufs
 
-> Lista de Localidades por UF </br>
+Lista de Localidades por UF </br>
 https://cep-fwkdemoiselle.rhcloud.com/api/v1/cidades/PR
 
+# Exemplos de consulta (Usando componente CRUD)
+ -
+ -> Filtro por Logradouros do Paraná (PR). </br>
+ -https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?uf=PR
+ -
+ -> Filtro por Logradouros do Paraná (Curitiba). </br>
+ -https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cidade=Curitiba
+ -
+ -> Filtro por Logradouros do Paraná (Curitiba) com apenas 11 registros. </br>
+ -https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cidade=Curitiba&range=0-10
+ 
+ -> Filtro por Logradouros do Paraná (Curitiba) ordenado por logradouro. </br>
+ -https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cidade=Curitiba&sort=logradouro
+ 
+ -> Filtro por Logradouros do Paraná (Curitiba) ordenado por bairro. </br>
+ -https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cidade=Curitiba&sort=bairroIni
 
 # Instalação
 
