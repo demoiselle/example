@@ -9,7 +9,6 @@ var app = angular.module('app', [
     'ngAnimate',
     'ngTouch',
     'ui.bootstrap',
-    'ui.grid',
     'ngWebsocket',
     'Config'
 ]).config(['$websocketProvider',
@@ -17,7 +16,7 @@ var app = angular.module('app', [
 
         $websocketProvider.$setup({
             reconnect: true,
-            reconnectInterval: 777
+            reconnectInterval: 2000
         });
 
         Notification.requestPermission().then(function (result) {
@@ -80,7 +79,7 @@ app.config(['$httpProvider', function ($httpProvider) {
                         }
 
                         if (token) {
-                            config.headers['Authorization'] = "JWT " + token;
+                            config.headers['Authorization'] = "Token " + token;
                         }
 
                         return config || $q.when(config);

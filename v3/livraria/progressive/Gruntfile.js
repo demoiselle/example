@@ -1,11 +1,17 @@
+// Generated on 2014-10-30 using generator-angular 0.9.8
 'use strict';
+
+// # Globbing
+// for performance reasons we're only matching one level down:
+// 'test/spec/{,*/}*.js'
+// use this if you want to recursively match all subfolders:
+// 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-sw-precache');
-    grunt.loadNpmTasks('grunt-angular-templates');
-    //grunt.loadNpmTasks('grunt-contrib-sass');
+
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
 
@@ -52,7 +58,6 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= yeoman.app %>/{,*/}*.html',
-                    '<%= yeoman.app %>/views/{,*/}*.html',
                     '.tmp/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -61,8 +66,8 @@ module.exports = function (grunt) {
         },
         'sw-precache': {
             options: {
-                cacheId: 'app',
-                workerFileName: 'service-worker.js',
+                cacheId: 'demoiselle-app-cep',
+                workerFileName: 'sw.js',
                 verbose: true,
             },
             'default': {
@@ -71,11 +76,12 @@ module.exports = function (grunt) {
                     '.htaccess',
                     '*.html',
                     '*.manifest',
-                    'fonts/{,*/}*',
+                    'fonts/*',
                     'images/{,*/}*',
+                    'partials/{,*/}*.html',
                     'scripts/{,*/}*',
-                    'styles/{,*/}*',
-                    'styles/images/{,*/}*.*'
+                    'stayles/{,*/}*',
+                    'views/{,*/}*.html'
                 ],
             },
             'develop': {
@@ -90,8 +96,7 @@ module.exports = function (grunt) {
                 port: 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
                 hostname: 'localhost',
-                livereload: 35728,
-
+                livereload: 35728
             },
             livereload: {
                 options: {
@@ -155,18 +160,14 @@ module.exports = function (grunt) {
                     exclude: [],
                     preferOnline: false,
                     verbose: true,
-                    hash: true,
                     timestamp: true
                 },
                 src: [
-                    '{,*/}*.js',
                     '{,*/}*.html',
-                    '{,*/}*.json',
-                    'fonts/{,*/}*.*',
-                    //'images/{,*/}*.*',
+                    'views/{,*/}*.html',
                     'scripts/{,*/}*.js',
                     'styles/{,*/}*.css',
-                    'styles/images/{,*/}*.png',
+                    'images/{,*/}*.*',
                     'scripts/libs/{,*/}*.*',
                     'layouts/{,*/}*.*'
                 ],
@@ -290,16 +291,16 @@ module.exports = function (grunt) {
         //   dist: {}
         // },
 
-        imagemin: {
-            dist: {
-                files: [{
-                        expand: true,
-                        cwd: '<%= yeoman.app %>/images',
-                        src: '{,*/}*.{png,jpg,jpeg,gif}',
-                        dest: '<%= yeoman.dist %>/images'
-                    }]
-            }
-        },
+        // imagemin: {
+        //   dist: {
+        //     files: [{
+        //       expand: true,
+        //       cwd: '<%= yeoman.app %>/images',
+        //       src: '{,*/}*.{png,jpg,jpeg,gif}',
+        //       dest: '<%= yeoman.dist %>/images'
+        //     }]
+        //   }
+        // },
 
         svgmin: {
             dist: {
@@ -314,13 +315,11 @@ module.exports = function (grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    collapseBooleanAttributes: true,
                     collapseWhitespace: true,
-                    removeAttributeQuotes: true,
-                    removeEmptyAttributes: true,
-                    removeRedundantAttributes: true,
-                    removeScriptTypeAttributes: true,
-                    removeStyleLinkTypeAttributes: true
+                    conservativeCollapse: true,
+                    collapseBooleanAttributes: true,
+                    removeCommentsFromCDATA: true,
+                    removeOptionalTags: true
                 },
                 files: [{
                         expand: true,
@@ -362,8 +361,8 @@ module.exports = function (grunt) {
                             '.htaccess',
                             '*.html',
                             '*.manifest',
-                            '*.xml',
                             '*.webapp',
+                            'views/{,*/}*.html',
                             'images/{,*/}*',
                             'img/{,*/}*',
                             'swagger/{,*/}*',
@@ -371,7 +370,7 @@ module.exports = function (grunt) {
                             'fonts/*',
                             'WEB-INF/*',
                             'META-INF/*',
-                            'styles/images/{,*/}*.png',
+                            'partials/{,*/}*.html',
                             'layouts/*'
                         ]
                     }, {
@@ -422,7 +421,7 @@ module.exports = function (grunt) {
             ],
             dist: [
                 'copy:styles',
-                'imagemin',
+                //'imagemin',
                 'svgmin'
             ]
         },
@@ -431,25 +430,6 @@ module.exports = function (grunt) {
             unit: {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
-            }
-        },
-        ngtemplates: {
-            app: {
-                cwd: '<%= yeoman.app %>',
-                src: 'views/{,*/}*.html',
-                dest: '<%= yeoman.app %>/scripts/template.js',
-                options: {
-                    htmlmin: {
-                        collapseBooleanAttributes: true,
-                        collapseWhitespace: true,
-                        removeAttributeQuotes: true,
-                        removeEmptyAttributes: true,
-                        removeRedundantAttributes: true,
-                        removeScriptTypeAttributes: true,
-                        removeStyleLinkTypeAttributes: true,
-                        keepClosingSlash: true
-                    }
-                }
             }
         },
         // environment specific configuration
@@ -476,7 +456,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: ''
+                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
                     }
                 }
             }
@@ -493,7 +473,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            // 'concat',            'sass',
             'ngconstant:development',
             'wiredep',
             'injector',
@@ -525,23 +504,20 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
-        'ngtemplates',
         'concat',
-        // 'sass',
         'ngAnnotate',
         'copy:dist',
-        //        'cdnify',
+        'cdnify',
         'cssmin',
         'uglify',
         'filerev',
         'usemin',
         'htmlmin',
-        'manifest',
-        'sw-precache:default'
+        'manifest'
+//        'sw-precache:default'
     ]);
 
     grunt.registerTask('default', [
-        // 'concat',        'sass',
         'newer:jshint',
         'test',
         'build'

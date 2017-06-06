@@ -1,94 +1,41 @@
 'use strict';
 
-app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$window', 'AlertService',
-    function ($http, AppService, $rootScope, $interval, $window, AlertService) {
+app.factory('AuthService', ['$http', 'AppService', '$rootScope',
+    function ($http, AppService, $rootScope) {
 
         var authService = {};
-
-        authService.change = function (credentials) {
-
-            credentials.livraria = ''; //"new Fingerprint({canvas: true}, {screen_resolution: true}).get();"
-
-            return $http
-                    .put('api/auth', credentials)
-                    .success(function (res, status, headers) {
-                        return res;
-                    }
-                    );
-        };
 
         authService.login = function (credentials) {
 
             AppService.removeToken();
-            credentials.livraria = ''; //"new Fingerprint({canvas: true}, {screen_resolution: true}).get();"
 
             return $http
                     .post('api/auth', credentials)
                     .success(function (res, status, headers) {
-                        AppService.setToken(res.key);
+
+                        AppService.setToken(headers('Set-Token'));
                         $rootScope.currentUser = AppService.getUserFromToken();
-                        return res;
-                    }).error(function (res, status, headers) {
-                AlertService.addWithTimeout('warning', "Usuário não identificado");
-                return res;
-            }
-            );
 
-        };
-
-        authService.register = function (user) {
-
-            AppService.removeToken();
-
-            return $http
-                    .post('api/auth/register', user)
-                    .success(function (res, status, headers) {
-                        AppService.setToken(res.key);
-                        $rootScope.currentUser = AppService.getUserFromToken();
-                        return res;
-                    }).error(function (res, status, headers) {
-                AlertService.addWithTimeout('warning', "Usuário não identificado");
-                return res;
-            }
-            );
-
-        };
-
-
-
-        authService.retoken = function () {
-            return $http
-                    .get('api/auth')
-                    .success(function (res, status, headers) {
-                        AppService.removeToken();
-                        AppService.setToken(res.key);
-                        $rootScope.currentUser = AppService.getUserFromToken()
-                        $rootScope.$digest();
                         return res;
                     }
                     );
         };
 
-        $interval(function () {
-            if ($rootScope.currentUser) {
-                authService.retoken();
-            }
-        }, 6000000);
+        authService.setCss = function (css) {
+            AppService.setCss(css);
+        };
 
-        authService.logout = function () {
-            AppService.removeToken();
+        authService.getCss = function () {
+            return AppService.getCss();
         };
 
         authService.isAuthenticated = function () {
-            if (!$rootScope.currentUser) {
-                $rootScope.currentUser = AppService.getUserFromToken();
-
-            }
-
             return $rootScope.currentUser ? true : false;
         };
 
         authService.isAuthorized = function (authorizedRoles) {
+
+            var hasAuthorizedRole = false;
 
             if (authService.isAuthenticated()) {
 
@@ -96,16 +43,16 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$
                     authorizedRoles = [authorizedRoles];
                 }
 
-                var hasAuthorizedRole = false;
+                var grupos = $rootScope.currentUser.grupos;
 
-                var perfil = $rootScope.currentUser.roles;
-
-                if (perfil !== undefined && perfil !== null) {
+                if (grupos !== undefined && grupos !== null) {
                     for (var i = 0; i < authorizedRoles.length; i++) {
-                        for (var p = 0; p < perfil.length; p++) {
-                            if (authorizedRoles[i] === perfil[p]) {
-                                hasAuthorizedRole = true;
-                                break;
+                        for (var j = 0; j < grupos.length; j++) {
+                            for (var k = 0; k < grupos[j].perfis.length; k++) {
+                                if (authorizedRoles[i].indexOf(grupos[j].perfis[k]) !== -1) {
+                                    hasAuthorizedRole = true;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -118,5 +65,5 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$
         };
 
         return authService;
-    }
-]);
+    }]);
+

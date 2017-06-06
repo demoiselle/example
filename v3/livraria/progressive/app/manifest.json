@@ -1,21 +1,7 @@
 {
-    "lang": "pt-br",
-    "dir": "ltr",
-    "manifest_version": 2,
-    "name": "Demoiselle",
-    "version": "1.0.0",
-    "short_name": "Demoiselle",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff",
-    "description": "Demoiselle app demo",
-    "offline_enabled": true,
-    "serviceworker": {
-        "src": "service-worker.js",
-        "scope": "/",
-        "use_cache": false
-    },
+    "short_name": "CEP",
+    "name": "Demoiselle Consulta CEP",
+    "start_url": "/?utm_source=web_app_manifest",
     "icons": [{
             "src": "images/icon-128x128.png",
             "sizes": "128x128",
@@ -37,25 +23,7 @@
             "sizes": "384x384",
             "type": "image/png"
         }],
-    "related_applications": [
-        {
-            "platform": "web",
-            "url": "http://demoiselle.io/"
-        }
-    ],
-    "permissions": [
-        "gcm",
-        "storage",
-        "alarms",
-        "notifications",
-        "http://demoiselle.io/",
-        {
-            "fileSystem": [
-                "write",
-                "retainEntries",
-                "directory"
-            ]
-        }
-    ],
-    "content_security_policy": "script-src 'self'; object-src 'self'"
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#3E4EB8"
 }

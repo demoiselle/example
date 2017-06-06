@@ -32,20 +32,16 @@ app.factory('AppService', ['$window', '$rootScope', function ($window, $rootScop
         service.getUserFromToken = function () {
             var token = $window.localStorage.getItem(tokenKey);
 
-            var user = {};
+            var user = null;
 
             if (token !== null && typeof token !== undefined) {
                 var encoded = token.split('.')[1];
                 var dados = JSON.parse(urlBase64Decode(encoded));
-                user.identity = dados.identity;
-                user.name = dados.name;
-                user.roles = dados.roles;
-                user.permissions = dados.permissions;
-                user.params = dados.params;
+                user = JSON.parse(dados.user);
             }
 
             return user;
-        };
+        }
 
         function urlBase64Decode(str) {
             var output = str.replace('-', '+').replace('_', '/');
@@ -63,7 +59,7 @@ app.factory('AppService', ['$window', '$rootScope', function ($window, $rootScop
             }
             return window.atob(output);
         }
-        ;
 
         return service;
     }]);
+
