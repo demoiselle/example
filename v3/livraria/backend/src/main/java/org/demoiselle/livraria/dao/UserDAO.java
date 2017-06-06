@@ -7,8 +7,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import static java.security.MessageDigest.getInstance;
 import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.inject.Inject;
@@ -18,7 +16,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.core.api.security.SecurityContext;
@@ -28,7 +27,6 @@ import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
 import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 import org.demoiselle.livraria.security.UserRegister;
 import org.demoiselle.livraria.tenant.Livraria;
-import org.demoiselle.livraria.tenant.Sgdb;
 
 public class UserDAO extends AbstractDAO<User, String> {
 
@@ -146,11 +144,11 @@ public class UserDAO extends AbstractDAO<User, String> {
             );
 
             if (typedQuery.getResultList() != null && !typedQuery.getResultList().isEmpty()) {
-                throw new DemoiselleSecurityException("Usuário existe, utilize outro email", UNAUTHORIZED.getStatusCode());
+                throw new DemoiselleSecurityException("Usuário existe, utilize outro email", Status.PRECONDITION_FAILED.getStatusCode());
             }
 
             if (livrariadao.nomeExists(entity.getLivraria())) {
-                throw new DemoiselleSecurityException("Livraria ja existe, escolha outro nome", UNAUTHORIZED.getStatusCode());
+                throw new DemoiselleSecurityException("Livraria ja existe, escolha outro nome", Status.PRECONDITION_FAILED.getStatusCode());
             }
 
             Livraria livraria = new Livraria();
@@ -171,23 +169,15 @@ public class UserDAO extends AbstractDAO<User, String> {
 
             loggedUser.addParam("email", user.getEmail());
             loggedUser.addParam("tenant", "T" + user.getLivraria().getId().toString().replace("-", ""));
+
+            sgbddao.createSgdb("T" + user.getLivraria().getId().toString().replace("-", ""));
+
             securityContext.setUser(loggedUser);
-
-            for (Iterator<?> it = sgbddao.find().getContent().iterator(); it.hasNext();) {
-                Sgdb sgdb = (Sgdb) it.next();
-                //tenantdao.createSchema(sgdb.getComando().replaceAll("DEMO", user.getLivraria().getId().toString().replace("-", "")));
-            }
-
             return token;
 
         } catch (DemoiselleSecurityException e) {
-            e.printStackTrace();
-            throw new DemoiselleSecurityException("Erro ao registrar Livraria", UNAUTHORIZED.getStatusCode());
+            throw new DemoiselleSecurityException(e.getLocalizedMessage(), Status.PRECONDITION_FAILED.getStatusCode());
         }
-
-    }
-
-    public void createDatabase() {
 
     }
 
