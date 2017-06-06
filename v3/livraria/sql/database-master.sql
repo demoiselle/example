@@ -1,6 +1,3 @@
-﻿DROP TABLE usuario;
-DROP TABLE livraria;
-
 CREATE TABLE usuario
 (
   id uuid not null,
@@ -21,5 +18,13 @@ CREATE TABLE livraria
   CONSTRAINT uk_livraria UNIQUE (description)
 );
 
+CREATE TABLE sgdb
+(
+  id serial NOT NULL,
+  dia date NOT NULL DEFAULT now(),
+  comando character varying(10240),
+  CONSTRAINT sgdb_pkey PRIMARY KEY (id)
+);
 
+INSERT INTO sgdb(comando) VALUES ('CREATE TABLE livro (id uuid NOT NULL, descricao character varying(255) NOT NULL, CONSTRAINT livro_pkey PRIMARY KEY (id),CONSTRAINT uk_livro UNIQUE(descricao));');
 
