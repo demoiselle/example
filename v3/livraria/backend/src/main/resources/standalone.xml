@@ -1,55 +1,21 @@
  <subsystem xmlns="urn:jboss:domain:datasources:4.0">
     <datasources>
-        <xa-datasource jndi-name="java:jboss/datasources/TenantDS" pool-name="TenantDS" enabled="true" use-java-context="true">
-            <xa-datasource-property name="ServerName">
-                localhost
-            </xa-datasource-property>
-            <xa-datasource-property name="PortNumber">
-                5432
-            </xa-datasource-property>
-            <xa-datasource-property name="DatabaseName">
-                tenant
-            </xa-datasource-property>
+        <datasource jta="true" jndi-name="java:jboss/datasources/PostgreSQLDS" pool-name="PostgreSQLDS" enabled="true" use-java-context="true">
+            <connection-url>jdbc:postgresql://10.200.24.49/tenant</connection-url>
+            <driver-class>org.postgresql.Driver</driver-class>
             <driver>postgresql</driver>
-            <xa-pool>
-                <min-pool-size>1</min-pool-size>
-                <max-pool-size>5</max-pool-size>
-                <prefill>true</prefill>
-            </xa-pool>
             <security>
                 <user-name>postgres</user-name>
                 <password>serpro</password>
             </security>
             <validation>
-                <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                <validate-on-match>false</validate-on-match>
+                <background-validation>false</background-validation>
             </validation>
-        </xa-datasource>
-        <xa-datasource jndi-name="java:jboss/datasources/MasterDS" pool-name="MasterDS" enabled="true" use-java-context="true">
-            <xa-datasource-property name="ServerName">
-                localhost
-            </xa-datasource-property>
-            <xa-datasource-property name="PortNumber">
-                5432
-            </xa-datasource-property>
-            <xa-datasource-property name="DatabaseName">
-                master
-            </xa-datasource-property>
-            <driver>postgresql</driver>
-            <xa-pool>
-                <min-pool-size>1</min-pool-size>
-                <max-pool-size>5</max-pool-size>
-                <prefill>true</prefill>
-            </xa-pool>
-            <security>
-                <user-name>postgres</user-name>
-                <password>serpro</password>
-            </security>
-            <validation>
-                <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-            </validation>
-        </xa-datasource>
+            <statement>
+                <share-prepared-statements>true</share-prepared-statements>
+            </statement>
+        </datasource>
         <drivers>
             <driver name="postgresql" module="org.postgresql">
                 <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>

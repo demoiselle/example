@@ -7,7 +7,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
 
 public class LivrariaDAO extends AbstractDAO< Livraria, String> {
 
-    @PersistenceContext(unitName = "MasterPU")
+    @PersistenceContext(unitName = "pu")
     protected EntityManager em;
 
     @Override

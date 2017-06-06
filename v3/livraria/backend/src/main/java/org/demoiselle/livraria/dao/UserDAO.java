@@ -50,7 +50,7 @@ public class UserDAO extends AbstractDAO<User, String> {
     @Inject
     private DemoiselleSecurityMessages bundle;
 
-    @PersistenceContext(unitName = "MasterPU")
+    @PersistenceContext(unitName = "pu")
     protected EntityManager em;
 
     @Override

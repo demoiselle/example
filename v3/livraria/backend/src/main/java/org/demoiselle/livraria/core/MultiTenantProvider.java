@@ -46,7 +46,7 @@ public class MultiTenantProvider implements MultiTenantConnectionProvider, Servi
         try {
             final Context init = new InitialContext();
             dataSource = (DataSource) init
-                    .lookup("java:jboss/datasources/TenantDS");// configuration.getMultiTenancyTenantsDatabaseDatasource());
+                    .lookup("java:jboss/datasources/PostgreSQLDS");// configuration.getMultiTenancyTenantsDatabaseDatasource());
         } catch (final NamingException e) {
             e.printStackTrace();
         }

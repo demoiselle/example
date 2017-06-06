@@ -29,7 +29,7 @@ public class SgdbDAO {
 
     private DataSource dataSource;
 
-    @PersistenceContext(unitName = "TenantPU")
+    @PersistenceContext(unitName = "pu")
     private EntityManager em;
 
     protected EntityManager getEntityManager() {
@@ -43,7 +43,7 @@ public class SgdbDAO {
         try {
             // Create Schema
             final Context init = new InitialContext();
-            dataSource = (DataSource) init.lookup("java:jboss/datasources/TenantDS");
+            dataSource = (DataSource) init.lookup("java:jboss/datasources/PostgreSQLDS");
 
             conn = dataSource.getConnection();
 
