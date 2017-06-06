@@ -168,9 +168,9 @@ public class UserDAO extends AbstractDAO<User, String> {
             loggedUser.addRole(user.getPerfil().getValue());
 
             loggedUser.addParam("email", user.getEmail());
-            loggedUser.addParam("tenant", "T" + user.getLivraria().getId().toString().replace("-", ""));
+            loggedUser.addParam("tenant", "tenant" + user.getLivraria().getId().toString().toLowerCase().replace("-", ""));
 
-            sgbddao.createSgdb("T" + user.getLivraria().getId().toString().replace("-", ""));
+            sgbddao.createSgdb("tenant" + user.getLivraria().getId().toString().toLowerCase().replace("-", ""));
 
             securityContext.setUser(loggedUser);
             return token;
