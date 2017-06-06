@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @XmlRootElement
-@Table(name = "livraria")
+@Table(catalog = "tenant", schema = "public", name = "livraria")
 public class Livraria implements Serializable {
 
     @Id

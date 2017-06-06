@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = {
+@Table(catalog = "tenant", schema = "public", name = "usuario", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})})
 @XmlRootElement
 public class User implements Serializable {

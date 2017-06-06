@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
+import org.demoiselle.livraria.tenant.Sgdb;
 import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
 
 /**
@@ -77,22 +78,21 @@ public class SgdbDAO {
     }
 
     private void createDatabase(Connection conn) throws SQLException, IOException {
-        List<String> ddl = getDDLString(System.getProperty("jboss.server.data.dir") + "/database.sql");
+        List<String> ddl = getDDLString();
         for (String ddlLine : ddl) {
             conn.createStatement().execute(ddlLine);
         }
     }
 
-    private List<String> getDDLString(String filename) throws IOException {
-        List<String> records = new ArrayList<String>();
+    private List<String> getDDLString() throws IOException {
+        List<String> records = new ArrayList<>();
 
-        FileReader f = new FileReader(filename);
-        BufferedReader reader = new BufferedReader(f);
-        String line;
-        while ((line = reader.readLine()) != null) {
-            records.add(line + ";");
+        List<Sgdb> lista = em.createQuery("SELECT s FROM Sgdb s ORDER BY s.id", Sgdb.class).getResultList();
+
+        for (Sgdb sgdb : lista) {
+            records.add(sgdb.getComando());
         }
-        reader.close();
+
         return records;
     }
 
