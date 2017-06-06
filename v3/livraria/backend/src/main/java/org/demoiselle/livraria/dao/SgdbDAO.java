@@ -77,7 +77,7 @@ public class SgdbDAO {
     }
 
     private void createDatabase(Connection conn) throws SQLException, IOException {
-        List<String> ddl = getDDLString("create.sql");
+        List<String> ddl = getDDLString(System.getProperty("jboss.server.data.dir") + "/database.sql");
         for (String ddlLine : ddl) {
             conn.createStatement().execute(ddlLine);
         }
@@ -86,7 +86,7 @@ public class SgdbDAO {
     private List<String> getDDLString(String filename) throws IOException {
         List<String> records = new ArrayList<String>();
 
-        FileReader f = new FileReader("/opt/appfiles/" + filename);
+        FileReader f = new FileReader(filename);
         BufferedReader reader = new BufferedReader(f);
         String line;
         while ((line = reader.readLine()) != null) {
