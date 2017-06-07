@@ -16,7 +16,7 @@ var app = angular.module('app', [
 
         $websocketProvider.$setup({
             reconnect: true,
-            reconnectInterval: 2000
+            reconnectInterval: 777
         });
 
         Notification.requestPermission().then(function (result) {
@@ -63,7 +63,12 @@ var app = angular.module('app', [
 
     }]);
 
-app.config(['$httpProvider', function ($httpProvider) {
+app.config(['$httpProvider', '$websocketProvider', function ($httpProvider, $websocketProvider) {
+        $httpProvider.useApplyAsync(true);
+        $websocketProvider.$setup({
+            reconnect: true,
+            reconnectInterval: 21000
+        });
 
         $httpProvider.interceptors.push(['$q', '$rootScope', 'AppService', 'ENV', function ($q, $rootScope, AppService, ENV) {
                 return {
@@ -72,14 +77,14 @@ app.config(['$httpProvider', function ($httpProvider) {
 
                         var token = AppService.getToken();
 
-                        if (ENV.name === "development") {
-                            if (config.url.indexOf("api") !== -1) {
+                        if (ENV.name === 'development') {
+                            if (config.url.indexOf('api') !== -1) {
                                 config.url = ENV.apiEndpoint + config.url;
                             }
                         }
 
                         if (token) {
-                            config.headers['Authorization'] = "Token " + token;
+                            config.headers.Authorization = 'JWT ' + token;
                         }
 
                         return config || $q.when(config);
@@ -105,8 +110,8 @@ app.config(['$httpProvider', function ($httpProvider) {
 
     }]);
 
-app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USER_ROLES', 'AuthService', 'AppService', 'AlertService',
-    function ($rootScope, $location, $window, AUTH_EVENTS, APP_EVENTS, USER_ROLES, AuthService, AppService, AlertService) {
+app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USER_ROLES', 'AuthService', 'AppService', 'AlertService', 'WS',
+    function ($rootScope, $location, $window, AUTH_EVENTS, APP_EVENTS, USER_ROLES, AuthService, AppService, AlertService, WS) {
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
 
@@ -129,13 +134,21 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
             }
         });
 
+        $rootScope.$on(AUTH_EVENTS.exit, function (emit, args) {
+            AlertService.notification("Segurança", "Seu usuário está logando em outra estação");
+            console.log("exit");
+            $rootScope.currentUser = null;
+            AppService.removeToken();
+            $location.path("/dashboard");
+            $window.location.reload();
+        });
 
-        $rootScope.$on(AUTH_EVENTS.mensagem, function (emit, args) {
-            AlertService.notification("Mensagem", args.emit.data);
+        $rootScope.$on(AUTH_EVENTS.comunicado, function (emit, args) {
+            AlertService.notification("Comunicado", args.emit.data);
         });
 
         $rootScope.$on(AUTH_EVENTS.mensagem, function (emit, args) {
-            AlertService.notification("Comunicado", args.emit.data);
+            AlertService.notification("Mensagem", args.emit.data);
         });
 
         $rootScope.$on(AUTH_EVENTS.quantidade, function (emit, args) {
@@ -145,28 +158,30 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
         });
 
         $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
-            $location.path("/403");
+            $location.path('/403');
         });
 
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $rootScope.currentUser = null;
             AppService.removeToken();
-            $location.path("/login");
+            $location.path('/login');
         });
 
         $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
             AppService.removeToken();
-            $location.path("/login");
+            $location.path('/login');
         });
 
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+            WS.command("logout", $rootScope.currentUser.name);
             $rootScope.currentUser = null;
             AppService.removeToken();
-            $location.path("/dashboard");
+            $location.path('/dashboard');
         });
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $location.path("/dashboard");
+            WS.command("login", $rootScope.currentUser.name);
+            $location.path('/dashboard');
         });
 
         $rootScope.$on(APP_EVENTS.offline, function () {
@@ -175,12 +190,12 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
         });
 
         // Check if a new cache is available on page load.
-        $window.addEventListener('load', function (e) {
-            $window.applicationCache.addEventListener('updateready', function (e) {
+        $window.addEventListener('load', function () {
+            $window.applicationCache.addEventListener('updateready', function () {
                 if ($window.applicationCache.status === $window.applicationCache.UPDATEREADY) {
                     // Browser downloaded a new app cache.
                     $window.location.reload();
-                    alert('Uma nova versão será carregada!');
+                    $window.alert('Uma nova versão será carregada!');
                 }
             }, false);
         }, false);
@@ -198,17 +213,50 @@ app.constant('AUTH_EVENTS', {
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized',
+    exit: 'exit',
+    sistema: 'sistema',
     comunicado: 'comunicado',
     mensagem: 'mensagem',
+    produto: 'produto',
+    fase: 'fase',
     quantidade: 'qtde'
 });
 
 app.constant('USER_ROLES', {
+    ANALISE: 'ANALISE',
+    PROSPECCAO: 'PROSPECCAO',
+    INTERNALIZACAO: 'INTERNALIZACAO',
+    SUSTENTACAO: 'SUSTENTACAO',
+    DECLINIO: 'DECLINIO',
     ADMINISTRADOR: 'ADMINISTRADOR',
-    FUNCIONARIO: 'FUNCIONARIO',
-    USUARIO: 'USUARIO',
+    CADASTRADOR: 'CADASTRADOR',
+    CONSULTOR: 'CONSULTOR',
+    LEGADO: 'LEGADO',
+    SISTEMA: 'SISTEMA',
+    EQUIPAMENTO: 'EQUIPAMENTO',
+    PRODUTO: 'PRODUTO',
     NOT_LOGGED: 'NOT_LOGGED'
 });
+
+app.constant('LAYOUTS', [
+    {name: 'Cerulean', url: 'cerulean'},
+    {name: 'Cosmos', url: 'cosmos'},
+    {name: 'Cyborg', url: 'cyborg'},
+    {name: 'Darkly', url: 'darkly'},
+    {name: 'Default', url: 'default'},
+    {name: 'Flatly', url: 'flatly'},
+    {name: 'Journal', url: 'journal'},
+    {name: 'Lumen', url: 'lumen'},
+    {name: 'Material', url: 'material'},
+    {name: 'Readable', url: 'readable'},
+    {name: 'Sandstone', url: 'sandstone'},
+    {name: 'Simplex', url: 'simplex'},
+    {name: 'Slate', url: 'slate'},
+    {name: 'Spacelab', url: 'spacelab'},
+    {name: 'Superhero', url: 'superhero'},
+    {name: 'United', url: 'united'},
+    {name: 'Yeti', url: 'yeti'}
+]);
 
 app.factory('AuthInterceptor', ['$rootScope', '$q', 'AUTH_EVENTS', 'APP_EVENTS',
     function ($rootScope, $q, AUTH_EVENTS, APP_EVENTS) {
@@ -231,6 +279,10 @@ app.factory('AuthInterceptor', ['$rootScope', '$q', 'AUTH_EVENTS', 'APP_EVENTS',
         };
 
     }]);
+
+
+
+
 
 
 

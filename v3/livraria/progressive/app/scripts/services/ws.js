@@ -10,7 +10,7 @@ app.factory('WS', ['$rootScope', '$websocket',
             navigator.vibrate([500, 500, 500, 500, 500]);
         }
 
-        var wsUrl = 'wss://push-fwkdemoiselle.rhcloud.com:8443/push/cep';
+        var wsUrl = 'wss://push-fwkdemoiselle.rhcloud.com:8443/push/livraria';
 
         var ws = $websocket.$new({
             url: wsUrl, protocols: [], subprotocols: ['base46']

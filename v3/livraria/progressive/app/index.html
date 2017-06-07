@@ -57,8 +57,8 @@
     </head>
 
     <body>
-        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600" ng-show="!$root.current">
+        <div class="demoiselle-layout-transparent mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600" ng-show="!$root.current">
                 <div class="mdl-layout__header-row">
                     <span class="mdl-layout-title"></span>
                     <div class="mdl-layout-spacer"></div>
@@ -79,19 +79,16 @@
                     </ul>
                 </div>
             </header>
-            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50" ng-show="!$root.current">
-                <header class="demo-drawer-header">
-                    <img src="images/photo.jpg" class="demo-avatar">
-                    <div class="demo-avatar-dropdown">
-                        <span>paulopinheiro777@gmail.com</span>
+            <div class=" mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50" ng-show="!$root.current">
+                <header class="demoiselle-drawer-header">
+                    <img src="images/photo.jpg" class="demoiselle-avatar">
+                    <div class="demoiselle-avatar-dropdown">
+                        <span>Paulo Gladson</span>
                         <div class="mdl-layout-spacer"></div>
-                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                            <i class="material-icons" role="presentation">arrow_drop_down</i>
-                            <span class="visuallyhidden">Accounts</span>
-                        </button>
+
                     </div>
                 </header>
-                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                <nav class="mdl-navigation mdl-color--blue-grey-800">
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">book</i>Livro</a>
 
                     <div class="mdl-layout-spacer"></div>
@@ -99,8 +96,8 @@
                 </nav>
             </div>
             <main class="mdl-layout__content mdl-color--grey-100">
-                <div class="mdl-grid demo-content">
-                    <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" ng-view="">
+                <div class="mdl-grid ">
+                    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" ng-view="">
 
                     </div>
                 </div>
