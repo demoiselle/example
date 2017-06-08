@@ -23,7 +23,7 @@ public class TimerPush {
     @Inject
     private PushEndpoint pe;
 
-    @Schedule(second = "30", minute = "*/3", hour = "*", persistent = false)
+    @Schedule(second = "33", minute = "*/3", hour = "*", persistent = false)
     public void sendHello() {
         PushMessage mm = new PushMessage("echo", "Sistema de Push Demoiselle, https://github.com/demoiselle/example/tree/master/v3/push");
         pe.sendTo(new Gson().toJson(mm), "echo");

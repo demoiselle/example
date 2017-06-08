@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Schedule;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -34,7 +35,7 @@ public class SgdbDAO {
     protected EntityManager getEntityManager() {
         return em.getEntityManagerFactory().createEntityManager();
     }
-
+   
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public boolean createSgdb(String schema) {
         Connection conn = null;

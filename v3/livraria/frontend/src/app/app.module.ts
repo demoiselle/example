@@ -21,10 +21,8 @@ import { UserModule } from './user';
 
 @NgModule({
   imports: [
-		LivroModule,
-
-		LivrariaModule,
-
+    LivroModule,
+    LivrariaModule,
     BrowserModule,
     HttpModule,
     FormsModule,

@@ -9,7 +9,7 @@ import javax.websocket.server.ServerEndpointConfig;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 public class PushConfigurator extends ServerEndpointConfig.Configurator {
 

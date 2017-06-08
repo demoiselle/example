@@ -6,7 +6,6 @@
 package app.service;
 
 import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.models.Info;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 

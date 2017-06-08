@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.security.RestMessage;
@@ -10,7 +5,6 @@ import app.socket.push.PushEndpoint;
 import app.socket.push.PushMessage;
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
-import javax.ejb.Asynchronous;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -26,7 +20,7 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 
 /**
  *
- * @author 70744416353
+ * @author PauloGladson
  */
 @Api("Push")
 @Path("push")
@@ -75,6 +69,7 @@ public class PushREST {
 
     @GET
     @Path("count")
+    @Authenticated(enable = false)
     public void getContChannel(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(getContChannel());
     }

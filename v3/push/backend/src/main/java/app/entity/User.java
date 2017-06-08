@@ -2,9 +2,7 @@ package app.entity;
 
 import app.constants.Perfil;
 import java.io.Serializable;
-import static java.util.Collections.unmodifiableSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.persistence.Basic;
