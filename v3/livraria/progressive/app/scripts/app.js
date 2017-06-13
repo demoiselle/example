@@ -1,90 +1,69 @@
 'use strict';
 
 var app = angular.module('app', [
+    'ngAria',
     'ngAnimate',
-    'ngCookies',
     'ngResource',
+    'ngMessages',
     'ngRoute',
     'ngSanitize',
-    'ngAnimate',
-    'ngTouch',
     'ui.bootstrap',
     'ngWebsocket',
+    'ngMaterial',
+    'ngMdIcons',
     'Config'
-]).config(['$websocketProvider',
-    function ($websocketProvider) {
+]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider',
+    function ($routeProvider, USER_ROLES, $websocketProvider) {
 
         $websocketProvider.$setup({
+            lazy: false,
             reconnect: true,
-            reconnectInterval: 777
+            reconnectInterval: 7777,
+            mock: false,
+            enqueue: true
         });
 
-        Notification.requestPermission().then(function (result) {
-            if (result === 'denied') {
-                console.log('Permission wasn\'t granted. Allow a retry.');
-                return;
+        $routeProvider.otherwise({
+            redirectTo: '/',
+            data: {
+                authorizedRoles: [USER_ROLES.COORDENADOR]
             }
-            if (result === 'default') {
-                console.log('The permission request was dismissed.');
-                return;
-            }
-            // Do something with the granted permission.
         });
 
-        if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
-            console.log("This browser doesn't support service workers");
-            return;
-        }
+        $routeProvider.when('/403', {
+            templateUrl: 'views/login.html',
+            controller: 'AuthController',
+            data: {
+                authorizedRoles: [USER_ROLES.NOT_LOGGED]
+            }
+        });
 
-        navigator.serviceWorker.register("/service-worker.js", {scope: '/'})
-                .then(function (registration) {
-                    console.log("Service worker registered, scope: " + registration.scope);
-                    console.log("Refresh the page to talk to it.");
-                    // If we want to, we might do `location.reload();` so that we'd be controlled by it
-                })
-                .catch(function (error) {
-                    console.log("Service worker registration failed: " + error.message);
-                });
+        $routeProvider.when('/privacidade', {
+            templateUrl: 'views/privacidade.html',
+            controller: 'AuthController',
+            data: {
+                authorizedRoles: [USER_ROLES.NOT_LOGGED]
+            }
+        });
 
-        if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
-            console.log('Notifications aren\'t supported.');
-            return;
-        }
+    }
+]);
 
-        if (Notification.permission === 'denied') {
-            console.log('The user has blocked notifications.');
-            return;
-        }
-
-        if (!('PushManager' in window)) {
-            console.log('Push messaging isn\'t supported.');
-            return;
-        }
-
-    }]);
-
-app.config(['$httpProvider', '$websocketProvider', function ($httpProvider, $websocketProvider) {
+app.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.useApplyAsync(true);
-        $websocketProvider.$setup({
-            reconnect: true,
-            reconnectInterval: 21000
-        });
-
         $httpProvider.interceptors.push(['$q', '$rootScope', 'AppService', 'ENV', function ($q, $rootScope, AppService, ENV) {
                 return {
                     'request': function (config) {
                         $rootScope.$broadcast('loading-started');
-
                         var token = AppService.getToken();
-
-                        if (ENV.name === 'development') {
-                            if (config.url.indexOf('api') !== -1) {
+                        if (config.url.indexOf("http") === -1) {
+                            if (config.url.indexOf("api") !== -1) {
                                 config.url = ENV.apiEndpoint + config.url;
                             }
                         }
 
                         if (token) {
-                            config.headers.Authorization = 'JWT ' + token;
+                            config.headers['Authorization'] = 'JWT ' + token;
                         }
 
                         return config || $q.when(config);
@@ -103,13 +82,10 @@ app.config(['$httpProvider', '$websocketProvider', function ($httpProvider, $web
                     }
                 };
             }]);
-
         $httpProvider.interceptors.push(['$injector', function ($injector) {
                 return $injector.get('AuthInterceptor');
             }]);
-
     }]);
-
 app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USER_ROLES', 'AuthService', 'AppService', 'AlertService', 'WS',
     function ($rootScope, $location, $window, AUTH_EVENTS, APP_EVENTS, USER_ROLES, AuthService, AppService, AlertService, WS) {
 
@@ -117,7 +93,6 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
 
             if (next.redirectTo !== '/') {
                 var authorizedRoles = next.data.authorizedRoles;
-
                 if (authorizedRoles.indexOf(USER_ROLES.NOT_LOGGED) === -1) {
 
                     if (!AuthService.isAuthorized(authorizedRoles)) {
@@ -134,78 +109,60 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
             }
         });
 
-        $rootScope.$on(AUTH_EVENTS.exit, function (emit, args) {
-            AlertService.notification("Segurança", "Seu usuário está logando em outra estação");
-            console.log("exit");
-            $rootScope.currentUser = null;
-            AppService.removeToken();
-            $location.path("/dashboard");
-            $window.location.reload();
-        });
-
-        $rootScope.$on(AUTH_EVENTS.comunicado, function (emit, args) {
-            AlertService.notification("Comunicado", args.emit.data);
-        });
-
-        $rootScope.$on(AUTH_EVENTS.mensagem, function (emit, args) {
-            AlertService.notification("Mensagem", args.emit.data);
-        });
-
         $rootScope.$on(AUTH_EVENTS.quantidade, function (emit, args) {
             $rootScope.$apply(function () {
                 $rootScope.conectados = args.emit.data;
             });
         });
 
-        $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
-            $location.path('/403');
+        $rootScope.$on(AUTH_EVENTS.lista, function (emit, args) {
+            $rootScope.$apply(function () {
+                $rootScope.lista = JSON.parse(args.emit.data);
+            });
         });
 
+        $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
+            $location.path("/403");
+        });
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $rootScope.currentUser = null;
             AppService.removeToken();
-            $location.path('/login');
+            $location.path("/login");
         });
-
         $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
             AppService.removeToken();
-            $location.path('/login');
+            $location.path("/login");
         });
-
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
-            WS.command("logout", $rootScope.currentUser.name);
+            WS.command("logout", $rootScope.currentUser.identity);
+            WS.command("lista", $rootScope.currentUser.identity);
             $rootScope.currentUser = null;
             AppService.removeToken();
-            $location.path('/dashboard');
+            $location.path('/login');
         });
-
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            WS.command("login", $rootScope.currentUser.name);
-            $location.path('/dashboard');
+            WS.command("login", $rootScope.currentUser.identity);
+            $window.location.reload();
+            $location.path('/agenda');
         });
-
         $rootScope.$on(APP_EVENTS.offline, function () {
             AlertService.clear();
-            AlertService.addWithTimeout('danger', 'Servidor esta temporariamente indisponível, tente mais tarde');
+            AlertService.addWithTimeout('danger', 'Servidor está temporariamente indisponível, tente mais tarde');
         });
-
         // Check if a new cache is available on page load.
-        $window.addEventListener('load', function () {
-            $window.applicationCache.addEventListener('updateready', function () {
+        $window.addEventListener('load', function (e) {
+            $window.applicationCache.addEventListener('updateready', function (e) {
                 if ($window.applicationCache.status === $window.applicationCache.UPDATEREADY) {
-                    // Browser downloaded a new app cache.
                     $window.location.reload();
-                    $window.alert('Uma nova versão será carregada!');
+                    //$rootScope.$apply();
                 }
             }, false);
         }, false);
-
     }]);
 
 app.constant('APP_EVENTS', {
     offline: 'app-events-offline'
 });
-
 app.constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
@@ -214,49 +171,18 @@ app.constant('AUTH_EVENTS', {
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized',
     exit: 'exit',
+    push: 'push',
     sistema: 'sistema',
-    comunicado: 'comunicado',
-    mensagem: 'mensagem',
-    produto: 'produto',
-    fase: 'fase',
-    quantidade: 'qtde'
+    quantidade: 'count',
+    lista: 'list'
 });
-
 app.constant('USER_ROLES', {
-    ANALISE: 'ANALISE',
-    PROSPECCAO: 'PROSPECCAO',
-    INTERNALIZACAO: 'INTERNALIZACAO',
-    SUSTENTACAO: 'SUSTENTACAO',
-    DECLINIO: 'DECLINIO',
     ADMINISTRADOR: 'ADMINISTRADOR',
-    CADASTRADOR: 'CADASTRADOR',
-    CONSULTOR: 'CONSULTOR',
-    LEGADO: 'LEGADO',
-    SISTEMA: 'SISTEMA',
-    EQUIPAMENTO: 'EQUIPAMENTO',
-    PRODUTO: 'PRODUTO',
+    COORDENADOR: 'COORDENADOR',
+    PROFESSOR: 'PROFESSOR',
+    PAI: 'PAI',
     NOT_LOGGED: 'NOT_LOGGED'
 });
-
-app.constant('LAYOUTS', [
-    {name: 'Cerulean', url: 'cerulean'},
-    {name: 'Cosmos', url: 'cosmos'},
-    {name: 'Cyborg', url: 'cyborg'},
-    {name: 'Darkly', url: 'darkly'},
-    {name: 'Default', url: 'default'},
-    {name: 'Flatly', url: 'flatly'},
-    {name: 'Journal', url: 'journal'},
-    {name: 'Lumen', url: 'lumen'},
-    {name: 'Material', url: 'material'},
-    {name: 'Readable', url: 'readable'},
-    {name: 'Sandstone', url: 'sandstone'},
-    {name: 'Simplex', url: 'simplex'},
-    {name: 'Slate', url: 'slate'},
-    {name: 'Spacelab', url: 'spacelab'},
-    {name: 'Superhero', url: 'superhero'},
-    {name: 'United', url: 'united'},
-    {name: 'Yeti', url: 'yeti'}
-]);
 
 app.factory('AuthInterceptor', ['$rootScope', '$q', 'AUTH_EVENTS', 'APP_EVENTS',
     function ($rootScope, $q, AUTH_EVENTS, APP_EVENTS) {
@@ -268,23 +194,12 @@ app.factory('AuthInterceptor', ['$rootScope', '$q', 'AUTH_EVENTS', 'APP_EVENTS',
                     0: APP_EVENTS.offline,
                     404: APP_EVENTS.offline,
                     503: APP_EVENTS.offline,
+                    412: APP_EVENTS.validate,
                     401: AUTH_EVENTS.notAuthenticated,
-                    //403: AUTH_EVENTS.notAuthorized,
                     419: AUTH_EVENTS.sessionTimeout,
                     440: AUTH_EVENTS.sessionTimeout
                 }[response.status], response);
-
                 return $q.reject(response);
             }
         };
-
     }]);
-
-
-
-
-
-
-
-
-

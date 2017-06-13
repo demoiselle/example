@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('AlertService', ['$rootScope', '$timeout',
-    function ($rootScope, $timeout) {
+app.factory('AlertService', ['$rootScope', '$timeout', 'AUTH_EVENTS', 'Win', 
+    function ($rootScope, $timeout, AUTH_EVENTS, Win) {
         var alertService = {};
 
         // create an array of alerts available globally
@@ -39,20 +39,33 @@ app.factory('AlertService', ['$rootScope', '$timeout',
             $rootScope.alerts = [];
         };
 
-        alertService.notification = function (message) {
-            return new Promise(function (resolve, reject) {
-                var messageChannel = new MessageChannel();
-                messageChannel.port1.onmessage = function (event) {
-                    if (event.data.error) {
-                        reject(event.data.error);
-                    } else {
-                        resolve(event.data);
-                    }
-                };
-                navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
-            });
+        alertService.mobile = function (message) {
+            if (!(document.documentMode || /Edge/.test(navigator.userAgent))) {
+//                $notification("Mensagem", {
+//                    body: message,
+//                    dir: 'auto',
+//                    delay: 10000,
+//                    focusWindowOnClick: true
+//                });
+                return new Promise(function (resolve, reject) {
+                    var messageChannel = new MessageChannel();
+                    messageChannel.port1.onmessage = function (event) {
+                        if (event.data.error) {
+                            reject(event.data.error);
+                        } else {
+                            resolve(event.data);
+                        }
+                    };
+                    navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
+                });
+            } else {
+                Win.notification(message);
+            }
         };
 
+        $rootScope.$on(AUTH_EVENTS.push, function (emit, args) {
+            alertService.mobile(args.emit.data);
+        });
 
         return alertService;
     }]);

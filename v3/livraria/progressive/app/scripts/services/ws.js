@@ -10,6 +10,48 @@ app.factory('WS', ['$rootScope', '$websocket',
             navigator.vibrate([500, 500, 500, 500, 500]);
         }
 
+        Notification.requestPermission().then(function (result) {
+            if (result === 'denied') {
+                console.log('Permission wasn\'t granted. Allow a retry.');
+                return;
+            }
+            if (result === 'default') {
+                console.log('The permission request was dismissed.');
+                return;
+            }
+            // Do something with the granted permission.
+        });
+
+        if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
+            console.log("This browser doesn't support service workers");
+            return;
+        }
+
+        navigator.serviceWorker.register("/service-worker.js", {scope: '/'})
+                .then(function (registration) {
+                    console.log("Service worker registered, scope: " + registration.scope);
+                    console.log("Refresh the page to talk to it.");
+                    // If we want to, we might do `location.reload();` so that we'd be controlled by it
+                })
+                .catch(function (error) {
+                    console.log("Service worker registration failed: " + error.message);
+                });
+
+        if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
+            console.log('Notifications aren\'t supported.');
+            return;
+        }
+
+        if (Notification.permission === 'denied') {
+            console.log('The user has blocked notifications.');
+            return;
+        }
+
+        if (!('PushManager' in window)) {
+            console.log('Push messaging isn\'t supported.');
+            return;
+        }
+
         var wsUrl = 'wss://push-fwkdemoiselle.rhcloud.com:8443/push/livraria';
 
         var ws = $websocket.$new({

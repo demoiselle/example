@@ -1,0 +1,27 @@
+<md-card >
+    <md-card-header>
+        <h3 class="page-header">
+            Tema <small>listagem</small>
+        </h3>
+    </md-card-header>
+    <md-card-content>
+        <md-list>
+            <md-item ng-repeat="item in activity">
+                <md-item-content>
+                    <div class="md-tile-left inset" hide-sm>
+                        <user-avatar></user-avatar>
+                    </div>
+                    <div class="md-tile-content">
+                        {{item.what}}
+                    </div>
+                </md-item-content>
+            </md-item>
+            <md-divider></md-divider>
+        </md-list>
+    </md-card-content>
+    <md-card-footer>
+        <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+            <ng-md-icon icon="add"></ng-md-icon>
+        </md-button>
+    </md-card-footer>
+</md-card>
