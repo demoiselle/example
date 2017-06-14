@@ -83,7 +83,7 @@ app.controller('LivroController', ['$scope', '$location', '$routeParams', '$root
                         var message = res.message;
 
                         if (status === 401) {
-                            AlertService.addWithTimeout('warning', message);
+                            AlertService.addWithTimeout(message);
                         } else if (status === 412 || status === 422) {
                             ValidationService.registrarViolacoes(data);
                         } else if (status === 403) {
@@ -133,7 +133,6 @@ app.controller('LivroController', ['$scope', '$location', '$routeParams', '$root
                 {field: 'dia', name: 'Dia', width: "150", cellFilter: 'date:\'dd-MM-yyyy\''},
                 {name: 'Ação', cellTemplate: '<a has-roles="COORDENADOR" ng-click="grid.appScope.edit(row.entity.id)" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Alterar</a>\n\
                                                  <a has-roles="COORDENADOR" confirm-button title="Excluir?" confirm-action="grid.appScope.delete(row.entity.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Excluir</a>', width: "200"}]
-
         };
 
     }]);

@@ -11,6 +11,7 @@ var app = angular.module('app', [
     'ngWebsocket',
     'ngMaterial',
     'ngMdIcons',
+    'ui.gravatar',
     'Config'
 ]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider',
     function ($routeProvider, USER_ROLES, $websocketProvider) {
@@ -26,7 +27,7 @@ var app = angular.module('app', [
         $routeProvider.otherwise({
             redirectTo: '/',
             data: {
-                authorizedRoles: [USER_ROLES.COORDENADOR]
+                authorizedRoles: [USER_ROLES.USUARIO]
             }
         });
 
@@ -38,13 +39,7 @@ var app = angular.module('app', [
             }
         });
 
-        $routeProvider.when('/privacidade', {
-            templateUrl: 'views/privacidade.html',
-            controller: 'AuthController',
-            data: {
-                authorizedRoles: [USER_ROLES.NOT_LOGGED]
-            }
-        });
+
 
     }
 ]);
@@ -178,9 +173,8 @@ app.constant('AUTH_EVENTS', {
 });
 app.constant('USER_ROLES', {
     ADMINISTRADOR: 'ADMINISTRADOR',
-    COORDENADOR: 'COORDENADOR',
-    PROFESSOR: 'PROFESSOR',
-    PAI: 'PAI',
+    GERENTE: 'GERENTE',
+    USUARIO: 'USUARIO',
     NOT_LOGGED: 'NOT_LOGGED'
 });
 

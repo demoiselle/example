@@ -9,14 +9,7 @@ app.config(['$routeProvider', 'USER_ROLES',
                     templateUrl: 'views/dashboard.html',
                     controller: 'DashboardController',
                     data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
-                    }
-                })
-
-                .otherwise({
-                    redirectTo: '/',
-                    data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                        authorizedRoles: [USER_ROLES.USUARIO]
                     }
                 });
 

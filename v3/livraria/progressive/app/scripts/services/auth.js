@@ -1,21 +1,18 @@
 'use strict';
 
-app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$window', 'AlertService',
-    function ($http, AppService, $rootScope, $interval, $window, AlertService) {
+app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$window',
+    function ($http, AppService, $rootScope, $interval, $window) {
 
         var authService = {};
 
         authService.change = function (credentials) {
 
-            credentials.fingerprint = 'beta'; //"new Fingerprint({canvas: true}, {screen_resolution: true}).get();"
-
             return $http
                     .post('api/auth/change', credentials)
                     .success(function (res, status, headers) {
-                        AlertService.addWithTimeout('success', res.mensagem);
+
                         return res;
                     }).error(function (res, status, headers) {
-                AlertService.addWithTimeout('warning', "Melhore sua senha");
                 return res;
             }
             );
@@ -23,36 +20,43 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$
         };
 
         authService.login = function (credentials) {
-
             AppService.removeToken();
-            credentials.fingerprint = 'beta'; //"new Fingerprint({canvas: true}, {screen_resolution: true}).get();"
+            return $http({
+                url: 'api/auth',
+                method: "POST",
+                data: credentials
+            }).then(function (res) {
+                console.log(res);
+                AppService.setToken(res.key);
+                $rootScope.currentUser = AppService.getUserFromToken();
+                return res;
+            }
+            );
+        };
+
+        authService.aminesia = function (credentials) {
 
             return $http
-                    .post('api/auth', credentials)
+                    .post('api/auth/aminesia', credentials)
                     .success(function (res, status, headers) {
-                        AppService.setToken(res.key);
-                        $rootScope.currentUser = AppService.getUserFromToken();
+
                         return res;
                     }).error(function (res, status, headers) {
-                AlertService.addWithTimeout('warning', "Usuário não identificado");
                 return res;
             }
             );
 
         };
 
-        authService.aminesia = function (credentials) {
-            credentials.fingerprint = 'beta'; //"new Fingerprint({canvas: true}, {screen_resolution: true}).get();"
+        authService.register = function (credentials) {
 
             return $http
-                    .post('api/auth/aminesia', credentials)
-                    .success(function (res, status, headers) {
-                        AlertService.addWithTimeout('warning', res.mensagem);
+                    .post('api/auth/register', credentials)
+                    .success(function (res) {
                         return res;
-                    }).error(function (res, status, headers) {
+                    }).error(function (res) {
                 return res;
-            }
-            );
+            });
 
         };
 
@@ -82,9 +86,7 @@ app.factory('AuthService', ['$http', 'AppService', '$rootScope', '$interval', '$
         authService.isAuthenticated = function () {
             if (!$rootScope.currentUser) {
                 $rootScope.currentUser = AppService.getUserFromToken();
-
             }
-
             return $rootScope.currentUser ? true : false;
         };
 

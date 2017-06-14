@@ -1,0 +1,24 @@
+<md-card flex="30">
+    <img ng-src="images/bg-comunidade.png" class="md-card-image" alt="login">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Login</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-input-container class="md-block">
+            <label>E-mail</label>
+            <input ng-model="credencials.username">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Senha</label>
+            <input type="password" ng-model="credencials.password">
+        </md-input-container>
+        <a ng-href="#!/register">Quero me cadastrar</a>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click="login(credencials)">ENTRAR</md-button>
+    </md-card-actions>
+</md-card>
+
+

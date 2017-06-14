@@ -1,42 +1,25 @@
 'use strict';
 
-app.factory('AlertService', ['$rootScope', '$timeout', 'AUTH_EVENTS', 'Win', 
-    function ($rootScope, $timeout, AUTH_EVENTS, Win) {
+app.factory('AlertService', ['$rootScope', 'AUTH_EVENTS', 'Win', '$mdToast',
+    function ($rootScope, AUTH_EVENTS, Win, $mdToast) {
         var alertService = {};
 
-        // create an array of alerts available globally
-        $rootScope.alerts = [];
-
-        alertService.addWithTimeout = function (type, msg, timeout) {
-            var alert = alertService.add(type, msg);
-            $timeout(function () {
-                alertService.closeAlert(alert);
-            }, timeout ? timeout : 4000);
-        };
-
-        alertService.add = function (type, msg, timeout) {
-            if (type && msg) {
-                $rootScope.alerts.push({
-                    'type': type,
-                    'msg': msg
-                });
-            }
+        alertService.addWithTimeout = function (msg) {
+            $mdToast.show(
+                    $mdToast.simple()
+                    .textContent(msg)
+                    .position('top right')
+                    .hideDelay(3333)
+                    );
         };
 
         alertService.showMessageForbiden = function () {
-            this.addWithTimeout('danger', 'Você não tem permissão para executar essa operação');
-        };
-
-        alertService.closeAlert = function (alert) {
-            return this.closeAlertIdx($rootScope.alerts.indexOf(alert));
-        };
-
-        alertService.closeAlertIdx = function (index) {
-            return $rootScope.alerts.splice(index, 1);
-        };
-
-        alertService.clear = function () {
-            $rootScope.alerts = [];
+            $mdToast.show(
+                    $mdToast.simple()
+                    .textContent('Você não tem permissão para executar essa operação')
+                    .position('top right')
+                    .hideDelay(3333)
+                    );
         };
 
         alertService.mobile = function (message) {

@@ -35,8 +35,8 @@ public class SgdbDAO {
     protected EntityManager getEntityManager() {
         return em.getEntityManagerFactory().createEntityManager();
     }
-   
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
+
+    //@Transactional(Transactional.TxType.REQUIRES_NEW)
     public boolean createSgdb(String schema) {
         Connection conn = null;
         List<String> records = new ArrayList<>();

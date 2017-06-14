@@ -4,7 +4,7 @@
 app.directive('uiLinhabar', ['$rootScope', '$anchorScroll', function ($rootScope, $anchorScroll) {
         return {
             restrict: 'AC',
-            template: '<span class="bar"></span>',
+            template: '<md-progress-linear md-mode="buffer"></md-progress-linear>',
             link: function (scope, el, attrs) {
                 el.addClass('linhabar hide');
 
@@ -39,13 +39,6 @@ app.directive('backButton', function () {
                 scope.$apply();
             });
         }
-    };
-});
-
-app.directive('alerts', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'partials/alerts.html'
     };
 });
 

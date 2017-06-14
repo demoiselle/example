@@ -43,37 +43,36 @@
 
     </head>
 
-    <body layout="row" ng-controller="AppCtrl">
-    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <body layout="row" ng-controller="AuthController" ng-cloak>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-show="$root.currentUser">
         <md-toolbar class="md-tall md-hue-2">
             <span flex></span>
             <div layout="column" class="md-toolbar-tools-bottom inset">
-                <user-avatar></user-avatar>
-                <span></span>
-                <div>Nome</div>
-                <div>email@domain.com</div>
+                <span><img gravatar-src="{{currentUser.email}}" gravatar-size="100"></span>
+                <div>{{currentUser.nome}}</div>
+                <div>{{currentUser.email}}</div>
             </div>
         </md-toolbar>
 
-<md-list>
-    <!--            <md-subheader>Management</md-subheader>
-                <md-item>
-                    <a>
-                        <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                                    <div class="inset">
-                                        <ng-md-icon icon="book"></ng-md-icon>
-                                    </div>
-                                    <div class="inset"> Book
-                                    </div>
-                                </md-item-content>
-                            </a>
-                        </md-item>-->
+        <md-list>
+            <!--            <md-subheader>Management</md-subheader>
+                        <md-item>
+                            <a>
+                                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                                            <div class="inset">
+                                                <ng-md-icon icon="book"></ng-md-icon>
+                                            </div>
+                                            <div class="inset"> Book
+                                            </div>
+                                        </md-item-content>
+                                    </a>
+                                </md-item>-->
         </md-list>
     </md-sidenav>
 
     <div layout="column" class="relative" layout-fill role="main">
 
-        <md-toolbar ng-show="!showSearch">
+        <md-toolbar ng-show="$root.currentUser">
             <div class="md-toolbar-tools">
                 <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
                     <ng-md-icon icon="menu"></ng-md-icon>
@@ -84,8 +83,8 @@
                 </md-button>
             </div>
         </md-toolbar>
-
-        <md-content flex md-scroll-y ng-view>
+        <div ui-linhabar></div>
+        <md-content layout="row" layout-align="center center" ng-view>
 
         </md-content>
     </div>
@@ -106,6 +105,7 @@
     <script src="bower_components/ng-websocket/ng-websocket.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,6 +120,7 @@
     <script src="/scripts/directives/directives.js"></script>
     <script src="/scripts/routes/dashboard.js"></script>
     <script src="/scripts/routes/livro.js"></script>
+    <script src="/scripts/routes/login.js"></script>
     <script src="/scripts/services/alert.js"></script>
     <script src="/scripts/services/app.js"></script>
     <script src="/scripts/services/auth.js"></script>

@@ -8,7 +8,7 @@ app.config(['$routeProvider', 'USER_ROLES', function ($routeProvider, USER_ROLES
                     templateUrl: 'views/livro/list.html',
                     controller: 'LivroController',
                     data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                        authorizedRoles: [USER_ROLES.USUARIO]
                     }
                 })
 
@@ -16,7 +16,7 @@ app.config(['$routeProvider', 'USER_ROLES', function ($routeProvider, USER_ROLES
                     templateUrl: 'views/livro/edit.html',
                     controller: 'LivroController',
                     data: {
-                        authorizedRoles: [USER_ROLES.NOT_LOGGED]
+                        authorizedRoles: [USER_ROLES.USUARIO]
                     }
                 })
 
