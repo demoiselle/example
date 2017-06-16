@@ -5,6 +5,7 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 - **Cep**: Open
 
 Verificação de segurança da api (https://schd.io/2sGy)
+Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
 # Apps de exemplo
 
