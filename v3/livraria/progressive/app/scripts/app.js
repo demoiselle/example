@@ -13,7 +13,7 @@ var app = angular.module('app', [
     'ngMdIcons',
     'ui.gravatar',
     'Config'
-]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider',
+]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider', 
     function ($routeProvider, USER_ROLES, $websocketProvider) {
 
         $websocketProvider.$setup({

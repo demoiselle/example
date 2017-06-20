@@ -1,4 +1,13 @@
-app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', '$mdThemingProvider',
+    function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $mdThemingProvider) {
+
+        $mdThemingProvider
+                .theme('default')
+                .primaryPalette('teal')
+                .accentPalette('blue')
+                .warnPalette('red')
+                .backgroundPalette('white');
+
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
         };
@@ -86,8 +95,10 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
                     }, function () {
                         $scope.alert = 'You cancelled the dialog.';
                     });
-        };
-    }]);
+        }
+        ;
+    }
+]);
 
 app.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {
     $scope.items = [
