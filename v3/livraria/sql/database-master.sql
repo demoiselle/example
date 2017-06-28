@@ -1,3 +1,18 @@
+﻿--DROP TABLE usuario;
+--DROP TABLE livraria;
+--DROP TABLE sgdb;
+--DROP TABLE mensagem;
+
+CREATE TABLE mensagem
+(
+  id serial NOT NULL,
+  dia date DEFAULT now(),
+  comando character varying(64),
+  tipo character varying(8),
+  ativo boolean DEFAULT true,
+  CONSTRAINT mensagem_pkey PRIMARY KEY (id)
+);
+
 CREATE TABLE usuario
 (
   id uuid not null,
