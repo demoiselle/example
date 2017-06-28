@@ -6,7 +6,6 @@
 package org.demoiselle.livraria.tenant;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Sgdb.findAll", query = "SELECT s FROM Sgdb s")
     , @NamedQuery(name = "Sgdb.findById", query = "SELECT s FROM Sgdb s WHERE s.id = :id")
-    , @NamedQuery(name = "Sgdb.findByDia", query = "SELECT s FROM Sgdb s WHERE s.dia = :dia")
     , @NamedQuery(name = "Sgdb.findByComando", query = "SELECT s FROM Sgdb s WHERE s.comando = :comando")})
 public class Sgdb implements Serializable {
 
@@ -42,11 +37,10 @@ public class Sgdb implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
+
     @Basic(optional = false)
-    @NotNull
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dia;
+    private String versao;
     @Size(max = 10240)
     @Column(length = 10240)
     private String comando;
@@ -58,11 +52,6 @@ public class Sgdb implements Serializable {
         this.id = id;
     }
 
-    public Sgdb(Integer id, Date dia) {
-        this.id = id;
-        this.dia = dia;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -71,12 +60,12 @@ public class Sgdb implements Serializable {
         this.id = id;
     }
 
-    public Date getDia() {
-        return dia;
+    public String getVersao() {
+        return versao;
     }
 
-    public void setDia(Date dia) {
-        this.dia = dia;
+    public void setVersao(String versao) {
+        this.versao = versao;
     }
 
     public String getComando() {
@@ -111,5 +100,5 @@ public class Sgdb implements Serializable {
     public String toString() {
         return "org.demoiselle.livraria.tenant.Sgdb[ id=" + id + " ]";
     }
-    
+
 }

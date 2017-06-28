@@ -7,6 +7,7 @@
     <class>org.demoiselle.livraria.tenant.Livraria</class>
     <class>org.demoiselle.livraria.tenant.User</class>
     <class>org.demoiselle.livraria.tenant.Sgdb</class>
+    <class>org.demoiselle.livraria.tenant.Mensagem</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>

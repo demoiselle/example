@@ -4,17 +4,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.Schedule;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TemporalType;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
@@ -36,7 +33,7 @@ public class SgdbDAO {
         return em.getEntityManagerFactory().createEntityManager();
     }
 
-    //@Transactional(Transactional.TxType.REQUIRES_NEW)
+    @Transactional
     public boolean createSgdb(String schema) {
         Connection conn = null;
         List<String> records = new ArrayList<>();
@@ -75,11 +72,11 @@ public class SgdbDAO {
         return true;
     }
 
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public boolean updateSgdb(Date dia) {
+    @Transactional
+    public boolean updateSgdb(String versao) {
         Connection conn = null;
         List<String> records = new ArrayList<>();
-        List<Sgdb> listaComandos = em.createQuery("SELECT s FROM Sgdb s WHERE s.dia = :dia ORDER BY s.id", Sgdb.class).setParameter("dia", dia, TemporalType.DATE).getResultList();
+        List<Sgdb> listaComandos = em.createQuery("SELECT s FROM Sgdb s WHERE s.versao = :versao ORDER BY s.id", Sgdb.class).setParameter("versao", versao).getResultList();
         listaComandos.forEach((sgdb) -> {
             records.add(sgdb.getComando());
         });

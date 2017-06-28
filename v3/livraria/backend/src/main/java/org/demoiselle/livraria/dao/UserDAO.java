@@ -27,6 +27,7 @@ import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
 import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 import org.demoiselle.livraria.security.UserRegister;
 import org.demoiselle.livraria.tenant.Livraria;
+import org.demoiselle.livraria.tenant.Mensagem;
 
 public class UserDAO extends AbstractDAO<User, String> {
 
@@ -45,7 +46,7 @@ public class UserDAO extends AbstractDAO<User, String> {
     private LivrariaDAO livrariadao;
 
     @Inject
-    private SgdbDAO sgbddao;
+    private MensagemDAO mdao;
 
     @Inject
     private DemoiselleSecurityMessages bundle;
@@ -106,7 +107,7 @@ public class UserDAO extends AbstractDAO<User, String> {
         loggedUser.addRole(usu.getPerfil().getValue());
 
         loggedUser.addParam("email", usu.getEmail());
-        loggedUser.addParam("tenant", "demoiselle"); //"T" + usu.getLivraria().getId().toString().replace("-", "")
+        loggedUser.addParam("tenant", "tenant" + usu.getLivraria().getId().toString().toLowerCase().replace("-", ""));
         securityContext.setUser(loggedUser);
 
         return token;
@@ -168,9 +169,14 @@ public class UserDAO extends AbstractDAO<User, String> {
             loggedUser.addRole(user.getPerfil().getValue());
 
             loggedUser.addParam("email", user.getEmail());
-            loggedUser.addParam("tenant", "tenant" + user.getLivraria().getDescription().trim().toLowerCase());
+            loggedUser.addParam("tenant", "tenant" + livraria.getId().toString().toLowerCase().replace("-", ""));
 
-            sgbddao.createSgdb("tenant" + user.getLivraria().getDescription().trim().toLowerCase());
+            Mensagem mem = new Mensagem();
+            mem.setAtivo(true);
+            mem.setComando("tenant" + livraria.getId().toString().toLowerCase().replace("-", ""));
+            mem.setTipo("DBADD");
+
+            mdao.persist(mem);
 
             securityContext.setUser(loggedUser);
             return token;
