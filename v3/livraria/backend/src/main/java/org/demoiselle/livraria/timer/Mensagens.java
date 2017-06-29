@@ -29,6 +29,7 @@ public class Mensagens {
     public void criarBase() {
         List<Mensagem> mens = mdao.listaPorTipo("EMAIL");
         for (Mensagem men : mens) {
+            System.out.println(men.getTipo() + "" + men.getComando());
             men.setAtivo(false);
             mdao.persist(men);
         }

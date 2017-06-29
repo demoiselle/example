@@ -12,8 +12,9 @@ var app = angular.module('app', [
     'ngMaterial',
     'ngMdIcons',
     'ui.gravatar',
+    'vcRecaptcha',
     'Config'
-]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider', 
+]).config(['$routeProvider', 'USER_ROLES', '$websocketProvider',
     function ($routeProvider, USER_ROLES, $websocketProvider) {
 
         $websocketProvider.$setup({
@@ -43,6 +44,15 @@ var app = angular.module('app', [
 
     }
 ]);
+
+app.config(function (vcRecaptchaServiceProvider) {
+    vcRecaptchaServiceProvider.setSiteKey('6LcUPCcUAAAAAFkn26q4uinHJeH6vndyQVxLpFIK');
+    vcRecaptchaServiceProvider.setTheme('light');
+    vcRecaptchaServiceProvider.setSize('invisible');
+    vcRecaptchaServiceProvider.setType('image');
+    vcRecaptchaServiceProvider.setLang('pt-BR');
+});
+
 
 app.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.useApplyAsync(true);
