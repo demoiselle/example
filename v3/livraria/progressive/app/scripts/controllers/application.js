@@ -1,6 +1,8 @@
 app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', '$mdThemingProvider',
     function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $mdThemingProvider) {
 
+        
+
         $mdThemingProvider
                 .theme('default')
                 .primaryPalette('teal')

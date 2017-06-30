@@ -5,6 +5,7 @@
             <span class="md-headline">Login</span>
         </md-card-title-text>
     </md-card-title>
+
     <md-card-content>
         <md-input-container class="md-block">
             <label>E-mail</label>
@@ -16,7 +17,9 @@
         </md-input-container>
         <a ng-href="#!/register">Quero me cadastrar</a>
     </md-card-content>
+
     <md-card-actions layout="row" layout-align="end center">
+        <div vc-recaptcha theme="'light'" key="model.key" size="'invisible'" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()" lang="pt-BR"></div>
         <md-button ng-click="login(credencials)">ENTRAR</md-button>
     </md-card-actions>
 </md-card>

@@ -45,13 +45,13 @@ var app = angular.module('app', [
     }
 ]);
 
-app.config(function (vcRecaptchaServiceProvider) {
-    vcRecaptchaServiceProvider.setSiteKey('6LcUPCcUAAAAAFkn26q4uinHJeH6vndyQVxLpFIK');
-    vcRecaptchaServiceProvider.setTheme('light');
-    vcRecaptchaServiceProvider.setSize('invisible');
-    vcRecaptchaServiceProvider.setType('image');
-    vcRecaptchaServiceProvider.setLang('pt-BR');
-});
+//app.config(function (vcRecaptchaServiceProvider) {
+//    vcRecaptchaServiceProvider.setSiteKey('');
+//    vcRecaptchaServiceProvider.setTheme('light');
+//    vcRecaptchaServiceProvider.setSize('invisible');
+//    vcRecaptchaServiceProvider.setType('image');
+//    vcRecaptchaServiceProvider.setLang('pt-BR');
+//});
 
 
 app.config(['$httpProvider', function ($httpProvider) {

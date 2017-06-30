@@ -42,8 +42,8 @@
 
         <script type="text/javascript">
                       angular.module('myApp', [
+                          'vcRecaptcha',
                           'sw.ui.md',
-                          'sw.ui.recaptcha',
                           // 'sw.plugin.auth',
                           'sw.plugin.markdown',
                           // 'sw.plugin.xmlFormater',
@@ -61,7 +61,6 @@
                                   var search = {};
                                   var query = $window.location.search.substring(1);
                                   var vars = query.split('&');
-
                                   for (var i = 0; i < vars.length; i++) {
                                       var pair = vars[i].split('=');
                                       search[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
@@ -71,7 +70,6 @@
                                       // tweaking md-button.md-accent.md-focused background-color
                                       '700': 'dadada'
                                   }));
-
                                   //noinspection JSUnresolvedFunction
                                   $mdThemingProvider
                                           .theme('default')
@@ -79,24 +77,15 @@
                                           .accentPalette('accent')
                                           .warnPalette(search.warn || 'red')
                                           .foregroundPalette[3] = 'rgba(0, 0, 0, 0.4)';
-
                                   if ($window.location.hostname !== 'localhost') {
                                       $logProvider.debugEnabled(false);
                                   }
-                              })
-                              .config(function (vcRecaptchaServiceProvider) {
-                                  vcRecaptchaServiceProvider.setSiteKey('6LcUPCcUAAAAAFkn26q4uinHJeH6vndyQVxLpFIK');
-                                  vcRecaptchaServiceProvider.setTheme('dark');
-                                  vcRecaptchaServiceProvider.setSize('invisible');
-                                  vcRecaptchaServiceProvider.setType('image');
-                                  vcRecaptchaServiceProvider.setLang('pt-BR');
                               })
                               .run(function ($location, $mdToast, $log, $window, data) {
                                   //noinspection JSCheckFunctionSignatures
                                   var swaggerUrl = $location.search()['url'] ||
                                           (/^\/explorer/.test($window.location.pathname) ? './swagger.json' :
                                                   'api/swagger.json');
-
                                   data.setUrl(swaggerUrl);
                                   // data.validatorUrl = 'http://online.swagger.io/validator';
 
@@ -107,6 +96,46 @@
                                       $mdToast.show($mdToast.simple().textContent(e.statusText || e.message || m));
                                       $log.error(error || m);
                                   }
+                              })
+                              .controller('testCtrl', function ($scope, vcRecaptchaService) {
+                                  console.log("this is your app's controller");
+                                  $scope.response = null;
+                                  $scope.widgetId = null;
+                                  $scope.model = {
+                                      key: '6LcUPCcUAAAAAFkn26q4uinHJeH6vndyQVxLpFIK'
+                                  };
+                                  $scope.setResponse = function (response) {
+                                      console.info('Response available');
+                                      $scope.response = response;
+                                  };
+                                  $scope.setWidgetId = function (widgetId) {
+                                      console.info('Created widget ID: %s', widgetId);
+                                      $scope.widgetId = widgetId;
+                                  };
+                                  $scope.cbExpiration = function () {
+                                      console.info('Captcha expired. Resetting response object');
+                                      vcRecaptchaService.reload($scope.widgetId);
+                                      $scope.response = null;
+                                  };
+                                  $scope.submit = function () {
+                                      var valid;
+                                      /**
+                                       * SERVER SIDE VALIDATION
+                                       *
+                                       * You need to implement your server side validation here.
+                                       * Send the reCaptcha response to the server and use some of the server side APIs to validate it
+                                       * See https://developers.google.com/recaptcha/docs/verify
+                                       */
+                                      console.log('sending the captcha response to the server', $scope.response);
+                                      if (valid) {
+                                          console.log('Success');
+                                      } else {
+                                          console.log('Failed validation');
+                                          // In case of a failed validation you need to reload the captcha
+                                          // because each response can be checked just once
+                                          vcRecaptchaService.reload($scope.widgetId);
+                                      }
+                                  };
                               });
         </script>
         <script>
@@ -121,11 +150,10 @@
                         a.src = g;
                         m.parentNode.insertBefore(a, m)
                     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
                     ga('create', 'UA-33820437-4', 'auto');
                     ga('send', 'pageview');
-
         </script>
+
 
     </body>
 </html>

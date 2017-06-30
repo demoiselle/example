@@ -8,20 +8,44 @@ app.controller('AuthController', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthSe
             password: ''
         };
 
-        $scope.setWidgetId = function (widgetId) {
-            // store the `widgetId` for future usage.
-            // For example for getting the response with
-            // `recaptcha.getResponse(widgetId)`.
+        $scope.response = null;
+        $scope.widgetId = null;
+        $scope.model = {
+            key: '6LcUPCcUAAAAAFkn26q4uinHJeH6vndyQVxLpFIK'
         };
-
         $scope.setResponse = function (response) {
-            // send the `response` to your server for verification.
+            console.info('Response available');
+            $scope.response = response;
+        };
+        $scope.setWidgetId = function (widgetId) {
+            console.info('Created widget ID: %s', widgetId);
+            $scope.widgetId = widgetId;
+        };
+        $scope.cbExpiration = function () {
+            console.info('Captcha expired. Resetting response object');
+            vcRecaptchaService.reload($scope.widgetId);
+            $scope.response = null;
+        };
+        $scope.submit = function () {
+            var valid;
+            /**
+             * SERVER SIDE VALIDATION
+             *
+             * You need to implement your server side validation here.
+             * Send the reCaptcha response to the server and use some of the server side APIs to validate it
+             * See https://developers.google.com/recaptcha/docs/verify
+             */
+            console.log('sending the captcha response to the server', $scope.response);
+            if (valid) {
+                console.log('Success');
+            } else {
+                console.log('Failed validation');
+                // In case of a failed validation you need to reload the captcha
+                // because each response can be checked just once
+                vcRecaptchaService.reload($scope.widgetId);
+            }
         };
 
-        $scope.cbExpiration = function () {
-            // reset the 'response' object that is on scope
-        };
-        
         var id = $routeParams.id;
         var path = $location.$$url;
 
