@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gladson
  */
 @Entity
-@Table(catalog = "cep", schema = "public")
+@Table
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cep.findAll", query = "SELECT c FROM Cep c")
@@ -38,7 +38,6 @@ public class Cep implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
@@ -148,5 +147,5 @@ public class Cep implements Serializable {
     public String toString() {
         return "app.entity.Cep[ id=" + id + " ]";
     }
-    
+
 }
