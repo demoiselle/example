@@ -35,15 +35,4 @@ public class CepREST extends AbstractREST<Cep, Integer> {
         return bc.find();
     }
 
-    @GET
-    @Asynchronous
-    @Path(value = "logradouro/like/{nome}")
-    @CacheControl(value = "max-age=36000, must-revalidate, public")
-    public void findLogradouro(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "nome") final String nome) {
-        asyncResponse.resume(doFindLogradouro(nome));
-    }
-
-    private Response doFindLogradouro(String nome) {
-        return Response.ok().entity(((CepBC)bc).getListaLogradouro(nome)).build();
-    }
 }

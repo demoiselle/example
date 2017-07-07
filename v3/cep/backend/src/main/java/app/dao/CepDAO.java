@@ -33,10 +33,6 @@ public class CepDAO extends AbstractDAO<Cep, Integer> {
         return getEntityManager().createQuery("Select c.cidade from Cep c where c.uf = :uf group by c.cidade order by c.cidade").setParameter("uf", uf).getResultList();
     }
 
-    public List getListaLogradouro(String nome) {
-        return getEntityManager().createQuery("Select c from Cep c where c.logradouro like :nome order by c.cep").setParameter("nome", nome + "%").getResultList();
-    }
-
     public List getListaUF() {
         return getEntityManager().createQuery("Select c.uf from Cep c group by c.uf order by c.uf").getResultList();
     }

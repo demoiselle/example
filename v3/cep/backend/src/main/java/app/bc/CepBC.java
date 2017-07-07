@@ -20,7 +20,4 @@ public class CepBC extends AbstractBusiness<Cep, Integer> {
         return (((CepDAO) dao).getEndereco(id));
     }
 
-    public List getListaLogradouro(String nome) {
-        return (((CepDAO) dao).getListaLogradouro(nome));
-    }
 }
