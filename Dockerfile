@@ -6,7 +6,7 @@ WORKDIR /opt/
 
 ADD https://www.demoiselle.org/cep/db.tar.gz /opt/db/
 
-CMD ["tar -zxvf /opt/db/db.tar.gz  /opt/db/"]
+CMD ["tar -zxvf /opt/db/db.tar.gz -C /opt/db/"]
 
 ADD https://www.demoiselle.org/cep/cep-swarm.jar /opt/app/
 
