@@ -4,10 +4,12 @@ MAINTAINER Demoiselle Framework <demoiselle.framework@gmail.com>
 
 WORKDIR /opt/
 
-RUN git clone -b docker  https://github.com/demoiselle/example.git --depth=1
+ADD https://www.demoiselle.org/cep/db.tar.gz /opt/db/
 
-WORKDIR /opt/example/backend/
+CMD ["tar -zxvf /opt/db/db.tar.gz"]
 
-RUN mvn clean package -Pwildfly-swarm && java -jar target/cep-swarm.jar
+ADD https://www.demoiselle.org/cep/cep-swarm.jar /opt/app/
+
+RUN java -jar -Xmx256m -Xms128m app/cep-swarm.jar
 
 EXPOSE 8080
