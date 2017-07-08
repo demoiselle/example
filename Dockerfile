@@ -10,6 +10,6 @@ CMD ["tar -zxvf /opt/db/db.tar.gz -C /opt/db/"]
 
 ADD https://www.demoiselle.org/cep/cep-swarm.jar /opt/app/
 
-RUN java -jar -Xmx256m -Xms128m app/cep-swarm.jar
+RUN java -jar app/cep-swarm.jar
 
 EXPOSE 8080
