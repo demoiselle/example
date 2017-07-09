@@ -7,6 +7,10 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 Verificação de segurança da api (https://schd.io/2sGy)
 Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
+# Docker
+
+docker pull demoiselleframework/cep
+
 # Apps de exemplo
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
