@@ -7,9 +7,19 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 Verificação de segurança da api (https://schd.io/2sGy)
 Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
+# Progessive Web
+
+https://www.demoiselle.org/cep/#!/
+
 # Docker
 
 docker pull demoiselleframework/cep
+```bash
+Lista de UF
+http://localhost:8080/api/v1/ufs
+http://localhost:8080/api/v1/cidades/PR
+http://localhost:8080/api/v1/ceps?cep=80520270
+```
 
 # Apps de exemplo
 
