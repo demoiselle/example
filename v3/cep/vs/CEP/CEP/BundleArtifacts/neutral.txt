@@ -1,0 +1,5 @@
+MainPackage=D:\NetBeansProjects\example\v3\cep\vs\CEP\CEP\bin\Release\CEP_1.1.2.0_AnyCPU.appx
+ResourcePack=D:\NetBeansProjects\example\v3\cep\vs\CEP\CEP\bin\Release\CEP_1.1.2.0_scale-100.appx
+ResourcePack=D:\NetBeansProjects\example\v3\cep\vs\CEP\CEP\bin\Release\CEP_1.1.2.0_scale-125.appx
+ResourcePack=D:\NetBeansProjects\example\v3\cep\vs\CEP\CEP\bin\Release\CEP_1.1.2.0_scale-150.appx
+ResourcePack=D:\NetBeansProjects\example\v3\cep\vs\CEP\CEP\bin\Release\CEP_1.1.2.0_scale-400.appx

@@ -15,6 +15,10 @@
 /v3/cep-angular/progressive/bower_components/
 /v3/cep-angular/progressive/.tmp
 
+/v3/cep/vs/CEP/CEP/CEP_StoreKey.pfx
+/v3/cep/vs/CEP/CEP/CEP_TemporaryStoreKey.pfx
+/v3/cep/vs/CEP/CEP/CEP_TemporaryKey.pfx
+
 # Dependency directories
 node_modules
 jspm_packages
