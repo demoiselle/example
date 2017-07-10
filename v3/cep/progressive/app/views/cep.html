@@ -1,29 +1,21 @@
-<div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-    <div class="mdl-card__supporting-text">
-        <label class="">CEP</label>
-        <input type="text" ng-model="cep">
-        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="findCep()">Buscar</button> 
-    </div>
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp" >
-        <div class="mdl-card__actions mdl-card--border">
-            <ul class="demo-list-item mdl-list">
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        UF: {{logradouro.ufeSg}}
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        {{logradouro.logNome}} 
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        Bairro: {{logradouro.baiNuSequencialIni.baiNo}}
-                    </span>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="demo-separator mdl-cell--1-col" ></div>
-</div>
+<md-card  flex-gt-sm="55" flex-gt-md="55" >
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="CEP">
+            <md-content class="md-padding">
+                <md-card-content>
+                    <md-input-container class="md-block">
+                        <label>CEP</label>
+                        <input ng-model="cep">
+                        <md-button ng-click="buscar(cep)">Buscar</md-button>
+                    </md-input-container>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="left center" ng-show="endereco.id">
+                    <br>Cidade: {{endereco.cidade}} - {{endereco.uf}}
+                    <br>Bairro: {{endereco.bairroIni}} {{endereco.bairroFim}}
+                    <br>Logradouro: {{endereco.logradouro}} 
+                </md-card-actions>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-card>
+

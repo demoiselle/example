@@ -1,85 +1,39 @@
 'use strict';
 
 var app = angular.module('app', [
+    'ngAria',
     'ngAnimate',
-    'ngCookies',
     'ngResource',
+    'ngMessages',
     'ngRoute',
     'ngSanitize',
-    'ngAnimate',
-    'ngTouch',
     'ui.bootstrap',
     'ngWebsocket',
+    'ngMaterial',
+    'ngMdIcons',
+    'ui.gravatar',
     'Config'
 ]).config(['$websocketProvider',
     function ($websocketProvider) {
 
         $websocketProvider.$setup({
             reconnect: true,
-            reconnectInterval: 2000
+            reconnectInterval: 7777
         });
-
-        Notification.requestPermission().then(function (result) {
-            if (result === 'denied') {
-                console.log('Permission wasn\'t granted. Allow a retry.');
-                return;
-            }
-            if (result === 'default') {
-                console.log('The permission request was dismissed.');
-                return;
-            }
-            // Do something with the granted permission.
-        });
-
-        if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
-            console.log("This browser doesn't support service workers");
-            return;
-        }
-
-        navigator.serviceWorker.register("/service-worker.js", {scope: '/'})
-                .then(function (registration) {
-                    console.log("Service worker registered, scope: " + registration.scope);
-                    console.log("Refresh the page to talk to it.");
-                    // If we want to, we might do `location.reload();` so that we'd be controlled by it
-                })
-                .catch(function (error) {
-                    console.log("Service worker registration failed: " + error.message);
-                });
-
-        if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
-            console.log('Notifications aren\'t supported.');
-            return;
-        }
-
-        if (Notification.permission === 'denied') {
-            console.log('The user has blocked notifications.');
-            return;
-        }
-
-        if (!('PushManager' in window)) {
-            console.log('Push messaging isn\'t supported.');
-            return;
-        }
 
     }]);
 
 app.config(['$httpProvider', function ($httpProvider) {
 
-        $httpProvider.interceptors.push(['$q', '$rootScope', 'AppService', 'ENV', function ($q, $rootScope, AppService, ENV) {
+        $httpProvider.interceptors.push(['$q', '$rootScope', 'ENV', function ($q, $rootScope, ENV) {
                 return {
                     'request': function (config) {
                         $rootScope.$broadcast('loading-started');
-
-                        var token = AppService.getToken();
 
                         if (ENV.name === "development") {
                             if (config.url.indexOf("api") !== -1) {
                                 config.url = ENV.apiEndpoint + config.url;
                             }
-                        }
-
-                        if (token) {
-                            config.headers['Authorization'] = "Token " + token;
                         }
 
                         return config || $q.when(config);
@@ -105,28 +59,12 @@ app.config(['$httpProvider', function ($httpProvider) {
 
     }]);
 
-app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USER_ROLES', 'AuthService', 'AppService', 'AlertService',
-    function ($rootScope, $location, $window, AUTH_EVENTS, APP_EVENTS, USER_ROLES, AuthService, AppService, AlertService) {
+app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USER_ROLES', 'AlertService',
+    function ($rootScope, $location, $window, AUTH_EVENTS, APP_EVENTS, USER_ROLES, AlertService) {
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
 
-            if (next.redirectTo !== '/') {
-                var authorizedRoles = next.data.authorizedRoles;
 
-                if (authorizedRoles.indexOf(USER_ROLES.NOT_LOGGED) === -1) {
-
-                    if (!AuthService.isAuthorized(authorizedRoles)) {
-                        event.preventDefault();
-                        if (AuthService.isAuthenticated()) {
-                            // user is not allowed
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                        } else {
-                            // user is not logged in
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                        }
-                    }
-                }
-            }
         });
 
 
@@ -142,31 +80,6 @@ app.run(['$rootScope', '$location', '$window', 'AUTH_EVENTS', 'APP_EVENTS', 'USE
             $rootScope.$apply(function () {
                 $rootScope.conectados = args.emit.data;
             });
-        });
-
-        $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
-            $location.path("/403");
-        });
-
-        $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
-            $rootScope.currentUser = null;
-            AppService.removeToken();
-            $location.path("/login");
-        });
-
-        $rootScope.$on(AUTH_EVENTS.loginFailed, function () {
-            AppService.removeToken();
-            $location.path("/login");
-        });
-
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
-            $rootScope.currentUser = null;
-            AppService.removeToken();
-            $location.path("/dashboard");
-        });
-
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $location.path("/dashboard");
         });
 
         $rootScope.$on(APP_EVENTS.offline, function () {

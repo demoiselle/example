@@ -10,7 +10,7 @@
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-injector');
-    grunt.loadNpmTasks('grunt-sw-precache');
+    grunt.loadNpmTasks('grunt-angular-templates');
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
@@ -58,6 +58,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= yeoman.app %>/{,*/}*.html',
+                    '<%= yeoman.app %>/views/{,*/}*.html',
                     '.tmp/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -66,29 +67,24 @@ module.exports = function (grunt) {
         },
         'sw-precache': {
             options: {
-                cacheId: 'demoiselle-app-cep',
-                workerFileName: 'sw.js',
+                cacheId: 'socrates-app',
+                workerFileName: 'service-worker.js',
                 verbose: true,
             },
             'default': {
                 staticFileGlobs: [
                     '*.{ico,png,txt}',
-                    '.htaccess',
                     '*.html',
-                    '*.manifest',
                     'fonts/*',
-                    'images/{,*/}*',
-                    'partials/{,*/}*.html',
                     'scripts/{,*/}*',
-                    'stayles/{,*/}*',
-                    'views/{,*/}*.html'
-                ],
+                    'styles/{,*/}*'
+                ]
             },
             'develop': {
                 staticFileGlobs: [
                     'font/**/*.{woff,ttf,svg,eot}'
-                ],
-            },
+                ]
+            }
         },
         // The actual grunt server settings
         connect: {
@@ -97,6 +93,7 @@ module.exports = function (grunt) {
                 // Change this to '0.0.0.0' to access the server from outside.
                 hostname: 'localhost',
                 livereload: 35728
+
             },
             livereload: {
                 options: {
@@ -160,16 +157,13 @@ module.exports = function (grunt) {
                     exclude: [],
                     preferOnline: false,
                     verbose: true,
+                    hash: true,
                     timestamp: true
                 },
                 src: [
-                    '{,*/}*.html',
-                    'views/{,*/}*.html',
-                    'scripts/{,*/}*.js',
-                    'styles/{,*/}*.css',
-                    'images/{,*/}*.*',
-                    'scripts/libs/{,*/}*.*',
-                    'layouts/{,*/}*.*'
+                    'scripts/{,*/}*.*',
+                    'styles/{,*/}*.*',
+                    'images/*.*'
                 ],
                 dest: '<%= yeoman.dist %>/manifest.appcache'
             }
@@ -232,10 +226,10 @@ module.exports = function (grunt) {
         filerev: {
             dist: {
                 src: [
-                    '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                    '<%= yeoman.dist %>/styles/{,*/}*.css',
-                    //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '<%= yeoman.dist %>/styles/fonts/*'
+                    '<%= yeoman.dist %>/scripts/scripts.js'
+                            //'<%= yeoman.dist %>/styles/{,*/}*.css'
+                            //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                            //'<%= yeoman.dist %>/styles/fonts/*'
                 ]
             }
         },
@@ -291,16 +285,16 @@ module.exports = function (grunt) {
         //   dist: {}
         // },
 
-        // imagemin: {
-        //   dist: {
-        //     files: [{
-        //       expand: true,
-        //       cwd: '<%= yeoman.app %>/images',
-        //       src: '{,*/}*.{png,jpg,jpeg,gif}',
-        //       dest: '<%= yeoman.dist %>/images'
-        //     }]
-        //   }
-        // },
+        imagemin: {
+            dist: {
+                files: [{
+                        expand: true,
+                        cwd: '<%= yeoman.app %>/images',
+                        src: '{,*/}*.{png,jpg,jpeg,gif}',
+                        dest: '<%= yeoman.dist %>/images'
+                    }]
+            }
+        },
 
         svgmin: {
             dist: {
@@ -315,16 +309,19 @@ module.exports = function (grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    collapseWhitespace: true,
-                    conservativeCollapse: true,
                     collapseBooleanAttributes: true,
-                    removeCommentsFromCDATA: true,
-                    removeOptionalTags: true
+                    collapseWhitespace: true,
+                    removeAttributeQuotes: true,
+                    removeEmptyAttributes: true,
+                    removeRedundantAttributes: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    keepClosingSlash: true
                 },
                 files: [{
                         expand: true,
                         cwd: '<%= yeoman.dist %>',
-                        src: ['*.html', 'views/{,*/}*.html', 'partials/{,*,}*.html', 'layouts/*.css'],
+                        src: ['*.html', 'views/{,*/}*.html', 'layouts/*.css'],
                         dest: '<%= yeoman.dist %>'
                     }]
             }
@@ -361,8 +358,8 @@ module.exports = function (grunt) {
                             '.htaccess',
                             '*.html',
                             '*.manifest',
+                            '*.xml',
                             '*.webapp',
-                            'views/{,*/}*.html',
                             'images/{,*/}*',
                             'img/{,*/}*',
                             'swagger/{,*/}*',
@@ -370,6 +367,7 @@ module.exports = function (grunt) {
                             'fonts/*',
                             'WEB-INF/*',
                             'META-INF/*',
+                            'styles/images/{,*/}*.png',
                             'partials/{,*/}*.html',
                             'layouts/*'
                         ]
@@ -421,7 +419,7 @@ module.exports = function (grunt) {
             ],
             dist: [
                 'copy:styles',
-                //'imagemin',
+                'imagemin',
                 'svgmin'
             ]
         },
@@ -432,11 +430,29 @@ module.exports = function (grunt) {
                 singleRun: true
             }
         },
+        ngtemplates: {
+            app: {
+                cwd: '<%= yeoman.app %>',
+                src: 'views/{,*/}*.html',
+                dest: '<%= yeoman.app %>/scripts/template.js',
+                options: {
+                    htmlmin: {collapseBooleanAttributes: true,
+                        collapseWhitespace: true,
+                        keepClosingSlash: true, // Only if you are using SVG in HTML
+                        removeAttributeQuotes: true,
+                        removeComments: true, // Only if you don't use comment directives!
+                        removeEmptyAttributes: true,
+                        removeRedundantAttributes: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true}
+                }
+            }
+        },
         // environment specific configuration
         ngconstant: {
             // Options for all targets
             options: {
-                name: 'Config',
+                name: 'Config'
             },
             development: {
                 options: {
@@ -445,7 +461,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'development',
-                        apiEndpoint: 'http://localhost:8080/'
+                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
                     }
                 }
             },
@@ -456,7 +472,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
+                        apiEndpoint: ''
                     }
                 }
             }
@@ -504,6 +520,7 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
+        'ngtemplates',
         'concat',
         'ngAnnotate',
         'copy:dist',
@@ -514,7 +531,8 @@ module.exports = function (grunt) {
         'usemin',
         'htmlmin',
         'manifest'
-//        'sw-precache:default'
+                //'sw-precache:default'
+
     ]);
 
     grunt.registerTask('default', [

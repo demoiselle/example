@@ -1,121 +1,157 @@
 <!DOCTYPE html>
 <html ng-app="app" lang="pt-br" manifest="manifest.appcache">
-
     <head>
+        <title>Demoiselle CEP</title>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Demoiselle</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-        <!-- Add to homescreen for Chrome on Android -->
-        <meta name="mobile-web-app-capable" content="yes">
-        <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+        <link rel="apple-touch-icon" sizes="57x57" href="images/icon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/icon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/icon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/icon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/icon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/icon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/icon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/icon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="images/icon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/icon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
 
-        <!-- Add to homescreen for Safari on iOS -->
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-        <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="images/icon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
-        <!-- Tile icon for Win8 (144x144 + tile color) -->
-        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-        <meta name="msapplication-TileColor" content="#3372DF">
-
-        <link rel="shortcut icon" href="images/favicon.png">
-
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.) styles/vendor.css -->
-        <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css" />
         <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+        <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/styles.css">
-        <!-- endbuild -->
+        <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"/>-->
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-        <link rel="manifest" href="/manifest.json">
+        <link rel="manifest" href="/cep/manifest.json">
+
     </head>
-    <body>
-        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-                <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">CEP</span>
-                    <div class="mdl-layout-spacer"></div>
-                    <img src="images/demoiselle.png" style="width: 5em;">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 
-                    </div>
-                </div>
-            </header>
-            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                    <a class="mdl-navigation__link" href="#cep"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Cep</a>
-                    <a class="mdl-navigation__link" href="#logradouro"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Logradouro</a>
-                    <a class="mdl-navigation__link" href="#uf"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">mail</i>Localidade</a>
-                    <a class="mdl-navigation__link" href="/swagger/index.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">language</i>API Open</a>
-                    <a class="mdl-navigation__link" href="https://github.com/PGXP/cep"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">language</i>Source</a>
-                </nav>
+    <!--    <body class="skin-blue sidebar-mini animated" ng-controller="ApplicationController" >-->
+    <body layout="row" ng-controller="CepController" ng-cloak>
+
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
+        <md-toolbar class="md-tall md-hue-2">
+            <span flex></span>
+            <div layout="column" class="md-toolbar-tools-bottom inset">
+                <span><img gravatar-src="'demoiselle.framework@gmail.com'" gravatar-size="77" ></span>
+                <div>Demoiselle Framework</div>
             </div>
-            <main class="mdl-layout__content mdl-color--grey-100">
-                <div class="mdl-grid demo-content" ng-view>
+        </md-toolbar>
 
-                </div>
-            </main>
-            <footer class="mdl-mega-footer">
-                <div class="mdl-mega-footer__middle-section">
+        <md-list flex>
 
-                    <div class="mdl-mega-footer__drop-down-section">
-                        Demoiselle
-                        <a href="http://demoiselle.io" target="_blank">
+            <md-list-item>
+                <a>
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="book"></ng-md-icon>
+                        </div>
+                        <div class="inset"> CEP
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-list-item>
+            <md-subheader>Links para o projeto</md-subheader>
+            <md-list-item>
+                <a href="https://github.com/demoiselle/example/tree/master/v3/cep"  target="_blank">
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="book"></ng-md-icon>
+                        </div>
+                        <div class="inset"> Código Fonte
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a  href="https://cep-fwkdemoiselle.rhcloud.com/"  target="_blank">
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="book"></ng-md-icon>
+                        </div>
+                        <div class="inset"> Servidor
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a href="http://demoiselle.io" target="_blank">
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="book"></ng-md-icon>
+                        </div>
+                        <div class="inset"> Sobre
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
 
-                        </a>
+    <div layout="column" class="relative" layout-fill role="main">
 
-                    </div>
-            </footer>
+        <md-toolbar >
+            <div class="md-toolbar-tools">
+                <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+                    <ng-md-icon icon="menu"></ng-md-icon>
+                </md-button>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <div ui-linhabar></div>
+        <md-content layout="row" layout-align="center center" ng-view>
 
-        </div>
+        </md-content>
+    </div>
 
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/ng-websocket/ng-websocket.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-        <!-- build:js(.) scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/es5-shim/es5-shim.js"></script>
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-touch/angular-touch.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="bower_components/angular-animate/angular-animate.js"></script>
-        <script src="bower_components/json3/lib/json3.js"></script>
-        <script src="bower_components/ng-websocket/ng-websocket.js"></script>
-        <script src="bower_components/material-design-lite/material.min.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- injector:js -->
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/config.js"></script>
+    <script src="/scripts/controllers/cep.js"></script>
+    <script src="/scripts/routes/cep.js"></script>
+    <script src="/scripts/services/alert.js"></script>
+    <script src="/scripts/services/cep.js"></script>
+    <script src="/scripts/services/contante.js"></script>
+    <script src="/scripts/services/validation.js"></script>
+    <script src="/scripts/services/windows.js"></script>
+    <script src="/scripts/services/ws.js"></script>
+    <script src="/scripts/template.js"></script>
+    <!-- endinjector -->
+    <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <!-- injector:js -->
-        <script src="/scripts/app.js"></script>
-        <script src="/scripts/config.js"></script>
-        <script src="/scripts/controllers/dashboard.js"></script>
-        <script src="/scripts/directives/directives.js"></script>
-        <script src="/scripts/routes/dashboard.js"></script>
-        <script src="/scripts/services/alert.js"></script>
-        <script src="/scripts/services/app.js"></script>
-        <script src="/scripts/services/auth.js"></script>
-        <script src="/scripts/services/dashboard.js"></script>
-        <script src="/scripts/services/ws.js"></script>
-        <!-- endinjector -->
-        <!-- endbuild -->
-
-    </body>
-
+</body>
 </html>
