@@ -11,6 +11,9 @@ Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
 https://www.demoiselle.org/cep/#!/
 
+# Windows Store
+https://www.microsoft.com/pt-br/store/p/cep/9pchwwpc3phr?rtc=1
+
 # Docker
 
 docker pull demoiselleframework/cep
@@ -21,7 +24,7 @@ http://localhost:8080/api/v1/cidades/PR
 http://localhost:8080/api/v1/ceps?cep=80520270
 ```
 
-# Apps de exemplo
+# Api do servidor
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 
