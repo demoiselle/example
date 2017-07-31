@@ -6,7 +6,7 @@
                     <md-input-container class="md-block">
                         <label>CEP</label>
                         <input ng-model="cep">
-                        <md-button ng-click="buscar()">Buscar</md-button>
+                        <md-button ng-click="buscarCep()">Buscar</md-button>
                     </md-input-container>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="left center" ng-show="endereco.id">
@@ -30,7 +30,7 @@
                     <md-input-container class="md-block">
                         <label>Logradouro</label>
                         <input ng-model="logradouro">
-                        <md-button ng-click="buscarLogra(cep)">Buscar</md-button>
+                        <md-button ng-click="buscarLogra()">Buscar</md-button>
                     </md-input-container>
                 </md-card-content>
             </md-content>
