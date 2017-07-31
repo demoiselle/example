@@ -34,7 +34,7 @@ public class CepDAO extends AbstractDAO<Cep, Integer> {
     }
 
     public List getListaLogradouro(String uf, String logradouro) {
-        return getEntityManager().createQuery("Select c from Cep c where c.uf = :uf and c.logradouro like :logra order by c.logradouro").setParameter("uf", uf).setParameter("logra", logradouro + "%").getResultList();
+        return getEntityManager().createQuery("Select c from Cep c where c.uf = :uf and c.logradouro like :logra order by c.cep").setParameter("uf", uf).setParameter("logra", "%" + logradouro + "%").getResultList();
     }
 
     public List getListaUF() {

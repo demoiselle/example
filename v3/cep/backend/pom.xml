@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.demoiselle.jee</groupId>
         <artifactId>demoiselle-parent-rest</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.2-SNAPSHOT</version>
     </parent>
     
     <repositories>
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.13</version>
+            <version>1.5.16</version>
         </dependency>
     </dependencies>
 </project>
