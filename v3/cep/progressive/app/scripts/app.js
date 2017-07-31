@@ -13,12 +13,18 @@ var app = angular.module('app', [
     'ngMdIcons',
     'ui.gravatar',
     'Config'
-]).config(['$websocketProvider',
-    function ($websocketProvider) {
+]).config(['$websocketProvider', '$mdProgressCircularProvider',
+    function ($websocketProvider, $mdProgressCircularProvider) {
 
         $websocketProvider.$setup({
             reconnect: true,
             reconnectInterval: 7777
+        });
+
+        $mdProgressCircularProvider.configure({
+            progressSize: 100,
+            strokeWidth: 20,
+            duration: 800
         });
 
     }]);

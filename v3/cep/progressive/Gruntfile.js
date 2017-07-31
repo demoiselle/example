@@ -461,7 +461,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'development',
-                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
+                        apiEndpoint: 'http://localhost:8080/'
                     }
                 }
             },
@@ -472,7 +472,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: ''
+                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
                     }
                 }
             }
