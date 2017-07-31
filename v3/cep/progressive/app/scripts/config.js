@@ -1,5 +1,5 @@
 angular.module('Config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://localhost:8080/'})
+.constant('ENV', {name:'production',apiEndpoint:'https://cep-fwkdemoiselle.rhcloud.com/'})
 
 ;
