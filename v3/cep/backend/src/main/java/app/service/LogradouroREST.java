@@ -28,14 +28,14 @@ public class LogradouroREST {
 
     @GET
     @Asynchronous
-    @Path(value = "{nome}")
+    @Path(value = "{uf}/{nome}")
     @CacheControl(value = "max-age=36000, must-revalidate, public")
-    public void findLogradouro(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "nome") final String nome) {
-        asyncResponse.resume(doFindLogradouro(nome));
+    public void findLogradouro(@Suspended final AsyncResponse asyncResponse, @PathParam(value = "uf") final String uf, @PathParam(value = "nome") final String nome) {
+        asyncResponse.resume(doFindLogradouro(uf, nome));
     }
 
-    private Response doFindLogradouro(String nome) {
-        return Response.ok().entity(dao.getListaCidade(nome)).build();
+    private Response doFindLogradouro(String uf, String nome) {
+        return Response.ok().entity(dao.getListaLogradouro(uf, nome)).build();
     }
 
 }
