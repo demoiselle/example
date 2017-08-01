@@ -17,6 +17,10 @@ https://www.microsoft.com/pt-br/store/p/cep/9pchwwpc3phr?rtc=1
 # Docker
 
 docker pull demoiselleframework/cep
+
+docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
+
+
 ```bash
 Lista de UF
 http://localhost:8080/api/v1/ufs
