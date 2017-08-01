@@ -42,13 +42,16 @@ https://cep-fwkdemoiselle.rhcloud.com/api/v1/ufs
 
 Lista de Localidades por UF
 https://cep-fwkdemoiselle.rhcloud.com/api/v1/cidades/PR
+
+Lista de Logradouros por UF
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/logradouro/PR/Pioli
 ```
 
 # Exemplos de consulta (Usando componente CRUD)
 
  ```bash
  Filtro por Logradouros do Paraná (PR)
- https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cep=80520270
+ https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cep=80520170
   
  Filtro por Logradouros do Paraná (PR)
  https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?uf=PR
