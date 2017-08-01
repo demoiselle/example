@@ -75,7 +75,6 @@ module.exports = function (grunt) {
                 staticFileGlobs: [
                     '*.{ico,png,txt}',
                     '*.html',
-                    'fonts/*',
                     'scripts/{,*/}*',
                     'styles/{,*/}*'
                 ]
@@ -531,7 +530,7 @@ module.exports = function (grunt) {
         'usemin',
         'htmlmin',
         'manifest'
-                //'sw-precache:default'
+//        'sw-precache:default'
 
     ]);
 

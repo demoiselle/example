@@ -13,6 +13,7 @@ app.controller('CepController', ['$scope', 'CepService', '$mdSidenav',
         };
 
         $scope.buscarCep = function () {
+            $scope.enderecos = [];
             $scope.endereco = {};
             if ($scope.cep) {
                 CepService.getCep($scope.cep).then(
@@ -24,6 +25,7 @@ app.controller('CepController', ['$scope', 'CepService', '$mdSidenav',
         };
 
         $scope.buscarLogra = function () {
+            $scope.endereco = {};
             $scope.enderecos = [];
             if ($scope.uf && $scope.logradouro) {
                 CepService.getLogradouro($scope.uf, $scope.logradouro).then(
