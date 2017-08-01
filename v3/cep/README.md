@@ -25,7 +25,7 @@ docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 Lista de UF
 http://localhost:8080/api/v1/ufs
 http://localhost:8080/api/v1/cidades/PR
-http://localhost:8080/api/v1/ceps?cep=80520270
+http://localhost:8080/api/v1/ceps?cep=80520170
 ```
 
 # Api do servidor
