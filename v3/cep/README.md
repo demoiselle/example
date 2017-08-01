@@ -20,14 +20,6 @@ docker pull demoiselleframework/cep
 
 docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 
-
-```bash
-Lista de UF
-http://localhost:8080/api/v1/ufs
-http://localhost:8080/api/v1/cidades/PR
-http://localhost:8080/api/v1/ceps?cep=80520170
-```
-
 # Api do servidor
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
