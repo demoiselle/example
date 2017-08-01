@@ -17,12 +17,8 @@ https://www.microsoft.com/pt-br/store/p/cep/9pchwwpc3phr?rtc=1
 # Docker
 
 docker pull demoiselleframework/cep
-```bash
-Lista de UF
-http://localhost:8080/api/v1/ufs
-http://localhost:8080/api/v1/cidades/PR
-http://localhost:8080/api/v1/ceps?cep=80520270
-```
+
+docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 
 # Api do servidor
 
@@ -38,13 +34,16 @@ https://cep-fwkdemoiselle.rhcloud.com/api/v1/ufs
 
 Lista de Localidades por UF
 https://cep-fwkdemoiselle.rhcloud.com/api/v1/cidades/PR
+
+Lista de Logradouros por UF
+https://cep-fwkdemoiselle.rhcloud.com/api/v1/logradouro/PR/Pioli
 ```
 
 # Exemplos de consulta (Usando componente CRUD)
 
  ```bash
  Filtro por Logradouros do Paraná (PR)
- https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cep=80520270
+ https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?cep=80520170
   
  Filtro por Logradouros do Paraná (PR)
  https://cep-fwkdemoiselle.rhcloud.com/api/v1/ceps?uf=PR
