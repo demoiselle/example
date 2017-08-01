@@ -28,6 +28,8 @@ http://localhost:8080/api/v1/ceps?cep=80520270
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 
+https://cep-fwkdemoiselle.rhcloud.com/haproxy-status/ 
+
 # Exemplos de consulta (Restful padrão)
 
 ```bash
