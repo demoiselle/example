@@ -19,7 +19,7 @@ import org.demoiselle.jee.rest.annotation.CacheControl;
  * @author PauloGladson
  */
 @Api("Logradouro")
-@Path("v1/logradouro")
+@Path("v1/logradouros")
 @Produces(value = {MediaType.APPLICATION_JSON})
 public class LogradouroREST {
 
