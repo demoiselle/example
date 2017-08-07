@@ -5,12 +5,18 @@
     "name": "Demoiselle",
     "version": "1.0.0",
     "short_name": "CEP",
-    "start_url": "https://www.demoiselle.org/cep/",
+    "start_url": "/cep/index.html?utm_source=homescreen",
     "display": "standalone",
     "background_color": "#ffffff",
+    "gcm_sender_id": "286639952980",
     "theme_color": "#ffffff",
     "description": "Demoiselle Framework Exemplo - CEP",
     "offline_enabled": true,
+    "serviceworker": {
+        "src": "service-worker.js",
+        "scope": "/",
+        "use_cache": true
+    },
     "icons": [
         {
             "src": "images/android-icon-36x36.png",
@@ -50,6 +56,18 @@
         }
     ],
     "permissions": [
-        "notifications"
+        "gcm",
+        "storage",
+        "alarms",
+        "notifications",
+        "https://www.demoiselle.org/cep/",
+        "https://cep-fwkdemoiselle.rhcloud.com/",
+        {
+            "fileSystem": [
+                "write",
+                "retainEntries",
+                "directory"
+            ]
+        }
     ]
 }

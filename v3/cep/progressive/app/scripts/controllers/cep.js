@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CepController', ['$scope', 'CepService', '$mdSidenav',
-    function ($scope, CepService, $mdSidenav) {
+app.controller('CepController', ['$scope', 'CepService', '$mdSidenav', 'SWService', 
+    function ($scope, CepService, $mdSidenav, SWService) {
 
         $scope.endereco;
         $scope.uf;

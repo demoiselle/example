@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-angular-templates');
-
+//    grunt.loadNpmTasks('grunt-service-worker');
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
 
@@ -52,6 +52,15 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: ['Gruntfile.js']
             },
+//            service_worker: {
+//                options: {
+//                    baseDir: 'dist',
+//                    workerFile: '/service-worker.js',
+//                    staticFileGlobs: [
+//                        '**/*.{gif,jpg,png}'
+//                    ]
+//                }
+//            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
@@ -67,14 +76,17 @@ module.exports = function (grunt) {
         },
         'sw-precache': {
             options: {
-                cacheId: 'socrates-app',
+                cacheId: 'pgxp-app',
                 workerFileName: 'service-worker.js',
                 verbose: true,
+                importScripts: ['sw.js']
             },
+
             'default': {
                 staticFileGlobs: [
-                    '*.{ico,png,txt}',
-                    '*.html',
+                    '*.{ico,png,txt,html,json}',
+                    'images/{,*/}*.*',
+                    'fonts/{,*/}*',
                     'scripts/{,*/}*',
                     'styles/{,*/}*'
                 ]
@@ -160,9 +172,11 @@ module.exports = function (grunt) {
                     timestamp: true
                 },
                 src: [
+                    'images/{,*/}*.*',
+                    'fonts/{,*/}*.*',
                     'scripts/{,*/}*.*',
                     'styles/{,*/}*.*',
-                    'images/*.*'
+                    'layouts/{,*/}*.*'
                 ],
                 dest: '<%= yeoman.dist %>/manifest.appcache'
             }
@@ -225,8 +239,8 @@ module.exports = function (grunt) {
         filerev: {
             dist: {
                 src: [
-                    '<%= yeoman.dist %>/scripts/scripts.js'
-                            //'<%= yeoman.dist %>/styles/{,*/}*.css'
+                    '<%= yeoman.dist %>/scripts/{,*/}*.js',
+                    '<%= yeoman.dist %>/styles/{,*/}*.css'
                             //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                             //'<%= yeoman.dist %>/styles/fonts/*'
                 ]
@@ -360,15 +374,8 @@ module.exports = function (grunt) {
                             '*.xml',
                             '*.webapp',
                             'images/{,*/}*',
-                            'img/{,*/}*',
-                            'swagger/{,*/}*',
-                            'swagger/scripts/modules/{,*/}*',
                             'fonts/*',
-                            'WEB-INF/*',
-                            'META-INF/*',
-                            'styles/images/{,*/}*.png',
-                            'partials/{,*/}*.html',
-                            'layouts/*'
+                            'styles/{,*/}*'
                         ]
                     }, {
                         expand: true,
@@ -460,7 +467,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'development',
-                        apiEndpoint: 'http://localhost:8080/'
+                        apiEndpoint: 'http://localhost:8080/admin/'
                     }
                 }
             },
@@ -471,7 +478,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
+                        apiEndpoint: 'https://scaptcha.serpro/admin/'
                     }
                 }
             }
@@ -529,8 +536,8 @@ module.exports = function (grunt) {
         'filerev',
         'usemin',
         'htmlmin',
-        'manifest'
-//        'sw-precache:default'
+        'manifest',
+        'sw-precache:default'
 
     ]);
 
