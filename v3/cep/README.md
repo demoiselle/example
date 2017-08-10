@@ -77,6 +77,8 @@ git clone https://github.com/demoiselle/example.git --depth=1
 # Acessar a pasta "backend"
 cd example/v3/cep/backend
 
+# Descompactar a Base que está na pasta /data/ para /opt/db/
+
 # Fazer o build
 mvn clean package -Pwildfly-swarm
 
