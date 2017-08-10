@@ -467,7 +467,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'development',
-                        apiEndpoint: 'http://localhost:8080/admin/'
+                        apiEndpoint: 'http://localhost:8080/'
                     }
                 }
             },
@@ -478,7 +478,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'https://scaptcha.serpro/admin/'
+                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
                     }
                 }
             }
