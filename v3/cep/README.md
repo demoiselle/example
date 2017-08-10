@@ -77,6 +77,8 @@ git clone https://github.com/demoiselle/example.git --depth=1
 # Acessar a pasta "backend"
 cd example/v3/cep/backend
 
+# Descompactar a Base que está na pasta /data/ para /opt/db/
+
 # Fazer o build
 mvn clean package -Pwildfly-swarm
 
@@ -99,6 +101,9 @@ npm install -g bower grunt-cli
 
 # Acessar a pasta "progressive"
 cd example/v3/cep/progressive
+
+# Rodar os instaladores
+npm install && bower install
 
 # Inicia a aplicação 
 grunt serve
