@@ -102,6 +102,9 @@ npm install -g bower grunt-cli
 # Acessar a pasta "progressive"
 cd example/v3/cep/progressive
 
+# Rodar os instaladores
+npm install && bower install
+
 # Inicia a aplicação 
 grunt serve
 
