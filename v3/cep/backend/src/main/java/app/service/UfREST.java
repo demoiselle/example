@@ -27,7 +27,7 @@ public class UfREST {
 
     @GET
     @Asynchronous
-    @CacheControl(value = "max-age=3600, must-revalidate")
+    @CacheControl(value = "max-age=3600, must-revalidate, public")
     public void findCep(@Suspended final AsyncResponse asyncResponse) {
         asyncResponse.resume(doListaUF());
     }
