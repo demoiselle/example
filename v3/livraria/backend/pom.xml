@@ -93,7 +93,17 @@
             <version>5.1.0.Final</version>
             <scope>provided</scope>
         </dependency>
- 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-orm</artifactId>
+            <version>5.7.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-directory-provider</artifactId>
+            <version>8.2.4.Final</version>
+        </dependency>
+        
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>

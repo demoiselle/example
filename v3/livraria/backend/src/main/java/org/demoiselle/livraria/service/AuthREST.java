@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.ok;
 import org.demoiselle.jee.security.annotation.Authenticated;
 import org.demoiselle.livraria.security.UserRegister;
-import org.demoiselle.livraria.tenant.User;
+import org.demoiselle.livraria.entity.User;
 
 @Api("Auth")
 @Path("auth")

@@ -1,7 +1,7 @@
 package org.demoiselle.livraria.dao;
 
 import org.demoiselle.livraria.constants.Perfil;
-import org.demoiselle.livraria.tenant.User;
+import org.demoiselle.livraria.entity.User;
 import org.demoiselle.livraria.security.Credentials;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -26,8 +26,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
 import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
 import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 import org.demoiselle.livraria.security.UserRegister;
-import org.demoiselle.livraria.tenant.Livraria;
-import org.demoiselle.livraria.tenant.Mensagem;
+
 
 public class UserDAO extends AbstractDAO<User, String> {
 
@@ -41,12 +40,6 @@ public class UserDAO extends AbstractDAO<User, String> {
 
     @Inject
     private Token token;
-
-    @Inject
-    private LivrariaDAO livrariadao;
-
-    @Inject
-    private MensagemDAO mdao;
 
     @Inject
     private DemoiselleSecurityMessages bundle;
@@ -107,7 +100,7 @@ public class UserDAO extends AbstractDAO<User, String> {
         loggedUser.addRole(usu.getPerfil().getValue());
 
         loggedUser.addParam("email", usu.getEmail());
-        loggedUser.addParam("tenant", "tenant" + usu.getLivraria().getId().toString().toLowerCase().replace("-", ""));
+        
         securityContext.setUser(loggedUser);
 
         return token;
@@ -148,16 +141,9 @@ public class UserDAO extends AbstractDAO<User, String> {
                 throw new DemoiselleSecurityException("Usuário existe, utilize outro email", Status.PRECONDITION_FAILED.getStatusCode());
             }
 
-            if (livrariadao.nomeExists(entity.getLivraria())) {
-                throw new DemoiselleSecurityException("Livraria ja existe, escolha outro nome", Status.PRECONDITION_FAILED.getStatusCode());
-            }
-
-            Livraria livraria = new Livraria();
-            livraria.setDescription(entity.getLivraria());
-            livraria = livrariadao.persist(livraria);
+          
 
             User user = new User();
-            user.setLivraria(livraria);
             user.setFirstName(entity.getNome());
             user.setEmail(entity.getUsername());
             user.setPerfil(Perfil.ADMINISTRADOR);
@@ -169,14 +155,7 @@ public class UserDAO extends AbstractDAO<User, String> {
             loggedUser.addRole(user.getPerfil().getValue());
 
             loggedUser.addParam("email", user.getEmail());
-            loggedUser.addParam("tenant", "tenant" + livraria.getId().toString().toLowerCase().replace("-", ""));
-
-            Mensagem mem = new Mensagem();
-            mem.setAtivo(true);
-            mem.setComando("tenant" + livraria.getId().toString().toLowerCase().replace("-", ""));
-            mem.setTipo("DBADD");
-
-            mdao.persist(mem);
+           
 
             securityContext.setUser(loggedUser);
             return token;

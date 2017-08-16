@@ -6,8 +6,11 @@ import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,7 +32,30 @@ public class Livro implements Serializable {
     @NotNull
     @Size(min = 1, max = 128)
     @Column(nullable = false, length = 128)
+    private String titulo;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(nullable = false, length = 128)
     private String descricao;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(nullable = false, length = 128)
+    private String conteudo;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(nullable = false, length = 128)
+    private String url;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id")
+    private User usuario;
 
     public UUID getId() {
         return id;

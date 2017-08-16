@@ -1,6 +1,6 @@
 package org.demoiselle.livraria.service;
 
-import org.demoiselle.livraria.tenant.User;
+import org.demoiselle.livraria.entity.User;
 import io.swagger.annotations.Api;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;

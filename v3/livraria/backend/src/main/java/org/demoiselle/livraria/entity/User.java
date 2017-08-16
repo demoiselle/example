@@ -1,4 +1,4 @@
-package org.demoiselle.livraria.tenant;
+package org.demoiselle.livraria.entity;
 
 import org.demoiselle.livraria.constants.Perfil;
 import java.io.Serializable;
@@ -32,11 +32,6 @@ public class User implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(unique = true)
     private UUID id;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "livraria_id")
-    private Livraria livraria;
 
     @NotNull
     @Basic(optional = false)
@@ -94,14 +89,6 @@ public class User implements Serializable {
 
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
-    }
-
-    public Livraria getLivraria() {
-        return livraria;
-    }
-
-    public void setLivraria(Livraria livraria) {
-        this.livraria = livraria;
     }
 
     public void setId(UUID id) {
