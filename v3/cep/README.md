@@ -24,7 +24,6 @@ docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 
 https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API)
 
-https://cep-fwkdemoiselle.rhcloud.com/haproxy-status/ 
 
 # Exemplos de consulta (Restful padrão)
 
