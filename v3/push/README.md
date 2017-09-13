@@ -6,24 +6,24 @@ O Push server permite enviar mensagens para suas apps a partir de um servidor de
 Página para teste - https://www.websocket.org/echo.html
 coloque o endereço do websocket na página
 
-wss://push-fwkdemoiselle.rhcloud.com:8443/push/[Canal] - crie seu canal colocando um UUID ou qualquer string em [Canal]
+ws://push.demoiselle.estaleiro.serpro.gov.br/ws/push/[Canal] - crie seu canal colocando um UUID ou qualquer string em [Canal]
 
-Vá em https://push-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly 10.1.0 com WebSocket) 
+Vá em http://push.demoiselle.estaleiro.serpro.gov.br/ws/ (Servidor Wildfly 10.1.0 com WebSocket) 
 Encontre o Serviço Push e clique em POST
 
 Em body coloque o json
 {"event": "Nome da sua preferencia","recipient": "UUID do seu canal","message": "Mensagem a ser exibida"} 
 
 Se você preferir, pode enviar uma mensagens fazendo uma requisição POST para 
-https://push-fwkdemoiselle.rhcloud.com/api/push
+http://push.demoiselle.estaleiro.serpro.gov.br/ws/api/push
 
 Seu canal receberá a mensagem. 
 
 * Canal que envia data e hora a cada minuto
-* wss://push-fwkdemoiselle.rhcloud.com:8443/push/time
+* ws://push.demoiselle.estaleiro.serpro.gov.br/ws/push/time
 
 * Canal que envia uma mensagem a cada 3 minutos
-* wss://push-fwkdemoiselle.rhcloud.com:8443/push/echo
+* ws://push.demoiselle.estaleiro.serpro.gov.br/ws/push/echo
 
 ```bash
 # JS para escutar o websocket
