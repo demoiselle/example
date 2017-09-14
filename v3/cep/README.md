@@ -4,7 +4,7 @@ Aplicação "Consulta CEP" com Demoiselle v3.0.
 - **Auth**: (CRUD)
 - **Cep**: Open
 
-Verificação de segurança da api (https://schd.io/2sGy)
+Verificação de segurança da api (https://schd.io/4EoM)
 Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
 # Progessive Web
@@ -22,9 +22,7 @@ docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 
 # Api do servidor
 
-https://cep-fwkdemoiselle.rhcloud.com/ (Servidor Wildfly API) (Descontinuado)
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/
-
+http://cep.demoiselle.estaleiro.serpro.gov.br/app/ (Servidor Wildfly 10.1.0 API)
 
 # Exemplos de consulta (Restful padrão)
 
@@ -36,7 +34,7 @@ Lista de Localidades por UF
 http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/cidades/PR
 
 Lista de Logradouros por UF
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/logradouro/PR/Pioli
+http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/logradouros/PR/Pioli
 ```
 
 # Exemplos de consulta (Usando componente CRUD)
