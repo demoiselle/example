@@ -86,7 +86,6 @@ module.exports = function (grunt) {
                 staticFileGlobs: [
                     '*.{ico,png,txt,html,json}',
                     'images/{,*/}*.*',
-                    'fonts/{,*/}*',
                     'scripts/{,*/}*',
                     'styles/{,*/}*'
                 ]
@@ -172,11 +171,10 @@ module.exports = function (grunt) {
                     timestamp: true
                 },
                 src: [
+                    '*.{ico,png,txt,html,json}',
                     'images/{,*/}*.*',
-                    'fonts/{,*/}*.*',
-                    'scripts/{,*/}*.*',
-                    'styles/{,*/}*.*',
-                    'layouts/{,*/}*.*'
+                    'scripts/{,*/}*',
+                    'styles/{,*/}*'
                 ],
                 dest: '<%= yeoman.dist %>/manifest.appcache'
             }
@@ -478,7 +476,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'https://cep-fwkdemoiselle.rhcloud.com/'
+                        apiEndpoint: 'http://cep.demoiselle.estaleiro.serpro.gov.br/app/'
                     }
                 }
             }

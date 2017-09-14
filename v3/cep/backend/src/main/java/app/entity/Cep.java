@@ -6,6 +6,8 @@
 package app.entity;
 
 import java.io.Serializable;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -22,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gladson
  */
 @Entity
-@Table
+@Table(name = "cep")
 @Cacheable
 @XmlRootElement
 @NamedQueries({
@@ -37,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Cep implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOG = getLogger(Cep.class.getName());
     @Id
     @Basic(optional = false)
     @Column(nullable = false)
@@ -60,69 +63,136 @@ public class Cep implements Serializable {
     @Column(name = "bairro_fim", length = 128)
     private String bairroFim;
 
+    /**
+     *
+     */
     public Cep() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Cep(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLogradouro() {
         return logradouro;
     }
 
+    /**
+     *
+     * @param logradouro
+     */
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCep() {
         return cep;
     }
 
+    /**
+     *
+     * @param cep
+     */
     public void setCep(String cep) {
         this.cep = cep;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUf() {
         return uf;
     }
 
+    /**
+     *
+     * @param uf
+     */
     public void setUf(String uf) {
         this.uf = uf;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCidade() {
         return cidade;
     }
 
+    /**
+     *
+     * @param cidade
+     */
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBairroIni() {
         return bairroIni;
     }
 
+    /**
+     *
+     * @param bairroIni
+     */
     public void setBairroIni(String bairroIni) {
         this.bairroIni = bairroIni;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBairroFim() {
         return bairroFim;
     }
 
+    /**
+     *
+     * @param bairroFim
+     */
     public void setBairroFim(String bairroFim) {
         this.bairroFim = bairroFim;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,6 +200,11 @@ public class Cep implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -137,12 +212,13 @@ public class Cep implements Serializable {
             return false;
         }
         Cep other = (Cep) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "app.entity.Cep[ id=" + id + " ]";

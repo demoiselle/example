@@ -8,6 +8,8 @@ package app.bc;
 import app.dao.CepDAO;
 import app.entity.Cep;
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import org.demoiselle.jee.crud.AbstractBusiness;
 
 /**
@@ -16,6 +18,13 @@ import org.demoiselle.jee.crud.AbstractBusiness;
  */
 public class CepBC extends AbstractBusiness<Cep, Integer> {
 
+    private static final Logger LOG = getLogger(CepBC.class.getName());
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List getEndereco(String id) {
         return (((CepDAO) dao).getEndereco(id));
     }

@@ -5,7 +5,7 @@
     "name": "Demoiselle",
     "version": "1.0.0",
     "short_name": "CEP",
-    "start_url": "/cep/index.html?utm_source=homescreen",
+    "start_url": "/cep/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "gcm_sender_id": "286639952980",
@@ -61,7 +61,7 @@
         "alarms",
         "notifications",
         "https://www.demoiselle.org/cep/",
-        "https://cep-fwkdemoiselle.rhcloud.com/",
+        "http://cep.demoiselle.estaleiro.serpro.gov.br/app/",
         {
             "fileSystem": [
                 "write",

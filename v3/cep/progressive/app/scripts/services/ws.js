@@ -12,7 +12,7 @@ app.factory('WS', ['$rootScope', '$websocket', 'AUTH_EVENTS',
 
         if ('WebSocket' in window || 'MozWebSocket' in window) {
 
-            var wsUrl = 'wss://app.pgxp.com.br/apoio/push/Cep';
+            var wsUrl = 'wss://push.demoiselle.estaleiro.serpro.gov.br/ws/push/Cep';
 
             var ws = $websocket.$new({
                 url: wsUrl,
