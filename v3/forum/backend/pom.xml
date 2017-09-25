@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.demoiselle.jee</groupId>
         <artifactId>demoiselle-parent-rest</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.1</version>
     </parent>
 
     <build>
@@ -69,7 +69,7 @@
         </plugins>
     </build>
     <dependencies>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.1.0.Final</version>
@@ -93,7 +93,7 @@
             <version>5.1.0.Final</version>
             <scope>provided</scope>
         </dependency>-->
-         <dependency>
+        <dependency>
             <groupId>org.hibernate.ogm</groupId>
             <artifactId>hibernate-ogm-mongodb</artifactId>
             <version>5.1.0.Final</version>
@@ -106,7 +106,7 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
-            <!--<version>1.5.10</version>--> 
+            <version>1.5.16</version> 
             <!--descomentar a versão em desenv e comentar para producação-->
         </dependency>
         

@@ -1,5 +1,6 @@
 package org.demoiselle.forum.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -7,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,17 +27,15 @@ public class Topico implements Serializable {
     @Column(unique = true)
     private String id;
 
-    @Column(name = "categoria_id")
-    private String categoriaId;
+    @ManyToOne
+    @JoinColumn(columnDefinition = "categoria_id")
+    private Categoria categoria;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(nullable = false, length = 128)
     private String description;
-
-    @Basic(optional = false)
-    @NotNull
 
     public String getId() {
         return id;
@@ -52,12 +53,12 @@ public class Topico implements Serializable {
         this.description = description;
     }
 
-    public String getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaId(String categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

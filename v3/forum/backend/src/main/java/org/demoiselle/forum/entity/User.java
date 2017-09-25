@@ -1,5 +1,6 @@
 package org.demoiselle.forum.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.demoiselle.forum.constants.Perfil;
 import java.io.Serializable;
 import java.util.Objects;
@@ -52,6 +53,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Size(min = 8, max = 128)
     @Column(length = 128)
+    @JsonIgnore
     private String pass;
 
     @Column
