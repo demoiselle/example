@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.demoiselle.jee.crud.AbstractDAO;
@@ -13,6 +14,7 @@ import org.demoiselle.jee.crud.AbstractDAO;
  *
  * @author PauloGladson
  */
+@Asynchronous
 public class CepDAO extends AbstractDAO<Cep, Integer> {
 
     private static final Logger LOG = getLogger(CepDAO.class.getName());
@@ -25,7 +27,6 @@ public class CepDAO extends AbstractDAO<Cep, Integer> {
      * @return
      */
     @Override
-    @Asynchronous
     protected EntityManager getEntityManager() {
         return em;
     }

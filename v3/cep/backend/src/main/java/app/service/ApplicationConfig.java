@@ -21,7 +21,7 @@ public class ApplicationConfig extends Application {
     public ApplicationConfig() {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.0");
-        beanConfig.setBasePath("/app/api");
+        beanConfig.setBasePath("/dados/api");
         beanConfig.setResourcePackage("app.service");
         beanConfig.setContact("https://github.com/demoiselle");
         beanConfig.setDescription("Sistema de exemplo do Demoiselle v3 - CEP https://github.com/demoiselle/example ");
