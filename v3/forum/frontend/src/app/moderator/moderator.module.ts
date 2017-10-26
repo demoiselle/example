@@ -1,27 +1,26 @@
 import { NgModule } from '@angular/core';
 
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ModeratorRoutingModule } from './moderator-routing.module';
 import { SharedModule } from '../shared';
 
 import { ModeratorService } from './moderator.service';
 import { ModeratorComponent } from './moderator.component';
 import { ModeratorEditComponent } from './moderator-edit.component';
+import { ModeratorResolver } from './moderator.resolver';
 
 @NgModule({
     imports: [
         SharedModule,
-        ModeratorRoutingModule,
-        ConfirmationPopoverModule.forRoot({
-            confirmText: 'Sim',
-            cancelText: 'Não',
-            appendToBody: true
-        })
+        ModeratorRoutingModule
     ],
     declarations: [
-        ModeratorComponent, ModeratorEditComponent
+        ModeratorComponent,
+        ModeratorEditComponent
     ],
-    providers: [ModeratorService],
+    providers: [
+        ModeratorService,
+        ModeratorResolver
+    ],
     exports: []
 })
 export class ModeratorModule { }

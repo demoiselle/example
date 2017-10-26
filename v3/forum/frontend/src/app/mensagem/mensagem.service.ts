@@ -10,10 +10,14 @@ export class MensagemService {
   constructor(private http: Http) {
   }
 
-  list(currentPage: number, itemsPerPage: number) {
+  list(currentPage: number, itemsPerPage: number, filter: string, field: string = null, desc: boolean = false) {
     let start = (currentPage*itemsPerPage) - (itemsPerPage);
     let end = (currentPage*itemsPerPage) - 1;
-    return this.http.get('~main/mensagems?range='+start+'-'+end)
+    let orderQuery = '';
+    if (field) {
+      orderQuery = '&sort='+field+(desc?'&desc':'');
+    }
+    return this.http.get('~main/mensagems?range='+start+'-'+end+filter+orderQuery)
       .map(res => res);
   }
 

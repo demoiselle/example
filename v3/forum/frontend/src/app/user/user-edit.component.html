@@ -1,32 +1,49 @@
-<form class="form-horizontal" role="form" #userForm="ngForm" (ngSubmit)="save(user)">
 
-  <div class="form-group">
-    <label for="userId" class="control-label col-sm-2">ID</label>
-    <div class="col-xs-4">
-      <input type="text" id="userId" class="form-control"
-        name="userId" [(ngModel)]="user.id"
-        disabled="true">
+<!-- Conteúdo da página -->
+<article>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+          <strong>{{funcao}} User</strong>
+      </div>
+      <div class="card-body">
+      
+      <div class="panel-body" style="min-height: 300px;">
+
+      <form class="col-xs-6" role="form" #userForm="ngForm" (ngSubmit)="save(user)">
+
+        <div class="form-group">
+          <label for="userId" class="control-label">ID</label>
+          <input type="text" id="userId" class="form-control"
+            name="userId" [(ngModel)]="user.id"
+            disabled="true">
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="control-label">Descrição</label>
+          <input type="text" id="description" class="form-control"
+            name="description" [(ngModel)]="user.description"
+            required>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default" (click)="goBack()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Salvar
+            </button>
+          </div>
+        </div>
+
+      </form>
+      </div>
+
+      </div>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="description" class="control-label col-sm-2">Descrição</label>
-    <div class="col-xs-4">
-      <input type="text" id="description" class="form-control"
-        name="description" [(ngModel)]="user.description"
-        required>
-      </div>
-  </div>
-
-  <div class="col-sm-offset-2">
-    <button type="submit" class="btn btn-sm btn-success">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      <span>Salvar</span>
-    </button>
-    <button type="button" class="btn btn-sm btn-danger" (click)="goBack()">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-      <span>Cancelar</span>
-    </button>
-  </div>
-
-</form>
+</article>

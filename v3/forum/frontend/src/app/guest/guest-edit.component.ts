@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { LoginService } from '../login/login.service';
 import { GuestService } from './guest.service';
 import { Guest } from './guest.model';
 
 @Component({
-  selector: 'my-guest-edit',
+  selector: 'app-guest-edit',
   templateUrl: './guest-edit.component.html'
 })
 export class GuestEditComponent implements OnInit {
-  guest: Guest = new Guest();
-  id: number;
-  guestLoaded: boolean = false;
+  guest: Guest;
+  
+  private funcao = 'Criar';
 
   private routeSubscribe: any;
 
@@ -21,31 +20,19 @@ export class GuestEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: GuestService,
-    private loginService: LoginService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (Object.keys(params).length > 0) {
-        this.guest.id = (<Guest> params).id;
-        this.guest.description = (<Guest> params).description;
-      }
-    });
+    if (this.route.snapshot.data['guest']) {
+      this.guest = this.route.snapshot.data['guest'];
+      this.funcao = 'Editar';
+    } else {
+      this.funcao = 'Criar';
+      this.guest = new Guest();
+    }
   }
 
-  loadGuest() {
-    this.service.get(this.id)
-      .subscribe(
-      (Guest: Guest) => {
-        this.guest = Guest;
-        this.guestLoaded = true;
-      },
-      error => {
-        this.notificationService.error('Erro ao carregar item!');
-      }
-      );
-  }
 
   save(guest:Guest) {
     if (!guest.id) {
@@ -72,6 +59,21 @@ export class GuestEditComponent implements OnInit {
     }
   }
   
+  dalete(guest:Guest) {
+    if (guest.id) {
+      this.service.delete(guest).subscribe(
+        (result) => {
+          this.notificationService.success('Item removido com sucesso!');
+          this.goBack();
+        },
+        (error) => {
+          this.notificationService.error('Não foi possível deletar o Item!');
+        }
+      );
+
+    }
+  }
+
   goBack() {
     this.router.navigate(['guest']);
   }

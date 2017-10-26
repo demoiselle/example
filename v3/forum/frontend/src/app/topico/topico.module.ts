@@ -1,27 +1,26 @@
 import { NgModule } from '@angular/core';
 
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { TopicoRoutingModule } from './topico-routing.module';
 import { SharedModule } from '../shared';
 
 import { TopicoService } from './topico.service';
 import { TopicoComponent } from './topico.component';
 import { TopicoEditComponent } from './topico-edit.component';
+import { TopicoResolver } from './topico.resolver';
 
 @NgModule({
     imports: [
         SharedModule,
-        TopicoRoutingModule,
-        ConfirmationPopoverModule.forRoot({
-            confirmText: 'Sim',
-            cancelText: 'Não',
-            appendToBody: true
-        })
+        TopicoRoutingModule
     ],
     declarations: [
-        TopicoComponent, TopicoEditComponent
+        TopicoComponent,
+        TopicoEditComponent
     ],
-    providers: [TopicoService],
+    providers: [
+        TopicoService,
+        TopicoResolver
+    ],
     exports: []
 })
 export class TopicoModule { }

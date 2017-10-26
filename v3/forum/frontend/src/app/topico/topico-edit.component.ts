@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { LoginService } from '../login/login.service';
 import { TopicoService } from './topico.service';
 import { Topico } from './topico.model';
 
 @Component({
-  selector: 'my-topico-edit',
+  selector: 'app-topico-edit',
   templateUrl: './topico-edit.component.html'
 })
 export class TopicoEditComponent implements OnInit {
-  topico: Topico = new Topico();
-  id: number;
-  topicoLoaded: boolean = false;
+  topico: Topico;
+  
+  private funcao = 'Criar';
 
   private routeSubscribe: any;
 
@@ -21,31 +20,19 @@ export class TopicoEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: TopicoService,
-    private loginService: LoginService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (Object.keys(params).length > 0) {
-        this.topico.id = (<Topico> params).id;
-        this.topico.description = (<Topico> params).description;
-      }
-    });
+    if (this.route.snapshot.data['topico']) {
+      this.topico = this.route.snapshot.data['topico'];
+      this.funcao = 'Editar';
+    } else {
+      this.funcao = 'Criar';
+      this.topico = new Topico();
+    }
   }
 
-  loadTopico() {
-    this.service.get(this.id)
-      .subscribe(
-      (Topico: Topico) => {
-        this.topico = Topico;
-        this.topicoLoaded = true;
-      },
-      error => {
-        this.notificationService.error('Erro ao carregar item!');
-      }
-      );
-  }
 
   save(topico:Topico) {
     if (!topico.id) {
@@ -72,6 +59,21 @@ export class TopicoEditComponent implements OnInit {
     }
   }
   
+  dalete(topico:Topico) {
+    if (topico.id) {
+      this.service.delete(topico).subscribe(
+        (result) => {
+          this.notificationService.success('Item removido com sucesso!');
+          this.goBack();
+        },
+        (error) => {
+          this.notificationService.error('Não foi possível deletar o Item!');
+        }
+      );
+
+    }
+  }
+
   goBack() {
     this.router.navigate(['topico']);
   }

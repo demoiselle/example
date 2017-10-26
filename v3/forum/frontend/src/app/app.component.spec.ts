@@ -1,22 +1,27 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { provideRoutes } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { SidebarMenuComponent } from './shared/sidebar-menu/sidebar-menu.component';
-import { TopNavComponent } from './shared/top-nav/top-nav.component';
+import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-
-describe('MyApp Unit Test', () => {
-  // provide our implementations or mocks to the dependency injector
-  beforeEach(() => {
+describe('AppComponent', () => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent, SidebarMenuComponent, TopNavComponent],
-      providers: [provideRoutes([])]
-    });
-  });
-
-  it('should write your unit test here', () => {
-    expect(true).toBe(false);
-  });
+      declarations: [
+        AppComponent
+      ],
+    }).compileComponents();
+  }));
+  it('should create the app', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
+  it(`should have as title 'app'`, async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('app');
+  }));
+  it('should render title in a h1 tag', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+  }));
 });

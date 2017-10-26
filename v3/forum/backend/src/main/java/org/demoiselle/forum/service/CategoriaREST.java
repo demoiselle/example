@@ -11,7 +11,6 @@ import org.demoiselle.jee.crud.Search;
 
 @Api("v1/Categorias")
 @Path("v1/categorias")
-//@Authenticated
 public class CategoriaREST extends AbstractREST< Categoria, String> {
 
     @GET

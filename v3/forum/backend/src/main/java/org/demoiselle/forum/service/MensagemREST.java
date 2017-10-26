@@ -12,7 +12,6 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 
 @Api("v1/Mensagems")
 @Path("v1/mensagems")
-//@Authenticated
 public class MensagemREST extends AbstractREST< Mensagem, String> {
 
     @GET

@@ -12,7 +12,6 @@ import org.demoiselle.jee.crud.Search;
 
 @Api("v1/Topicos")
 @Path("v1/topicos")
-//@Authenticated
 public class TopicoREST extends AbstractREST< Topico, String> {
 
     @GET

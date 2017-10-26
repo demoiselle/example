@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap';
 
 import { NotificationService } from '../shared';
 import { TopicoService } from './topico.service';
 import { Topico } from './topico.model';
 
 @Component({
-  selector: 'my-topico',
+  selector: 'app-topico',
   templateUrl: './topico.component.html',
   styleUrls: ['./topico.component.scss']
 
@@ -15,11 +15,25 @@ export class TopicoComponent implements OnInit {
   topico: Topico;
   topicos: Topico[];
 
-  @ViewChild('staticModal') public staticModal: ModalDirective;
+  @ViewChild('staticModalDelete') public staticModalDelete: ModalDirective;
 
+  // Pagination
   public itemsPerPage: number = 10;
   public totalItems: number = 0;
-  public currentPage: number = 1;
+
+  // Filter
+  public ascValue = '⇧';
+  public descValue = '⇩';
+  public formOrder = {
+    id: '',
+    description: ''
+  };
+
+  public filterActive = true;
+  public filters = {
+    id: '',
+    description: ''
+  };
 
   constructor(private service: TopicoService, private notificationService: NotificationService) {
   }
@@ -28,18 +42,11 @@ export class TopicoComponent implements OnInit {
     this.list();
   }
 
-  showModalDetails(topico: Topico) {
-    this.topico = topico;
-    this.staticModal.show();
-  }
+  
 
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.list();
-  }
-
-  list() {
-    this.service.list(this.currentPage, this.itemsPerPage).subscribe(
+  list(field: string = null, desc: boolean = false) {
+    let filter = this.processFilter();
+    this.service.list(/*this.pagination.currentPage*/ 1, this.itemsPerPage, filter, field, desc).subscribe(
       (result) => {
         try {
           this.topicos = result.json();
@@ -60,27 +67,74 @@ export class TopicoComponent implements OnInit {
     );
   }
 
-  edit(topico:Topico) {
-    this.service.update(topico).subscribe(
-      (result) => {
-        this.notificationService.success('Item atualizado com sucesso!');
-      },
-      (error) => {
-        this.notificationService.error('Não foi possível salvar!');
-      }
-    );
-  }
-
   delete(topico: Topico) {
     this.service.delete(topico).subscribe(
       (result) => {
         this.topico = null;
-        this.staticModal.hide();
+        this.staticModalDelete.hide();
+        this.notificationService.success("Topico removido com sucesso!");
         this.list();
       },
       (error) => {
         this.notificationService.error('Não foi possível remover!');
       }
     );
+  }
+
+  showModalDelete(topico: Topico) {
+    this.topico = topico;
+    this.staticModalDelete.show();
+  }
+
+  hideStaticModals() {
+    this.staticModalDelete.hide();
+  }
+
+  // Pagination
+  onPageChange(currentPage) {
+    this.list();
+  }
+
+  onPageItemsChange(itemsPerPage) {
+    this.itemsPerPage = itemsPerPage;
+  }
+
+   // Filter
+  processFilter() {
+    let filter = '';
+    if (this.filters.id !== '') {
+      filter += '&id=' + this.filters.id;
+    }
+    if (this.filters.description !== '') {
+      filter += '&description=' + this.filters.description;
+    }
+    return filter;
+  }
+
+  
+  orderBy(field, order) {
+    this.toggleFormOrder(field);
+    this.list(field, this.formOrder[field] === this.descValue ? true : false);
+  }
+
+  toggleFormOrder(field) {
+    if (this.formOrder[field] === '') {
+      this.formOrder[field] = this.ascValue;
+    } else if (this.formOrder[field] === this.ascValue) {
+      this.formOrder[field] = this.descValue;
+    } else if (this.formOrder[field] === this.descValue) {
+      this.formOrder[field] = this.ascValue;
+    }
+    for (let key in this.formOrder) {
+      if (key !== field) {
+        this.formOrder[key] = '';
+      }
+    }
+  }
+
+  clearFormOrder() {
+    for (let key in this.formOrder) {
+      this.formOrder[key] = '';
+    }
   }
 }

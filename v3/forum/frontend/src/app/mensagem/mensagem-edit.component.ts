@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { LoginService } from '../login/login.service';
 import { MensagemService } from './mensagem.service';
 import { Mensagem } from './mensagem.model';
 
 @Component({
-  selector: 'my-mensagem-edit',
+  selector: 'app-mensagem-edit',
   templateUrl: './mensagem-edit.component.html'
 })
 export class MensagemEditComponent implements OnInit {
-  mensagem: Mensagem = new Mensagem();
-  id: number;
-  mensagemLoaded: boolean = false;
+  mensagem: Mensagem;
+  
+  private funcao = 'Criar';
 
   private routeSubscribe: any;
 
@@ -21,31 +20,19 @@ export class MensagemEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: MensagemService,
-    private loginService: LoginService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (Object.keys(params).length > 0) {
-        this.mensagem.id = (<Mensagem> params).id;
-        this.mensagem.description = (<Mensagem> params).description;
-      }
-    });
+    if (this.route.snapshot.data['mensagem']) {
+      this.mensagem = this.route.snapshot.data['mensagem'];
+      this.funcao = 'Editar';
+    } else {
+      this.funcao = 'Criar';
+      this.mensagem = new Mensagem();
+    }
   }
 
-  loadMensagem() {
-    this.service.get(this.id)
-      .subscribe(
-      (Mensagem: Mensagem) => {
-        this.mensagem = Mensagem;
-        this.mensagemLoaded = true;
-      },
-      error => {
-        this.notificationService.error('Erro ao carregar item!');
-      }
-      );
-  }
 
   save(mensagem:Mensagem) {
     if (!mensagem.id) {
@@ -72,6 +59,21 @@ export class MensagemEditComponent implements OnInit {
     }
   }
   
+  dalete(mensagem:Mensagem) {
+    if (mensagem.id) {
+      this.service.delete(mensagem).subscribe(
+        (result) => {
+          this.notificationService.success('Item removido com sucesso!');
+          this.goBack();
+        },
+        (error) => {
+          this.notificationService.error('Não foi possível deletar o Item!');
+        }
+      );
+
+    }
+  }
+
   goBack() {
     this.router.navigate(['mensagem']);
   }

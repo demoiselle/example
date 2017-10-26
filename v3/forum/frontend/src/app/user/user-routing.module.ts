@@ -1,30 +1,34 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@demoiselle/security';
 import { UserComponent } from './user.component';
 import { UserEditComponent } from './user-edit.component';
+import { UserResolver } from './user.resolver';
+
+const routes: Routes = [
+    {
+        path: '',
+        canActivate: [AuthGuard],
+        component: UserComponent
+    },
+    {
+        path: 'edit/:id',
+        canActivate: [AuthGuard],
+        component: UserEditComponent,
+        resolve: {
+            user: UserResolver
+        }
+    },
+    {
+        path: 'edit',
+        component: UserEditComponent
+    }
+];
 
 @NgModule({
     imports: [
-        RouterModule.forChild([
-            {
-                path: 'user',
-                data: ['User'],
-                // canActivate: [AuthGuard],
-                component: UserComponent
-            },
-            {
-                path: 'user/edit/:id',
-                // canActivate: [AuthGuard],
-                component: UserEditComponent
-            },
-            {
-                path: 'user/edit',
-                // canActivate: [AuthGuard],
-                component: UserEditComponent
-            }
-        ])
+        RouterModule.forChild(routes)
     ],
     exports: [RouterModule]
 })

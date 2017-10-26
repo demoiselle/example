@@ -1,97 +1,107 @@
-<article class="page moderators">
 
-  <div class="content-header">
-    <h2>Moderators</h2>
-    <p class="description" [innerHTML]="titleDoc"></p>
-  </div>
+<!-- Conteúdo da página -->
+<article>
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-body" style="min-height: 200px;">
+   
 
-  <div id="content" class="content-box">
-    <div id="example" class="section">
-      <button [routerLink]="['/moderator','edit']" class="btn btn-sm btn-success">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span>Novo(a) moderator</span>
-      </button>
+      <div class="sd form clearfix">
+        <div class="pull-left">
+        </div>
+        <div class="pull-right">
+        </div>
+      </div>
 
-      <table class="table table-hover">
+      <!-- Grid -->
+      
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Moderators
+          <div class="pull-right">
+            <button [routerLink]="['/moderator','edit']" type="button" class="btn btn-success btn-sm">
+              <i class="fa fa-plus-circle"></i>&nbsp; Adicionar
+            </button>
+          </div>
+        </div>
+      <div class="card-body">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>Descrição</th>
-            <th>Ações</th>
+            <th>
+              ID
+            </th>
+            <th>
+              <button class="th-button text-left" style="width:100%" (click)="orderBy('description', formOrder.description)">
+                <b>Descrição {{formOrder.description}}</b>
+              </button>
+            </th>
+            <th>
+              Ações
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let moderator of moderators">
+            <td>{{moderator.id}}</td>
             <td>{{moderator.description}}</td>
-            <td>
-              <button class="btn btn-primary btn-xs" (click)="showModalDetails(moderator)">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i>
-                  <span>Detalhes</span>
-              </button>
-              <a class="btn btn-primary btn-xs" [routerLink]="['/moderator','edit', moderator]">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                <span>Editar</span>
-              </a>
-              <button mwlConfirmationPopover title="Confirmação" message="Deseja realmente remover o item <b>{{moderator.name}}</b>?" class="btn btn-danger btn-xs" placement="left" (confirm)="delete(moderator)">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                <span>Remover</span>
+            <td class="text-right">
+              <a [routerLink]="['/moderator','view', moderator.id]" class="btn btn-link btn-sm">Ver</a>
+              <a [routerLink]="['/moderator','edit', moderator.id]" class="btn btn-link btn-sm">Editar</a>
+              <button class="btn btn-danger btn-sm" (click)="showModalDelete(moderator)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <span class="sr-only">Apagar</span>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <pagination *ngIf="totalItems!=0" [maxSize]="5" [rotate]="false" [boundaryLinks]="true"
-        [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
-        class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;"
-        firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)">
-      </pagination>
-
-      <!-- modal definitions -->
-      <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" aria-label="Close" (click)="staticModal.hide()">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title">Detalhes do item</h4>
-            </div>
-            <div class="modal-body" *ngIf="moderator">
-            <form class="form-horizontal" role="form" #moderatorForm="ngForm" (ngSubmit)="save(moderator)">
-
-              <div class="form-group">
-                <label for="moderatorId" class="control-label col-sm-2">ID</label>
-                <div class="col-xs-6">
-                  <input type="text" id="moderatorId" class="form-control"
-                    name="moderatorId" [(ngModel)]="moderator.id"
-                    disabled="true">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="description" class="control-label col-sm-2">Pirmeiro Nome</label>
-                <div class="col-xs-6">
-                  <input type="text" id="description" class="form-control"
-                    name="description" [(ngModel)]="moderator.description"
-                    disabled="true">
-                  </div>
-              </div>
-
-              <div class="col-sm-offset-2">
-                <button type="button" class="btn btn-sm btn-default" (click)="staticModal.hide()">
-                  <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-                  <span>Voltar</span>
-                </button>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
       </div>
+      </div>
+      
 
-      <div class="item">
-        <ng-content></ng-content>
       </div>
     </div>
   </div>
 </article>
+
+<!-- Janela Modal -->
+<div class="modal fade" bsModal #staticModalDelete="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="appSmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body text-center">
+          <span class="fa-stack fa-2x">
+          <span class="fa fa-circle fa-stack-2x text-default"></span>
+          <span class="fa fa-exclamation-triangle fa-stack-1x text-warning"></span>
+          </span>
+          <br>
+          <br>
+          <p id="modal-label">Deseja realmente excluir este item?</p>
+          <div class="modal-body" *ngIf="moderator">
+            <form class="form-horizontal" role="form" #moderatorForm="ngForm">
+              <div class="form-group">
+                <label for="description" class="control-label col-sm-3">Descrição</label>
+                <div class="col-xs-8">
+                  <input type="text" id="description" class="form-control" name="description"
+                         [(ngModel)]="moderator.description" disabled="true">
+                </div>
+              </div>
+              
+              <button type="button" class="btn btn-default icon right" (click)="hideStaticModals()">
+              <span class="fa fa-times" aria-hidden="true"></span>
+              Não
+              </button>
+              <button type="submit" class="btn btn-danger icon right" (click)="delete(moderator)">
+              <span class="fa fa-check" aria-hidden="true"></span>
+              Sim
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
