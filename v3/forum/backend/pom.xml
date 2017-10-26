@@ -69,7 +69,7 @@
         </plugins>
     </build>
     <dependencies>
-        <!--        <dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.1.0.Final</version>
@@ -90,59 +90,43 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.0.Final</version>
             <scope>provided</scope>
-        </dependency>-->
-        <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-mongodb</artifactId>
-            <version>5.1.0.Final</version>
         </dependency>
+ 
         <dependency>
-            <groupId>org.hibernate.ogm</groupId>
-            <artifactId>hibernate-ogm-core</artifactId>
-            <version>5.1.0.Final</version>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+            <scope>provided</scope>
         </dependency>
+        
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
             <version>1.5.16</version> 
             <!--descomentar a versão em desenv e comentar para producação-->
         </dependency>
-        
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
-            <type>jar</type>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>5.2.10.Final</version>
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
+    <!--    <profiles>
+        <profile>
+            <id>wildfly-swarm</id>
+            <dependencies>
+                 WildFly Default Swarm Fractions 
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId></artifactId>
+                    <version>2016.11.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>-->
 
-        <repository>
-            <id>sonatype-nexus-releases</id>
-            <name>Sonatype Nexus Releases</name>
-            <url>https://oss.sonatype.org/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
 </project>
 
 <!-- sudo usermod -aG docker $(whoami)-->
