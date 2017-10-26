@@ -16,6 +16,8 @@ https://www.microsoft.com/pt-br/store/p/cep/9pchwwpc3phr?rtc=1
 
 # Docker
 
+https://hub.docker.com/r/demoiselleframework/cep/
+
 docker pull demoiselleframework/cep
 
 docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
