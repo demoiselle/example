@@ -22,71 +22,93 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
-
+		
+                        {
+                          path: 'topico',
+                          loadChildren: './topico/topico.module#TopicoModule',
+                          data: {
+                            title: 'Topico',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
+		
+                        {
+                          path: 'moderator',
+                          loadChildren: './moderator/moderator.module#ModeratorModule',
+                          data: {
+                            title: 'Moderator',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
+		
+                        {
+                          path: 'mensagem',
+                          loadChildren: './mensagem/mensagem.module#MensagemModule',
+                          data: {
+                            title: 'Mensagem',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
+		
+                        {
+                          path: 'guest',
+                          loadChildren: './guest/guest.module#GuestModule',
+                          data: {
+                            title: 'Guest',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
+		
+                        {
+                          path: 'categoria',
+                          loadChildren: './categoria/categoria.module#CategoriaModule',
+                          data: {
+                            title: 'Categoria',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
       {
-        path: 'topico',
-        loadChildren: './topico/topico.module#TopicoModule',
+        path: 'dashboard',
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
         data: {
-          title: 'Topico',
+          title: 'Dashboard',
           showInSidebar: true,
-          icon: 'icon-diamond'
-        }
+          icon: 'icon-speedometer'
+        },
       },
-
-
-      {
-        path: 'moderator',
-        loadChildren: './moderator/moderator.module#ModeratorModule',
-        data: {
-          title: 'Moderator',
-          showInSidebar: true,
-          icon: 'icon-diamond'
-        }
-      },
-
-
-      {
-        path: 'mensagem',
-        loadChildren: './mensagem/mensagem.module#MensagemModule',
-        data: {
-          title: 'Mensagem',
-          showInSidebar: true,
-          icon: 'icon-diamond'
-        }
-      },
-
-
-      {
-        path: 'guest',
-        loadChildren: './guest/guest.module#GuestModule',
-        data: {
-          title: 'Guest',
-          showInSidebar: true,
-          icon: 'icon-diamond'
-        }
-      },
-
-
-      {
-        path: 'categoria',
-        loadChildren: './categoria/categoria.module#CategoriaModule',
-        data: {
-          title: 'Categoria',
-          showInSidebar: true,
-          icon: 'icon-diamond'
-        }
-      },
-
-
       {
         path: 'user',
         loadChildren: './user/user.module#UserModule',
         data: {
-          title: 'User',
+          title: 'Usuários',
           showInSidebar: true,
-          icon: 'icon-diamond'
-        }
-      },
+          icon: 'icon-user'
+        },
+      }
+      
+    ]
+  },
+  {
+    path: '',
+    component: SimpleLayout,
+    data: {
+      title: 'Pages'
+    },
+    children: [
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule',
+      }
     ]
   }
 ];

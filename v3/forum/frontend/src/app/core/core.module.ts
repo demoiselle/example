@@ -25,28 +25,28 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // BEGIN Demoiselle Http and Security configs and factories
 const httpConfig = {
-  endpoints: {
-    main: 'http://localhost:8080/app/api/v1/'
-  },
-  multitenancy: null,
-  unAuthorizedRoute: '/login',
-  tokenKey: 'id_token'
-};
+          endpoints: {
+            main: 'http://localhost:8080/app/api/v1/' 
+          },
+          multitenancy: null,
+          unAuthorizedRoute: '/login',
+          tokenKey: 'id_token'
+        };
 const authConfig = {
-  authEndpointUrl: 'http://localhost:8080/app/api/', // may be in the form 'http://localhost:9090/app/api/v1/'
-  loginResourcePath: 'auth',
-  tokenKey: 'id_token',
-  loginRoute: '/login'
-};
+          authEndpointUrl: 'http://localhost:8080/app/api/', // may be in the form 'http://localhost:9090/app/api/v1/'
+          loginResourcePath: 'auth',
+          tokenKey: 'id_token',
+          loginRoute: '/login'
+        };
 
-export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, router: Router, exceptionService: ExceptionService) {
-  return new HttpService(backend, defaultOptions, router, exceptionService, httpConfig);
-}
+ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, router: Router, exceptionService: ExceptionService) {
+   return new HttpService(backend, defaultOptions, router, exceptionService, httpConfig);
+ }
 
-export function authFactory(http: Http, router: Router) {
-  return new AuthService(http, router, authConfig);
-}
-// END Demoiselle Http and Security configs and factories
+ export function authFactory(http: Http, router: Router) {
+   return new AuthService(http, router, authConfig);
+ }
+ // END Demoiselle Http and Security configs and factories
 
 
 // Toastr Custom configs (defined at forRoot() providers below)
@@ -118,7 +118,7 @@ const APP_DIRECTIVES = [
     SecurityModule,
     BsDropdownModule.forRoot(),
     ToastModule.forRoot()
-
+    
   ],
   declarations: [
     ...APP_CONTAINERS,
@@ -136,10 +136,10 @@ export class CoreModule {
       providers: [
         // put here your global or singleton services to be available for all modules
         {
-          provide: Http,
-          useFactory: httpFactory,
-          deps: [XHRBackend, RequestOptions, Router, ExceptionService]
-        },
+           provide: Http,
+           useFactory: httpFactory,
+           deps: [XHRBackend, RequestOptions, Router, ExceptionService]
+         },
         {
           provide: AuthService,
           useFactory: authFactory,

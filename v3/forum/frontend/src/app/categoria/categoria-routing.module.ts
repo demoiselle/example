@@ -18,8 +18,7 @@ const routes: Routes = [
         component: CategoriaEditComponent,
         resolve: {
             categoria: CategoriaResolver
-        },
-        data: {hasRole:'ADMINISTRATOR'}
+        }
     },
     {
         path: 'edit',
