@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { LoginService } from '../login/login.service';
 import { UserService } from './user.service';
 import { User } from './user.model';
 
 @Component({
-  selector: 'my-user-edit',
+  selector: 'app-user-edit',
   templateUrl: './user-edit.component.html'
 })
 export class UserEditComponent implements OnInit {
-  user: User = new User();
-  id: number;
-  userLoaded: boolean = false;
+  user: User;
+  
+  private funcao = 'Criar';
 
   private routeSubscribe: any;
 
@@ -21,31 +20,19 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: UserService,
-    private loginService: LoginService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (Object.keys(params).length > 0) {
-        this.user.id = (<User> params).id;
-        this.user.description = (<User> params).description;
-      }
-    });
+    if (this.route.snapshot.data['user']) {
+      this.user = this.route.snapshot.data['user'];
+      this.funcao = 'Editar';
+    } else {
+      this.funcao = 'Criar';
+      this.user = new User();
+    }
   }
 
-  loadUser() {
-    this.service.get(this.id)
-      .subscribe(
-      (User: User) => {
-        this.user = User;
-        this.userLoaded = true;
-      },
-      error => {
-        this.notificationService.error('Erro ao carregar item!');
-      }
-      );
-  }
 
   save(user:User) {
     if (!user.id) {
@@ -72,6 +59,21 @@ export class UserEditComponent implements OnInit {
     }
   }
   
+  dalete(user:User) {
+    if (user.id) {
+      this.service.delete(user).subscribe(
+        (result) => {
+          this.notificationService.success('Item removido com sucesso!');
+          this.goBack();
+        },
+        (error) => {
+          this.notificationService.error('Não foi possível deletar o Item!');
+        }
+      );
+
+    }
+  }
+
   goBack() {
     this.router.navigate(['user']);
   }

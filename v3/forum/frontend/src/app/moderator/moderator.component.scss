@@ -1,1 +1,17 @@
 // Styles
+.pagination-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+}
+
+.th-button {
+    border: none;
+    outline: none;
+    background: transparent;
+    text-transform: uppercase;
+}
+
+.padding-down {
+    padding-bottom: 22px;
+}

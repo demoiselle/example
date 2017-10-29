@@ -13,6 +13,10 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Api("v1/Moderators")
 @Path("v1/moderators")
 //@Authenticated
+//@ApiImplicitParams({
+//    @ApiImplicitParam(name = "Authorization", value = "JWT token",
+//            required = true, dataType = "string", paramType = "header")
+//})
 public class ModeratorREST extends AbstractREST< Moderator, String> {
 
     @GET

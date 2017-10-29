@@ -11,7 +11,6 @@ import java.util.TimeZone;
 import javax.ws.rs.Produces;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
-import org.codehaus.jackson.map.SerializationConfig;
 
 /**
  *

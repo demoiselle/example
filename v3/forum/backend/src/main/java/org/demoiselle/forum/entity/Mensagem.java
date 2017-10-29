@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,11 +29,13 @@ public class Mensagem implements Serializable {
     @Column(unique = true)
     private String id;
 
-    @Column(name = "user_id")
-    private String usuarioId;
+    @JoinColumn(name = "user_id")
+    @ManyToOne
+    private User usuario;
 
-    @Column(name = "topico_id")
-    private String topicoId;
+    @JoinColumn(name = "topico_id")
+    @ManyToOne
+    private Topico topico;
 
     @Basic(optional = false)
     @NotNull
@@ -58,20 +62,20 @@ public class Mensagem implements Serializable {
         this.description = description;
     }
 
-    public String getUsuarioId() {
-        return usuarioId;
+    public User getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
     }
 
-    public String getTopicoId() {
-        return topicoId;
+    public Topico getTopico() {
+        return topico;
     }
 
-    public void setTopicoId(String topicoId) {
-        this.topicoId = topicoId;
+    public void setTopico(Topico topico) {
+        this.topico = topico;
     }
 
     public Date getDatahora() {

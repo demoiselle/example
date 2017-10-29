@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@demoiselle/security';
@@ -6,10 +6,10 @@ import { NotificationService } from '../shared';
 import { LoginService } from './login.service';
 
 @Component({
-  selector: 'my-login',
+  selector: 'todo-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   user: any = {
     username: 'admin@demoiselle.org',
     password: '123456'
@@ -20,17 +20,17 @@ export class LoginComponent {
     protected notificationService: NotificationService,
     protected loginService: LoginService) { }
 
-  onSubmit($event, form){
-    this.login();
+  ngOnInit() {
+    console.log('[LoginComponent] initialized.');
   }
 
   login() {
-    this.loginService.login(this.user)
+    this.authService.login(this.user)
       .subscribe(
-      (result) => {
-        this.router.navigate(['']);
+      res => {
+        this.notificationService.success('Login realizado com sucesso!');
       },
-      (error) => {
+      error => {
         if (error.status === 401 || error.status === 406) {
           let errors = JSON.parse(error._body);
           for (let err of errors) {
@@ -40,5 +40,4 @@ export class LoginComponent {
         };
       });
   }
-
 }

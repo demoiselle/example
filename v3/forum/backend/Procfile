@@ -1,0 +1,1 @@
+web: java -Xmx512m -jar cep-swarm.jar -Djava.net.preferIPv4Addresses=true -Djava.net.preferIPv4Stack=true

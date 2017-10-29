@@ -2,6 +2,6 @@
   "generator-demoiselle": {
     "project": "forum",
     "package": "org.demoiselle",
-    "prefix": "my"
+    "prefix": "app"
   }
 }

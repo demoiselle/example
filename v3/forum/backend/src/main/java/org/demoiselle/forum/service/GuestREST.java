@@ -13,6 +13,10 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Api("v1/Guests")
 @Path("v1/guests")
 //@Authenticated
+//@ApiImplicitParams({
+//    @ApiImplicitParam(name = "Authorization", value = "JWT token",
+//            required = true, dataType = "string", paramType = "header")
+//})
 public class GuestREST extends AbstractREST< Guest, String> {
 
     @GET

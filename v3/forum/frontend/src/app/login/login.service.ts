@@ -7,8 +7,5 @@ import { AuthService } from '@demoiselle/security';
 export class LoginService {
 
   constructor(protected router: Router, protected authService: AuthService) { }
-
-  login(user) {
-    return this.authService.login(user);
-  }
+  
 }
