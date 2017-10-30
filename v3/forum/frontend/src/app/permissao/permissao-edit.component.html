@@ -1,0 +1,49 @@
+
+<!-- Conteúdo da página -->
+<article>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+          <strong>{{funcao}} Permissao</strong>
+      </div>
+      <div class="card-body">
+      
+      <div class="panel-body" style="min-height: 300px;">
+
+      <form class="col-xs-6" role="form" #permissaoForm="ngForm" (ngSubmit)="save(permissao)">
+
+        <div class="form-group">
+          <label for="permissaoId" class="control-label">ID</label>
+          <input type="text" id="permissaoId" class="form-control"
+            name="permissaoId" [(ngModel)]="permissao.id"
+            disabled="true">
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="control-label">Descrição</label>
+          <input type="text" id="description" class="form-control"
+            name="description" [(ngModel)]="permissao.description"
+            required>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default" (click)="goBack()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="permissaoForm.invalid">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Salvar
+            </button>
+          </div>
+        </div>
+
+      </form>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</article>

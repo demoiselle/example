@@ -17,9 +17,9 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Categorias
+                        <i class="fa fa-align-justify"></i> Funcionalidades
                         <div class="pull-right">
-                            <button [routerLink]="['/categoria','edit']" type="button" class="btn btn-success btn-sm">
+                            <button [routerLink]="['/funcionalidade','edit']" type="button" class="btn btn-success btn-sm">
                                 <i class="fa fa-plus-circle"></i>&nbsp; Adicionar
                             </button>
                         </div>
@@ -42,15 +42,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let categoria of categorias">
-                                    <td>{{categoria.id}}</td>
-                                    <td>{{categoria.description}}</td>
+                                <tr *ngFor="let funcionalidade of funcionalidades">
+                                    <td>{{funcionalidade.id}}</td>
+                                    <td>{{funcionalidade.description}}</td>
                                     <td class="text-right">
-                                        <button [routerLink]="['/categoria','edit', categoria.id]" type="button" class="btn btn-warning btn-sm">
+                                        <button [routerLink]="['/funcionalidade','edit', funcionalidade.id]" type="button" class="btn btn-warning btn-sm">
                                             <i class="fa fa-plus-circle"></i>&nbsp; Editar
                                         </button>
 
-                                        <button class="btn btn-danger btn-sm" type="button" (click)="showModalDelete(categoria)">
+                                        <button class="btn btn-danger btn-sm" type="button" (click)="showModalDelete(funcionalidade)">
                                                 <i class="fa fa-times"></i> &nbsp; Apagar
                                         </button>
 
@@ -82,13 +82,13 @@
                     <br>
                     <br>
                     <p id="modal-label">Deseja realmente excluir este item?</p>
-                    <div class="modal-body" *ngIf="categoria">
-                         <form class="form-horizontal" role="form" #categoriaForm="ngForm">
+                    <div class="modal-body" *ngIf="funcionalidade">
+                         <form class="form-horizontal" role="form" #funcionalidadeForm="ngForm">
                           <div class="form-group">
                                 <label for="description" class="control-label col-sm-3">Descrição</label>
                                 <div class="col-xs-8">
                                     <input type="text" id="description" class="form-control" name="description"
-                                           [(ngModel)]="categoria.description" disabled="true">
+                                           [(ngModel)]="funcionalidade.description" disabled="true">
                                 </div>
                             </div>
 
@@ -96,7 +96,7 @@
                                 <span class="fa fa-times" aria-hidden="true"></span>
                                 Não
                             </button>
-                            <button type="submit" class="btn btn-danger icon right" (click)="delete(categoria)">
+                            <button type="submit" class="btn btn-danger icon right" (click)="delete(funcionalidade)">
                                     <span class="fa fa-check" aria-hidden="true"></span>
                                 Sim
                             </button>

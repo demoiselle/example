@@ -11,8 +11,8 @@ import { User } from './user.model';
 })
 export class UserEditComponent implements OnInit {
   user: User;
-  
-  private funcao = 'Criar';
+
+  funcao = 'Criar';
 
   private routeSubscribe: any;
 
@@ -20,8 +20,7 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: UserService,
-    private notificationService: NotificationService)
-  { }
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
     if (this.route.snapshot.data['user']) {
@@ -34,7 +33,7 @@ export class UserEditComponent implements OnInit {
   }
 
 
-  save(user:User) {
+  save(user: User) {
     if (!user.id) {
       delete user.id;
       this.service.create(user).subscribe(
@@ -58,8 +57,8 @@ export class UserEditComponent implements OnInit {
       );
     }
   }
-  
-  dalete(user:User) {
+
+  dalete(user: User) {
     if (user.id) {
       this.service.delete(user).subscribe(
         (result) => {

@@ -12,7 +12,7 @@ import { Mensagem } from './mensagem.model';
 export class MensagemEditComponent implements OnInit {
   mensagem: Mensagem;
   
-  private funcao = 'Criar';
+  funcao = 'Criar';
 
   private routeSubscribe: any;
 

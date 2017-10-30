@@ -12,7 +12,7 @@ import { Topico } from './topico.model';
 export class TopicoEditComponent implements OnInit {
   topico: Topico;
   
-  private funcao = 'Criar';
+   funcao = 'Criar';
 
   private routeSubscribe: any;
 

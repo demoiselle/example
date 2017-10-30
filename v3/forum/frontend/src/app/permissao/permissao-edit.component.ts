@@ -2,42 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { CategoriaService } from './categoria.service';
-import { Categoria } from './categoria.model';
+import { PermissaoService } from './permissao.service';
+import { Permissao } from './permissao.model';
 
 @Component({
-  selector: 'app-categoria-edit',
-  templateUrl: './categoria-edit.component.html'
+  selector: 'app-permissao-edit',
+  templateUrl: './permissao-edit.component.html'
 })
-export class CategoriaEditComponent implements OnInit {
-  categoria: Categoria;
+export class PermissaoEditComponent implements OnInit {
+  permissao: Permissao;
   
-  funcao = 'Criar';
+   funcao = 'Criar';
 
   private routeSubscribe: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: CategoriaService,
+    private service: PermissaoService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    if (this.route.snapshot.data['categoria']) {
-      this.categoria = this.route.snapshot.data['categoria'];
+    if (this.route.snapshot.data['permissao']) {
+      this.permissao = this.route.snapshot.data['permissao'];
       this.funcao = 'Editar';
     } else {
       this.funcao = 'Criar';
-      this.categoria = new Categoria();
+      this.permissao = new Permissao();
     }
   }
 
 
-  save(categoria:Categoria) {
-    if (!categoria.id) {
-      delete categoria.id;
-      this.service.create(categoria).subscribe(
+  save(permissao:Permissao) {
+    if (!permissao.id) {
+      delete permissao.id;
+      this.service.create(permissao).subscribe(
         (result) => {
           this.notificationService.success('Item criado com sucesso!');
           this.goBack();
@@ -47,7 +47,7 @@ export class CategoriaEditComponent implements OnInit {
         }
       );
     } else {
-      this.service.update(categoria).subscribe(
+      this.service.update(permissao).subscribe(
         (result) => {
           this.notificationService.success('Item alterado com sucesso!');
           this.goBack();
@@ -59,9 +59,9 @@ export class CategoriaEditComponent implements OnInit {
     }
   }
   
-  dalete(categoria:Categoria) {
-    if (categoria.id) {
-      this.service.delete(categoria).subscribe(
+  dalete(permissao:Permissao) {
+    if (permissao.id) {
+      this.service.delete(permissao).subscribe(
         (result) => {
           this.notificationService.success('Item removido com sucesso!');
           this.goBack();
@@ -75,7 +75,7 @@ export class CategoriaEditComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['categoria']);
+    this.router.navigate(['permissao']);
   }
 
 }

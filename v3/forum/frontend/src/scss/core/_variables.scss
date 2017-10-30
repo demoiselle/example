@@ -40,27 +40,27 @@ $vimeo:                               #aad450 !default;
 $navbar-height:                       55px !default;
 $navbar-bg:                           #fff !default;
 $navbar-border: (
-  bottom: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+bottom: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 )  !default;
 $navbar-brand-width:                  155px !default;
 $navbar-brand-bg:                     #fff !default;
-$navbar-brand-logo:                   url('../img/logo.png') !default;
+$navbar-brand-logo:                   url('../assets/logo.png') !default;
 $navbar-brand-logo-size:              70px auto !default;
 $navbar-brand-border: (
-  bottom: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+bottom: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 
 $navbar-brand-minimized-width:        50px !default
 $navbar-brand-minimized-bg:           #fff !default;
-$navbar-brand-minimized-logo:         url('../img/logo-symbol.png') !default;
+$navbar-brand-minimized-logo:         url('../assets/logo-symbol.png') !default;
 $navbar-brand-minimized-logo-size:    24px !default;
 
 $navbar-color:                        $gray-600 !default;
@@ -149,18 +149,18 @@ $sidebar-minimizer-hover-indicator:   str-replace(url("data:image/svg+xml;charse
 $top-nav-bg:                          #fff !default;
 $top-nav-color:                       $body-color !default;
 $top-nav-borders: (
-  bottom: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+bottom: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 $top-nav-ul-borders: (
-  all: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+all: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 
 $top-nav-hover-color:                 #fff !default;
@@ -173,11 +173,11 @@ $top-nav-height:                      $navbar-height - 15px !default;
 
 $breadcrumb-margin:                   0 0 (1.5 * $spacer) 0 !default;
 $breadcrumb-borders: (
-  bottom: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+bottom: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 
 // Aside
@@ -186,11 +186,11 @@ $aside-menu-width:                    250px !default;
 $aside-menu-color:                    $gray-800 !default;
 $aside-menu-bg:                       #fff !default;
 $aside-menu-borders: (
-  left: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+left: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 
 $aside-menu-nav-padding-y:            .75rem !default;
@@ -202,11 +202,11 @@ $footer-height:                       50px !default;
 $footer-bg:                           $gray-100 !default;
 $footer-color:                        $body-color !default;
 $footer-borders: (
-  top: (
-    size:                             1px,
-    style:                            solid,
-    color:                            $border-color
-  )
+top: (
+size:                             1px,
+style:                            solid,
+color:                            $border-color
+)
 ) !default;
 
 // Cards

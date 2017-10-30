@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../shared';
-import { CategoriaService } from './categoria.service';
-import { Categoria } from './categoria.model';
+import { FuncionalidadeService } from './funcionalidade.service';
+import { Funcionalidade } from './funcionalidade.model';
 
 @Component({
-  selector: 'app-categoria-edit',
-  templateUrl: './categoria-edit.component.html'
+  selector: 'app-funcionalidade-edit',
+  templateUrl: './funcionalidade-edit.component.html'
 })
-export class CategoriaEditComponent implements OnInit {
-  categoria: Categoria;
+export class FuncionalidadeEditComponent implements OnInit {
+  funcionalidade: Funcionalidade;
   
   funcao = 'Criar';
 
@@ -19,25 +19,25 @@ export class CategoriaEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: CategoriaService,
+    private service: FuncionalidadeService,
     private notificationService: NotificationService)
   { }
 
   ngOnInit() {
-    if (this.route.snapshot.data['categoria']) {
-      this.categoria = this.route.snapshot.data['categoria'];
+    if (this.route.snapshot.data['funcionalidade']) {
+      this.funcionalidade = this.route.snapshot.data['funcionalidade'];
       this.funcao = 'Editar';
     } else {
       this.funcao = 'Criar';
-      this.categoria = new Categoria();
+      this.funcionalidade = new Funcionalidade();
     }
   }
 
 
-  save(categoria:Categoria) {
-    if (!categoria.id) {
-      delete categoria.id;
-      this.service.create(categoria).subscribe(
+  save(funcionalidade:Funcionalidade) {
+    if (!funcionalidade.id) {
+      delete funcionalidade.id;
+      this.service.create(funcionalidade).subscribe(
         (result) => {
           this.notificationService.success('Item criado com sucesso!');
           this.goBack();
@@ -47,7 +47,7 @@ export class CategoriaEditComponent implements OnInit {
         }
       );
     } else {
-      this.service.update(categoria).subscribe(
+      this.service.update(funcionalidade).subscribe(
         (result) => {
           this.notificationService.success('Item alterado com sucesso!');
           this.goBack();
@@ -59,9 +59,9 @@ export class CategoriaEditComponent implements OnInit {
     }
   }
   
-  dalete(categoria:Categoria) {
-    if (categoria.id) {
-      this.service.delete(categoria).subscribe(
+  dalete(funcionalidade:Funcionalidade) {
+    if (funcionalidade.id) {
+      this.service.delete(funcionalidade).subscribe(
         (result) => {
           this.notificationService.success('Item removido com sucesso!');
           this.goBack();
@@ -75,7 +75,7 @@ export class CategoriaEditComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['categoria']);
+    this.router.navigate(['funcionalidade']);
   }
 
 }

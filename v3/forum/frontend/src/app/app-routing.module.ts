@@ -35,10 +35,21 @@ export const routes: Routes = [
                         
 		
                         {
-                          path: 'moderator',
-                          loadChildren: './moderator/moderator.module#ModeratorModule',
+                          path: 'permissao',
+                          loadChildren: './permissao/permissao.module#PermissaoModule',
                           data: {
-                            title: 'Moderator',
+                            title: 'Permissao',
+                            showInSidebar: true,
+                            icon: 'icon-diamond'
+                          }
+                        },
+                        
+		
+                        {
+                          path: 'perfil',
+                          loadChildren: './perfil/perfil.module#PerfilModule',
+                          data: {
+                            title: 'Perfil',
                             showInSidebar: true,
                             icon: 'icon-diamond'
                           }
@@ -57,10 +68,10 @@ export const routes: Routes = [
                         
 		
                         {
-                          path: 'guest',
-                          loadChildren: './guest/guest.module#GuestModule',
+                          path: 'funcionalidade',
+                          loadChildren: './funcionalidade/funcionalidade.module#FuncionalidadeModule',
                           data: {
-                            title: 'Guest',
+                            title: 'Funcionalidade',
                             showInSidebar: true,
                             icon: 'icon-diamond'
                           }
