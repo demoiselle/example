@@ -1,25 +1,27 @@
 package org.demoiselle.forum.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import static javax.persistence.TemporalType.DATE;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ *
+ * @author PauloGladson
+ */
 @Entity
 @XmlRootElement
 @Table(name = "categoria")
@@ -37,33 +39,61 @@ public class Categoria implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(DATE)
     private Date dataCriacao;
 
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDataCriacao() {
         return dataCriacao;
     }
 
+    /**
+     *
+     * @param dataCriacao
+     */
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -71,6 +101,11 @@ public class Categoria implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -86,8 +121,13 @@ public class Categoria implements Serializable {
         return Objects.equals(this.id, other.id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Categoria{" + "id=" + id + ", description=" + description + '}';
     }
+    private static final Logger LOG = Logger.getLogger(Categoria.class.getName());
 }

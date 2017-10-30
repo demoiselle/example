@@ -3,6 +3,7 @@ package org.demoiselle.forum.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +14,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import static javax.persistence.TemporalType.TIMESTAMP;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ *
+ * @author PauloGladson
+ */
 @Entity
 @XmlRootElement
 @Table(name = "mensagem")
@@ -43,49 +49,93 @@ public class Mensagem implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TIMESTAMP)
     private Date datahora;
 
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUsuario() {
         return usuario;
     }
 
+    /**
+     *
+     * @param usuario
+     */
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     *
+     * @return
+     */
     public Topico getTopico() {
         return topico;
     }
 
+    /**
+     *
+     * @param topico
+     */
     public void setTopico(Topico topico) {
         this.topico = topico;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDatahora() {
         return datahora;
     }
 
+    /**
+     *
+     * @param datahora
+     */
     public void setDatahora(Date datahora) {
         this.datahora = datahora;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -93,6 +143,11 @@ public class Mensagem implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -108,8 +163,13 @@ public class Mensagem implements Serializable {
         return Objects.equals(this.id, other.id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Mensagem{" + "id=" + id + ", description=" + description + '}';
     }
+    private static final Logger LOG = Logger.getLogger(Mensagem.class.getName());
 }

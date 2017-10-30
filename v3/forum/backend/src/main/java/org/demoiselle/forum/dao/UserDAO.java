@@ -1,7 +1,5 @@
 package org.demoiselle.forum.dao;
 
-import org.demoiselle.forum.entity.User;
-import org.demoiselle.forum.security.Credentials;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import static java.security.MessageDigest.getInstance;
@@ -18,6 +16,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import org.demoiselle.forum.constants.Perfil;
+import static org.demoiselle.forum.constants.Perfil.VISITANTE;
+import org.demoiselle.forum.entity.User;
+import org.demoiselle.forum.security.Credentials;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
 import org.demoiselle.jee.core.api.security.SecurityContext;
 import org.demoiselle.jee.core.api.security.Token;
@@ -25,6 +26,10 @@ import org.demoiselle.jee.crud.AbstractDAO;
 import org.demoiselle.jee.security.exception.DemoiselleSecurityException;
 import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 
+/**
+ *
+ * @author PauloGladson
+ */
 public class UserDAO extends AbstractDAO<User, UUID> {
 
     private static final Logger LOG = getLogger(UserDAO.class.getName());
@@ -41,14 +46,27 @@ public class UserDAO extends AbstractDAO<User, UUID> {
     @Inject
     private DemoiselleSecurityMessages bundle;
 
+    /**
+     *
+     */
     @PersistenceContext(unitName = "forumPU")
     protected EntityManager em;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     */
     public User verifyEmail(String email, String password) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -75,16 +93,31 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return usu;
     }
 
+    /**
+     *
+     * @param entity
+     * @return
+     */
     @Override
     public User persist(User entity) {
         entity.setPass(md5(entity.getPass()));
         return super.persist(entity);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String valida(String id) {
         return "Email Validado";
     }
 
+    /**
+     *
+     * @param credentials
+     * @return
+     */
     public Token login(Credentials credentials) {
 
         User usu = verifyEmail(credentials.getUsername(), credentials.getPassword());
@@ -102,18 +135,27 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return token;
     }
 
+    /**
+     *
+     * @return
+     */
     public Token retoken() {
         loggedUser = securityContext.getUser();
         securityContext.setUser(loggedUser);
         return token;
     }
 
+    /**
+     *
+     * @param credentials
+     * @return
+     */
     public Token register(Credentials credentials) {
         User user = new User();
         user.setEmail(credentials.getUsername());
         user.setFirstName(credentials.getFirstName());
         user.setPass(credentials.getPassword());
-        user.setPerfil(Perfil.VISITANTE);
+        user.setPerfil(VISITANTE);
         persist(user);
         return login(credentials);
     }
