@@ -15,8 +15,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-import org.demoiselle.forum.constants.Perfil;
-import static org.demoiselle.forum.constants.Perfil.VISITANTE;
 import org.demoiselle.forum.entity.User;
 import org.demoiselle.forum.security.Credentials;
 import org.demoiselle.jee.core.api.security.DemoiselleUser;
@@ -42,6 +40,9 @@ public class UserDAO extends AbstractDAO<User, UUID> {
 
     @Inject
     private Token token;
+
+    @Inject
+    private PerfilDAO perfilDAO;
 
     @Inject
     private DemoiselleSecurityMessages bundle;
@@ -127,7 +128,11 @@ public class UserDAO extends AbstractDAO<User, UUID> {
 
         loggedUser.setName(usu.getFirstName());
         loggedUser.setIdentity(usu.getId());
-        loggedUser.addRole(usu.getPerfil().getValue());
+        loggedUser.addRole(usu.getPerfil().getDescription());
+        loggedUser.addPermission("usuario", "insert");
+        loggedUser.addPermission("usuario", "update");
+        loggedUser.addPermission("usuario", "delete");
+        loggedUser.addPermission("usuario", "find");
 
         loggedUser.addParam("Email", usu.getEmail());
         securityContext.setUser(loggedUser);
@@ -155,7 +160,7 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         user.setEmail(credentials.getUsername());
         user.setFirstName(credentials.getFirstName());
         user.setPass(credentials.getPassword());
-        user.setPerfil(VISITANTE);
+        user.setPerfil(perfilDAO.find("9"));
         persist(user);
         return login(credentials);
     }
