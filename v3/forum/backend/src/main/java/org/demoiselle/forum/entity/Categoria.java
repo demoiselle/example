@@ -39,9 +39,6 @@ public class Categoria implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
-    @Temporal(DATE)
-    private Date dataCriacao;
-
     /**
      *
      * @return
@@ -74,21 +71,7 @@ public class Categoria implements Serializable {
         this.description = description;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
 
-    /**
-     *
-     * @param dataCriacao
-     */
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
 
     /**
      *

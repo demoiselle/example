@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
                                     <th>
@@ -45,9 +45,9 @@
                                 <tr *ngFor="let topico of topicos">
                                     <td>{{topico.id}}</td>
                                     <td>{{topico.description}}</td>
-                                    <td class="text-right">
+                                    <td>
                                         <button [routerLink]="['/topico','edit', topico.id]" type="button" class="btn btn-warning btn-sm">
-                                            <i class="fa fa-plus-circle"></i>&nbsp; Editar
+                                            <i class="fa fa-pencil"></i>&nbsp; Editar
                                         </button>
 
                                         <button class="btn btn-danger btn-sm" type="button" (click)="showModalDelete(topico)">
@@ -58,6 +58,18 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <pagination 
+                            [totalItems]="totalItems" 
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="currentPage" 
+                            (pageChanged)="pageChanged($event)"
+                            previousText="&lsaquo;" 
+                            nextText="&rsaquo;"
+                            firstText="&laquo;"
+                            lastText="&raquo;"
+                            [boundaryLinks]="true">
+                        </pagination>
 
                     </div>
                 </div>

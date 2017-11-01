@@ -55,8 +55,19 @@ public class AuthREST {
      */
     @POST
     @Path("register")
-    public Response register(Credentials credentials) {
-        return ok().entity(dao.register(credentials)).build();
+    public void register(Credentials credentials) {
+        dao.register(credentials);
+    }
+    
+    /**
+     *
+     * @param credentials
+     * @return
+     */
+    @POST
+    @Path("amnesia")
+    public void amnesia(Credentials credentials) {
+        dao.amnesia(credentials);
     }
     private static final Logger LOG = Logger.getLogger(AuthREST.class.getName());
 }

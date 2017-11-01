@@ -9,14 +9,10 @@ import { SecurityModule } from '@demoiselle/security';
 import { NotificationService } from './notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//import { PaginacaoComponent } from './paginacao/paginacao.component';
-//import { PaginacaoControleComponent } from './paginacao/paginacao-controle.component';
-
-
-
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     SecurityModule,
     Ng2BootstrapModule.forRoot(),
@@ -24,8 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
   ],
   declarations: [ 
-    //PaginacaoComponent,
-    //PaginacaoControleComponent
   ],
   providers: [
     NotificationService
@@ -36,9 +30,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     Ng2BootstrapModule,
     SecurityModule
-    
-    //PaginacaoComponent,
-    //PaginacaoControleComponent
 
   ]
 })

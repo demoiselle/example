@@ -7,11 +7,13 @@ import { FuncionalidadeService } from './funcionalidade.service';
 import { FuncionalidadeComponent } from './funcionalidade.component';
 import { FuncionalidadeEditComponent } from './funcionalidade-edit.component';
 import { FuncionalidadeResolver } from './funcionalidade.resolver';
+import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
-        FuncionalidadeRoutingModule
+        FuncionalidadeRoutingModule,
+        PaginationModule.forRoot()
     ],
     declarations: [
         FuncionalidadeComponent,

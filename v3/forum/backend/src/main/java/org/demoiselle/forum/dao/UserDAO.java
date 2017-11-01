@@ -165,6 +165,21 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return login(credentials);
     }
 
+    /**
+     *
+     * @param credentials
+     * @return
+     */
+    public Token amnesia(Credentials credentials) {
+        User user = new User();
+        user.setEmail(credentials.getUsername());
+        user.setFirstName(credentials.getFirstName());
+        user.setPass(credentials.getPassword());
+        user.setPerfil(perfilDAO.find("9"));
+        persist(user);
+        return login(credentials);
+    }
+
     private String md5(String senha) {
         String sen = "";
         MessageDigest md = null;

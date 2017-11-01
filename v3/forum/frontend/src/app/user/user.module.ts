@@ -7,11 +7,13 @@ import { UserService } from './user.service';
 import { UserComponent } from './user.component';
 import { UserEditComponent } from './user-edit.component';
 import { UserResolver } from './user.resolver';
+import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
-        UserRoutingModule
+        UserRoutingModule,
+        PaginationModule.forRoot()
     ],
     declarations: [
         UserComponent,

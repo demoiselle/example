@@ -30,8 +30,6 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = "usuario", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})})
-@Inheritance(strategy = JOINED)
-@DiscriminatorColumn(name = "perfil", discriminatorType = STRING)
 @XmlRootElement
 public class User implements Serializable {
 
@@ -61,8 +59,8 @@ public class User implements Serializable {
     @JsonIgnore
     private String pass;
 
+    @JoinColumn(name = "perfil_id")
     @ManyToOne
-    @JoinColumn(columnDefinition = "perfil_id")
     private Perfil perfil;
 
     /**

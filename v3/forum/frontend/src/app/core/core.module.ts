@@ -7,46 +7,45 @@ import {
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+import { HttpModule, BrowserXhr } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { Http, RequestOptions, ConnectionBackend, RequestOptionsArgs, Response, XHRBackend } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-
 import { AuthServiceProvider, AuthService, SecurityModule } from '@demoiselle/security';
 import { HttpServiceProvider, ExceptionService, HttpService } from '@demoiselle/http';
-import { LoginService } from '../login/login.service';
 
 // Import 3rd party components
 import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 
 // BEGIN Demoiselle Http and Security configs and factories
 const httpConfig = {
-          endpoints: {
-            main: 'http://localhost:8080/app/api/v1/' 
-          },
-          multitenancy: null,
-          unAuthorizedRoute: '/login',
-          tokenKey: 'id_token'
-        };
+  endpoints: {
+    main: 'http://localhost:8080/app/api/v1/'
+  },
+  multitenancy: null,
+  unAuthorizedRoute: '/login',
+  tokenKey: 'id_token'
+};
 const authConfig = {
-          authEndpointUrl: 'http://localhost:8080/app/api/', // may be in the form 'http://localhost:9090/app/api/v1/'
-          loginResourcePath: 'auth',
-          tokenKey: 'id_token',
-          loginRoute: '/login'
-        };
+  authEndpointUrl: 'http://localhost:8080/app/api/', // may be in the form 'http://localhost:9090/app/api/v1/'
+  loginResourcePath: 'auth',
+  tokenKey: 'id_token',
+  loginRoute: '/login'
+};
 
- export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, router: Router, exceptionService: ExceptionService) {
-   return new HttpService(backend, defaultOptions, router, exceptionService, httpConfig);
- }
+export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, router: Router, exceptionService: ExceptionService) {
+  return new HttpService(backend, defaultOptions, router, exceptionService, httpConfig);
+}
 
- export function authFactory(http: Http, router: Router) {
-   return new AuthService(http, router, authConfig);
- }
- // END Demoiselle Http and Security configs and factories
+export function authFactory(http: Http, router: Router) {
+  return new AuthService(http, router, authConfig);
+}
+// END Demoiselle Http and Security configs and factories
 
 
 // Toastr Custom configs (defined at forRoot() providers below)
@@ -110,7 +109,7 @@ const APP_DIRECTIVES = [
 
 @NgModule({
   imports: [
-    //CommonModule,
+    NgProgressModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpModule,
@@ -118,7 +117,7 @@ const APP_DIRECTIVES = [
     SecurityModule,
     BsDropdownModule.forRoot(),
     ToastModule.forRoot()
-    
+
   ],
   declarations: [
     ...APP_CONTAINERS,
@@ -136,19 +135,19 @@ export class CoreModule {
       providers: [
         // put here your global or singleton services to be available for all modules
         {
-           provide: Http,
-           useFactory: httpFactory,
-           deps: [XHRBackend, RequestOptions, Router, ExceptionService]
-         },
+          provide: Http,
+          useFactory: httpFactory,
+          deps: [XHRBackend, RequestOptions, Router, ExceptionService]
+        },
         {
           provide: AuthService,
           useFactory: authFactory,
           deps: [Http, Router]
         },
-        LoginService,
         ExceptionService,
         { provide: ToastOptions, useClass: CustomOption },
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        { provide: BrowserXhr, useClass: NgProgressBrowserXhr }
       ]
     };
   }
@@ -158,4 +157,4 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
   }
-} 
+}

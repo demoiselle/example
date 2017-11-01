@@ -12,7 +12,7 @@ import { Perfil } from './perfil.model';
 export class PerfilEditComponent implements OnInit {
   perfil: Perfil;
   
-   funcao = 'Criar';
+  funcao = 'Criar';
 
   private routeSubscribe: any;
 

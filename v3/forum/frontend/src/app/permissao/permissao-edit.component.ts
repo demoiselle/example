@@ -12,7 +12,7 @@ import { Permissao } from './permissao.model';
 export class PermissaoEditComponent implements OnInit {
   permissao: Permissao;
   
-   funcao = 'Criar';
+  funcao = 'Criar';
 
   private routeSubscribe: any;
 

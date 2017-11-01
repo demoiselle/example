@@ -20,6 +20,7 @@ export class PerfilComponent implements OnInit {
   // Pagination
   public itemsPerPage: number = 10;
   public totalItems: number = 0;
+  public currentPage: number = 1;
 
   // Filter
   public ascValue = '⇧';
@@ -46,7 +47,7 @@ export class PerfilComponent implements OnInit {
 
   list(field: string = null, desc: boolean = false) {
     let filter = this.processFilter();
-    this.service.list(/*this.pagination.currentPage*/ 1, this.itemsPerPage, filter, field, desc).subscribe(
+    this.service.list(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
       (result) => {
         try {
           this.perfils = result.json();
@@ -91,7 +92,8 @@ export class PerfilComponent implements OnInit {
   }
 
   // Pagination
-  onPageChange(currentPage) {
+  pageChanged(event: any) {
+    this.currentPage = event.page;
     this.list();
   }
 

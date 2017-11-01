@@ -20,6 +20,7 @@ export class CategoriaComponent implements OnInit {
   // Pagination
   public itemsPerPage: number = 10;
   public totalItems: number = 0;
+  public currentPage: number = 1;
 
   // Filter
   public ascValue = '⇧';
@@ -46,7 +47,7 @@ export class CategoriaComponent implements OnInit {
 
   list(field: string = null, desc: boolean = false) {
     let filter = this.processFilter();
-    this.service.list(/*this.pagination.currentPage*/ 1, this.itemsPerPage, filter, field, desc).subscribe(
+    this.service.list(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
       (result) => {
         try {
           this.categorias = result.json();
@@ -91,7 +92,8 @@ export class CategoriaComponent implements OnInit {
   }
 
   // Pagination
-  onPageChange(currentPage) {
+  pageChanged(event: any) {
+    this.currentPage = event.page;
     this.list();
   }
 

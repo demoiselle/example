@@ -7,11 +7,13 @@ import { TopicoService } from './topico.service';
 import { TopicoComponent } from './topico.component';
 import { TopicoEditComponent } from './topico-edit.component';
 import { TopicoResolver } from './topico.resolver';
+import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
-        TopicoRoutingModule
+        TopicoRoutingModule,
+        PaginationModule.forRoot()
     ],
     declarations: [
         TopicoComponent,
