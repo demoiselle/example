@@ -9,7 +9,7 @@ Verificação de segurança do demoiselle.org (https://schd.io/30wv)
 
 # Progessive Web
 
-https://www.demoiselle.org/cep/#!/
+https://www.demoiselle.org/cep/
 
 # Windows Store
 https://www.microsoft.com/pt-br/store/p/cep/9pchwwpc3phr?rtc=1
