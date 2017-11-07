@@ -7,13 +7,14 @@ import { MensagemService } from './mensagem.service';
 import { MensagemComponent } from './mensagem.component';
 import { MensagemEditComponent } from './mensagem-edit.component';
 import { MensagemResolver } from './mensagem.resolver';
-import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
         MensagemRoutingModule,
-        PaginationModule.forRoot()
+        PaginationModule.forRoot(),
+        ModalModule.forRoot()
     ],
     declarations: [
         MensagemComponent,

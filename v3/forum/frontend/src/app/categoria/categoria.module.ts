@@ -7,13 +7,14 @@ import { CategoriaService } from './categoria.service';
 import { CategoriaComponent } from './categoria.component';
 import { CategoriaEditComponent } from './categoria-edit.component';
 import { CategoriaResolver } from './categoria.resolver';
-import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
         CategoriaRoutingModule,
-        PaginationModule.forRoot()
+        PaginationModule.forRoot(),
+        ModalModule.forRoot()
     ],
     declarations: [
         CategoriaComponent,

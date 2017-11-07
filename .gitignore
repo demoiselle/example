@@ -7,13 +7,14 @@
 
 /v3/cep/backend/target/
 /v3/cep/progressive/node_modules/
+/v3/cep/frontend/node_modules/
 /v3/cep/progressive/bower_components/
 /v3/cep/progressive/.tmp
 
-/v3/cep-angular/backend/target/
-/v3/cep-angular/progressive/node_modules/
-/v3/cep-angular/progressive/bower_components/
-/v3/cep-angular/progressive/.tmp
+#/v3/cep-angular/backend/target/
+#/v3/cep-angular/progressive/node_modules/
+#/v3/cep-angular/progressive/bower_components/
+#/v3/cep-angular/progressive/.tmp
 
 /v3/cep/vs/CEP/CEP/CEP_StoreKey.pfx
 /v3/cep/vs/CEP/CEP/CEP_TemporaryStoreKey.pfx

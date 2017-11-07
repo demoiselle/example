@@ -1,0 +1,7 @@
+{
+  "generator-demoiselle": {
+    "project": "cep",
+    "package": "org.demoiselle",
+    "prefix": "app"
+  }
+}

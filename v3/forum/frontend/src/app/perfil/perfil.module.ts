@@ -7,13 +7,14 @@ import { PerfilService } from './perfil.service';
 import { PerfilComponent } from './perfil.component';
 import { PerfilEditComponent } from './perfil-edit.component';
 import { PerfilResolver } from './perfil.resolver';
-import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
         PerfilRoutingModule,
-        PaginationModule.forRoot()
+        PaginationModule.forRoot(),
+        ModalModule.forRoot()
     ],
     declarations: [
         PerfilComponent,

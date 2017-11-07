@@ -51,23 +51,22 @@ public class AuthREST {
     /**
      *
      * @param credentials
-     * @return
      */
     @POST
     @Path("register")
     public void register(Credentials credentials) {
         dao.register(credentials);
     }
-    
+
     /**
      *
      * @param credentials
-     * @return
      */
     @POST
     @Path("amnesia")
     public void amnesia(Credentials credentials) {
         dao.amnesia(credentials);
     }
+
     private static final Logger LOG = Logger.getLogger(AuthREST.class.getName());
 }

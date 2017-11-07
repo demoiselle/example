@@ -7,13 +7,14 @@ import { PermissaoService } from './permissao.service';
 import { PermissaoComponent } from './permissao.component';
 import { PermissaoEditComponent } from './permissao-edit.component';
 import { PermissaoResolver } from './permissao.resolver';
-import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         SharedModule,
         PermissaoRoutingModule,
-        PaginationModule.forRoot()
+        PaginationModule.forRoot(),
+        ModalModule.forRoot()
     ],
     declarations: [
         PermissaoComponent,

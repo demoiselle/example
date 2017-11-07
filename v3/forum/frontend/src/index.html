@@ -1,49 +1,104 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>App</title>
-  <base href="/">
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>App</title>
+        <base href="/">
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        
+        <meta name='mobile-web-app-capable' content='yes'>
+        <meta name='windows-web-app-capable' content='yes'>
+        <meta name='web-app-capable' content='yes'>
+        <meta name="google-site-verification" content="Seu_Código" />
+        
+        <link rel="canonical" href="https://www.demoiselle.org" />
+        <link rel="manifest" ng-href="/manifest.json" content="text/manifest; charset=UTF-8">
 
-</head>
+        <link rel="publisher" href="https://www.demoiselle.org"/>
+        <meta name="author" content="Demoiselle">
+        <link type="text/plain" rel="author" href="/humans.txt" />
+        
+         <!-- Open Graph -->
+        <meta property="og:site_name" content="Demoiselle" />
+        <meta property="og:type" content="SoftwareApplication" />
+        <meta property="og:title" content="Demoiselle" />
+        <meta property="og:description" content="Sistema Demoiselle" />
+        <meta property="og:url" content="https://www.demoiselle.org" />
+        <meta property="og:image" content="https://www.demoiselle.org/assets/logo-large.png" />
+        <meta property="article:published_time" content="2018-01-01" />
+        <meta property="article:modified_time" content="2019-01-01" />
+        <meta property="article:tag" content="Demoiselle" />
 
-<!-- BODY options, add following classes to body to change options
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:creator" content="@fwkdemoiselle">
+        <meta name="twitter:site" content="www.demoiselle.org">
+        <meta name="twitter:domain" content="demoiselle.org">
+        <meta name="twitter:title" content="demoiselle.org">
+        <meta name="twitter:description" content="Sistema demoiselle.org">
+        <meta property="og:image" content="https://s.gravatar.com/avatar/a535962e6ccf3abec732d42fc351dbe9?s=210">
 
-// Header options
-1. '.header-fixed'					- Fixed Header
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
-// Brand options
-1. '.brand-minimized'       - Minimized brand (Only symbol)
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/ios/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="57x57" href="assets/ios/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/ios/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/ios/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/ios/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/ios/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/ios/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/ios/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="assets/ios/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/ios/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="512x512"  href="assets/android/android-launchericon-512-512.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="assets/android/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="assets/windows10/ms-icon-144x144.png">
+        <meta name="msapplication-square150x150logo" content="assets/windows10/ms-icon-144x144.png"/>
+        <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#0f24e3">
 
-// Sidebar options
-1. '.sidebar-fixed'					- Fixed Sidebar
-2. '.sidebar-hidden'				- Hidden Sidebar
-3. '.sidebar-off-canvas'		- Off Canvas Sidebar
-4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
-5. '.sidebar-compact'			  - Compact Sidebar
+    </head>
 
-// Aside options
-1. '.aside-menu-fixed'			- Fixed Aside Menu
-2. '.aside-menu-hidden'			- Hidden Aside Menu
-3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+    <!-- BODY options, add following classes to body to change options
+    
+    // Header options
+    1. '.header-fixed'					- Fixed Header
+    
+    // Brand options
+    1. '.brand-minimized'       - Minimized brand (Only symbol)
+    
+    // Sidebar options
+    1. '.sidebar-fixed'					- Fixed Sidebar
+    2. '.sidebar-hidden'				- Hidden Sidebar
+    3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+    4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+    5. '.sidebar-compact'			  - Compact Sidebar
+    
+    // Aside options
+    1. '.aside-menu-fixed'			- Fixed Aside Menu
+    2. '.aside-menu-hidden'			- Hidden Aside Menu
+    3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+    
+    // Breadcrumb options
+    1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+    
+    // Footer options
+    1. '.footer-fixed'					- Fixed footer
+    
+    -->
 
-// Breadcrumb options
-1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+    <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+        <!-- Enable bootstrap 4 theme -->
+        <script>window.__theme = 'bs4';</script>
 
-// Footer options
-1. '.footer-fixed'					- Fixed footer
+        <!-- App Loading... -->
 
--->
-
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-    <!-- Enable bootstrap 4 theme -->
-  <script>window.__theme = 'bs4';</script>
-
-  <!-- App Loading... -->
-  
-</body>
+    </body>
 </html>

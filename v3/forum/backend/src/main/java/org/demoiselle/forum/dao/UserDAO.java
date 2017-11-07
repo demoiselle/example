@@ -155,14 +155,21 @@ public class UserDAO extends AbstractDAO<User, UUID> {
      * @param credentials
      * @return
      */
-    public Token register(Credentials credentials) {
+    public void register(Credentials credentials) {
+
+        if (credentials.getUsername().isEmpty()) {
+            throw new DemoiselleSecurityException("Email não pode ser vazio", UNAUTHORIZED.getStatusCode());
+        }
+
+        // envia email
+        LOG.info("Registro solicitado para : " + credentials.getUsername());
         User user = new User();
         user.setEmail(credentials.getUsername());
         user.setFirstName(credentials.getFirstName());
         user.setPass(credentials.getPassword());
         user.setPerfil(perfilDAO.find("9"));
         persist(user);
-        return login(credentials);
+        //return login(credentials);
     }
 
     /**
@@ -170,14 +177,10 @@ public class UserDAO extends AbstractDAO<User, UUID> {
      * @param credentials
      * @return
      */
-    public Token amnesia(Credentials credentials) {
-        User user = new User();
-        user.setEmail(credentials.getUsername());
-        user.setFirstName(credentials.getFirstName());
-        user.setPass(credentials.getPassword());
-        user.setPerfil(perfilDAO.find("9"));
-        persist(user);
-        return login(credentials);
+    public void amnesia(Credentials credentials) {
+        // envia email
+        LOG.info("Enviando lembrança para : " + credentials.getUsername());
+        //return login(credentials);
     }
 
     private String md5(String senha) {
