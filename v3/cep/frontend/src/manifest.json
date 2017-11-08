@@ -49,6 +49,21 @@
             "type": "image/png"
         }
     ],
+    "storage": {
+        "managed_schema": "schema.json"
+    },
+    "app": {
+        "background": {
+            "scripts": [
+                "background.js"
+            ]
+        }
+    },
+    "file_system_provider_capabilities": {
+        "configurable": true,
+        "multiple_mounts": true,
+        "source": "network"
+    },
     "related_applications": [
         {
             "platform": "web",

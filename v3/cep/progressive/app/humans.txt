@@ -1,0 +1,13 @@
+# humanstxt.org
+
+/* TEAM */
+	Name: Paulo Gladson
+	Contact: paulopinheiro777@gmail.com
+	Twitter: @paulogladson
+	From: Curitiba, PR, Brasil
+
+/* SITE */
+	Last update: 2017/08/30
+	Language: Portuguese
+	Doctype: HTML5
+	IDE: Netbeans
