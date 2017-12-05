@@ -21,7 +21,7 @@
     </parent>
 
     <build>
-        <finalName>app</finalName>
+        <finalName>forum</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

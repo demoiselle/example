@@ -9,10 +9,10 @@ public class ApplicationConfig extends Application {
 
     public ApplicationConfig() {
         BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setBasePath("/app/api");
+        beanConfig.setBasePath("/forum/api");
         beanConfig.setResourcePackage("org.demoiselle.forum.service");
         beanConfig.setVersion("3.0.0");
-        
+
         beanConfig.setContact("https://github.com/demoiselle");
         beanConfig.setDescription("Sistema base gerado pelo generetor-demoiselle https://github.com/demoiselle/generator-demoiselle ");
         beanConfig.setLicense("LGPL v2");
