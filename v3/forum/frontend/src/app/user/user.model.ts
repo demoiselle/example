@@ -1,8 +1,18 @@
 export class User {
-  id: number;
-  description: string;
+  
+    id: string;
+    firstName: string;
+    email: string;
+    pass: string;
+    foto: string;
+    perfil: string;
+
   constructor(
-    id?: number,
-    description?: string
+    id?: string,
+    firstName?: string,
+    email?: string,
+    pass?: string,
+    foto?: string,
+    perfil?: string
   ) { }
 }

@@ -1,11 +1,8 @@
-
 <!-- Conteúdo da página -->
 <article>
-    <div class="container-fluid">
+    <div>
         <div class="panel panel-default">
             <div class="panel-body" style="min-height: 200px;">
-
-
                 <div class="sd form clearfix">
                     <div class="pull-left">
                     </div>
@@ -14,13 +11,15 @@
                 </div>
 
                 <!-- Grid -->
-
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Mensagems
                         <div class="pull-right">
                             <button [routerLink]="['/mensagem','edit']" type="button" class="btn btn-success btn-sm">
-                                <i class="fa fa-plus-circle"></i>&nbsp; Adicionar
+                                <i class="fa fa-plus-circle"></i> Adicionar
+                            </button>
+                            <button class="btn btn-danger btn-sm" type="button" [disabled]="!selecteds.length" (click)="showModalDelete()">
+                              <i class="fa fa-times"></i> Remover selecionado(s)
                             </button>
                         </div>
                     </div>
@@ -28,43 +27,70 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>
-                                        ID
-                                    </th>
+                                          <button type="button" class="th-button" (click)="orderBy('usuario')">
+                                            <span>usuario {{formOrder.usuario}}</span>
+                                          </button>
+                                      </th>
                                     <th>
-                                        <button class="th-button text-left" style="width:100%" (click)="orderBy('description', formOrder.description)">
-                                                <b>Descrição {{formOrder.description}}</b>
-                                        </button>
-                                    </th>
+                                          <button type="button" class="th-button" (click)="orderBy('topico')">
+                                            <span>topico {{formOrder.topico}}</span>
+                                          </button>
+                                      </th>
                                     <th>
-                                        Ações
-                                    </th>
+                                          <button type="button" class="th-button" (click)="orderBy('description')">
+                                            <span>description {{formOrder.description}}</span>
+                                          </button>
+                                      </th>
+                                    <th>
+                                          <button type="button" class="th-button" (click)="orderBy('datahora')">
+                                            <span>datahora {{formOrder.datahora}}</span>
+                                          </button>
+                                      </th>
+                                    
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let mensagem of mensagems">
-                                    <td>{{mensagem.id}}</td>
-                                    <td>{{mensagem.description}}</td>
+                              <tr *ngFor="let mensagem of mensagems">
+                                
+                                  
                                     <td>
-                                        <button [routerLink]="['/mensagem','edit', mensagem.id]" type="button" class="btn btn-warning btn-sm">
-                                            <i class="fa fa-pencil"></i>&nbsp; Editar
-                                        </button>
-
-                                        <button class="btn btn-danger btn-sm" type="button" (click)="showModalDelete(mensagem)">
-                                                <i class="fa fa-times"></i> &nbsp; Apagar
-                                        </button>
-
+                                      <input type="hidden" name="id" [value]="mensagem.id">
+                                      <input type="checkbox" [checked]="mensagem.checked" (change)="toggleSelected(mensagem)">
+                                    </td>
+                                  
+                                
+                                  
+                                    <td>{{mensagem.usuario}}</td>
+                                  
+                                
+                                  
+                                    <td>{{mensagem.topico}}</td>
+                                  
+                                
+                                  
+                                    <td>{{mensagem.description}}</td>
+                                  
+                                
+                                  
+                                    <td>{{mensagem.datahora}}</td>
+                                  
+                                
+                                    <td>
+                                      <a [routerLink]="['/mensagem','edit', mensagem.id]">Visualizar</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <pagination 
-                            [totalItems]="totalItems" 
+                        <pagination
+                            [totalItems]="totalItems"
                             [itemsPerPage]="itemsPerPage"
-                            [(ngModel)]="currentPage" 
+                            [(ngModel)]="currentPage"
                             (pageChanged)="pageChanged($event)"
-                            previousText="&lsaquo;" 
+                            previousText="&lsaquo;"
                             nextText="&rsaquo;"
                             firstText="&laquo;"
                             lastText="&raquo;"
@@ -72,9 +98,7 @@
                         </pagination>
 
                     </div>
-                </div>
-
-
+                </div> <!-- /Grid -->
             </div>
         </div>
     </div>
@@ -87,33 +111,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body text-center">
-                    <span class="fa-stack fa-2x">
-                        <span class="fa fa-circle fa-stack-2x text-default"></span>
-                        <span class="fa fa-exclamation-triangle fa-stack-1x text-warning"></span>
-                    </span>
-                    <br>
-                    <br>
-                    <p id="modal-label">Deseja realmente excluir este item?</p>
-                    <div class="modal-body" *ngIf="mensagem">
-                         <form class="form-horizontal" role="form" #mensagemForm="ngForm">
-                          <div class="form-group">
-                                <label for="description" class="control-label col-sm-3">Descrição</label>
-                                <div class="col-xs-8">
-                                    <input type="text" id="description" class="form-control" name="description"
-                                           [(ngModel)]="mensagem.description" disabled="true">
-                                </div>
-                            </div>
-
-                            <button type="button" class="btn btn-default icon right" (click)="hideStaticModals()">
-                                <span class="fa fa-times" aria-hidden="true"></span>
-                                Não
-                            </button>
-                            <button type="submit" class="btn btn-danger icon right" (click)="delete(mensagem)">
-                                    <span class="fa fa-check" aria-hidden="true"></span>
-                                Sim
-                            </button>
-                        </form>
-                    </div>
+                    <p class="text-center">
+                      <span class="fa-stack fa-2x">
+                          <span class="fa fa-circle fa-stack-2x text-default"></span>
+                          <span class="fa fa-exclamation-triangle fa-stack-1x text-warning"></span>
+                      </span>
+                    </p>
+                    <p *ngIf="selecteds.length === 1">Deseja realmente excluir o item selecionado?</p>
+                    <p *ngIf="selecteds.length > 1">Deseja realmente excluir os {{selecteds.length}} items selecionados?</p>
+                    <form class="form-horizontal" role="form" #mensagemForm="ngForm">
+                       <button type="button" class="btn btn-default icon right" (click)="hideStaticModals()">
+                          <span class="fa fa-times" aria-hidden="true"></span>
+                          <span>Não</span>
+                       </button>
+                       <button type="submit" class="btn btn-danger icon right" (click)="deleteSelecteds()">
+                          <span class="fa fa-check" aria-hidden="true"></span>
+                          <span>Sim</span>
+                       </button>
+                   </form>
                 </div>
             </div>
         </div>

@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { NotificationService } from '../shared';
+import { NotificationService } from '../core/notification.service';
 import { TopicoService } from './topico.service';
 import { Topico } from './topico.model';
+
+const ACTIONS = {
+  CRIAR: 'Criar',
+  EDITAR: 'Editar'
+};
 
 @Component({
   selector: 'app-topico-edit',
@@ -11,10 +16,9 @@ import { Topico } from './topico.model';
 })
 export class TopicoEditComponent implements OnInit {
   topico: Topico;
-  
-  funcao = 'Criar';
 
-  private routeSubscribe: any;
+  action = ACTIONS.CRIAR;
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,15 +30,23 @@ export class TopicoEditComponent implements OnInit {
   ngOnInit() {
     if (this.route.snapshot.data['topico']) {
       this.topico = this.route.snapshot.data['topico'];
-      this.funcao = 'Editar';
+      this.action = ACTIONS.EDITAR;
     } else {
-      this.funcao = 'Criar';
+      this.action = ACTIONS.CRIAR;
       this.topico = new Topico();
     }
   }
 
+  startLoading() {
+    this.isLoading = true;
+  }
+
+  endLoading() {
+    this.isLoading = false;
+  }
 
   save(topico:Topico) {
+    this.startLoading();
     if (!topico.id) {
       delete topico.id;
       this.service.create(topico).subscribe(
@@ -44,6 +56,9 @@ export class TopicoEditComponent implements OnInit {
         },
         (error) => {
           this.notificationService.error('Não foi possível salvar!');
+        },
+        () => {
+          this.endLoading();
         }
       );
     } else {
@@ -54,23 +69,32 @@ export class TopicoEditComponent implements OnInit {
         },
         (error) => {
           this.notificationService.error('Não foi possível alterar!');
+        },
+        () => {
+          this.endLoading();
         }
       );
     }
   }
-  
-  dalete(topico:Topico) {
-    if (topico.id) {
-      this.service.delete(topico).subscribe(
+
+  remove() {
+    this.startLoading();
+    if (this.topico.id) {
+      this.service.delete(this.topico.id).subscribe(
         (result) => {
           this.notificationService.success('Item removido com sucesso!');
           this.goBack();
         },
         (error) => {
           this.notificationService.error('Não foi possível deletar o Item!');
+        },
+        () => {
+          this.endLoading();
         }
       );
-
+    } else {
+      console.warn('Item sem ID!?');
+      this.endLoading();
     }
   }
 

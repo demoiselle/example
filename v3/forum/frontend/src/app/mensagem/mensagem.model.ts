@@ -1,8 +1,16 @@
 export class Mensagem {
-  id: number;
-  description: string;
+  
+    id: string;
+    usuario: string;
+    topico: string;
+    description: string;
+    datahora: string;
+
   constructor(
-    id?: number,
-    description?: string
+    id?: string,
+    usuario?: string,
+    topico?: string,
+    description?: string,
+    datahora?: string
   ) { }
 }

@@ -8,3 +8,8 @@
 .padding-down {
     padding-bottom: 22px;
 }
+
+// força largura para a primeira coluna da tabela
+table th:first-child {
+  width: 50px;
+}

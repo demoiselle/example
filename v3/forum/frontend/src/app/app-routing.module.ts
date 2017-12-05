@@ -45,43 +45,10 @@ export const routes: Routes = [
                         
 		
                         {
-                          path: 'permissao',
-                          loadChildren: './permissao/permissao.module#PermissaoModule',
-                          data: {
-                            title: 'Permissao',
-                            showInSidebar: true,
-                            icon: 'icon-diamond'
-                          }
-                        },
-                        
-		
-                        {
-                          path: 'perfil',
-                          loadChildren: './perfil/perfil.module#PerfilModule',
-                          data: {
-                            title: 'Perfil',
-                            showInSidebar: true,
-                            icon: 'icon-diamond'
-                          }
-                        },
-                        
-		
-                        {
                           path: 'mensagem',
                           loadChildren: './mensagem/mensagem.module#MensagemModule',
                           data: {
                             title: 'Mensagem',
-                            showInSidebar: true,
-                            icon: 'icon-diamond'
-                          }
-                        },
-                        
-		
-                        {
-                          path: 'funcionalidade',
-                          loadChildren: './funcionalidade/funcionalidade.module#FuncionalidadeModule',
-                          data: {
-                            title: 'Funcionalidade',
                             showInSidebar: true,
                             icon: 'icon-diamond'
                           }
@@ -107,7 +74,7 @@ export const routes: Routes = [
           icon: 'icon-speedometer'
         },
       }
-      
+
     ]
   },
   {

@@ -1,40 +1,13 @@
+import { DataService, ExceptionService } from '@demoiselle/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-
-import { Topico } from './topico.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class TopicoService {
+export class TopicoService extends DataService {
 
-  constructor(private http: Http) {
+  constructor(http: HttpClient, exceptionService: ExceptionService) {
+    super(environment.apiUrl + 'v1/topicos', 'topico', http, exceptionService);
   }
 
-  list(currentPage: number, itemsPerPage: number, filter: string, field: string = null, desc: boolean = false) {
-    let start = (currentPage*itemsPerPage) - (itemsPerPage);
-    let end = (currentPage*itemsPerPage) - 1;
-    let orderQuery = '';
-    if (field) {
-      orderQuery = '&sort='+field+(desc?'&desc':'');
-    }
-    return this.http.get('~main/topicos?range='+start+'-'+end+filter+orderQuery)
-      .map(res => res);
-  }
-
-  get(id: number) {
-    return this.http.get('~main/topicos/' + id)
-      .map(res => <Topico>res.json());
-  }
-
-  create(topico: Topico) {
-    return this.http.post('~main/topicos', topico);
-  }
-
-  update(topico: Topico) {
-    return this.http.put('~main/topicos/', topico);
-  }
-
-  delete(topico: Topico) {
-    return this.http.delete('~main/topicos/' + topico.id);
-  }
 }

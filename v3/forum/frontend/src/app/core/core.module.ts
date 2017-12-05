@@ -9,46 +9,34 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule, BrowserXhr } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { Http, RequestOptions, ConnectionBackend, RequestOptionsArgs, Response, XHRBackend } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import { AuthServiceProvider, AuthService, SecurityModule } from '@demoiselle/security';
-import { HttpServiceProvider, ExceptionService, HttpService } from '@demoiselle/http';
-import { LoginService } from '../auth/login/login.service';
+import { ServiceWorkerService } from './sw.service';
+import { NgServiceWorker } from '@angular/service-worker';
+import { CredentialManagementService } from '../auth/credentials.service';
+import { WebSocketService } from './websocket.service';
+import { NotificationService } from './notification.service';
+
+import { AuthService, SecurityModule, TokenService } from '@demoiselle/security';
+import { ExceptionService, AuthInterceptor, DmlHttpModule } from '@demoiselle/http';
+import { AuthOptions } from '@demoiselle/security/dist/auth-options';
 
 // Import 3rd party components
 import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 
-// BEGIN Demoiselle Http and Security configs and factories
-const httpConfig = {
-          endpoints: {
-            main: 'http://localhost:8080/app/api/v1/' 
-          },
-          multitenancy: null,
-          unAuthorizedRoute: '/login',
-          tokenKey: 'id_token'
-        };
-const authConfig = {
-          authEndpointUrl: 'http://localhost:8080/app/api/', // may be in the form 'http://localhost:9090/app/api/v1/'
-          loginResourcePath: 'auth',
-          tokenKey: 'id_token',
-          loginRoute: '/login'
-        };
+import { environment } from '../../environments/environment';
 
- export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, router: Router, exceptionService: ExceptionService) {
-   return new HttpService(backend, defaultOptions, router, exceptionService, httpConfig);
- }
-
- export function authFactory(http: Http, router: Router) {
-   return new AuthService(http, router, authConfig);
- }
- // END Demoiselle Http and Security configs and factories
-
+// Demoiselle AuthOptions, using default values except api endpoint
+export class MyAuthOptions extends AuthOptions {
+  authEndpointUrl = environment.apiUrl;
+}
 
 // Toastr Custom configs (defined at forRoot() providers below)
 export class CustomOption extends ToastOptions {
@@ -111,16 +99,16 @@ const APP_DIRECTIVES = [
 
 @NgModule({
   imports: [
-    //CommonModule,
     NgProgressModule,
     BrowserAnimationsModule,
     BrowserModule,
-    HttpModule,
+    // HttpModule,
+    HttpClientModule,
     RouterModule,
-    SecurityModule,
+    SecurityModule.forRoot(),
     BsDropdownModule.forRoot(),
     ToastModule.forRoot()
-    
+
   ],
   declarations: [
     ...APP_CONTAINERS,
@@ -138,17 +126,20 @@ export class CoreModule {
       providers: [
         // put here your global or singleton services to be available for all modules
         {
-           provide: Http,
-           useFactory: httpFactory,
-           deps: [XHRBackend, RequestOptions, Router, ExceptionService]
-         },
-        {
-          provide: AuthService,
-          useFactory: authFactory,
-          deps: [Http, Router]
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthInterceptor,
+          multi: true,
         },
-        LoginService,
+        {
+          provide: AuthOptions,
+          useClass: MyAuthOptions
+        },
         ExceptionService,
+        ServiceWorkerService,
+        NgServiceWorker,
+        CredentialManagementService,
+        WebSocketService,
+        NotificationService,
         { provide: ToastOptions, useClass: CustomOption },
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: BrowserXhr, useClass: NgProgressBrowserXhr }
@@ -161,4 +152,4 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
   }
-} 
+}

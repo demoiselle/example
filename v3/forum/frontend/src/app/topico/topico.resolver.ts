@@ -8,6 +8,6 @@ export class TopicoResolver implements Resolve<any> {
   constructor(private service: TopicoService) {}
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.service.get(route.params['id']);
+    return this.service.find(route.params['id']);
   }
 }

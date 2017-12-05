@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@demoiselle/security';
-import { NotificationService } from '../../shared';
-import { AmnesiaService } from './amnesia.service';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-amnesia',
@@ -16,8 +15,7 @@ export class AmnesiaComponent implements OnInit {
 
   constructor(protected authService: AuthService,
     protected router: Router,
-    protected notificationService: NotificationService,
-    protected amnesiaService: AmnesiaService) { }
+    protected notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('[AmnesiaComponent] initialized.');
@@ -31,7 +29,7 @@ export class AmnesiaComponent implements OnInit {
       },
       error => {
         if (error.status === 401 || error.status === 406) {
-          const errors = JSON.parse(error._body);
+          let errors = error.error;
           for (const err of errors) {
             this.notificationService.error(err.error);
           }

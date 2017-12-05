@@ -1,7 +1,6 @@
 package org.demoiselle.forum.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -10,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import static javax.persistence.TemporalType.DATE;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -70,8 +66,6 @@ public class Categoria implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 
     /**
      *

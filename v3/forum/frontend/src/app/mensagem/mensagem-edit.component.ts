@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { NotificationService } from '../shared';
+import { NotificationService } from '../core/notification.service';
 import { MensagemService } from './mensagem.service';
 import { Mensagem } from './mensagem.model';
+
+const ACTIONS = {
+  CRIAR: 'Criar',
+  EDITAR: 'Editar'
+};
 
 @Component({
   selector: 'app-mensagem-edit',
@@ -11,10 +16,9 @@ import { Mensagem } from './mensagem.model';
 })
 export class MensagemEditComponent implements OnInit {
   mensagem: Mensagem;
-  
-  funcao = 'Criar';
 
-  private routeSubscribe: any;
+  action = ACTIONS.CRIAR;
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,15 +30,23 @@ export class MensagemEditComponent implements OnInit {
   ngOnInit() {
     if (this.route.snapshot.data['mensagem']) {
       this.mensagem = this.route.snapshot.data['mensagem'];
-      this.funcao = 'Editar';
+      this.action = ACTIONS.EDITAR;
     } else {
-      this.funcao = 'Criar';
+      this.action = ACTIONS.CRIAR;
       this.mensagem = new Mensagem();
     }
   }
 
+  startLoading() {
+    this.isLoading = true;
+  }
+
+  endLoading() {
+    this.isLoading = false;
+  }
 
   save(mensagem:Mensagem) {
+    this.startLoading();
     if (!mensagem.id) {
       delete mensagem.id;
       this.service.create(mensagem).subscribe(
@@ -44,6 +56,9 @@ export class MensagemEditComponent implements OnInit {
         },
         (error) => {
           this.notificationService.error('Não foi possível salvar!');
+        },
+        () => {
+          this.endLoading();
         }
       );
     } else {
@@ -54,23 +69,32 @@ export class MensagemEditComponent implements OnInit {
         },
         (error) => {
           this.notificationService.error('Não foi possível alterar!');
+        },
+        () => {
+          this.endLoading();
         }
       );
     }
   }
-  
-  dalete(mensagem:Mensagem) {
-    if (mensagem.id) {
-      this.service.delete(mensagem).subscribe(
+
+  remove() {
+    this.startLoading();
+    if (this.mensagem.id) {
+      this.service.delete(this.mensagem.id).subscribe(
         (result) => {
           this.notificationService.success('Item removido com sucesso!');
           this.goBack();
         },
         (error) => {
           this.notificationService.error('Não foi possível deletar o Item!');
+        },
+        () => {
+          this.endLoading();
         }
       );
-
+    } else {
+      console.warn('Item sem ID!?');
+      this.endLoading();
     }
   }
 

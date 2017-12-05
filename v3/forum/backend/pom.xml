@@ -13,7 +13,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <parent>
         <groupId>org.demoiselle.jee</groupId>
         <artifactId>demoiselle-parent-rest</artifactId>
@@ -21,7 +21,7 @@
     </parent>
 
     <build>
-        <finalName>forum</finalName>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -40,7 +40,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -90,43 +90,44 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>5.1.0.Final</version>
             <scope>provided</scope>
         </dependency>
- 
+
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.16</version> 
+            <!--<version>1.5.10</version>-->
             <!--descomentar a versão em desenv e comentar para producação-->
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-envers</artifactId>
-            <version>5.2.10.Final</version>
-        </dependency>
-    </dependencies>
 
-    <!--    <profiles>
-        <profile>
-            <id>wildfly-swarm</id>
-            <dependencies>
-                 WildFly Default Swarm Fractions 
-                <dependency>
-                    <groupId>org.wildfly.swarm</groupId>
-                    <artifactId></artifactId>
-                    <version>2016.11.0</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>net.markenwerk</groupId>
+            <artifactId>utils-mail-dkim</artifactId>
+            <version>1.1.9</version>
+        </dependency>
+
+    </dependencies>
 
 </project>
 
-<!-- sudo usermod -aG docker $(whoami)-->

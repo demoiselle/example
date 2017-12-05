@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { SecurityModule } from '@demoiselle/security';
 
-import { NotificationService } from './notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -15,11 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     SecurityModule
   ],
-  declarations: [ 
-  ],
-  providers: [
-    NotificationService
-  ],
+  declarations: [],
+  providers: [],
   exports: [
     CommonModule,
     FormsModule,

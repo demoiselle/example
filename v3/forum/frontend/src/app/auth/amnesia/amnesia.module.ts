@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { AmnesiaComponent } from './amnesia.component';
 import { AmnesiaRoutingModule } from './amnesia-routing.module';
-import { AmnesiaService } from './amnesia.service';
 
 
 @NgModule({
@@ -13,8 +12,6 @@ import { AmnesiaService } from './amnesia.service';
   declarations: [
     AmnesiaComponent
   ],
-  providers: [
-    AmnesiaService
-  ]
+  providers: []
 })
 export class AmnesiaModule { }

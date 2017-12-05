@@ -1,8 +1,12 @@
 export class Topico {
-  id: number;
-  description: string;
+  
+    id: string;
+    categoria: string;
+    description: string;
+
   constructor(
-    id?: number,
+    id?: string,
+    categoria?: string,
     description?: string
   ) { }
 }

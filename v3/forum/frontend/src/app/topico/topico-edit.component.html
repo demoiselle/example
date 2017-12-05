@@ -1,48 +1,50 @@
 
 <!-- Conteúdo da página -->
 <article>
-  <div class="container-fluid">
+  <div>
     <div class="card">
       <div class="card-header">
-          <strong>{{funcao}} Topico</strong>
+          <strong>{{action}} Topico</strong>
       </div>
       <div class="card-body">
-      
+
       <div class="panel-body" style="min-height: 300px;">
 
       <form class="col-xs-6" role="form" #topicoForm="ngForm" (ngSubmit)="save(topico)">
+        <fieldset [disabled]="isLoading">
+          
+          <div class="form-group">
+            <label for="topico-id" class="control-label">id</label>
+            <input type="text" name="id" id="topico-id" class="form-control" [(ngModel)]="topico.id" readonly="true">
+          </div>
+          <div class="form-group">
+            <label for="topico-categoria" class="control-label">categoria</label>
+            <input type="text" name="categoria" id="topico-categoria" class="form-control" [(ngModel)]="topico.categoria" >
+          </div>
+          <div class="form-group">
+            <label for="topico-description" class="control-label">description</label>
+            <input type="text" name="description" id="topico-description" class="form-control" [(ngModel)]="topico.description" >
+          </div>
+        </fieldset>
 
-        <div class="form-group">
-          <label for="topicoId" class="control-label">ID</label>
-          <input type="text" id="topicoId" class="form-control"
-            name="topicoId" [(ngModel)]="topico.id"
-            disabled="true">
-        </div>
-
-        <div class="form-group">
-          <label for="description" class="control-label">Descrição</label>
-          <input type="text" id="description" class="form-control"
-            name="description" [(ngModel)]="topico.description"
-            required>
-        </div>
-
-        
-        <div class="card-footer">
-          <div class="pull-right">
-            <button type="button" class="btn btn-default" (click)="goBack()">
+        <div class="card-footer clearfix">
+          <fieldset [disabled]="isLoading" class="pull-right">
+            <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="topico.id">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              <span>Remover</span>
+            </button>
+            <button type="button" class="btn btn-default mr-1" (click)="goBack()">
               <i class="fa fa-times" aria-hidden="true"></i>
-              Cancelar
+              <span>Cancelar</span>
             </button>
             <button type="submit" class="btn btn-primary" [disabled]="topicoForm.invalid">
               <i class="fa fa-check" aria-hidden="true"></i>
-              Salvar
+              <span>Salvar</span>
             </button>
-          </div>
+          </fieldset>
         </div>
-
       </form>
       </div>
-
       </div>
     </div>
   </div>

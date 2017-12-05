@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
-import { NotificationService } from '../shared';
+import { NotificationService } from '../core/notification.service';
 import { MensagemService } from './mensagem.service';
 import { Mensagem } from './mensagem.model';
 
@@ -17,6 +17,9 @@ export class MensagemComponent implements OnInit {
 
   @ViewChild('staticModalDelete') public staticModalDelete: ModalDirective;
 
+  // states
+  public isLoading = true;
+
   // Pagination
   public itemsPerPage: number = 10;
   public totalItems: number = 0;
@@ -26,50 +29,65 @@ export class MensagemComponent implements OnInit {
   public ascValue = '⇧';
   public descValue = '⇩';
   public formOrder = {
-    id: '',
-    description: ''
+      id: '',
+      usuario: '',
+      topico: '',
+      description: '',
+      datahora: '',
   };
-
   public filterActive = true;
   public filters = {
-    id: '',
-    description: ''
+      id: '',
+      usuario: '',
+      topico: '',
+      description: '',
+      datahora: '',
   };
+
+  public selecteds = [];
 
   constructor(private service: MensagemService, private notificationService: NotificationService) {
   }
 
   ngOnInit() {
+    console.debug('[MensagemComponent] created.');
+    this.isLoading = false;
+
+    // populate table
     this.list();
   }
 
-  
-
   list(field: string = null, desc: boolean = false) {
-    let filter = this.processFilter();
-    this.service.list(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
+    this.isLoading = true;
+    const filter = this.processFilter();
+    this.service.findAll(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
       (result) => {
         try {
-          this.mensagems = result.json();
+          this.mensagems = result.body;
         } catch (e) {
           console.log('Can not convert result to JSON.');
           console.log(e);
           this.mensagems = [];
         }
-        let contentRange = result.headers.get('Content-Range');
+        const contentRange = result.headers.get('Content-Range');
         if (contentRange) {
           this.totalItems = Number(contentRange.substr(contentRange.indexOf('/')+1, contentRange.length));
         }
       },
       (error) => {
+        console.error(error);
         this.notificationService.error('Não foi possível carregar a lista de itens!');
-        this.mensagems = error;
+      },
+      () => {
+        console.debug('MensagemComponent.list() - completed.');
+        this.isLoading = false;
       }
     );
   }
 
   delete(mensagem: Mensagem) {
-    this.service.delete(mensagem).subscribe(
+    this.isLoading = true;
+    this.service.delete(mensagem.id).subscribe(
       (result) => {
         this.mensagem = null;
         this.staticModalDelete.hide();
@@ -77,14 +95,37 @@ export class MensagemComponent implements OnInit {
         this.list();
       },
       (error) => {
+        console.error(error);
         this.notificationService.error('Não foi possível remover!');
+      },
+      () => {
+        console.debug('MensagemComponent.delete() - completed.');
+        this.isLoading = false;
       }
     );
   }
 
-  showModalDelete(mensagem: Mensagem) {
-    this.mensagem = mensagem;
-    this.staticModalDelete.show();
+  deleteSelecteds() {
+    this.selecteds.map(selectedItem => {
+      this.delete(selectedItem);
+    });
+  }
+
+  toggleSelected(mensagem: Mensagem) {
+    let index = this.selecteds.indexOf(mensagem);
+    if(index === -1) {
+      this.selecteds.push(mensagem);
+    } else {
+      this.selecteds.splice(index, 1);
+    }
+  }
+
+  showModalDelete() {
+    if(this.selecteds.length > 0) {
+      this.staticModalDelete.show();
+    } else {
+      console.warn('Nenhum item selecionado.');
+    }
   }
 
   hideStaticModals() {
@@ -101,20 +142,19 @@ export class MensagemComponent implements OnInit {
     this.itemsPerPage = itemsPerPage;
   }
 
-   // Filter
+  // Filter
   processFilter() {
     let filter = '';
-    if (this.filters.id !== '') {
-      filter += '&id=' + this.filters.id;
+    for (let key in this.filters) {
+      if (this.filters[key] !== '') {
+        filter += `&${key}=${this.filters[key]}`;
+      }
     }
-    if (this.filters.description !== '') {
-      filter += '&description=' + this.filters.description;
-    }
+
     return filter;
   }
 
-  
-  orderBy(field, order) {
+  orderBy(field) {
     this.toggleFormOrder(field);
     this.list(field, this.formOrder[field] === this.descValue ? true : false);
   }

@@ -1,0 +1,86 @@
+{
+    "lang": "pt-br",
+    "dir": "ltr",
+    "manifest_version": 2,
+    "name": "Demoiselle",
+    "version": "1.0.0",
+    "short_name": "Demoiselle",
+    "start_url": "/?utm_source=homescreen",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "gcm_sender_id": "286639952980",
+    "theme_color": "#ffffff",
+    "description": "Demoiselle Framework Exemplo",
+    "offline_enabled": true,
+    "serviceworker": {
+        "src": "worker-basic.min.js",
+        "scope": "/",
+        "use_cache": true
+    },
+    "icons": [
+        {
+            "src": "assets/android/android-icon-36x36.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android/android-icon-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android/android-icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android/android-icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android/android-icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android/android-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "related_applications": [
+        {
+            "platform": "web",
+            "url": "https://www.demoiselle.org/"
+        }
+    ],
+    "storage": {
+        "managed_schema": "schema.json"
+    },
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "file_system_provider_capabilities": {
+        "configurable": true,
+        "multiple_mounts": true,
+        "source": "network"
+    },
+    "permissions": [
+        "gcm",
+        "storage",
+        "alarms",
+        "notifications",
+        "https://www.demoiselle.org/",
+        {
+            "fileSystem": [
+                "write",
+                "retainEntries",
+                "directory"
+            ]
+        }
+    ],
+    "content_security_policy": "script-src 'self' www.google-analytics.com  *.google.com *.facebook.net *.facebook.com ssl.google-analytics.com ; font-src 'self' ; media-src 'self' ; object-src 'self' ; worker-src 'self' ; frame-ancestors 'self' ; form-action 'self' ; block-all-mixed-content; manifest-src 'self' ;"
+}

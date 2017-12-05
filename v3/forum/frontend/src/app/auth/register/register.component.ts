@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@demoiselle/security';
-import { NotificationService } from '../../shared';
-import { RegisterService } from './register.service';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -19,15 +18,13 @@ export class RegisterComponent implements OnInit {
 
   constructor(protected authService: AuthService,
     protected router: Router,
-    protected notificationService: NotificationService,
-    protected registerService: RegisterService) { }
+    protected notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('[RegisterComponent] initialized.');
   }
 
   register() {
-
     this.authService.register(this.credentials)
       .subscribe(
       res => {
@@ -35,7 +32,7 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         if (error.status === 401 || error.status === 406) {
-          const errors = JSON.parse(error._body);
+          const errors = error.error;
           for (const err of errors) {
             this.notificationService.error(err.error);
           }

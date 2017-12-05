@@ -1,48 +1,46 @@
 
 <!-- Conteúdo da página -->
 <article>
-  <div class="container-fluid">
+  <div>
     <div class="card">
       <div class="card-header">
-          <strong>{{funcao}} Categoria</strong>
+          <strong>{{action}} Categoria</strong>
       </div>
       <div class="card-body">
-      
+
       <div class="panel-body" style="min-height: 300px;">
 
       <form class="col-xs-6" role="form" #categoriaForm="ngForm" (ngSubmit)="save(categoria)">
+        <fieldset [disabled]="isLoading">
+          
+          <div class="form-group">
+            <label for="categoria-id" class="control-label">id</label>
+            <input type="text" name="id" id="categoria-id" class="form-control" [(ngModel)]="categoria.id" readonly="true">
+          </div>
+          <div class="form-group">
+            <label for="categoria-description" class="control-label">description</label>
+            <input type="text" name="description" id="categoria-description" class="form-control" [(ngModel)]="categoria.description" >
+          </div>
+        </fieldset>
 
-        <div class="form-group">
-          <label for="categoriaId" class="control-label">ID</label>
-          <input type="text" id="categoriaId" class="form-control"
-            name="categoriaId" [(ngModel)]="categoria.id"
-            disabled="true">
-        </div>
-
-        <div class="form-group">
-          <label for="description" class="control-label">Descrição</label>
-          <input type="text" id="description" class="form-control"
-            name="description" [(ngModel)]="categoria.description"
-            required>
-        </div>
-
-        
-        <div class="card-footer">
-          <div class="pull-right">
-            <button type="button" class="btn btn-default" (click)="goBack()">
+        <div class="card-footer clearfix">
+          <fieldset [disabled]="isLoading" class="pull-right">
+            <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="categoria.id">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              <span>Remover</span>
+            </button>
+            <button type="button" class="btn btn-default mr-1" (click)="goBack()">
               <i class="fa fa-times" aria-hidden="true"></i>
-              Cancelar
+              <span>Cancelar</span>
             </button>
             <button type="submit" class="btn btn-primary" [disabled]="categoriaForm.invalid">
               <i class="fa fa-check" aria-hidden="true"></i>
-              Salvar
+              <span>Salvar</span>
             </button>
-          </div>
+          </fieldset>
         </div>
-
       </form>
       </div>
-
       </div>
     </div>
   </div>

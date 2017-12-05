@@ -1,8 +1,10 @@
 export class Categoria {
-  id: number;
-  description: string;
+  
+    id: string;
+    description: string;
+
   constructor(
-    id?: number,
+    id?: string,
     description?: string
   ) { }
 }
