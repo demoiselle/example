@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8080/app/api/',
+  apiUrl: 'https://util.pgxp.com.br/forum/api/',
+  socketUrl: 'wss://util.pgxp.com.br/forum/push/serpro'
 };

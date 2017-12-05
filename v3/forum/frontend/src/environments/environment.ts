@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/app/api/',
-  socketUrl: 'ws://localhost:8080/app/push/meu-canal',
+  apiUrl: 'http://localhost:8080/forum/api/',
+  socketUrl: 'ws://localhost:8080/forum/push/meu-canal',
 };
