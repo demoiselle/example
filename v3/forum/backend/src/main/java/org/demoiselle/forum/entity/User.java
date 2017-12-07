@@ -31,7 +31,7 @@ public class User implements Serializable {
     @NotNull
     @Basic(optional = false)
     @Size(min = 3, max = 128)
-    @Column(unique = true, nullable = false, length = 128)
+    @Column(nullable = false, length = 128)
     private String firstName;
 
     @Email

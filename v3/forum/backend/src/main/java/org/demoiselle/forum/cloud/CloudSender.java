@@ -33,9 +33,9 @@ public class CloudSender {
 
             CloudNotification webn = new CloudNotification();
             webn.setBody(textMessage);
-            webn.setClick_action("https://seuapp.com.br/");
-            webn.setIcon("https://seuapp.com.br/images/logo-large.png");
-            webn.setTitle("seuapp.com.br");
+            webn.setClick_action("https://forum.demoiselle.org/");
+            webn.setIcon("https://forum.demoiselle.org/assets/logo.png");
+            webn.setTitle("Fórum Demoiselle");
 
             CloudMessage men = new CloudMessage();
             men.setPriority("normal");
@@ -51,7 +51,7 @@ public class CloudSender {
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Content-Type", "application/json");
             // https://firebase.google.com/docs/cloud-messaging/js/client?authuser=0
-            con.setRequestProperty("Authorization", "key=SuaChave");
+            con.setRequestProperty("Authorization", "key=");
             // https://console.firebase.google.com/project/{SuaApp}/settings/cloudmessaging/
             con.setDoOutput(true);
 
