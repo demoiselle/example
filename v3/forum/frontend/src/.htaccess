@@ -1,0 +1,108 @@
+# CONFIGURAR UTILIZAÇÃO DO HTTPS
+#RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=301,L]
+
+#Força a utilizar Cache-Control e Expires header
+<IfModule mod_headers.c>
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Content-Security-Policy "allow 'self';"
+Header set X-Content-Type-Options "nosniff"
+Header set Strict-Transport-Security "includeSubDomains; max-age=15768000; preload"
+# Header set Content-Security-Policy "script-src 'self' www.google-analytics.com  *.google.com *.facebook.net *.facebook.com ssl.google-analytics.com ; font-src 'self' ; media-src 'self' ; object-src 'self' ; worker-src 'self' ; frame-ancestors 'self' ; form-action 'self' ; block-all-mixed-content; manifest-src 'self' ; "
+Header set Referrer-Policy "no-referrer"
+Header set Public-Key-Pins "pin-sha256=\"5hJEMD7vM4Era+Cp5IZt0v73q7+MG9jWz3jN9abpUaE=\";  pin-sha256=\"YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg=\"; pin-sha256=\"Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys=\"; max-age=15768000 "
+Header set Expect-CT "enforce; report-uri=\"https://pgxp.report-uri.io/r/default/ct/enforce\"; max-age=15768000 "
+
+Header unset Pragma
+FileETag None
+Header unset ETag
+
+# cache images/pdf docs for 100 days
+#<FilesMatch "\.(css|js|ico|pdf|jpg|jpeg|png|svg|gif|otf|eot|ttf|woff|woff2|txt|json)$">
+#Header set Cache-Control "max-age=15768000, public, must-revalidate"
+#</FilesMatch>
+
+Header set X-UA-Compatible "ie=edge,chrome=1"
+<FilesMatch "\.(js|css|gif|png|jpeg|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|oex|xpi|safariextz|vcf)$" >
+Header unset X-UA-Compatible
+</FilesMatch>
+
+
+<FilesMatch "index.html">
+#   Header add Link "</sw.js>; rel=preload; as=script"
+</FilesMatch>
+
+
+
+</IfModule>
+
+#
+<IfModule mod_expires.c>
+  ExpiresActive on
+
+# Perhaps better to whitelist expires rules? Perhaps.
+  ExpiresDefault                          "access plus 1 month"
+
+# Data
+  ExpiresByType text/xml                  "access plus 0 seconds"
+  ExpiresByType application/xml           "access plus 0 seconds"
+  ExpiresByType application/json          "access plus 0 seconds"
+
+# Favicon (cannot be renamed)
+  ExpiresByType image/x-icon              "access plus 1 week"
+
+# Media: images, video, audio
+  ExpiresByType image/gif                 "access plus 1 month"
+  ExpiresByType image/png                 "access plus 1 month"
+  ExpiresByType image/jpeg                "access plus 1 month"
+  ExpiresByType video/ogg                 "access plus 1 month"
+  ExpiresByType audio/ogg                 "access plus 1 month"
+  ExpiresByType video/mp4                 "access plus 1 month"
+  ExpiresByType video/webm                "access plus 1 month"
+
+# Webfonts
+  ExpiresByType application/x-font-ttf    "access plus 1 month"
+  ExpiresByType font/opentype             "access plus 1 month"
+  ExpiresByType application/x-font-woff   "access plus 1 month"
+  ExpiresByType image/svg+xml             "access plus 1 month"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+
+# CSS and JavaScript
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+
+</IfModule>
+
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-opentype image/svg+xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom_xml
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+    AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+    AddOutputFilterByType DEFLATE application/x-httpd-eruby
+
+  # Remove browser bugs (only needed for really old browsers)
+  
+SetOutputFilter DEFLATE
+
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+
+BrowserMatch ^HMSI[E] !no-gzip !gzip-only-text/html
+
+SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
+</IfModule>

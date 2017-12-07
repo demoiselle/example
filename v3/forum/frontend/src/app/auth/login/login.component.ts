@@ -7,6 +7,8 @@ import { ServiceWorkerService } from '../../core/sw.service';
 import { CredentialManagementService } from '../credentials.service';
 import { WebSocketService } from '../../core/websocket.service';
 
+import { AuthService as SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular5-social-login';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -21,7 +23,9 @@ export class LoginComponent implements OnInit {
 
   protected fingerprint;
 
-  constructor(protected authService: AuthService,
+  constructor(
+    protected socialAuthService: SocialAuthService,
+    protected authService: AuthService,
     protected router: Router,
     protected notificationService: NotificationService,
     protected serviceWorkerService: ServiceWorkerService,
@@ -85,6 +89,34 @@ export class LoginComponent implements OnInit {
       () => {
         subs.unsubscribe();
       });
+  }
+
+  socialSignIn(socialPlatform) {
+    let socialPlatformProvider;
+
+    if (socialPlatform === "facebook") {
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    } else if (socialPlatform === "google") {
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (social) => {
+        const subs = this.authService.social(social)
+          .subscribe(result => {
+            console.debug('Login social realizado com sucesso!', result);
+            this.notificationService.success('Login social realizado com sucesso!');
+            this._sendLoginWebSocket();
+            this._getFingerprint().then((result) => {
+              this._sendFingerprint();
+            });
+          },
+          error => this._showErrors(error),
+          () => {
+            subs.unsubscribe();
+          });
+      }
+    );
   }
 
   private _getFingerprint() {

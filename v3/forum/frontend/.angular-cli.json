@@ -11,9 +11,10 @@
         "assets",
         "favicon.ico",
         "app.webmanifest",
-        "humans.text",
+        "humans.txt",
         "background.js",
-        "schema.json"
+        "schema.json",
+        ".htaccess"
       ],
       "index": "index.html",
       "main": "main.ts",

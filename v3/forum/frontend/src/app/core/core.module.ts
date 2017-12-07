@@ -33,6 +33,24 @@ import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 
 import { environment } from '../../environments/environment';
 
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from "angular5-social-login";
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+    [
+      {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider(environment.facebookId)
+      },
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(environment.googleId)
+      },
+    ]
+  );
+  return config;
+}
+
 // Demoiselle AuthOptions, using default values except api endpoint
 export class MyAuthOptions extends AuthOptions {
   authEndpointUrl = environment.apiUrl;
@@ -100,6 +118,7 @@ const APP_DIRECTIVES = [
 @NgModule({
   imports: [
     NgProgressModule,
+    SocialLoginModule,
     BrowserAnimationsModule,
     BrowserModule,
     // HttpModule,
@@ -116,7 +135,10 @@ const APP_DIRECTIVES = [
     ...APP_DIRECTIVES
   ],
   exports: [],
-  providers: []
+  providers: [{
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs
+  }]
 })
 export class CoreModule {
 
