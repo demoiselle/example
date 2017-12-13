@@ -18,43 +18,37 @@
                             <button [routerLink]="['/categoria','edit']" type="button" class="btn btn-success btn-sm">
                                 <i class="fa fa-plus-circle"></i> Adicionar
                             </button>
-                            <button class="btn btn-danger btn-sm" type="button" [disabled]="!selecteds.length" (click)="showModalDelete()">
+                            <button class="btn btn-danger btn-sm d-none d-md-inline-block" type="button" [disabled]="!selecteds.length" (click)="showModalDelete()">
                               <i class="fa fa-times"></i> Remover selecionado(s)
                             </button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped table-sm">
+                      <table class="table table-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-card">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>
-                                          <button type="button" class="th-button" (click)="orderBy('description')">
-                                            <span>description {{formOrder.description}}</span>
-                                          </button>
-                                      </th>
-                                    
-                                    <th>Ações</th>
+                                  <th scope="col">
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('description')">
+                                      <span>description {{formOrder.description}}</span>
+                                    </button>
+                                  
+                                  </th>
+                                  <th scope="col">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let categoria of categorias">
-                                
-                                  
-                                    <td>
-                                      <input type="hidden" name="id" [value]="categoria.id">
-                                      <input type="checkbox" [checked]="categoria.checked" (change)="toggleSelected(categoria)">
-                                    </td>
-                                  
-                                
-                                  
-                                    <td>{{categoria.description}}</td>
-                                  
-                                
-                                    <td>
-                                      <a [routerLink]="['/categoria','edit', categoria.id]">Visualizar</a>
-                                    </td>
-                                </tr>
+                                <td class="d-none d-md-block">
+                                  <input type="hidden" name="id" [value]="categoria.id">
+                                  <input type="checkbox" [checked]="categoria.checked" (change)="toggleSelected(categoria)">
+                                </td>
+                                <th scope="row">{{categoria.description}}</th>
+                                <td>
+                                  <a class="btn btn-sm btn-link d-md-none text-danger" (click)="delete(categoria)">Remover</a>
+                                  <a class="btn btn-sm btn-primary" [routerLink]="['/categoria','edit', categoria.id]">Visualizar</a>
+                                </td>
+                              </tr>
                             </tbody>
                         </table>
 

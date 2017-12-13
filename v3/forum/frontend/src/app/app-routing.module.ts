@@ -23,17 +23,6 @@ export const routes: Routes = [
     children: [
 		
                         {
-                          path: 'user',
-                          loadChildren: './user/user.module#UserModule',
-                          data: {
-                            title: 'User',
-                            showInSidebar: true,
-                            icon: 'icon-diamond'
-                          }
-                        },
-                        
-		
-                        {
                           path: 'topico',
                           loadChildren: './topico/topico.module#TopicoModule',
                           data: {

@@ -6,8 +6,11 @@ import { NotificationService } from '../../core/notification.service';
 import { ServiceWorkerService } from '../../core/sw.service';
 import { CredentialManagementService } from '../credentials.service';
 import { WebSocketService } from '../../core/websocket.service';
-
-import { AuthService as SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular5-social-login';
+import {
+  AuthService as SocialAuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular5-social-login';
 
 @Component({
   selector: 'app-login',
@@ -32,12 +35,13 @@ export class LoginComponent implements OnInit {
     protected tokenService: TokenService,
     protected credentialManagementService: CredentialManagementService,
     protected webSocketService: WebSocketService
-  ) { }
+  ) {}
 
   ngOnInit() {
     console.debug('[LoginComponent] initialized.');
 
-    this.credentialManagementService.isCredentialsAvailable()
+    this.credentialManagementService
+      .isCredentialsAvailable()
       .then(result => {
         if (result === true) {
           this.supportAutoLogin = true;
@@ -60,7 +64,8 @@ export class LoginComponent implements OnInit {
   }
 
   autoLogin() {
-    this.credentialManagementService.autoSignin()
+    this.credentialManagementService
+      .autoSignin()
       .then(credentials => {
         const payload = {
           username: credentials.id,
@@ -75,52 +80,55 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithPayload(payload) {
-    const subs = this.authService.login(payload)
-      .subscribe(result => {
+    const subs = this.authService.login(payload).subscribe(
+      result => {
         console.debug('Login realizado com sucesso!', result);
         this.notificationService.success('Login realizado com sucesso!');
         this._sendLoginWebSocket();
-        this._getFingerprint().then((result) => {
+        this._getFingerprint().then(result => {
           this._sendFingerprint();
         });
-        this.credentialManagementService.store(payload)
+        this.credentialManagementService.store(payload);
       },
       error => this._showErrors(error),
       () => {
         subs.unsubscribe();
-      });
+      }
+    );
   }
 
   socialSignIn(socialPlatform) {
     let socialPlatformProvider;
 
-    if (socialPlatform === "facebook") {
+    if (socialPlatform === 'facebook') {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform === "google") {
+    } else if (socialPlatform === 'google') {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
 
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      (social) => {
-        const subs = this.authService.social(social)
-          .subscribe(result => {
-            console.debug('Login social realizado com sucesso!', result);
-            this.notificationService.success('Login social realizado com sucesso!');
-            this._sendLoginWebSocket();
-            this._getFingerprint().then((result) => {
-              this._sendFingerprint();
-            });
-          },
-          error => this._showErrors(error),
-          () => {
-            subs.unsubscribe();
+    this.socialAuthService.signIn(socialPlatformProvider).then(social => {
+      const subs = this.authService.social(social).subscribe(
+        result => {
+          console.debug('Login social realizado com sucesso!', result);
+          this.notificationService.success(
+            'Login social realizado com sucesso!'
+          );
+          this._sendLoginWebSocket();
+          this._getFingerprint().then(result => {
+            this._sendFingerprint();
           });
-      }
-    );
+        },
+        error => this._showErrors(error),
+        () => {
+          subs.unsubscribe();
+        }
+      );
+    });
   }
 
   private _getFingerprint() {
-    return this.serviceWorkerService.getFingerprint()
+    return this.serviceWorkerService
+      .getFingerprint()
       .then(fingerprint => {
         console.debug({ fingerprint });
         this.fingerprint = fingerprint;
@@ -140,18 +148,21 @@ export class LoginComponent implements OnInit {
 
   private _sendFingerprint() {
     if (this.fingerprint) {
-      this.serviceWorkerService.sendFingerprint(this.fingerprint)
-        .subscribe(() => {
+      this.serviceWorkerService.sendFingerprint(this.fingerprint).subscribe(
+        () => {
           console.debug('Fingerprint enviado.');
-        }, (error) => console.error('Erro ao enviar fingerprint:', error));
+        },
+        error => console.error('Erro ao enviar fingerprint:', error)
+      );
     } else {
       console.error('Fingerprint não existente.');
     }
   }
 
   private _sendLoginWebSocket() {
-    this.webSocketService.connect()
-      .then((wsConnection) => {
+    this.webSocketService
+      .connect()
+      .then(wsConnection => {
         // console.debug('[WS] conectado.');
         const id = this.tokenService.getIdentityFromToken();
         wsConnection.send({

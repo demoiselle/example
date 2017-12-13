@@ -9,7 +9,6 @@ import { Categoria } from './categoria.model';
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',
   styleUrls: ['./categoria.component.scss']
-
 })
 export class CategoriaComponent implements OnInit {
   categoria: Categoria;
@@ -21,9 +20,9 @@ export class CategoriaComponent implements OnInit {
   public isLoading = true;
 
   // Pagination
-  public itemsPerPage: number = 10;
-  public totalItems: number = 0;
-  public currentPage: number = 1;
+  public itemsPerPage = 10;
+  public totalItems = 0;
+  public currentPage = 1;
 
   // Filter
   public ascValue = '⇧';
@@ -44,14 +43,13 @@ export class CategoriaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.debug('[CategoriaComponent] created.');
     this.isLoading = false;
 
     // populate table
-    this.list();
+    this.loadList();
   }
 
-  list(field: string = null, desc: boolean = false) {
+  loadList(field: string = null, desc: boolean = false) {
     this.isLoading = true;
     const filter = this.processFilter();
     this.service.findAll(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
@@ -59,8 +57,7 @@ export class CategoriaComponent implements OnInit {
         try {
           this.categorias = result.body;
         } catch (e) {
-          console.log('Can not convert result to JSON.');
-          console.log(e);
+          console.log('Can not convert result to JSON.', e);
           this.categorias = [];
         }
         const contentRange = result.headers.get('Content-Range');
@@ -73,7 +70,6 @@ export class CategoriaComponent implements OnInit {
         this.notificationService.error('Não foi possível carregar a lista de itens!');
       },
       () => {
-        console.debug('CategoriaComponent.list() - completed.');
         this.isLoading = false;
       }
     );
@@ -86,14 +82,13 @@ export class CategoriaComponent implements OnInit {
         this.categoria = null;
         this.staticModalDelete.hide();
         this.notificationService.success("Categoria removido com sucesso!");
-        this.list();
+        this.loadList();
       },
       (error) => {
         console.error(error);
         this.notificationService.error('Não foi possível remover!');
       },
       () => {
-        console.debug('CategoriaComponent.delete() - completed.');
         this.isLoading = false;
       }
     );
@@ -106,7 +101,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   toggleSelected(categoria: Categoria) {
-    let index = this.selecteds.indexOf(categoria);
+    const index = this.selecteds.indexOf(categoria);
     if(index === -1) {
       this.selecteds.push(categoria);
     } else {
@@ -129,7 +124,7 @@ export class CategoriaComponent implements OnInit {
   // Pagination
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.list();
+    this.loadList();
   }
 
   onPageItemsChange(itemsPerPage) {
@@ -150,7 +145,7 @@ export class CategoriaComponent implements OnInit {
 
   orderBy(field) {
     this.toggleFormOrder(field);
-    this.list(field, this.formOrder[field] === this.descValue ? true : false);
+    this.loadList(field, this.formOrder[field] === this.descValue ? true : false);
   }
 
   toggleFormOrder(field) {

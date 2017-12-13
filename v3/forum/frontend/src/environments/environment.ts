@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/forum/api/',
   socketUrl: 'ws://localhost:8080/forum/push/meu-canal',
-  googleId: '547939596694-2r4hd52mojck61ji1r43qhcmh220tpmj.apps.googleusercontent.com',
-  facebookId: '112143105621779'
+  googleId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  facebookId: 'xxxxxxxxxxxxxxxxxxxxxxxx'
 };

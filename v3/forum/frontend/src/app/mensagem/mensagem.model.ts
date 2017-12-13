@@ -1,16 +1,15 @@
 export class Mensagem {
-  
     id: string;
-    usuario: string;
-    topico: string;
+    usuario: any;
+    topico: any;
     description: string;
-    datahora: string;
+    datahora: any;
 
-  constructor(
-    id?: string,
-    usuario?: string,
-    topico?: string,
-    description?: string,
-    datahora?: string
-  ) { }
+    constructor(
+      id?: string,
+      usuario?: any,
+      topico?: any,
+      description?: string,
+      datahora?: any
+    ) { }
 }

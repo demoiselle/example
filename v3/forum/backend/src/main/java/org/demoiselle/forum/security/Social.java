@@ -5,7 +5,6 @@ package org.demoiselle.forum.security;
  * @author paulo
  */
 public class Social {
-
     private String email;
     private String id;
     private String idToken;
@@ -20,14 +19,6 @@ public class Social {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getIdToken() {
@@ -69,5 +60,14 @@ public class Social {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
 }

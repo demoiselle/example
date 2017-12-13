@@ -12,7 +12,6 @@
 
       <form class="col-xs-6" role="form" #categoriaForm="ngForm" (ngSubmit)="save(categoria)">
         <fieldset [disabled]="isLoading">
-          
           <div class="form-group">
             <label for="categoria-id" class="control-label">id</label>
             <input type="text" name="id" id="categoria-id" class="form-control" [(ngModel)]="categoria.id" readonly="true">
@@ -22,7 +21,6 @@
             <input type="text" name="description" id="categoria-description" class="form-control" [(ngModel)]="categoria.description" >
           </div>
         </fieldset>
-
         <div class="card-footer clearfix">
           <fieldset [disabled]="isLoading" class="pull-right">
             <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="categoria.id">

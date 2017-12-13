@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../core/notification.service';
 import { MensagemService } from './mensagem.service';
 import { Mensagem } from './mensagem.model';
+import { UtilService } from '../core/util.service';
 
 const ACTIONS = {
   CRIAR: 'Criar',
@@ -16,6 +17,9 @@ const ACTIONS = {
 })
 export class MensagemEditComponent implements OnInit {
   mensagem: Mensagem;
+  usuarioOptions;
+  topicoOptions;
+  datahoraOptions;
 
   action = ACTIONS.CRIAR;
   isLoading = false;
@@ -24,8 +28,9 @@ export class MensagemEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: MensagemService,
-    private notificationService: NotificationService)
-  { }
+    private utilSerivce: UtilService,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     if (this.route.snapshot.data['mensagem']) {
@@ -35,6 +40,35 @@ export class MensagemEditComponent implements OnInit {
       this.action = ACTIONS.CRIAR;
       this.mensagem = new Mensagem();
     }
+
+    this.populateCombo();
+  }
+
+  populateCombo() {
+    const entitiesNames = [{
+      entityName: 'usuario',
+      endpoint: 'users'
+    }, {
+      entityName: 'topico',
+      endpoint: 'topicos'
+    }, {
+      entityName: 'datahora',
+      endpoint: 'dates'
+    }];
+    const entitiesEndpoint = entitiesNames.map(e => e.endpoint);
+
+    this.utilSerivce.loadAllEntityListAsPromise(entitiesEndpoint).then(results => {
+        entitiesNames.forEach((val, index, arr) => {
+            this[val.entityName + 'Options'] = results[index];
+            this.updateCombo(val.entityName, results[index]);
+        });
+    });
+  }
+
+  updateCombo(entityName, data) {
+      if (this.mensagem && this.mensagem[entityName]) {
+          this.mensagem[entityName] = data.find(i => i.id === this.mensagem[entityName].id);
+      }
   }
 
   startLoading() {
@@ -45,7 +79,7 @@ export class MensagemEditComponent implements OnInit {
     this.isLoading = false;
   }
 
-  save(mensagem:Mensagem) {
+  save(mensagem: Mensagem) {
     this.startLoading();
     if (!mensagem.id) {
       delete mensagem.id;

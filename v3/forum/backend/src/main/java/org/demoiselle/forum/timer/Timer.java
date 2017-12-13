@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.inject.Inject;
 import org.demoiselle.forum.cloud.CloudSender;
 import org.demoiselle.forum.dao.FingerprintDAO;
 import org.demoiselle.forum.entity.Fingerprint;
@@ -34,14 +34,13 @@ public class Timer {
     public void atSchedule1h() {
         List<Fingerprint> fps = (List<Fingerprint>) fingerprintDAO.find().getContent();
 
-        fps.stream().filter((fp) -> (fp.getCodigo().contains("send"))).map((fp) -> {
-            sender.send(fp.getCodigo().split("send/")[1], "Sistema atualizado");
-            return fp;
-        }).forEachOrdered((fp) -> {
-            fingerprintDAO.remove(fp.getId());
-            LOG.info(fp.getUsuario() + " apagado ");
-        });
-
+         fps.stream().filter((fp) -> (fp.getCodigo().contains("send"))).map((fp) -> {
+             sender.send(fp.getCodigo().split("send/")[1], "Sistema atualizado");
+             return fp;
+         }).forEachOrdered((fp) -> {
+             fingerprintDAO.remove(fp.getId());
+             LOG.info(fp.getUsuario() + " apagado ");
+         });
     }
 
     /**
@@ -59,7 +58,7 @@ public class Timer {
     @Transactional
     @Schedule(second = "0", minute = "0", hour = "9", persistent = false)
     public void atScheduleOneInDay() {
-        // LOG.info("atScheduleOneInDay");
+       // LOG.info("atScheduleOneInDay");
     }
 
 }

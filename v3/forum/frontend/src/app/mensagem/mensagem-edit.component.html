@@ -12,29 +12,33 @@
 
       <form class="col-xs-6" role="form" #mensagemForm="ngForm" (ngSubmit)="save(mensagem)">
         <fieldset [disabled]="isLoading">
-          
           <div class="form-group">
             <label for="mensagem-id" class="control-label">id</label>
             <input type="text" name="id" id="mensagem-id" class="form-control" [(ngModel)]="mensagem.id" readonly="true">
           </div>
           <div class="form-group">
-            <label for="mensagem-usuario" class="control-label">usuario</label>
-            <input type="text" name="usuario" id="mensagem-usuario" class="form-control" [(ngModel)]="mensagem.usuario" >
+            <label for="mensagem-usuario">usuario</label>
+            <select class="form-control" id="mensagem-usuario" *ngIf="usuarioOptions" [(ngModel)]="mensagem.usuario" name="usuario">
+              <option *ngFor="let usuario of usuarioOptions" [ngValue]="usuario">{{ usuario.description }}</option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="mensagem-topico" class="control-label">topico</label>
-            <input type="text" name="topico" id="mensagem-topico" class="form-control" [(ngModel)]="mensagem.topico" >
+            <label for="mensagem-topico">topico</label>
+            <select class="form-control" id="mensagem-topico" *ngIf="topicoOptions" [(ngModel)]="mensagem.topico" name="topico">
+              <option *ngFor="let topico of topicoOptions" [ngValue]="topico">{{ topico.description }}</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="mensagem-description" class="control-label">description</label>
             <input type="text" name="description" id="mensagem-description" class="form-control" [(ngModel)]="mensagem.description" >
           </div>
           <div class="form-group">
-            <label for="mensagem-datahora" class="control-label">datahora</label>
-            <input type="text" name="datahora" id="mensagem-datahora" class="form-control" [(ngModel)]="mensagem.datahora" >
+            <label for="mensagem-datahora">datahora</label>
+            <select class="form-control" id="mensagem-datahora" *ngIf="datahoraOptions" [(ngModel)]="mensagem.datahora" name="datahora">
+              <option *ngFor="let datahora of datahoraOptions" [ngValue]="datahora">{{ datahora.description }}</option>
+            </select>
           </div>
         </fieldset>
-
         <div class="card-footer clearfix">
           <fieldset [disabled]="isLoading" class="pull-right">
             <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="mensagem.id">

@@ -40,10 +40,6 @@ public class AuthREST {
         return ok().entity(dao.retoken().toString()).build();
     }
 
-        /**
-     *
-     * @param credentials
-     */
     @POST
     @Transactional
     @Path("register")
@@ -51,10 +47,6 @@ public class AuthREST {
         dao.register(credentials);
     }
 
-    /**
-     *
-     * @param credentials
-     */
     @POST
     @Transactional
     @Path("amnesia")
@@ -62,11 +54,6 @@ public class AuthREST {
         dao.amnesia(credentials);
     }
     
-        /**
-     *
-     * @param social
-     * @return
-     */
     @POST
     @Transactional
     @Path("social")
@@ -74,11 +61,6 @@ public class AuthREST {
         return ok().entity(dao.social(social).toString()).build();
     }
 
-    /**
-     *
-     * @param fingerprint
-     * @return
-     */
     @POST
     @Transactional
     @Path("fingerprint")

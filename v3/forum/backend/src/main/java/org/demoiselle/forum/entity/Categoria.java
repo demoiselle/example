@@ -2,6 +2,7 @@ package org.demoiselle.forum.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(unique = true)
-    private String id;
+    private UUID id;
 
     @Basic(optional = false)
     @NotNull
@@ -39,7 +40,7 @@ public class Categoria implements Serializable {
      *
      * @return
      */
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -47,7 +48,7 @@ public class Categoria implements Serializable {
      *
      * @param id
      */
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

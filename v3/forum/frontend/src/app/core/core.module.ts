@@ -21,6 +21,7 @@ import { NgServiceWorker } from '@angular/service-worker';
 import { CredentialManagementService } from '../auth/credentials.service';
 import { WebSocketService } from './websocket.service';
 import { NotificationService } from './notification.service';
+import { UtilService } from './util.service';
 
 import { AuthService, SecurityModule, TokenService } from '@demoiselle/security';
 import { ExceptionService, AuthInterceptor, DmlHttpModule } from '@demoiselle/http';
@@ -29,7 +30,7 @@ import { AuthOptions } from '@demoiselle/security/dist/auth-options';
 // Import 3rd party components
 import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
+import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
 
 import { environment } from '../../environments/environment';
 
@@ -37,16 +38,16 @@ import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLogi
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
-    [
-      {
-        id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider(environment.facebookId)
-      },
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider(environment.googleId)
-      },
-    ]
+ [
+   {
+     id: FacebookLoginProvider.PROVIDER_ID,
+     provider: new FacebookLoginProvider(environment.facebookId)
+   },
+   {
+     id: GoogleLoginProvider.PROVIDER_ID,
+     provider: new GoogleLoginProvider(environment.googleId)
+   },
+ ]
   );
   return config;
 }
@@ -136,9 +137,9 @@ const APP_DIRECTIVES = [
   ],
   exports: [],
   providers: [{
-    provide: AuthServiceConfig,
-    useFactory: getAuthServiceConfigs
-  }]
+        provide: AuthServiceConfig,
+        useFactory: getAuthServiceConfigs
+      }]
 })
 export class CoreModule {
 
@@ -162,9 +163,10 @@ export class CoreModule {
         CredentialManagementService,
         WebSocketService,
         NotificationService,
+        UtilService,
         { provide: ToastOptions, useClass: CustomOption },
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: BrowserXhr, useClass: NgProgressBrowserXhr }
+        { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
       ]
     };
   }

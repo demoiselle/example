@@ -9,7 +9,6 @@ import { Topico } from './topico.model';
   selector: 'app-topico',
   templateUrl: './topico.component.html',
   styleUrls: ['./topico.component.scss']
-
 })
 export class TopicoComponent implements OnInit {
   topico: Topico;
@@ -21,9 +20,9 @@ export class TopicoComponent implements OnInit {
   public isLoading = true;
 
   // Pagination
-  public itemsPerPage: number = 10;
-  public totalItems: number = 0;
-  public currentPage: number = 1;
+  public itemsPerPage = 10;
+  public totalItems = 0;
+  public currentPage = 1;
 
   // Filter
   public ascValue = '⇧';
@@ -46,14 +45,13 @@ export class TopicoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.debug('[TopicoComponent] created.');
     this.isLoading = false;
 
     // populate table
-    this.list();
+    this.loadList();
   }
 
-  list(field: string = null, desc: boolean = false) {
+  loadList(field: string = null, desc: boolean = false) {
     this.isLoading = true;
     const filter = this.processFilter();
     this.service.findAll(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
@@ -61,8 +59,7 @@ export class TopicoComponent implements OnInit {
         try {
           this.topicos = result.body;
         } catch (e) {
-          console.log('Can not convert result to JSON.');
-          console.log(e);
+          console.log('Can not convert result to JSON.', e);
           this.topicos = [];
         }
         const contentRange = result.headers.get('Content-Range');
@@ -75,7 +72,6 @@ export class TopicoComponent implements OnInit {
         this.notificationService.error('Não foi possível carregar a lista de itens!');
       },
       () => {
-        console.debug('TopicoComponent.list() - completed.');
         this.isLoading = false;
       }
     );
@@ -88,14 +84,13 @@ export class TopicoComponent implements OnInit {
         this.topico = null;
         this.staticModalDelete.hide();
         this.notificationService.success("Topico removido com sucesso!");
-        this.list();
+        this.loadList();
       },
       (error) => {
         console.error(error);
         this.notificationService.error('Não foi possível remover!');
       },
       () => {
-        console.debug('TopicoComponent.delete() - completed.');
         this.isLoading = false;
       }
     );
@@ -108,7 +103,7 @@ export class TopicoComponent implements OnInit {
   }
 
   toggleSelected(topico: Topico) {
-    let index = this.selecteds.indexOf(topico);
+    const index = this.selecteds.indexOf(topico);
     if(index === -1) {
       this.selecteds.push(topico);
     } else {
@@ -131,7 +126,7 @@ export class TopicoComponent implements OnInit {
   // Pagination
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.list();
+    this.loadList();
   }
 
   onPageItemsChange(itemsPerPage) {
@@ -152,7 +147,7 @@ export class TopicoComponent implements OnInit {
 
   orderBy(field) {
     this.toggleFormOrder(field);
-    this.list(field, this.formOrder[field] === this.descValue ? true : false);
+    this.loadList(field, this.formOrder[field] === this.descValue ? true : false);
   }
 
   toggleFormOrder(field) {

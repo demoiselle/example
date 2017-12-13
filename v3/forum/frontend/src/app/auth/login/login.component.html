@@ -7,32 +7,13 @@
                         <div class="card-body">
                             <div *ngIf="showQuickAuth">
                                 <form id="form-quick-login" name="form-quick-login" (ngSubmit)="autoLogin()" novalidate>
-
+                                    <h1>Login</h1>
                                     <div class="row">
-                                        <div class="col-sm-6 col-lg-6">
-                                            <button type="button" class="btn btn-success" (click)="autoLogin()">Demoiselle</button>
-                                        </div>
-                                        <br>
-                                        <div class="col-sm-6 col-lg-6">
-                                            <button type="button" class="btn btn-primary" (click)="showQuickAuth = !showQuickAuth">Outra conta</button>
-                                        </div>
-
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-lg-6">
-                                            <button class="btn btn-google-plus" type="button" (click)="socialSignIn('google')">
-                                                <span>google</span>
-                                            </button>
-                                        </div>
-                                        <br>
-                                        <div class="col-sm-6 col-lg-6">
-                                            <button class="btn btn-facebook" type="button" (click)="socialSignIn('facebook')">
-                                                <span>facebook</span>
-                                            </button>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-success" (click)="autoLogin()">Acessar</button>
+                                            <button type="button" class="btn btn-link" (click)="showQuickAuth = !showQuickAuth">Outra conta</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                             <div *ngIf="!showQuickAuth">
@@ -43,16 +24,14 @@
                                         <span class="input-group-addon">
                                             <i class="icon-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" placeholder="Email" name="username" autocomplete="username" [(ngModel)]="user.username"
-                                            #username="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Email" name="username" autocomplete="username" [(ngModel)]="user.username" #username="ngModel" required>
                                         <span id="username-message" class="text-danger"></span>
                                     </div>
                                     <div class="input-group mb-4">
                                         <span class="input-group-addon">
                                             <i class="icon-lock"></i>
                                         </span>
-                                        <input type="password" class="form-control" placeholder="Senha" name="password" autocomplete="current-password" [(ngModel)]="user.password"
-                                            #password="ngModel" required>
+                                        <input type="password" class="form-control" placeholder="Senha" name="password" autocomplete="current-password" [(ngModel)]="user.password" #password="ngModel" required>
                                         <span id="password-message" class="text-danger"></span>
                                     </div>
                                     <div class="row">
@@ -62,25 +41,25 @@
                                             <a [routerLink]="'/amnesia'" class="btn btn-link mx-0 px-1">Esqueceu a senha?</a>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-lg-3">
-                                            <button class="btn btn-facebook" type="button" (click)="socialSignIn('facebook')">
-                                                <span>facebook</span>
-                                            </button>
-                                        </div>
-                                        <br>
-                                        <div class="col-sm-6 col-lg-3">
-                                            <button class="btn btn-google-plus" type="button" (click)="socialSignIn('google')">
-                                                <span>google</span>
-                                            </button>
-                                        </div>
-                                    </div>
                                     <div id="message" class="text-danger"></div>
                                     <!--<div>
                                       Email:admin@demoiselle.org Senha:123456
                                     </div>-->
                                 </form>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-3">
+                                    <button class="btn btn-facebook" type="button" (click)="socialSignIn('facebook')">
+                                        <span>facebook</span>
+                                    </button>
+                                </div>
+                                <br>
+                                <div class="col-sm-6 col-lg-3">
+                                    <button class="btn btn-google-plus" type="button" (click)="socialSignIn('google')">
+                                        <span>google</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -13,8 +13,7 @@
         "app.webmanifest",
         "humans.txt",
         "background.js",
-        "schema.json",
-        ".htaccess"
+        "schema.json"
       ],
       "index": "index.html",
       "main": "main.ts",

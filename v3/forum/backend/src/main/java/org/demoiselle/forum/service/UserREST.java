@@ -4,6 +4,7 @@ import org.demoiselle.forum.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import java.util.UUID;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,8 +19,8 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 })
 @Path("v1/users")
 @Authenticated
-public class UserREST extends AbstractREST<User, String> {
-    
+public class UserREST extends AbstractREST<User, UUID> {
+
     @GET
     @Override
     @Transactional

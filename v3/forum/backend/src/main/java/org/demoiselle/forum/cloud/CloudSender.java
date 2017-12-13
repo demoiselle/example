@@ -15,27 +15,22 @@ import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 
 /**
  *
- * @author gladson
+ * @author SERPRO
  */
 @Stateless
 public class CloudSender {
 
     private static final Logger LOG = Logger.getLogger(CloudSender.class.getName());
 
-    /**
-     *
-     * @param fingerprint
-     * @param textMessage
-     */
     public void send(String fingerprint, String textMessage) {
 
         try {
 
             CloudNotification webn = new CloudNotification();
             webn.setBody(textMessage);
-            webn.setClick_action("https://forum.demoiselle.org/");
-            webn.setIcon("https://forum.demoiselle.org/assets/logo.png");
-            webn.setTitle("Fórum Demoiselle");
+            webn.setClick_action("https://seuapp.com.br/");
+            webn.setIcon("https://seuapp.com.br/images/logo-large.png");
+            webn.setTitle("seuapp.com.br");
 
             CloudMessage men = new CloudMessage();
             men.setPriority("normal");
@@ -51,7 +46,7 @@ public class CloudSender {
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Content-Type", "application/json");
             // https://firebase.google.com/docs/cloud-messaging/js/client?authuser=0
-            con.setRequestProperty("Authorization", "key=");
+            con.setRequestProperty("Authorization", "key=SuaChave");
             // https://console.firebase.google.com/project/{SuaApp}/settings/cloudmessaging/
             con.setDoOutput(true);
 

@@ -9,7 +9,6 @@ import { Mensagem } from './mensagem.model';
   selector: 'app-mensagem',
   templateUrl: './mensagem.component.html',
   styleUrls: ['./mensagem.component.scss']
-
 })
 export class MensagemComponent implements OnInit {
   mensagem: Mensagem;
@@ -21,9 +20,9 @@ export class MensagemComponent implements OnInit {
   public isLoading = true;
 
   // Pagination
-  public itemsPerPage: number = 10;
-  public totalItems: number = 0;
-  public currentPage: number = 1;
+  public itemsPerPage = 10;
+  public totalItems = 0;
+  public currentPage = 1;
 
   // Filter
   public ascValue = '⇧';
@@ -50,14 +49,13 @@ export class MensagemComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.debug('[MensagemComponent] created.');
     this.isLoading = false;
 
     // populate table
-    this.list();
+    this.loadList();
   }
 
-  list(field: string = null, desc: boolean = false) {
+  loadList(field: string = null, desc: boolean = false) {
     this.isLoading = true;
     const filter = this.processFilter();
     this.service.findAll(this.currentPage, this.itemsPerPage, filter, field, desc).subscribe(
@@ -65,8 +63,7 @@ export class MensagemComponent implements OnInit {
         try {
           this.mensagems = result.body;
         } catch (e) {
-          console.log('Can not convert result to JSON.');
-          console.log(e);
+          console.log('Can not convert result to JSON.', e);
           this.mensagems = [];
         }
         const contentRange = result.headers.get('Content-Range');
@@ -79,7 +76,6 @@ export class MensagemComponent implements OnInit {
         this.notificationService.error('Não foi possível carregar a lista de itens!');
       },
       () => {
-        console.debug('MensagemComponent.list() - completed.');
         this.isLoading = false;
       }
     );
@@ -92,14 +88,13 @@ export class MensagemComponent implements OnInit {
         this.mensagem = null;
         this.staticModalDelete.hide();
         this.notificationService.success("Mensagem removido com sucesso!");
-        this.list();
+        this.loadList();
       },
       (error) => {
         console.error(error);
         this.notificationService.error('Não foi possível remover!');
       },
       () => {
-        console.debug('MensagemComponent.delete() - completed.');
         this.isLoading = false;
       }
     );
@@ -112,7 +107,7 @@ export class MensagemComponent implements OnInit {
   }
 
   toggleSelected(mensagem: Mensagem) {
-    let index = this.selecteds.indexOf(mensagem);
+    const index = this.selecteds.indexOf(mensagem);
     if(index === -1) {
       this.selecteds.push(mensagem);
     } else {
@@ -135,7 +130,7 @@ export class MensagemComponent implements OnInit {
   // Pagination
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.list();
+    this.loadList();
   }
 
   onPageItemsChange(itemsPerPage) {
@@ -156,7 +151,7 @@ export class MensagemComponent implements OnInit {
 
   orderBy(field) {
     this.toggleFormOrder(field);
-    this.list(field, this.formOrder[field] === this.descValue ? true : false);
+    this.loadList(field, this.formOrder[field] === this.descValue ? true : false);
   }
 
   toggleFormOrder(field) {

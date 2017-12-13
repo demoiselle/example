@@ -24,8 +24,8 @@ export class CategoriaEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: CategoriaService,
-    private notificationService: NotificationService)
-  { }
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     if (this.route.snapshot.data['categoria']) {
@@ -45,7 +45,7 @@ export class CategoriaEditComponent implements OnInit {
     this.isLoading = false;
   }
 
-  save(categoria:Categoria) {
+  save(categoria: Categoria) {
     this.startLoading();
     if (!categoria.id) {
       delete categoria.id;

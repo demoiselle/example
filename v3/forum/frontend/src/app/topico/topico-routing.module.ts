@@ -6,21 +6,18 @@ import { TopicoComponent } from './topico.component';
 import { TopicoEditComponent } from './topico-edit.component';
 import { TopicoResolver } from './topico.resolver';
 
-const routes: Routes = [
-    {
+const routes: Routes = [{
         path: '',
         canActivate: [AuthGuard],
         component: TopicoComponent
-    },
-    {
+    }, {
         path: 'edit/:id',
         canActivate: [AuthGuard],
         component: TopicoEditComponent,
         resolve: {
             topico: TopicoResolver
         }
-    },
-    {
+    }, {
         path: 'edit',
         component: TopicoEditComponent
     }

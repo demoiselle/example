@@ -6,21 +6,18 @@ import { MensagemComponent } from './mensagem.component';
 import { MensagemEditComponent } from './mensagem-edit.component';
 import { MensagemResolver } from './mensagem.resolver';
 
-const routes: Routes = [
-    {
+const routes: Routes = [{
         path: '',
         canActivate: [AuthGuard],
         component: MensagemComponent
-    },
-    {
+    }, {
         path: 'edit/:id',
         canActivate: [AuthGuard],
         component: MensagemEditComponent,
         resolve: {
             mensagem: MensagemResolver
         }
-    },
-    {
+    }, {
         path: 'edit',
         component: MensagemEditComponent
     }

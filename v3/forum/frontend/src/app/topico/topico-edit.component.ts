@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../core/notification.service';
 import { TopicoService } from './topico.service';
 import { Topico } from './topico.model';
+import { UtilService } from '../core/util.service';
 
 const ACTIONS = {
   CRIAR: 'Criar',
@@ -16,6 +17,7 @@ const ACTIONS = {
 })
 export class TopicoEditComponent implements OnInit {
   topico: Topico;
+  categoriaOptions;
 
   action = ACTIONS.CRIAR;
   isLoading = false;
@@ -24,8 +26,9 @@ export class TopicoEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: TopicoService,
-    private notificationService: NotificationService)
-  { }
+    private utilSerivce: UtilService,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     if (this.route.snapshot.data['topico']) {
@@ -35,6 +38,29 @@ export class TopicoEditComponent implements OnInit {
       this.action = ACTIONS.CRIAR;
       this.topico = new Topico();
     }
+
+    this.populateCombo();
+  }
+
+  populateCombo() {
+    const entitiesNames = [{
+      entityName: 'categoria',
+      endpoint: 'categorias'
+    }];
+    const entitiesEndpoint = entitiesNames.map(e => e.endpoint);
+
+    this.utilSerivce.loadAllEntityListAsPromise(entitiesEndpoint).then(results => {
+        entitiesNames.forEach((val, index, arr) => {
+            this[val.entityName + 'Options'] = results[index];
+            this.updateCombo(val.entityName, results[index]);
+        });
+    });
+  }
+
+  updateCombo(entityName, data) {
+      if (this.topico && this.topico[entityName]) {
+          this.topico[entityName] = data.find(i => i.id === this.topico[entityName].id);
+      }
   }
 
   startLoading() {
@@ -45,7 +71,7 @@ export class TopicoEditComponent implements OnInit {
     this.isLoading = false;
   }
 
-  save(topico:Topico) {
+  save(topico: Topico) {
     this.startLoading();
     if (!topico.id) {
       delete topico.id;
