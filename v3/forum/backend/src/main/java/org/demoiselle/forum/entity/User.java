@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 
 /**
@@ -114,7 +113,6 @@ public class User implements Serializable {
      *
      * @param pass
      */
-    @JsonIgnore
     public void setPass(String pass) {
         this.pass = pass;
     }
@@ -139,6 +137,7 @@ public class User implements Serializable {
      *
      * @return
      */
+    @JsonIgnore
     public String getFoto() {
         return foto;
     }
