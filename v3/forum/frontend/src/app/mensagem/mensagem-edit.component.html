@@ -33,10 +33,8 @@
             <input type="text" name="description" id="mensagem-description" class="form-control" [(ngModel)]="mensagem.description" >
           </div>
           <div class="form-group">
-            <label for="mensagem-datahora">datahora</label>
-            <select class="form-control" id="mensagem-datahora" *ngIf="datahoraOptions" [(ngModel)]="mensagem.datahora" name="datahora">
-              <option *ngFor="let datahora of datahoraOptions" [ngValue]="datahora">{{ datahora.description }}</option>
-            </select>
+            <label for="mensagem-datahora" class="control-label">datahora</label>
+            <input type="date" name="datahora" id="mensagem-datahora" class="form-control" [(ngModel)]="mensagem.datahora" >
           </div>
         </fieldset>
         <div class="card-footer clearfix">

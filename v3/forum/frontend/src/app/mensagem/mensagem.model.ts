@@ -3,13 +3,13 @@ export class Mensagem {
     usuario: any;
     topico: any;
     description: string;
-    datahora: any;
+    datahora: string;
 
     constructor(
       id?: string,
       usuario?: any,
       topico?: any,
       description?: string,
-      datahora?: any
+      datahora?: string
     ) { }
 }

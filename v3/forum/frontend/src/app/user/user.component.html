@@ -13,9 +13,9 @@
                 <!-- Grid -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Mensagems
+                        <i class="fa fa-align-justify"></i> Users
                         <div class="pull-right">
-                            <button [routerLink]="['/mensagem','edit']" type="button" class="btn btn-success btn-sm">
+                            <button [routerLink]="['/user','edit']" type="button" class="btn btn-success btn-sm">
                                 <i class="fa fa-plus-circle"></i> Adicionar
                             </button>
                             <button class="btn btn-danger btn-sm d-none d-md-inline-block" type="button" [disabled]="!selecteds.length" (click)="showModalDelete()">
@@ -29,23 +29,28 @@
                                 <tr>
                                   <th scope="col">
                                   </th><th scope="col">
-                                    <button type="button" class="th-button" (click)="orderBy('usuario')">
-                                      <span>usuario {{formOrder.usuario}}</span>
-                                    </button>
-                                  
-                                  </th><th scope="col">
-                                    <button type="button" class="th-button" (click)="orderBy('topico')">
-                                      <span>topico {{formOrder.topico}}</span>
-                                    </button>
-                                  
-                                  </th><th scope="col">
                                     <button type="button" class="th-button" (click)="orderBy('description')">
                                       <span>description {{formOrder.description}}</span>
                                     </button>
                                   
                                   </th><th scope="col">
-                                    <button type="button" class="th-button" (click)="orderBy('datahora')">
-                                      <span>datahora {{formOrder.datahora}}</span>
+                                    <button type="button" class="th-button" (click)="orderBy('email')">
+                                      <span>email {{formOrder.email}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('pass')">
+                                      <span>pass {{formOrder.pass}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('foto')">
+                                      <span>foto {{formOrder.foto}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('perfil')">
+                                      <span>perfil {{formOrder.perfil}}</span>
                                     </button>
                                   
                                   </th>
@@ -53,18 +58,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let mensagem of mensagems">
+                              <tr *ngFor="let user of users">
                                 <td class="d-none d-md-block">
-                                  <input type="hidden" name="id" [value]="mensagem.id">
-                                  <input type="checkbox" [checked]="mensagem.checked" (change)="toggleSelected(mensagem)">
+                                  <input type="hidden" name="id" [value]="user.id">
+                                  <input type="checkbox" [checked]="user.checked" (change)="toggleSelected(user)">
                                 </td>
-                                <th scope="row">{{mensagem.usuario.description}}</th>
-                                <td data-title="topico">{{mensagem.topico.description}}</td>
-                                <td data-title="description">{{mensagem.description}}</td>
-                                <td data-title="datahora">{{mensagem.datahora}}</td>
+                                <th scope="row">{{user.description}}</th>
+                                <td data-title="email">{{user.email}}</td>
+                                <td data-title="pass">{{user.pass}}</td>
+                                <td data-title="foto">{{user.foto}}</td>
+                                <td data-title="perfil">{{user.perfil.description}}</td>
                                 <td>
-                                  <a class="btn btn-sm btn-link d-md-none text-danger" (click)="delete(mensagem)">Remover</a>
-                                  <a class="btn btn-sm btn-primary" [routerLink]="['/mensagem','edit', mensagem.id]">Visualizar</a>
+                                  <a class="btn btn-sm btn-link d-md-none text-danger" (click)="delete(user)">Remover</a>
+                                  <a class="btn btn-sm btn-primary" [routerLink]="['/user','edit', user.id]">Visualizar</a>
                                 </td>
                               </tr>
                             </tbody>
@@ -104,7 +110,7 @@
                     </p>
                     <p *ngIf="selecteds.length === 1">Deseja realmente excluir o item selecionado?</p>
                     <p *ngIf="selecteds.length > 1">Deseja realmente excluir os {{selecteds.length}} items selecionados?</p>
-                    <form class="form-horizontal" role="form" #mensagemForm="ngForm">
+                    <form class="form-horizontal" role="form" #userForm="ngForm">
                        <button type="button" class="btn btn-default icon right" (click)="hideStaticModals()">
                           <span class="fa fa-times" aria-hidden="true"></span>
                           <span>Não</span>

@@ -1,0 +1,63 @@
+
+<!-- Conteúdo da página -->
+<article>
+  <div>
+    <div class="card">
+      <div class="card-header">
+          <strong>{{action}} User</strong>
+      </div>
+      <div class="card-body">
+
+      <div class="panel-body" style="min-height: 300px;">
+
+      <form class="col-xs-6" role="form" #userForm="ngForm" (ngSubmit)="save(user)">
+        <fieldset [disabled]="isLoading">
+          <div class="form-group">
+            <label for="user-id" class="control-label">id</label>
+            <input type="text" name="id" id="user-id" class="form-control" [(ngModel)]="user.id" readonly="true">
+          </div>
+          <div class="form-group">
+            <label for="user-description" class="control-label">description</label>
+            <input type="text" name="description" id="user-description" class="form-control" [(ngModel)]="user.description" >
+          </div>
+          <div class="form-group">
+            <label for="user-email" class="control-label">email</label>
+            <input type="email" name="email" id="user-email" class="form-control" [(ngModel)]="user.email" >
+          </div>
+          <div class="form-group">
+            <label for="user-pass" class="control-label">pass</label>
+            <input type="password" name="pass" id="user-pass" class="form-control" [(ngModel)]="user.pass" readonly="true">
+          </div>
+          <div class="form-group">
+            <label for="user-foto" class="control-label">foto</label>
+            <input type="text" name="foto" id="user-foto" class="form-control" [(ngModel)]="user.foto" >
+          </div>
+          <div class="form-group">
+            <label for="user-perfil">perfil</label>
+            <select class="form-control" id="user-perfil" *ngIf="perfilOptions" [(ngModel)]="user.perfil" name="perfil">
+              <option *ngFor="let perfil of perfilOptions" [ngValue]="perfil">{{ perfil.description }}</option>
+            </select>
+          </div>
+        </fieldset>
+        <div class="card-footer clearfix">
+          <fieldset [disabled]="isLoading" class="pull-right">
+            <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="user.id">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              <span>Remover</span>
+            </button>
+            <button type="button" class="btn btn-default mr-1" (click)="goBack()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              <span>Cancelar</span>
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              <span>Salvar</span>
+            </button>
+          </fieldset>
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</article>
