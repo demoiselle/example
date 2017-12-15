@@ -11,12 +11,20 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.ok;
 import org.demoiselle.jee.rest.annotation.CacheControl;
 
+/**
+ *
+ * @author 70744416353
+ */
 @Api("v1/Constants")
 @Path("v1/constants")
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 public class ConstantsREST {
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Path("perfil")
     @CacheControl(value = "max-age=86400")

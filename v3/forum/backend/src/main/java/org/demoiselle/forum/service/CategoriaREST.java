@@ -13,6 +13,10 @@ import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.crud.Search;
 import org.demoiselle.jee.security.annotation.Authenticated;
 
+/**
+ *
+ * @author 70744416353
+ */
 @Api("v1/Categorias")
 @ApiImplicitParams({
     @ApiImplicitParam(name = "Authorization", value = "JWT token",
@@ -22,6 +26,10 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Authenticated
 public class CategoriaREST extends AbstractREST< Categoria, UUID> {
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Override
     @Transactional

@@ -22,6 +22,11 @@ public class CloudSender {
 
     private static final Logger LOG = Logger.getLogger(CloudSender.class.getName());
 
+    /**
+     *
+     * @param fingerprint
+     * @param textMessage
+     */
     public void send(String fingerprint, String textMessage) {
 
         try {

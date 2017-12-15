@@ -17,7 +17,10 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.ok;
 import org.demoiselle.jee.security.annotation.Authenticated;
 
-
+/**
+ *
+ * @author 70744416353
+ */
 @Api("Auth")
 @Path("auth")
 @Produces(APPLICATION_JSON)
@@ -27,12 +30,21 @@ public class AuthREST {
     @Inject
     private UserDAO dao;
 
+    /**
+     *
+     * @param credentials
+     * @return
+     */
     @POST
     @Transactional
     public Response login(Credentials credentials) {
         return ok().entity(dao.login(credentials).toString()).build();
     }
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Transactional
     @Authenticated
@@ -40,6 +52,10 @@ public class AuthREST {
         return ok().entity(dao.retoken().toString()).build();
     }
 
+    /**
+     *
+     * @param credentials
+     */
     @POST
     @Transactional
     @Path("register")
@@ -47,6 +63,10 @@ public class AuthREST {
         dao.register(credentials);
     }
 
+    /**
+     *
+     * @param credentials
+     */
     @POST
     @Transactional
     @Path("amnesia")
@@ -54,6 +74,11 @@ public class AuthREST {
         dao.amnesia(credentials);
     }
     
+    /**
+     *
+     * @param social
+     * @return
+     */
     @POST
     @Transactional
     @Path("social")
@@ -61,6 +86,11 @@ public class AuthREST {
         return ok().entity(dao.social(social).toString()).build();
     }
 
+    /**
+     *
+     * @param fingerprint
+     * @return
+     */
     @POST
     @Transactional
     @Path("fingerprint")

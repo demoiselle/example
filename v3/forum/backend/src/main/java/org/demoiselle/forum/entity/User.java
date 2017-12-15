@@ -16,8 +16,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 
+/**
+ *
+ * @author 70744416353
+ */
 @Entity
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})})
@@ -25,9 +30,10 @@ import org.hibernate.validator.constraints.Email;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(unique = true)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    // para SGBD usar os tipos proprietario de cada banco
+    @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
     @NotNull
@@ -56,52 +62,100 @@ public class User implements Serializable {
     @Column
     private Perfil perfil;
 
+    /**
+     *
+     * @return
+     */
     public UUID getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     @JsonIgnore
     public String getPass() {
         return pass;
     }
 
+    /**
+     *
+     * @param pass
+     */
     @JsonIgnore
     public void setPass(String pass) {
         this.pass = pass;
     }
 
+    /**
+     *
+     * @return
+     */
     public Perfil getPerfil() {
         return perfil;
     }
 
+    /**
+     *
+     * @param perfil
+     */
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFoto() {
         return foto;
     }
 
+    /**
+     *
+     * @param foto
+     */
     public void setFoto(String foto) {
         this.foto = foto;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -109,6 +163,11 @@ public class User implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -127,6 +186,10 @@ public class User implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", description=" + description + ", email=" + email + ", pass=" + pass + ", perfil=" + perfil + '}';

@@ -30,6 +30,13 @@ public class Email {
 
     private static final Logger LOG = Logger.getLogger(Email.class.getName());
 
+    /**
+     *
+     * @param addresses
+     * @param topic
+     * @param textMessage
+     * @param ical
+     */
     public void send(String addresses, String topic, String textMessage, String ical) {
 
         final String username = "webmaster@suaapp.com.br";

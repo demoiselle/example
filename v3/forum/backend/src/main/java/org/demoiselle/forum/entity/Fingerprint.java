@@ -44,37 +44,72 @@ public class Fingerprint implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     *
+     */
     public Fingerprint() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Fingerprint(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsuario() {
         return usuario;
     }
 
+    /**
+     *
+     * @param usuario
+     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -82,6 +117,11 @@ public class Fingerprint implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -95,6 +135,10 @@ public class Fingerprint implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "pgxp.app.entity.Fingerprint[ id=" + id + " ]";

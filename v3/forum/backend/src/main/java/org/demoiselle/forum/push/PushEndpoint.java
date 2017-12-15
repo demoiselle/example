@@ -36,12 +36,24 @@ public class PushEndpoint {
     @Inject
     private UserDAO dao;
 
+    /**
+     *
+     * @param session
+     * @param c
+     * @param channel
+     */
     @OnOpen
     public void open(final Session session, EndpointConfig c, @PathParam("channel") String channel) {
         peers.add(session);
         session.getUserProperties().putIfAbsent("channel", channel);
     }
 
+    /**
+     *
+     * @param session
+     * @param message
+     * @param channel
+     */
     @OnMessage
     public void onMessage(final Session session, final PushMessage message, @PathParam("channel") String channel) {
 
@@ -81,12 +93,22 @@ public class PushEndpoint {
 
     }
 
+    /**
+     *
+     * @param session
+     * @param t
+     */
     @OnError
     public void onError(final Session session, Throwable t) {
         peers.remove(session);
         logger.log(FINE, "onError failed - Session: " + session.getId(), t);
     }
 
+    /**
+     *
+     * @param session
+     * @param channel
+     */
     @OnClose
     public void closedConnection(final Session session, @PathParam("channel") String channel) {
         peers.remove(session);
@@ -96,14 +118,28 @@ public class PushEndpoint {
         sendTo(new Gson().toJson(mm), channel);
     }
 
+    /**
+     *
+     * @return
+     */
     public String count() {
         return "" + peers.size();
     }
 
+    /**
+     *
+     * @param term
+     * @return
+     */
     public String count(String term) {
         return "" + peers.parallelStream().filter(s -> s.getUserProperties().containsValue(term)).count();
     }
 
+    /**
+     *
+     * @param recipient
+     * @return
+     */
     public List<String> listUsers(String recipient) {
         List<String> list = new ArrayList<>();
         peers.parallelStream().forEach((s) -> {
@@ -121,6 +157,10 @@ public class PushEndpoint {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> listUsers() {
         List<String> list = new ArrayList<>();
         peers.parallelStream().forEach((s) -> {
@@ -135,6 +175,11 @@ public class PushEndpoint {
         return list;
     }
 
+    /**
+     *
+     * @param texto
+     * @param recipient
+     */
     public void sendTo(final String texto, final String recipient) {
         peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {
@@ -151,6 +196,11 @@ public class PushEndpoint {
         });
     }
 
+    /**
+     *
+     * @param texto
+     * @param sessionID
+     */
     public void sendToSession(final String texto, final String sessionID) {
         peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {
@@ -168,6 +218,10 @@ public class PushEndpoint {
         });
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void sendToSessions(final String texto) {
         peers.parallelStream().forEach((s) -> {
             if (s.isOpen()) {

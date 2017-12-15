@@ -12,6 +12,10 @@ import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.crud.AbstractREST;
 import org.demoiselle.jee.security.annotation.Authenticated;
 
+/**
+ *
+ * @author 70744416353
+ */
 @Api("v1/Users")
 @ApiImplicitParams({
     @ApiImplicitParam(name = "Authorization", value = "JWT token",
@@ -21,6 +25,10 @@ import org.demoiselle.jee.security.annotation.Authenticated;
 @Authenticated
 public class UserREST extends AbstractREST<User, UUID> {
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Override
     @Transactional

@@ -36,6 +36,10 @@ import org.demoiselle.jee.security.message.DemoiselleSecurityMessages;
 import org.demoiselle.forum.entity.Fingerprint;
 import org.demoiselle.forum.cloud.CloudSender;
 
+/**
+ *
+ * @author 70744416353
+ */
 public class UserDAO extends AbstractDAO<User, UUID> {
 
     private static final Logger LOG = getLogger(UserDAO.class.getName());
@@ -58,14 +62,27 @@ public class UserDAO extends AbstractDAO<User, UUID> {
     @Inject
     private CloudSender sender;
 
+    /**
+     *
+     */
     @PersistenceContext(unitName = "forumPU")
     protected EntityManager em;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     */
     public User verifyEmail(String email, String password) {
 
         User usu = verifyEmail(email);
@@ -77,6 +94,11 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return usu;
     }
 
+    /**
+     *
+     * @param email
+     * @return
+     */
     public User verifyEmail(String email) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -89,6 +111,11 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return typedQuery.getResultList().isEmpty() ? null : typedQuery.getResultList().get(0);
     }
 
+    /**
+     *
+     * @param entity
+     * @return
+     */
     @Override
     public User persist(User entity) {
         entity.setPass(md5(entity.getPass()));
@@ -96,10 +123,20 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return super.persist(entity);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String valida(String id) {
         return "Email Validado";
     }
 
+    /**
+     *
+     * @param credentials
+     * @return
+     */
     public Token login(Credentials credentials) {
 
         User usu = verifyEmail(credentials.getUsername(), credentials.getPassword());
@@ -117,18 +154,30 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return token;
     }
 
+    /**
+     *
+     * @return
+     */
     public Token retoken() {
         loggedUser = securityContext.getUser();
         securityContext.setUser(loggedUser);
         return token;
     }
 
+    /**
+     *
+     * @param credentials
+     */
     public void register(Credentials credentials) {
         // envia email
         LOG.log(Level.INFO, "Enviando lembran\u00e7a para : {0}", credentials.getUsername());
         //return login(credentials);
     }
 
+    /**
+     *
+     * @param credentials
+     */
     public void amnesia(Credentials credentials) {
         // envia email
         LOG.log(Level.INFO, "Enviando lembran\u00e7a para : {0}", credentials.getUsername());
@@ -148,6 +197,11 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return sen;
     }
 
+    /**
+     *
+     * @param social
+     * @return
+     */
     public Token social(Social social) {
 
         if (social.getProvider().equalsIgnoreCase("google") && !validateGoogle(social.getIdToken())) {
@@ -222,6 +276,10 @@ public class UserDAO extends AbstractDAO<User, UUID> {
         return false;
     }
 
+    /**
+     *
+     * @param fingerprint
+     */
     public void setFingerprint(String fingerprint) {
         if (fingerprint != null && !fingerprint.isEmpty()) {
             List<Fingerprint> fps = fingerprintDAO.findByCodigo(fingerprint);
