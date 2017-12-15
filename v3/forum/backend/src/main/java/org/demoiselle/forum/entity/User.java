@@ -30,10 +30,9 @@ import org.hibernate.validator.constraints.Email;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    // para SGBD usar os tipos proprietario de cada banco
-    @Column(columnDefinition = "VARCHAR(36)")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
     @NotNull
