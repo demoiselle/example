@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8080/forum/api/',
-  socketUrl: 'ws://localhost:8080/forum/push/meu-canal',
-  googleId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  facebookId: 'xxxxxxxxxxxxxxxxxxxxxxxx'
+  apiUrl: 'https://util.pgxp.com.br/forum/api/',
+  socketUrl: 'wss://util.pgxp.com.br/forum/push/forum',
+  googleId: '547939596694-2r4hd52mojck61ji1r43qhcmh220tpmj.apps.googleusercontent.com',
+  facebookId: '112143105621779'
 };
