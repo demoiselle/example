@@ -8,7 +8,37 @@
                 <password>sa</password>
             </security>
         </datasource>
-        <datasource jta="true" jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true">
+        <datasource jta="true" jndi-name="java:jboss/datasources/PostgreSQLDS" pool-name="PostgreSQLDS" enabled="true" use-java-context="true">
+            <connection-url>jdbc:postgresql://${env.MYSQL_DB_HOST}:${env.MYSQL_DB_PORT}/${env.DB_NAME}</connection-url>
+            <driver-class>org.postgresql.Driver</driver-class>
+            <driver>postgresql</driver>
+            <security>
+                <user-name>${env.DB_USERNAME}</user-name>
+                <password>${env.DB_PASSWORD}</password>
+            </security>
+            <validation>
+                <validate-on-match>false</validate-on-match>
+                <background-validation>false</background-validation>
+            </validation>
+            <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+            <pool>
+                <min-pool-size>5</min-pool-size>
+                <max-pool-size>10</max-pool-size>
+                <prefill>true</prefill>
+            </pool>
+            <validation>
+                <check-valid-connection-sql>select 1</check-valid-connection-sql>
+                <validate-on-match>true</validate-on-match>
+                <background-validation>true</background-validation>
+                <background-validation-millis>10000</background-validation-millis>
+            </validation>
+            <statement>
+                <prepared-statement-cache-size>128</prepared-statement-cache-size>
+                <share-prepared-statements>true</share-prepared-statements>
+            </statement>
+            
+        </datasource>
+        <!--        <datasource jta="true" jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true">
             <connection-url>jdbc:mysql://${env.MYSQL_DB_HOST}:${env.MYSQL_DB_PORT}/${env.DB_NAME}?autoReconnect=true</connection-url>
             <driver>com.mysql</driver>
             <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
@@ -31,13 +61,13 @@
                 <prepared-statement-cache-size>128</prepared-statement-cache-size>
                 <share-prepared-statements>true</share-prepared-statements>
             </statement>
-        </datasource>
+        </datasource>-->
         <drivers>
             <driver name="h2" module="com.h2database.h2">
                 <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
             </driver>
-            <driver name="com.mysql" module="com.mysql">
-                <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+            <driver name="postgresql" module="org.postgresql">
+                <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
             </driver>
         </drivers>
     </datasources>

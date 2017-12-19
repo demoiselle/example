@@ -123,6 +123,7 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
         </dependency>
+
     </dependencies>
 
     <profiles>
