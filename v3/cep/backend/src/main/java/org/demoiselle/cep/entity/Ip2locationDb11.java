@@ -8,27 +8,26 @@ package org.demoiselle.cep.entity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 70744416353
+ * @author paulo
  */
 @Entity
 @Table(name = "ip2location_db11")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ip2locationDb11.findAll", query = "SELECT i FROM Ip2locationDb11 i")
-    , @NamedQuery(name = "Ip2locationDb11.findByIpFrom", query = "SELECT i FROM Ip2locationDb11 i WHERE i.ipFrom = :ipFrom")
-    , @NamedQuery(name = "Ip2locationDb11.findByIpTo", query = "SELECT i FROM Ip2locationDb11 i WHERE i.ipTo = :ipTo")
+    , @NamedQuery(name = "Ip2locationDb11.findByIpFrom", query = "SELECT i FROM Ip2locationDb11 i WHERE i.ip2locationDb11PK.ipFrom = :ipFrom")
+    , @NamedQuery(name = "Ip2locationDb11.findByIpTo", query = "SELECT i FROM Ip2locationDb11 i WHERE i.ip2locationDb11PK.ipTo = :ipTo")
     , @NamedQuery(name = "Ip2locationDb11.findByCountryCode", query = "SELECT i FROM Ip2locationDb11 i WHERE i.countryCode = :countryCode")
     , @NamedQuery(name = "Ip2locationDb11.findByCountryName", query = "SELECT i FROM Ip2locationDb11 i WHERE i.countryName = :countryName")
     , @NamedQuery(name = "Ip2locationDb11.findByRegionName", query = "SELECT i FROM Ip2locationDb11 i WHERE i.regionName = :regionName")
@@ -36,65 +35,80 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Ip2locationDb11.findByLatitude", query = "SELECT i FROM Ip2locationDb11 i WHERE i.latitude = :latitude")
     , @NamedQuery(name = "Ip2locationDb11.findByLongitude", query = "SELECT i FROM Ip2locationDb11 i WHERE i.longitude = :longitude")
     , @NamedQuery(name = "Ip2locationDb11.findByZipCode", query = "SELECT i FROM Ip2locationDb11 i WHERE i.zipCode = :zipCode")
-    , @NamedQuery(name = "Ip2locationDb11.findByTimeZone", query = "SELECT i FROM Ip2locationDb11 i WHERE i.timeZone = :timeZone")
-    , @NamedQuery(name = "Ip2locationDb11.findById", query = "SELECT i FROM Ip2locationDb11 i WHERE i.id = :id")})
+    , @NamedQuery(name = "Ip2locationDb11.findByTimeZone", query = "SELECT i FROM Ip2locationDb11 i WHERE i.timeZone = :timeZone")})
 public class Ip2locationDb11 implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Column(name = "ip_from")
-    private Integer ipFrom;
-    @Column(name = "ip_to")
-    private Integer ipTo;
-    @Size(max = 2)
-    @Column(name = "country_code", length = 2)
-    private String countryCode;
-    @Size(max = 64)
-    @Column(name = "country_name", length = 64)
-    private String countryName;
-    @Size(max = 128)
-    @Column(name = "region_name", length = 128)
-    private String regionName;
-    @Size(max = 128)
-    @Column(name = "city_name", length = 128)
-    private String cityName;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 22)
-    private Double latitude;
-    @Column(precision = 22)
-    private Double longitude;
-    @Size(max = 30)
-    @Column(name = "zip_code", length = 30)
-    private String zipCode;
-    @Size(max = 8)
-    @Column(name = "time_zone", length = 8)
-    private String timeZone;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    protected Ip2locationDb11PK ip2locationDb11PK;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "country_code", nullable = false, length = 2)
+    private String countryCode;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "country_name", nullable = false, length = 64)
+    private String countryName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "region_name", nullable = false, length = 128)
+    private String regionName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "city_name", nullable = false, length = 128)
+    private String cityName;
+    @Basic(optional = false)
+    @NotNull
     @Column(nullable = false)
-    private Integer id;
+    private float latitude;
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private float longitude;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "zip_code", nullable = false, length = 30)
+    private String zipCode;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 8)
+    @Column(name = "time_zone", nullable = false, length = 8)
+    private String timeZone;
 
     public Ip2locationDb11() {
     }
 
-    public Ip2locationDb11(Integer id) {
-        this.id = id;
+    public Ip2locationDb11(Ip2locationDb11PK ip2locationDb11PK) {
+        this.ip2locationDb11PK = ip2locationDb11PK;
     }
 
-    public Integer getIpFrom() {
-        return ipFrom;
+    public Ip2locationDb11(Ip2locationDb11PK ip2locationDb11PK, String countryCode, String countryName, String regionName, String cityName, float latitude, float longitude, String zipCode, String timeZone) {
+        this.ip2locationDb11PK = ip2locationDb11PK;
+        this.countryCode = countryCode;
+        this.countryName = countryName;
+        this.regionName = regionName;
+        this.cityName = cityName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.zipCode = zipCode;
+        this.timeZone = timeZone;
     }
 
-    public void setIpFrom(Integer ipFrom) {
-        this.ipFrom = ipFrom;
+    public Ip2locationDb11(long ipFrom, long ipTo) {
+        this.ip2locationDb11PK = new Ip2locationDb11PK(ipFrom, ipTo);
     }
 
-    public Integer getIpTo() {
-        return ipTo;
+    public Ip2locationDb11PK getIp2locationDb11PK() {
+        return ip2locationDb11PK;
     }
 
-    public void setIpTo(Integer ipTo) {
-        this.ipTo = ipTo;
+    public void setIp2locationDb11PK(Ip2locationDb11PK ip2locationDb11PK) {
+        this.ip2locationDb11PK = ip2locationDb11PK;
     }
 
     public String getCountryCode() {
@@ -129,19 +143,19 @@ public class Ip2locationDb11 implements Serializable {
         this.cityName = cityName;
     }
 
-    public Double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public Double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
@@ -161,18 +175,10 @@ public class Ip2locationDb11 implements Serializable {
         this.timeZone = timeZone;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (ip2locationDb11PK != null ? ip2locationDb11PK.hashCode() : 0);
         return hash;
     }
 
@@ -183,7 +189,7 @@ public class Ip2locationDb11 implements Serializable {
             return false;
         }
         Ip2locationDb11 other = (Ip2locationDb11) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.ip2locationDb11PK == null && other.ip2locationDb11PK != null) || (this.ip2locationDb11PK != null && !this.ip2locationDb11PK.equals(other.ip2locationDb11PK))) {
             return false;
         }
         return true;
@@ -191,7 +197,7 @@ public class Ip2locationDb11 implements Serializable {
 
     @Override
     public String toString() {
-        return "app.entity.Ip2locationDb11[ id=" + id + " ]";
+        return "org.demoiselle.cep.entity.Ip2locationDb11[ ip2locationDb11PK=" + ip2locationDb11PK + " ]";
     }
     
 }
