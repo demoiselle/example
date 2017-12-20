@@ -26,7 +26,7 @@ public class Ip2LocationDb11DAO extends AbstractDAO< Ip2locationDb11, Integer> {
         try {
             if (ip != null) {
                 InetAddress bar = InetAddress.getByName(ip);
-                return getEntityManager().createNativeQuery("SELECT * FROM ip2location_db11 WHERE ? between ip_from and ip_to LIMIT 1;").setParameter(1, new BigInteger(1, bar.getAddress())).getResultList();
+                return getEntityManager().createNativeQuery("SELECT * FROM ip2location_db11 WHERE ? between ip_from and ip_to LIMIT 1", Ip2locationDb11.class).setParameter(1, new BigInteger(1, bar.getAddress())).getResultList();
             }
             return null;
         } catch (UnknownHostException ex) {
