@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.demoiselle.jee</groupId>
+    <artifactId>example</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <name>Demoiselle Example</name>
+    <description>Framework de integração para Java EE 7</description>
+    <url>http://demoiselle.io</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>SERPRO - Serviço Federal de Processamento de Dados</name>
+        <url>http://www.serpro.gov.br</url>
+    </organization>
+
+    <developers>
+
+        <developer>
+            <name>Cassio Maes da Fonseca</name>
+            <email>cassiomaes@gmail.com</email>
+            <organization>SERPRO</organization>
+            <organizationUrl>http://www.serpro.gov.br</organizationUrl>
+        </developer>
+
+        <developer>
+            <name>Clovis Lemes Ferreira Junior</name>
+            <email>clovis.lf.junior@gmail.com</email>
+            <organization>SERPRO</organization>
+            <organizationUrl>http://www.serpro.gov.br</organizationUrl>
+        </developer>
+
+        <developer>
+            <name>Julian Cesar dos Santos</name>
+            <email>juliancesar@gmail.com</email>
+            <organization>SERPRO</organization>
+            <organizationUrl>http://www.serpro.gov.br</organizationUrl>
+        </developer>
+
+        <developer>
+            <name>Paulo Gladson Ximenes Pinheiro</name>
+            <email>paulopinheiro777@gmail.com</email>
+            <organization>SERPRO</organization>
+            <organizationUrl>http://www.serpro.gov.br</organizationUrl>
+        </developer>
+
+        <developer>
+            <name>Vanderson Botelho da Silva</name>
+            <email>botelhojp@gmail.com</email>
+            <organization>SERPRO</organization>
+            <organizationUrl>http://www.serpro.gov.br</organizationUrl>
+        </developer>
+
+    </developers>
+
+
+    <modules>
+        <module>v3/cep/backend</module>
+        <module>v3/forum/backend</module>
+        <module>v3/livraria/backend</module>
+        <module>v3/push/backend</module>
+        <module>v3/todoList/backend</module>
+    </modules>
+
+    <build>
+    </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/demoiselle/${project.alias}.git</connection>
+        <developerConnection>scm:git:https://github.com/demoiselle/${project.alias}.git</developerConnection>
+        <url>http://github.com/demoiselle/${project.alias}</url>
+        <tag>3.0.2-SNAPSHOT</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>sonatype-nexus-releases</id>
+            <name>Sonatype Nexus Releases</name>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+</project>
