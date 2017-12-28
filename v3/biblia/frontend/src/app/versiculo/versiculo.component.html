@@ -1,0 +1,133 @@
+<!-- Conteúdo da página -->
+<article>
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="min-height: 200px;">
+                <div class="sd form clearfix">
+                    <div class="pull-left">
+                    </div>
+                    <div class="pull-right">
+                    </div>
+                </div>
+
+                <!-- Grid -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Versiculos
+                        <div class="pull-right">
+                            <button [routerLink]="['/versiculo','edit']" type="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-plus-circle"></i> Adicionar
+                            </button>
+                            <button class="btn btn-danger btn-sm d-none d-md-inline-block" type="button" [disabled]="!selecteds.length" (click)="showModalDelete()">
+                              <i class="fa fa-times"></i> Remover selecionado(s)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-card">
+                            <thead>
+                                <tr>
+                                  <th scope="col">
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('livNome')">
+                                      <span>livNome {{formOrder.livNome}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('verTexto')">
+                                      <span>verTexto {{formOrder.verTexto}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('vrsNome')">
+                                      <span>vrsNome {{formOrder.vrsNome}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('tesNome')">
+                                      <span>tesNome {{formOrder.tesNome}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('verVersiculo')">
+                                      <span>verVersiculo {{formOrder.verVersiculo}}</span>
+                                    </button>
+                                  
+                                  </th><th scope="col">
+                                    <button type="button" class="th-button" (click)="orderBy('verCapitulo')">
+                                      <span>verCapitulo {{formOrder.verCapitulo}}</span>
+                                    </button>
+                                  
+                                  </th>
+                                  <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let versiculo of versiculos">
+                                <td class="d-none d-md-block">
+                                  <input type="hidden" name="id" [value]="versiculo.id">
+                                  <input type="checkbox" [checked]="versiculo.checked" (change)="toggleSelected(versiculo)">
+                                </td>
+                                <th scope="row">{{versiculo.livNome}}</th>
+                                <td data-title="verTexto">{{versiculo.verTexto}}</td>
+                                <td data-title="vrsNome">{{versiculo.vrsNome}}</td>
+                                <td data-title="tesNome">{{versiculo.tesNome}}</td>
+                                <td data-title="verVersiculo">{{versiculo.verVersiculo}}</td>
+                                <td data-title="verCapitulo">{{versiculo.verCapitulo}}</td>
+                                <td>
+                                  <a class="btn btn-sm btn-link d-md-none text-danger" (click)="delete(versiculo)">Remover</a>
+                                  <a class="btn btn-sm btn-primary" [routerLink]="['/versiculo','edit', versiculo.id]">Visualizar</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+
+                        <pagination
+                            [totalItems]="totalItems"
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="currentPage"
+                            (pageChanged)="pageChanged($event)"
+                            previousText="&lsaquo;"
+                            nextText="&rsaquo;"
+                            firstText="&laquo;"
+                            lastText="&raquo;"
+                            [boundaryLinks]="true">
+                        </pagination>
+
+                    </div>
+                </div> <!-- /Grid -->
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Janela Modal -->
+<div class="modal fade" bsModal #staticModalDelete="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="appSmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-body text-center">
+                    <p class="text-center">
+                      <span class="fa-stack fa-2x">
+                          <span class="fa fa-circle fa-stack-2x text-default"></span>
+                          <span class="fa fa-exclamation-triangle fa-stack-1x text-warning"></span>
+                      </span>
+                    </p>
+                    <p *ngIf="selecteds.length === 1">Deseja realmente excluir o item selecionado?</p>
+                    <p *ngIf="selecteds.length > 1">Deseja realmente excluir os {{selecteds.length}} items selecionados?</p>
+                    <form class="form-horizontal" role="form" #versiculoForm="ngForm">
+                       <button type="button" class="btn btn-default icon right" (click)="hideStaticModals()">
+                          <span class="fa fa-times" aria-hidden="true"></span>
+                          <span>Não</span>
+                       </button>
+                       <button type="submit" class="btn btn-danger icon right" (click)="deleteSelecteds()">
+                          <span class="fa fa-check" aria-hidden="true"></span>
+                          <span>Sim</span>
+                       </button>
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -118,3 +118,4 @@ GitHub.sublime-settings
 /v3/push/backend/target/
 /v3/push/backend/nb-configuration.xml
 /v3/forum/frontend/nbproject/private/
+/v3/biblia/backend/target/

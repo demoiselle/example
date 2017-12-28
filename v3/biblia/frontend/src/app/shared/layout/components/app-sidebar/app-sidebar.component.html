@@ -1,0 +1,36 @@
+<div class="sidebar">
+  <app-sidebar-header></app-sidebar-header>
+  <app-sidebar-form></app-sidebar-form>
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-title">
+        Navegação
+      </li>
+
+<!-- ROUTES FROM APP.ROUTING MODULE CHILDREN ARE AUTOMATICALLY ADDED  -->
+      <li class="nav-item" *ngFor="let route of routes">
+        <a routerLinkActive="active" [routerLink]="['/' + route.path]" class="nav-link">
+          <i class="{{route.data.icon}}"></i> {{route.data.title}}
+        </a>
+      </li>
+
+<!-- IF YOU WANT TO ADD EXTRA/FIXED NAVIGATION ENTRIES, PUT THEM LIKE BELOW -->
+
+      <!--<li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/user']">
+          <i class="icon-speedometer"></i> Usuários
+        </a>
+      </li> -->
+
+
+    </ul>
+
+    
+
+  </nav>
+  <app-sidebar-footer></app-sidebar-footer>
+  <app-sidebar-minimizer></app-sidebar-minimizer>
+</div>

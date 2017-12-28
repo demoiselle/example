@@ -1,0 +1,7 @@
+.breadcrumb {
+  position: relative;
+  @include borders($breadcrumb-borders);
+}
+.breadcrumb-item {
+  float: left;
+}

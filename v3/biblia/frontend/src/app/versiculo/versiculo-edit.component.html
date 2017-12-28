@@ -1,0 +1,65 @@
+
+<!-- Conteúdo da página -->
+<article>
+  <div>
+    <div class="card">
+      <div class="card-header">
+          <strong>{{action}} Versiculo</strong>
+      </div>
+      <div class="card-body">
+
+      <div class="panel-body" style="min-height: 300px;">
+
+      <form class="col-xs-6" role="form" #versiculoForm="ngForm" (ngSubmit)="save(versiculo)">
+        <fieldset [disabled]="isLoading">
+          <div class="form-group">
+            <label for="versiculo-id" class="control-label">id</label>
+            <input type="text" name="id" id="versiculo-id" class="form-control" [(ngModel)]="versiculo.id" readonly="true">
+          </div>
+          <div class="form-group">
+            <label for="versiculo-livNome" class="control-label">livNome</label>
+            <input type="text" name="livNome" id="versiculo-livNome" class="form-control" [(ngModel)]="versiculo.livNome" >
+          </div>
+          <div class="form-group">
+            <label for="versiculo-verTexto" class="control-label">verTexto</label>
+            <input type="text" name="verTexto" id="versiculo-verTexto" class="form-control" [(ngModel)]="versiculo.verTexto" >
+          </div>
+          <div class="form-group">
+            <label for="versiculo-vrsNome" class="control-label">vrsNome</label>
+            <input type="text" name="vrsNome" id="versiculo-vrsNome" class="form-control" [(ngModel)]="versiculo.vrsNome" >
+          </div>
+          <div class="form-group">
+            <label for="versiculo-tesNome" class="control-label">tesNome</label>
+            <input type="text" name="tesNome" id="versiculo-tesNome" class="form-control" [(ngModel)]="versiculo.tesNome" >
+          </div>
+          <div class="form-group">
+            <label for="versiculo-verVersiculo" class="control-label">verVersiculo</label>
+            <input type="text" name="verVersiculo" id="versiculo-verVersiculo" class="form-control" [(ngModel)]="versiculo.verVersiculo" >
+          </div>
+          <div class="form-group">
+            <label for="versiculo-verCapitulo" class="control-label">verCapitulo</label>
+            <input type="text" name="verCapitulo" id="versiculo-verCapitulo" class="form-control" [(ngModel)]="versiculo.verCapitulo" >
+          </div>
+        </fieldset>
+        <div class="card-footer clearfix">
+          <fieldset [disabled]="isLoading" class="pull-right">
+            <button type="button" class="btn btn-link text-danger mr-1" (click)="remove()" *ngIf="versiculo.id">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              <span>Remover</span>
+            </button>
+            <button type="button" class="btn btn-default mr-1" (click)="goBack()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              <span>Cancelar</span>
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="versiculoForm.invalid">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              <span>Salvar</span>
+            </button>
+          </fieldset>
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</article>

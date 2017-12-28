@@ -1,0 +1,16 @@
+{
+  "routing": {
+    "index": "/index.html",
+    "routes": {
+      "/": {
+        "prefix": false
+      },
+      "^/#/.*": {
+        "match": "regex"
+      }
+    }
+  },
+  "push": {
+    "showNotifications": true
+  }
+}
