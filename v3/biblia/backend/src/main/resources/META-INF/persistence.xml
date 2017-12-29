@@ -12,7 +12,7 @@
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.search.default.directory_provider" value="filesystem"/>
-            <property name="hibernate.search.default.indexBase" value="$jboss.server.home.dir/tmp"/>
+            <property name="hibernate.search.default.indexBase" value="$jboss.server.home.dir/data"/>
             <property name="hibernate.search.reader.strategy" value="shared"/>
             <property name="hibernate.search.worker.execution" value="sync"/>
         </properties>

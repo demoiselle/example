@@ -15,6 +15,7 @@ import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleFragmenter;
+import org.apache.lucene.util.Version;
 import org.demoiselle.biblia.constants.ResponseFTS;
 import org.demoiselle.jee.crud.AbstractDAO;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -42,7 +43,7 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
     public List<ResponseFTS> listarVersiculosFTS(String nome) {
 
         List<ResponseFTS> lista = new ArrayList<>();
-        BrazilianAnalyzer analyzer = new BrazilianAnalyzer();
+        BrazilianAnalyzer analyzer = new BrazilianAnalyzer(Version.LUCENE_36);
         FullTextEntityManager fullTextEm = Search.getFullTextEntityManager(getEntityManager());
         QueryBuilder qb = fullTextEm.getSearchFactory()
                 .buildQueryBuilder()
@@ -53,17 +54,17 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
 
         if (nome.split(" ").length > 1) {
             luceneQuery = qb.phrase()
-                    .onField("livNome")
-                    .andField("verTexto").boostedTo(2)
-                    .andField("vrsNome")
-                    .andField("tesNome")
+                    .onField("liv_nome")
+                    .andField("ver_texto").boostedTo(2)
+                    .andField("vrs_nome")
+                    .andField("tes_nome")
                     .sentence(nome).createQuery();
         } else {
             luceneQuery = qb.keyword()
-                    .onField("livNome")
-                    .andField("verTexto").boostedTo(2)
-                    .andField("vrsNome")
-                    .andField("tesNome")
+                    .onField("liv_nome")
+                    .andField("ver_texto").boostedTo(2)
+                    .andField("vrs_nome")
+                    .andField("tes_nome")
                     .matching(nome).createQuery();
         }
 
@@ -82,15 +83,15 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
                 Versiculo versiculo = (Versiculo) ((Object[]) object)[1];
                 ResponseFTS fts = new ResponseFTS();
                 fts.setIdOrigem(versiculo.getId());
-                fts.setOrigem(versiculo.getTesNome());
-                fts.setNome(versiculo.getLivNome() + " cap. " + versiculo.getVerCapitulo() + " ver. " + versiculo.getVerVersiculo());
+                fts.setOrigem(versiculo.getTes_nome());
+                fts.setNome(versiculo.getLiv_nome() + " cap. " + versiculo.getVer_capitulo() + " ver. " + versiculo.getVer_versiculo());
                 fts.setOcorrencias(score);
 
-                sb.append(versiculo.getVerTexto() == null ? " " : versiculo.getVerTexto() + " ");
+                sb.append(versiculo.getVer_texto() == null ? " " : versiculo.getVer_texto() + " ");
 
                 fts.setTexto("");
 
-                String[] linhas = highlighter.getBestFragments(analyzer, "", sb.toString(), 10);
+                String[] linhas = highlighter.getBestFragments(analyzer, "", sb.toString(), 100);
 
                 for (String linha : linhas) {
                     fts.setTexto(" ..." + linha + " " + fts.getTexto());

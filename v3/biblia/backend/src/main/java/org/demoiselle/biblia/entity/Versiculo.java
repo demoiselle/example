@@ -1,6 +1,7 @@
 package org.demoiselle.biblia.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,20 +32,24 @@ public class Versiculo implements Serializable {
     private Integer id;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    private String livNome;
+    @Column(length = 128)
+    private String liv_nome;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    private String verTexto;
+    @Column(length = 2048)
+    private String ver_texto;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    private String vrsNome;
+    @Column(length = 128)
+    private String vrs_nome;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    private String tesNome;
+    @Column(length = 128)
+    private String tes_nome;
 
-    private Integer verVersiculo;
+    private Integer ver_versiculo;
 
-    private Integer verCapitulo;
+    private Integer ver_capitulo;
 
     public Integer getId() {
         return id;
@@ -54,52 +59,57 @@ public class Versiculo implements Serializable {
         this.id = id;
     }
 
-    public String getLivNome() {
-        return livNome;
+    public String getLiv_nome() {
+        return liv_nome;
     }
 
-    public void setLivNome(String livNome) {
-        this.livNome = livNome;
+    public void setLiv_nome(String liv_nome) {
+        this.liv_nome = liv_nome;
     }
 
-    public String getVerTexto() {
-        return verTexto;
+    public String getVer_texto() {
+        return ver_texto;
     }
 
-    public void setVerTexto(String verTexto) {
-        this.verTexto = verTexto;
+    public void setVer_texto(String ver_texto) {
+        this.ver_texto = ver_texto;
     }
 
-    public String getVrsNome() {
-        return vrsNome;
+    public String getVrs_nome() {
+        return vrs_nome;
     }
 
-    public void setVrsNome(String vrsNome) {
-        this.vrsNome = vrsNome;
+    public void setVrs_nome(String vrs_nome) {
+        this.vrs_nome = vrs_nome;
     }
 
-    public String getTesNome() {
-        return tesNome;
+    public String getTes_nome() {
+        return tes_nome;
     }
 
-    public void setTesNome(String tesNome) {
-        this.tesNome = tesNome;
+    public void setTes_nome(String tes_nome) {
+        this.tes_nome = tes_nome;
     }
 
-    public Integer getVerVersiculo() {
-        return verVersiculo;
+    public Integer getVer_versiculo() {
+        return ver_versiculo;
     }
 
-    public void setVerVersiculo(Integer verVersiculo) {
-        this.verVersiculo = verVersiculo;
+    public void setVer_versiculo(Integer ver_versiculo) {
+        this.ver_versiculo = ver_versiculo;
     }
 
-    public Integer getVerCapitulo() {
-        return verCapitulo;
+    public Integer getVer_capitulo() {
+        return ver_capitulo;
     }
 
-    public void setVerCapitulo(Integer verCapitulo) {
-        this.verCapitulo = verCapitulo;
+    public void setVer_capitulo(Integer ver_capitulo) {
+        this.ver_capitulo = ver_capitulo;
+    }
+
+    @Override
+    public String toString() {
+        return "Versiculo{" + "id=" + id + ", liv_nome=" + liv_nome + ", ver_texto=" + ver_texto + ", vrs_nome=" + vrs_nome + ", tes_nome=" + tes_nome + ", ver_versiculo=" + ver_versiculo + ", ver_capitulo=" + ver_capitulo + '}';
     }
 
 }
