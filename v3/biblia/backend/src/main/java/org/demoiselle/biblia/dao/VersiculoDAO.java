@@ -96,39 +96,30 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
 
     }
 
-    public List nomes() {
+    public List<String> nomes() {
+        List<String> resultado = new ArrayList<>();
+
         try {
-            List<Versiculo> lista = (List<Versiculo>) find().getContent();
-
-            String[] sentences = new String[lista.size()];
-
-            for (int i = 0; i < lista.size(); i++) {
-                sentences[i] = lista.get(i).getVer_texto();
-            }
-
-            TokenNameFinderModel model = new TokenNameFinderModel(new File("/opt/en-ner-person.bin"));
-
-            // Create a NameFinder using the model
+            List<Versiculo> lista = listAll();
+            // http://opennlp.sourceforge.net/models-1.5/en-ner-person.bin
+            // Aguardando a versão em pt-br
+            TokenNameFinderModel model = new TokenNameFinderModel(new File("/opt/es-ner-person.bin"));
             NameFinderME finder = new NameFinderME(model);
-
             Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
 
-            for (String sentence : sentences) {
-
-                // Split the sentence into tokens
-                String[] tokens = tokenizer.tokenize(sentence);
-
-                // Find the names in the tokens and return Span objects
+            for (Versiculo versiculo : lista) {
+                String[] tokens = tokenizer.tokenize(versiculo.getVer_texto());
                 Span[] nameSpans = finder.find(tokens);
+                if (nameSpans.length > 0) {
+                    resultado.add(Arrays.toString(Span.spansToStrings(nameSpans, tokens)) + " - " + versiculo.toString());
+                }
 
-                // Print the names extracted from the tokens using the Span data
-                LOG.info(Arrays.toString(Span.spansToStrings(nameSpans, tokens)));
             }
 
         } catch (IOException ex) {
             Logger.getLogger(VersiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return resultado;
     }
 
     public void reindex() {
@@ -141,4 +132,7 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
         }
     }
 
+    private List<Versiculo> listAll() {
+        return getEntityManager().createQuery("From Versiculo", Versiculo.class).getResultList();
+    }
 }
