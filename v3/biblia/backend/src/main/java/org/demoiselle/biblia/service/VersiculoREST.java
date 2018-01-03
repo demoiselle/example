@@ -31,11 +31,4 @@ public class VersiculoREST extends AbstractREST< Versiculo, Integer> {
         return Response.ok().entity(((VersiculoBC) bc).listarVersiculosFTS(texto)).build();
     }
 
-    @GET
-    @Transactional
-    @Path("reindex")
-    public Response reindex() {
-        ((VersiculoBC) bc).reindex();
-        return Response.ok().entity("OK").build();
-    }
 }

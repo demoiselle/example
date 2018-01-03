@@ -84,6 +84,7 @@ public class Timer {
                     versiculoBC.persist(ver);
                 }
             }
+            LOG.info("Carregado!");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(VersiculoBC.class.getName()).log(Level.SEVERE, null, ex);
         }

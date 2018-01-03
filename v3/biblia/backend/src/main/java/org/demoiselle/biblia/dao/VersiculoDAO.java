@@ -1,7 +1,9 @@
 package org.demoiselle.biblia.dao;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,13 +11,13 @@ import static java.util.logging.Logger.getLogger;
 import org.demoiselle.biblia.entity.Versiculo;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import opennlp.tools.namefind.NameFinderME;
+import opennlp.tools.namefind.TokenNameFinderModel;
+import opennlp.tools.tokenize.SimpleTokenizer;
+import opennlp.tools.tokenize.Tokenizer;
+import opennlp.tools.util.Span;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleFragmenter;
-import org.apache.lucene.util.Version;
 import org.demoiselle.biblia.constants.ResponseFTS;
 import org.demoiselle.jee.crud.AbstractDAO;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -43,7 +45,6 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
     public List<ResponseFTS> listarVersiculosFTS(String nome) {
 
         List<ResponseFTS> lista = new ArrayList<>();
-        BrazilianAnalyzer analyzer = new BrazilianAnalyzer(Version.LUCENE_36);
         FullTextEntityManager fullTextEm = Search.getFullTextEntityManager(getEntityManager());
         QueryBuilder qb = fullTextEm.getSearchFactory()
                 .buildQueryBuilder()
@@ -68,11 +69,6 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
                     .matching(nome).createQuery();
         }
 
-        QueryScorer queryScorer = new QueryScorer(luceneQuery);
-        Highlighter highlighter = new Highlighter(queryScorer);
-        SimpleFragmenter fragmenter = new SimpleFragmenter(60);
-        highlighter.setTextFragmenter(fragmenter);
-
         FullTextQuery fullTextQuery = fullTextEm.createFullTextQuery(luceneQuery, Versiculo.class);
         fullTextQuery.setProjection(FullTextQuery.SCORE, FullTextQuery.THIS);
 
@@ -84,21 +80,13 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
                 ResponseFTS fts = new ResponseFTS();
                 fts.setIdOrigem(versiculo.getId());
                 fts.setOrigem(versiculo.getTes_nome());
-                fts.setNome(versiculo.getLiv_nome() + " cap. " + versiculo.getVer_capitulo() + " ver. " + versiculo.getVer_versiculo());
+                fts.setNome(versiculo.getLiv_nome().trim() + " cap. " + versiculo.getVer_capitulo() + " ver. " + versiculo.getVer_versiculo() + " tradução " + versiculo.getVrs_nome());
                 fts.setOcorrencias(score);
 
-                sb.append(versiculo.getVer_texto() == null ? " " : versiculo.getVer_texto() + " ");
-
-                fts.setTexto("");
-
-                String[] linhas = highlighter.getBestFragments(analyzer, "", sb.toString(), 100);
-
-                for (String linha : linhas) {
-                    fts.setTexto(" ..." + linha + " " + fts.getTexto());
-                }
+                fts.setTexto(versiculo.getVer_texto());
 
                 lista.add(fts);
-            } catch (IOException | InvalidTokenOffsetsException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(VersiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
 
             }
@@ -106,6 +94,41 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
 
         return lista;
 
+    }
+
+    public List nomes() {
+        try {
+            List<Versiculo> lista = (List<Versiculo>) find().getContent();
+
+            String[] sentences = new String[lista.size()];
+
+            for (int i = 0; i < lista.size(); i++) {
+                sentences[i] = lista.get(i).getVer_texto();
+            }
+
+            TokenNameFinderModel model = new TokenNameFinderModel(new File("/opt/en-ner-person.bin"));
+
+            // Create a NameFinder using the model
+            NameFinderME finder = new NameFinderME(model);
+
+            Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
+
+            for (String sentence : sentences) {
+
+                // Split the sentence into tokens
+                String[] tokens = tokenizer.tokenize(sentence);
+
+                // Find the names in the tokens and return Span objects
+                Span[] nameSpans = finder.find(tokens);
+
+                // Print the names extracted from the tokens using the Span data
+                LOG.info(Arrays.toString(Span.spansToStrings(nameSpans, tokens)));
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(VersiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void reindex() {

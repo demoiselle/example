@@ -72,31 +72,27 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.1.0.Final</version>
-            <scope>provided</scope>
+            <version>5.2.11.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-infinispan</artifactId>
-            <version>5.1.0.Final</version>
-            <scope>provided</scope>
+            <version>5.2.11.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.1.0.Final</version>
-            <scope>provided</scope>
+            <version>5.2.11.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.0.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search</artifactId>
-            <version>4.5.3.Final</version>
+            <artifactId>hibernate-search-orm</artifactId>
+            <version>5.8.2.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -104,11 +100,15 @@
             <version>4.5.3.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search-infinispan</artifactId>
-            <version>4.5.3.Final</version>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-directory-provider</artifactId>
+            <version>9.0.1.Final</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.8.4</version>
+        </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
@@ -143,6 +143,18 @@
         </dependency>
 
     </dependencies>
-
+    <!--<profiles>
+        <profile>
+            <id>wildfly-swarm</id>
+            <dependencies>
+                 WildFly Default Swarm Fractions 
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId></artifactId>
+                    <version>2016.11.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>-->
 </project>
 

@@ -28,7 +28,7 @@ import org.hibernate.search.annotations.Store;
 public class Versiculo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)

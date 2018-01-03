@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(uniqueConstraints = {
@@ -35,7 +34,6 @@ public class User implements Serializable {
     @Column(nullable = false, length = 128)
     private String description;
 
-    @Email
     @NotNull
     @Basic(optional = false)
     @Size(min = 5, max = 128)
