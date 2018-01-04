@@ -20,7 +20,7 @@ public class VersiculoBC extends AbstractBusiness< Versiculo, Integer> {
         ((VersiculoDAO) dao).reindex();
     }
 
-    public List<String> nomes() {
-        return ((VersiculoDAO) dao).nomes();
+    public List<String> nomes(String nome) {
+        return ((VersiculoDAO) dao).nomes(nome);
     }
 }

@@ -19,6 +19,7 @@ import opennlp.tools.util.Span;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.search.Sort;
 import org.demoiselle.biblia.constants.ResponseFTS;
+import org.demoiselle.jee.core.lifecycle.annotation.Startup;
 import org.demoiselle.jee.crud.AbstractDAO;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -55,17 +56,17 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
 
         if (nome.split(" ").length > 1) {
             luceneQuery = qb.phrase()
-                    .onField("liv_nome")
-                    .andField("ver_texto").boostedTo(2)
-                    .andField("vrs_nome")
-                    .andField("tes_nome")
+                    .onField("livro")
+                    .andField("texto").boostedTo(2)
+                    .andField("versao")
+                    .andField("testamento")
                     .sentence(nome).createQuery();
         } else {
             luceneQuery = qb.keyword()
-                    .onField("liv_nome")
-                    .andField("ver_texto").boostedTo(2)
-                    .andField("vrs_nome")
-                    .andField("tes_nome")
+                    .onField("livro")
+                    .andField("texto").boostedTo(2)
+                    .andField("versao")
+                    .andField("testamento")
                     .matching(nome).createQuery();
         }
 
@@ -79,11 +80,11 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
                 Versiculo versiculo = (Versiculo) ((Object[]) object)[1];
                 ResponseFTS fts = new ResponseFTS();
                 fts.setIdOrigem(versiculo.getId());
-                fts.setOrigem(versiculo.getTes_nome());
-                fts.setNome(versiculo.getLiv_nome().trim() + " cap. " + versiculo.getVer_capitulo() + " ver. " + versiculo.getVer_versiculo() + " tradução " + versiculo.getVrs_nome());
+                fts.setOrigem(versiculo.getTestamento());
+                fts.setNome(versiculo.getLivro().trim() + " - c " + versiculo.getCapitulo() + " v " + versiculo.getVersiculo() + " - " + versiculo.getVersao());
                 fts.setOcorrencias(score);
 
-                fts.setTexto(versiculo.getVer_texto());
+                fts.setTexto(versiculo.getTexto());
 
                 lista.add(fts);
             } catch (Exception ex) {
@@ -96,7 +97,7 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
 
     }
 
-    public List<String> nomes() {
+    public List<String> nomes(String nome) {
         List<String> resultado = new ArrayList<>();
 
         try {
@@ -108,9 +109,9 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
             Tokenizer tokenizer = SimpleTokenizer.INSTANCE;
 
             for (Versiculo versiculo : lista) {
-                String[] tokens = tokenizer.tokenize(versiculo.getVer_texto());
+                String[] tokens = tokenizer.tokenize(versiculo.getTexto());
                 Span[] nameSpans = finder.find(tokens);
-                if (nameSpans.length > 0) {
+                if (nameSpans.length > 0 && (Arrays.toString(Span.spansToStrings(nameSpans, tokens)).contains(nome))) {
                     resultado.add(Arrays.toString(Span.spansToStrings(nameSpans, tokens)) + " - " + versiculo.toString());
                 }
 
@@ -122,6 +123,7 @@ public class VersiculoDAO extends AbstractDAO< Versiculo, Integer> {
         return resultado;
     }
 
+    @Startup
     public void reindex() {
         FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search
                 .getFullTextEntityManager(getEntityManager());

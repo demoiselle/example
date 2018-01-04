@@ -2,15 +2,12 @@ package org.demoiselle.biblia.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyze;
@@ -31,25 +28,27 @@ public class Versiculo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Integer posicao;
+
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(length = 128)
-    private String liv_nome;
+    private String testamento;
+
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+    @Column(length = 128)
+    private String livro;
+
+    private Integer versiculo;
+
+    private Integer capitulo;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(length = 2048)
-    private String ver_texto;
+    private String texto;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(length = 128)
-    private String vrs_nome;
-
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    @Column(length = 128)
-    private String tes_nome;
-
-    private Integer ver_versiculo;
-
-    private Integer ver_capitulo;
+    private String versao;
 
     public Integer getId() {
         return id;
@@ -59,57 +58,90 @@ public class Versiculo implements Serializable {
         this.id = id;
     }
 
-    public String getLiv_nome() {
-        return liv_nome;
+    public Integer getPosicao() {
+        return posicao;
     }
 
-    public void setLiv_nome(String liv_nome) {
-        this.liv_nome = liv_nome;
+    public void setPosicao(Integer posicao) {
+        this.posicao = posicao;
     }
 
-    public String getVer_texto() {
-        return ver_texto;
+    public String getTestamento() {
+        return testamento;
     }
 
-    public void setVer_texto(String ver_texto) {
-        this.ver_texto = ver_texto;
+    public void setTestamento(String testamento) {
+        this.testamento = testamento;
     }
 
-    public String getVrs_nome() {
-        return vrs_nome;
+    public String getLivro() {
+        return livro;
     }
 
-    public void setVrs_nome(String vrs_nome) {
-        this.vrs_nome = vrs_nome;
+    public void setLivro(String livro) {
+        this.livro = livro;
     }
 
-    public String getTes_nome() {
-        return tes_nome;
+    public Integer getVersiculo() {
+        return versiculo;
     }
 
-    public void setTes_nome(String tes_nome) {
-        this.tes_nome = tes_nome;
+    public void setVersiculo(Integer versiculo) {
+        this.versiculo = versiculo;
     }
 
-    public Integer getVer_versiculo() {
-        return ver_versiculo;
+    public Integer getCapitulo() {
+        return capitulo;
     }
 
-    public void setVer_versiculo(Integer ver_versiculo) {
-        this.ver_versiculo = ver_versiculo;
+    public void setCapitulo(Integer capitulo) {
+        this.capitulo = capitulo;
     }
 
-    public Integer getVer_capitulo() {
-        return ver_capitulo;
+    public String getTexto() {
+        return texto;
     }
 
-    public void setVer_capitulo(Integer ver_capitulo) {
-        this.ver_capitulo = ver_capitulo;
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Versiculo other = (Versiculo) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Versiculo{" + "id=" + id + ", liv_nome=" + liv_nome + ", ver_texto=" + ver_texto + ", vrs_nome=" + vrs_nome + ", tes_nome=" + tes_nome + ", ver_versiculo=" + ver_versiculo + ", ver_capitulo=" + ver_capitulo + '}';
+        return "Versiculo{" + "id=" + id + ", posicao=" + posicao + ", testamento=" + testamento + ", livro=" + livro + ", versiculo=" + versiculo + ", capitulo=" + capitulo + ", texto=" + texto + ", versao=" + versao + '}';
     }
 
 }
