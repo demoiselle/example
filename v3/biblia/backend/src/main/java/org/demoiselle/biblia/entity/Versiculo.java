@@ -50,6 +50,8 @@ public class Versiculo implements Serializable {
     @Column(length = 128)
     private String versao;
 
+    private Double sentimento;
+
     public Integer getId() {
         return id;
     }
@@ -112,6 +114,14 @@ public class Versiculo implements Serializable {
 
     public void setVersao(String versao) {
         this.versao = versao;
+    }
+
+    public Double getSentimento() {
+        return sentimento;
+    }
+
+    public void setSentimento(Double sentimento) {
+        this.sentimento = sentimento;
     }
 
     @Override

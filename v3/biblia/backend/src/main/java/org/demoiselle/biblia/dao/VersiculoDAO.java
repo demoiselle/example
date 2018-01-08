@@ -1,13 +1,22 @@
 package org.demoiselle.biblia.dao;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import javax.net.ssl.HttpsURLConnection;
 import org.demoiselle.biblia.entity.Versiculo;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
