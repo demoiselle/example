@@ -24,41 +24,41 @@ docker run -t -i -p 8080:8080 --network="host" demoiselleframework/cep
 
 # Api do servidor
 
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/ (Servidor Wildfly 10.1.0 API)
+https://cep.demoiselle.estaleiro.serpro.gov.br/app/ (Servidor Wildfly 10.1.0 API)
 
 # Exemplos de consulta (Restful padrão)
 
 ```bash
 Lista de UF
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ufs
+https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ufs
 
 Lista de Localidades por UF
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/cidades/PR
+https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/cidades/PR
 
 Lista de Logradouros por UF
-http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/logradouros/PR/Pioli
+https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/logradouros/PR/Pioli
 ```
 
 # Exemplos de consulta (Usando componente CRUD)
 
  ```bash
  Filtro por Logradouros do Paraná (PR)
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cep=80520170
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cep=80520170
   
  Filtro por Logradouros do Paraná (PR)
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?uf=PR
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?uf=PR
  
  Filtro por Logradouros do Paraná (Curitiba)
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba
  
  Filtro por Logradouros do Paraná (Curitiba) com apenas 11 registros
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&range=0-10
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&range=0-10
  
  Filtro por Logradouros do Paraná (Curitiba) ordenado por logradouro
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&sort=logradouro
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&sort=logradouro
  
  Filtro por Logradouros do Paraná (Curitiba) ordenado por bairro
- http://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&sort=bairroIni
+ https://cep.demoiselle.estaleiro.serpro.gov.br/app/api/v1/ceps?cidade=Curitiba&sort=bairroIni
 ```
 
 # Instalação
