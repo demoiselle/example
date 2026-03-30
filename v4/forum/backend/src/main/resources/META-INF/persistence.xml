@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+    <persistence-unit name="forumPU" transaction-type="JTA">
+        <jta-data-source>java:/jboss/datasources/ExampleDS</jta-data-source>
+        <class>org.demoiselle.forum.entity.User</class>
+        <class>org.demoiselle.forum.entity.Fingerprint</class>
+        <class>org.demoiselle.forum.entity.Categoria</class>
+        <class>org.demoiselle.forum.entity.Mensagem</class>
+        <class>org.demoiselle.forum.entity.Topico</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+</persistence>

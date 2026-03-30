@@ -119,3 +119,16 @@ GitHub.sublime-settings
 /v3/push/backend/nb-configuration.xml
 /v3/forum/frontend/nbproject/private/
 /v3/biblia/backend/target/
+/v4/todoList/backend/target/
+/v4/cep/backend/target/
+/v4/livraria/backend/target/
+/v4/push/backend/target/
+/v4/forum/backend/target/
+/v4/todoList/frontend/node_modules/
+/v4/todoList/frontend/dist/
+/v4/cep/frontend/node_modules/
+/v4/cep/frontend/dist/
+/v4/livraria/frontend/node_modules/
+/v4/livraria/frontend/dist/
+/v4/forum/frontend/node_modules/
+/v4/forum/frontend/dist/
